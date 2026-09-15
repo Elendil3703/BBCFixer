@@ -7,7 +7,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="${1:-https://github.com/Elendil3703/BBCFixer/releases/download/bbcbench-v1/intact-sources.tar.gz}"
 TMP="$ROOT/.scratch/intact-sources.tar.gz"; mkdir -p "$ROOT/.scratch"
 case "$SRC" in
-  http*) curl -L --fail -o "$TMP" "$SRC" ;;
+  http*) curl -L --fail --progress-bar -o "$TMP" "$SRC" ;;
   *)     cp "$SRC" "$TMP" ;;
 esac
 tar -xzf "$TMP" -C "$ROOT/cases"
