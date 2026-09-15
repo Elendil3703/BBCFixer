@@ -13,7 +13,7 @@
 | `cases.csv` | one row per case: id, ecosystem, harness kind, downstream project, library, versions, root API |
 | `LICENSE` | Apache-2.0 |
 
-`cases.csv` lists every case. `cases/<id>/meta.json` describes one case in plain English: what changed in the library, how the downstream fails, what the reference fix does, and the labeled root API.
+`cases.csv` lists every case. `cases/<id>/meta.json` describes one case: what changed in the library, how the downstream fails, what the reference fix does, and the labeled root API.
 
 | | |
 |---|---|
