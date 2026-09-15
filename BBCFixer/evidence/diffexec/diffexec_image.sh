@@ -82,7 +82,7 @@ run_capture() {
   local rc=$?
   if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then
     docker rm -f "$cname" >/dev/null 2>&1
-    echo "[capture] 超时（${CAPTURE_TIMEOUT}s），容器已停止" >> "$out/test-output.txt"
+    echo "[capture] timed out (${CAPTURE_TIMEOUT}s), container stopped" >> "$out/test-output.txt"
   fi
   rm -rf "$scratch"
   return $rc
@@ -132,8 +132,8 @@ if [ "$MODE" = "gen" ]; then
   fi
   python3 "$V2DIR/behavior_diff.py" --eco python \
     --old-dir "$EV/v2-runs/old" --new-dir "$EV/v2-runs/new" \
-    --label-old "${LABEL_OLD:-v_old（$PKG==${VOLD:-未知}，其余依赖同快照）}" \
-    --label-new "${LABEL_NEW:-v_new（$PKG==${VNEW}）}" \
+    --label-old "${LABEL_OLD:-v_old ($PKG==${VOLD:-unknown}, every other dependency as in the snapshot)}" \
+    --label-new "${LABEL_NEW:-v_new ($PKG==${VNEW})}" \
     --out "$EV/behavior-diff.md" --json "$EV/behavior-diff.json" || RC_ALL=1
   python3 "$EVROOT_DIR/contract_gen.py" --eco python \
     --evidence-dir "$EV" --pkg "$PKG" --old "${VOLD:-v_old}" --new "$VNEW" \

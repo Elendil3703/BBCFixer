@@ -15,61 +15,74 @@ agent:
     before the call. Do not answer in prose without a tool call.
 
   instance_template: |
-    你是 {{lang}} 项目 `{{proj}}` 的维护者。项目的依赖已经被升级并【固定】在一组新版本上，
-    其中关键依赖为 {{key_deps}}（版本标识：{{mig_date}}）。
-    在这组已固定的依赖下，项目的测试当前无法通过。
+    You are the maintainer of the {{lang}} project `{{proj}}`. The project's dependencies have been
+    upgraded and **pinned** to a set of new versions; the key dependencies are {{key_deps}}
+    (version identifier: {{mig_date}}).
+    Under these pinned dependencies the project's tests currently fail.
 
-    你的任务：修改【项目源代码】，使其在这些已固定的依赖版本上重新通过测试。
+    Your task: modify the **project source code** so that the tests pass again on these pinned
+    dependency versions.
 
-    ## 环境
-    - 项目代码在 `{{work_dir}}`，你的所有命令都在容器内执行，依赖已按上述版本装好。
-    - 测试命令：`{{test_cmd}}`
-    - 每条命令都在新的子 shell 中执行，`cd` 与环境变量不会保留。需要时用
-      `cd {{work_dir}} && ...` 或 `VAR=value cmd` 的写法。
+    ## Environment
+    - The project code is in `{{work_dir}}`. All your commands run inside the container, and the
+      dependencies are already installed at the versions above.
+    - Test command: `{{test_cmd}}`
+    - Each command runs in a fresh sub-shell; `cd` and environment variables are not preserved.
+      Write `cd {{work_dir}} && ...` or `VAR=value cmd` when you need them.
 
-    ## 硬性约束（违反即判失败）
-    - 依赖版本必须保持不变：不得降级、不得钉回旧版本、不得删除依赖、不得改用别的库绕过，
-      也不得修改 {{manifest_names}} 里的版本声明。
-    - 必须解决【代码与新版依赖不兼容】的问题本身。若某个接口被移动、改名或行为发生变化，
-      按新版的正确用法适配源代码。
-    - 不得删除测试、跳过测试、注释掉不通过的代码，不得添加 skip / xfail 标记，
-      不得放宽或删改断言。判分时你对测试文件的一切改动都会被丢弃、还原成原始测试重跑。
+    ## Hard constraints (violating any of them fails the run)
+    - The dependency versions must stay as they are: do not downgrade, do not pin an old version
+      back, do not delete a dependency, do not work around it with a different library, and do not
+      edit the version declarations in {{manifest_names}}.
+    - You must solve the incompatibility between the code and the new dependency itself. If an
+      interface was moved, renamed, or changed its behavior, adapt the source code to the correct
+      usage of the new version.
+    - Do not delete or skip tests, do not comment out code that fails, do not add skip / xfail
+      markers, and do not weaken or edit assertions. When the run is judged, every change you made
+      to a test file is discarded and the original tests are run again.
 
-    ## 调研限制
-    - 不得查阅本项目（{{proj}}）自身的线上资源，包括它的仓库、提交记录、分支、标签、
-      Pull Request、Issue 与 Release Notes。
-    - 可以查阅所依赖的第三方库（如 {{key_deps}}）自身的官方文档、发行说明与接口变更说明。
+    ## Research restrictions
+    - Do not consult online resources of this project ({{proj}}) itself, including its repository,
+      commits, branches, tags, pull requests, issues and release notes.
+    - You may consult the official documentation, release notes and interface change notes of the
+      third-party libraries it depends on (such as {{key_deps}}).
 
-    ## 建议的工作流程
-    1. 先运行测试命令，看清楚失败的表现。
-    2. 阅读相关源码，判断是哪一处代码与新版依赖的行为不匹配。
-       注意报错的位置未必就是需要修改的位置。
-    3. 修改源代码。
-    4. 重新运行测试验证。
-    5. 全部通过后，用下面这条命令结束任务：`echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`
-       这条命令必须单独发出，不要和其它命令写在一起。
-       <important>发出这条命令之后就无法继续修改了。</important>
+    ## Suggested workflow
+    1. Run the test command first and look at how it fails.
+    2. Read the relevant source and decide which piece of code does not match the behavior of the
+       new dependency. Note that the place where the error is reported is not necessarily the place
+       that needs to be changed.
+    3. Modify the source code.
+    4. Run the tests again to verify.
+    5. Once everything passes, end the task with this command:
+       `echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`
+       It must be sent on its own, not together with other commands.
+       <important>After sending it you cannot make any further changes.</important>
 
-    ## 动作格式
-    每次回复必须且只能包含一次 `bash` 工具调用。常用写法：
+    ## Action format
+    Every response must contain exactly one `bash` tool call. Common forms:
 
-    - 【不要运行 `npm install`、`pip install` 等任何安装或卸载命令，也不要以任何方式
-      改动 {{manifest_names}} 与 lockfile（package-lock.json 等）】。依赖已经装好。
-      判分会检查依赖树与依赖清单的完整性：即使测试全部通过，这类改动也会被直接判为失败。
-    - 查看指定行：`nl -ba {{work_dir}}/example.py | sed -n '10,30p'`
-    - 修改任何文件之前，先备份一次：`cp {{work_dir}}/example.py {{work_dir}}/example.py.orig`。
-      改坏了立刻用备份恢复（`cp` 回来），不要在改坏的文件上继续修补。
-    - 修改代码一律用【带行号的】定点替换：先用 `nl -ba` 确认行号，再
-      `sed -i '42s/old/new/' {{work_dir}}/example.py`；改动连续多行时用行区间删除加插入，
-      或写一个只替换目标片段的 python 脚本。
-    - 整文件覆写（`cat <<'EOF' > 文件`）【只允许用于 200 行以下的小文件】。大文件禁止整文件覆写：
-      凭记忆重写长文件必然丢失内容，会把整个模块毁掉。动手前先 `wc -l` 看行数。
-    - 【不要使用不带行号的全局替换】，例如 `sed -i 's/old/new/g'`。它会改掉该文件里所有匹配的地方，
-      包括注释、字符串，以及恰好含有同样字符的其它标识符，很容易把文件改成语法错误。
-    - 每次修改之后，立刻用 `nl -ba ... | sed -n` 查看改动处，确认改的是想改的那一行、没有波及别处；
-      Python 文件再跑 `python -c "import ast; ast.parse(open('文件路径').read())"`、JavaScript 文件再跑
-      `node --check 文件路径` 做语法自查，确认没改坏再继续。
-
+    - **Do not run `npm install`, `pip install` or any other install or uninstall command, and do
+      not change {{manifest_names}} or a lockfile (package-lock.json and the like) in any way.** The
+      dependencies are already installed. Judging checks the integrity of the dependency tree and of
+      the manifests: such a change fails the run even if every test passes.
+    - View specific lines: `nl -ba {{work_dir}}/example.py | sed -n '10,30p'`
+    - Back a file up before editing it: `cp {{work_dir}}/example.py {{work_dir}}/example.py.orig`.
+      If you break it, restore the backup immediately (`cp` it back); do not keep patching a broken
+      file.
+    - Always edit code by **line-numbered** replacement: confirm the line number with `nl -ba`, then
+      `sed -i '42s/old/new/' {{work_dir}}/example.py`. For several consecutive lines, delete the line
+      range and insert, or write a python script that replaces only the target fragment.
+    - Overwriting a whole file (`cat <<'EOF' > file`) **is allowed only for files under 200 lines**.
+      Never overwrite a large file: rewriting a long file from memory necessarily loses content and
+      destroys the module. Check the length with `wc -l` first.
+    - **Do not use global replacement without line numbers**, for example `sed -i 's/old/new/g'`. It
+      changes every match in the file, including comments, strings and other identifiers that happen
+      to contain the same characters, and easily leaves the file with a syntax error.
+    - After every edit, look at the changed place with `nl -ba ... | sed -n` and confirm that you
+      changed the intended line and nothing else. For a Python file also run
+      `python -c "import ast; ast.parse(open('path').read())"`, for a JavaScript file
+      `node --check path`, to check the syntax before continuing.
   step_limit: 100
   cost_limit: 4.0
   wall_time_limit_seconds: 1800

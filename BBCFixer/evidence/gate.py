@@ -153,11 +153,11 @@ def selfcheck(case_dir):
         os.makedirs(ok_dir)
         meta = json.load(open(os.path.join(case_dir, "meta.json"), encoding="utf-8"))
         open(os.path.join(ok_dir, "code-diff-slice.txt"), "w", encoding="utf-8").write(
-            "# lodash 3.10.1 -> 4.17.21 的上游源码差异切片\n-function max(a, b) {\n+function maxBy(a, b) {\n")
+            "# sliced library source diff, lodash 3.10.1 -> 4.17.21\n-function max(a, b) {\n+function maxBy(a, b) {\n")
         # Measured products legitimately reproduce the phenomena quoted in the meta prose (the
         # waived area); the positive case must cover this directly
         open(os.path.join(ok_dir, "behavior-diff.md"), "w", encoding="utf-8").write(
-            "# 实测行为差异报告\n★ `lodash.max`：旧环境返回 A，新环境返回 B\n"
+            "# Measured behavior difference report\n★ `lodash.max`: returns A in the intact state, B in the broken state\n"
             + str(meta.get("behavioral_change", "")) + "\n")
         p, _, nbanned = check(ok_dir, case_dir)
         if p:
@@ -172,12 +172,12 @@ def selfcheck(case_dir):
         shutil.copy(os.path.join(ok_dir, "behavior-diff.md"), d1)
         gp = open(os.path.join(case_dir, "reference_fix.patch"), encoding="utf-8", errors="replace").read()
         open(os.path.join(d1, "code-diff-slice.txt"), "w", encoding="utf-8").write(
-            "# 上游源码差异切片\n" + gp)
+            "# sliced library source diff\n" + gp)
         cases.append(("reference_fix.patch spliced into the evidence", d1))
 
         d2 = os.path.join(tmp, "bad2"); os.makedirs(d2)
         open(os.path.join(d2, "code-diff-slice.txt"), "w", encoding="utf-8").write(
-            "# 上游源码差异切片\n" + str(meta.get("behavioral_change", "")))
+            "# sliced library source diff\n" + str(meta.get("behavioral_change", "")))
         cases.append(("behavioral_change of meta.json spliced into declared-channel evidence", d2))
 
         d3 = os.path.join(tmp, "bad3"); os.makedirs(d3)
@@ -187,7 +187,7 @@ def selfcheck(case_dir):
 
         d4 = os.path.join(tmp, "bad4"); os.makedirs(d4)
         open(os.path.join(d4, "contract.md"), "w", encoding="utf-8").write(
-            "# 升级行为契约\n见案例 %s 的记录\n" % os.path.basename(case_dir.rstrip("/")))
+            "# Repair contract\nsee the records of case %s\n" % os.path.basename(case_dir.rstrip("/")))
         cases.append(("case name appears in the evidence", d4))
 
         d5 = os.path.join(tmp, "bad5"); os.makedirs(d5)

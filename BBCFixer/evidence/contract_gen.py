@@ -112,7 +112,7 @@ def main():
     ap.add_argument("--behavior-json")
     ap.add_argument("--symptom")
     ap.add_argument("--eco", choices=["python", "java", "javascript"], default="python")
-    ap.add_argument("--pkg", default="被升级库")
+    ap.add_argument("--pkg", default="the upgraded library")
     ap.add_argument("--old", default="v_old")
     ap.add_argument("--new", default="v_new")
     ns = ap.parse_args()
@@ -131,68 +131,69 @@ def main():
     failing = failing_tests_from_symptom(ns.symptom)
 
     L = []
-    L.append("# 升级行为契约（%s %s → %s）" % (ns.pkg, ns.old, ns.new))
+    L.append("# Repair contract (%s %s -> %s)" % (ns.pkg, ns.old, ns.new))
     L.append("")
-    L.append("> 本契约由机械流水线自动生成：C 条来自上游 test diff（上游维护者亲手改出的新期望），")
-    L.append("> D 条来自差分执行实测（v_old 与 v_new 两环境的边界调用返回值差异），T 条来自判分口径。")
-    L.append("> 修复宣告完成前，须逐条核验；核验方式一栏写明由机械探针还是审查者承担。")
+    L.append("> Generated mechanically. C items come from the library test diff (new expectations written by the library maintainers),")
+    L.append("> D items from differential execution (return-value differences of boundary calls between v_old and v_new), and the T item from the judging rule.")
+    L.append("> Check every relevant item before declaring the repair complete; each item says how it is checked.")
     L.append("")
     n = 0
 
     if pairs or added_only:
-        L.append("## 声明契约（来自上游 test diff）")
+        L.append("## Declared contract (from the library test diff)")
         L.append("")
         for old_l, new_l, f in pairs:
             n += 1
-            L.append("**C%d**（%s）" % (n, f))
-            L.append("- 上游测试期望由 `%s` 改为 `%s`。" % (old_l[:160], new_l[:160]))
-            L.append("- 契约：涉及该行为处，修复后的下游必须符合新期望，不得把输出凑回旧期望。")
-            L.append("- 核验：审查者对照 Agent 补丁与判分输出判断。")
+            L.append("**C%d** (%s)" % (n, f))
+            L.append("- The library test expectation changed from `%s` to `%s`." % (old_l[:160], new_l[:160]))
+            L.append("- Contract: where this behavior is involved, the repaired downstream project must meet the new expectation; do not force the output back to the old one.")
+            L.append("- Check: a reviewer compares the agent patch with the judge output.")
             L.append("")
         for new_l, f in added_only:
             n += 1
-            L.append("**C%d**（%s，新增期望）" % (n, f))
-            L.append("- 上游新增测试期望 `%s`（旧版无对应断言）。" % new_l[:160])
-            L.append("- 契约：下游相关行为须与该新期望相容。")
-            L.append("- 核验：审查者判断该期望是否触及本次破坏，触及则核验。")
+            L.append("**C%d** (%s, new expectation)" % (n, f))
+            L.append("- The library added the test expectation `%s` (no corresponding assertion in the old version)." % new_l[:160])
+            L.append("- Contract: the related behavior of the downstream project must be compatible with this new expectation.")
+            L.append("- Check: a reviewer decides whether this expectation touches the break, and checks it if so.")
             L.append("")
     else:
-        L.append("## 声明契约（来自上游 test diff）")
+        L.append("## Declared contract (from the library test diff)")
         L.append("")
-        L.append("（test diff 切片中未机械配出断言期望变更——上游本次可能未改断言，或改动不在切片内。")
-        L.append("此为 test diff 信息源的已知失效面，如实记录；行为期望以 D 条实测为准。）")
+        L.append("(No changed assertion expectation was paired mechanically in the sliced test diff: the library may not have changed assertions here, or the change is outside the slice.")
+        L.append("This is a known limitation of the test diff as a source; take the measured D items as the behavior expectation.)")
         L.append("")
 
-    L.append("## 实测契约（来自差分执行）")
+    L.append("## Measured contract (from differential execution)")
     L.append("")
     if divergent:
         for d in divergent[:10]:
             n += 1
             L.append("**D%d**" % n)
-            L.append("- 边界调用 `%s` 在 v_old 返回 `%s`，在 v_new 返回 `%s`（调用点 %s）。"
+            L.append("- The boundary call `%s` returns `%s` at v_old and `%s` at v_new (call site %s)."
                      % (d.get("fn"), d.get("ret_old"), d.get("ret_new"), d.get("caller")))
-            L.append("- 契约：环境钉死 v_new，修复必须落在下游一侧——不得修改上游实现，不得对上游做"
-                     "包壳、猴子补丁或本地替身，不得降级依赖。修复后该调用的返回形态视破坏类型而定："
-                     "若属返回值处理型（上游新返回形态本身正确，下游须改为按新形态处理），修复后返回应与"
-                     " v_new 一致；若属输入/配置协议型（下游经上游公开的配置、参数或扩展机制适配新协议），"
-                     "修复后该调用重新给出与旧版相同的业务结果正是修复成功的标志，不构成症状掩盖。")
-            L.append("- 核验：机械——修复后差分探针重跑记录该调用返回形态（观测，probe-report.md）；"
-                     "上游完整性检查为决定性证据；两型的归属与补丁落点由审查者裁定。")
+            L.append("- Contract: the environment stays at v_new and the repair must lie on the downstream side: do not modify the "
+                     "library implementation, do not wrap, monkey-patch or replace the library locally, and do not downgrade. "
+                     "The return value of this call after the repair depends on the kind of break: if the downstream project "
+                     "must handle a new return form that is itself correct, the call should return the same as at"
+                     " v_new; if the downstream project adapts to a new input or configuration protocol through the library's public "
+                     "configuration, arguments or extension points, the call returning the old result again is the sign of a successful repair, not symptom masking.")
+            L.append("- Check: mechanical; after the repair the probe reruns the tests and records the return value of this call (observational, probe-report.md); "
+                     "the library integrity check is decisive; a reviewer decides the kind of break and where the patch lies.")
             L.append("")
     else:
-        L.append("（差分执行未捕获到分叉边界调用——可能测试命令非 pytest、旧环境构造失败或差异在 C 扩展内。")
-        L.append("以测试结果一档与 C 条声明契约为准。）")
+        L.append("(Differential execution captured no diverging boundary call: the test command may not be pytest, the intact state may have failed to build, or the difference lies inside a C extension.")
+        L.append("Rely on the test results and the declared C items.)")
         L.append("")
 
-    L.append("## 判分契约")
+    L.append("## Judging contract")
     L.append("")
     n += 1
     L.append("**T%d**" % n)
     if failing:
-        L.append("- round 0 失败测试：%s。" % "、".join("`%s`" % t for t in failing))
-    L.append("- 契约：判分测试必须在原始断言（BBC 例外口径下为 golden patch 冻结后的测试状态）下全部通过；"
-             "测试须实际运行（Tests run > 0，未跳过）；生产代码未被掏空。")
-    L.append("- 核验：机械——判分器（behavior_probe / judge / eval-oracle）退出码与输出。")
+        L.append("- Tests failing in the broken state: %s." % ", ".join("`%s`" % t for t in failing))
+    L.append("- Contract: the judged tests must all pass under the original assertions (with the test edits of the reference fix applied); "
+             "the tests must actually run (more than zero tests, none skipped); production code must not be hollowed out.")
+    L.append("- Check: mechanical, from the exit code and output of the judge.")
     L.append("")
 
     with open(ns.out, "w", encoding="utf-8") as f:

@@ -116,7 +116,7 @@ capture() {
   # "attached but zero records" must be told apart, so an explicit _meta record is written here;
   # downstream must never read this as "no behavior difference".
   if [ ! -s "$out/trace.jsonl" ]; then
-    printf '%s\n' '{"_meta":true,"attached":false,"recorded":0,"error":"trace.jsonl 未产出：记录器没有落盘，可能是注入失败或进程被杀"}' \
+    printf '%s\n' '{"_meta":true,"attached":false,"recorded":0,"error":"no trace.jsonl was produced: the recorder wrote nothing, probably because injection failed or the process was killed"}' \
       > "$out/trace.jsonl"
   fi
 }
@@ -193,8 +193,8 @@ if [ "$MODE" = gen ]; then
   DEC="javascript"; [ "$ECO" = pip ] && DEC="python"
   python3 "$V2DIR/behavior_diff.py" --eco "$DEC" \
     --old-dir "$EV/v2-runs/old" --new-dir "$EV/v2-runs/new" \
-    --label-old "v_old（$PKG==$VOLD，固定形态 STATE-OLD，其余依赖一字不动）" \
-    --label-new "v_new（$PKG==$VNEW，固定形态 STATE-NEW）" \
+    --label-old "v_old ($PKG==$VOLD, pinned intact state, every other dependency unchanged)" \
+    --label-new "v_new ($PKG==$VNEW, pinned broken state)" \
     --out "$EV/behavior-diff.md" --json "$EV/behavior-diff.json" || fail "behavior_diff gen failed"
   DV="$(python3 - "$EV/behavior-diff.json" <<'PY'
 import json, sys

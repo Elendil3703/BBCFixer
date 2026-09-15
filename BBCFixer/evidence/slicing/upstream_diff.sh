@@ -113,7 +113,7 @@ SLUG="$(printf '%s' "$REPO_URL" | sed -e 's#^git+##' -e 's#^git://#https://#' -e
 : > "$OUT/test-diff.raw"
 if [ -z "$SLUG" ]; then
   TESTDIFF_STATUS=no-repo
-  echo "（机械解析不出 $LIB 的上游仓库地址，本例没有可用的上游测试差异。）" > "$OUT/test-diff.note"
+  echo "(The upstream repository of $LIB could not be resolved mechanically; no library test diff is available for this case.)" > "$OUT/test-diff.note"
 else
   MIR="$CACHE/$(printf '%s' "$SLUG" | tr '/' '_').git"
   if [ ! -d "$MIR" ]; then
@@ -166,20 +166,20 @@ else
         git -C "$MIR" diff "$TO" "$TN" -- $(tr '\n' ' ' < "$SCR/testfiles.txt") \
           > "$OUT/test-diff.raw" 2>/dev/null || true
         TESTDIFF_STATUS=ok
-        echo "上游仓库 $SLUG，tag $TO -> $TN，测试文件 $(wc -l < "$SCR/testfiles.txt") 个有改动。" \
+        echo "Upstream repository $SLUG, tags $TO -> $TN, $(wc -l < "$SCR/testfiles.txt") test files changed." \
           > "$OUT/test-diff.note"
       else
         TESTDIFF_STATUS=no-testchange
-        echo "上游仓库 $SLUG 的 $TO -> $TN 之间，测试目录下没有任何文件改动。" > "$OUT/test-diff.note"
+        echo "Upstream repository $SLUG: no file under the test directories changed between $TO and $TN." > "$OUT/test-diff.note"
       fi
     else
       TESTDIFF_STATUS=no-tags
-      echo "上游仓库 $SLUG 里找不到与 $VOLD / $VNEW 对应的 tag（试过 v前缀、裸版本号、包名@版本等写法），本例没有可用的上游测试差异。" \
+      echo "Upstream repository $SLUG has no tags for $VOLD / $VNEW (tried a v prefix, the bare version, package@version and similar forms); no library test diff is available for this case." \
         > "$OUT/test-diff.note"
     fi
   else
     [ "$TESTDIFF_STATUS" = unknown ] && TESTDIFF_STATUS=no-clone
-    echo "克隆上游仓库 $SLUG 失败，本例没有可用的上游测试差异。" > "$OUT/test-diff.note"
+    echo "Cloning the upstream repository $SLUG failed; no library test diff is available for this case." > "$OUT/test-diff.note"
   fi
 fi
 

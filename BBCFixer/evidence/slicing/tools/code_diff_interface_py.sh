@@ -20,7 +20,7 @@ run() { python3 "$DIR/py_api_diff.py" "$CD/old-src" "$CD/new-src"; }
 
 if [ -n "$OUT" ]; then
   mkdir -p "$(dirname "$OUT")"
-  { echo "# 接口形状差异（ast 公开签名比对）: $PKG $OLD -> $NEW"; echo; run; } | tee "$OUT"
+  { echo "# interface diff (ast comparison of public signatures): $PKG $OLD -> $NEW"; echo; run; } | tee "$OUT"
 else
-  echo "# 接口形状差异（ast 公开签名比对）: $PKG $OLD -> $NEW"; echo; run
+  echo "# interface diff (ast comparison of public signatures): $PKG $OLD -> $NEW"; echo; run
 fi

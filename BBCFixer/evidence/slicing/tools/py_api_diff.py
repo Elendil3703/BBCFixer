@@ -96,7 +96,7 @@ def main(old_root, new_root):
         for cls in sorted(set(o["classes"]) & set(n["classes"])):
             emit_class("MODIFIED", mod, cls, o["classes"][cls], n["classes"][cls])
 
-    print("\n".join(out) if out else "（公开接口无变化——若破坏存在则属行为型，重心在源码差异）")
+    print("\n".join(out) if out else "(no public interface change; if there is a break it is behavioral, so look at the source diff)")
 
 
 if __name__ == "__main__":

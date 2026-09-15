@@ -18,15 +18,15 @@ mkdir -p "$CD"
 [ -s "$CD/new-requires.txt" ] || python3 "$DIR/pypi_meta.py" requires "$PKG" "$NEW" > "$CD/new-requires.txt" 2>/dev/null || true
 
 emit() {
-  echo "# 依赖声明差异: $PKG $OLD -> $NEW"
-  echo "# （PyPI requires_dist 声明级比对；'-' 行 = 新版不再声明（传递依赖可能丢失），"
-  echo "#   '+' 行 = 新版新增/改动的声明与版本区间）"
+  echo "# dependency declaration diff: $PKG $OLD -> $NEW"
+  echo "# (PyPI requires_dist comparison; '-' lines = no longer declared by the new version (a transitive dependency may be lost),"
+  echo "#   '+' lines = declarations and version ranges added or changed by the new version)"
   echo
   if [ -s "$CD/old-requires.txt" ] || [ -s "$CD/new-requires.txt" ]; then
     diff -u -L "requires@$OLD" -L "requires@$NEW" \
-      "$CD/old-requires.txt" "$CD/new-requires.txt" && echo "（依赖声明无差异）"
+      "$CD/old-requires.txt" "$CD/new-requires.txt" && echo "(no difference in the dependency declarations)"
   else
-    echo "（两版均无依赖声明，或 PyPI 元数据获取失败）"
+    echo "(neither version declares dependencies, or the PyPI metadata could not be fetched)"
   fi
 }
 

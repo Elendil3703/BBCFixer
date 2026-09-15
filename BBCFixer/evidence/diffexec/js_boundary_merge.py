@@ -139,9 +139,9 @@ def main():
         "node_versions": node_versions,
     }
     if not attached:
-        meta["error"] = ("边界调用记录器没有挂上任何上游包："
-                         "installed=%d dumped=%d hooked=0 missing=%s。"
-                         "此时输出为空不代表两个版本行为相同，上层必须按失败处理。"
+        meta["error"] = ("The boundary-call recorder attached to no library package: "
+                         "installed=%d dumped=%d hooked=0 missing=%s. "
+                         "an empty output here does not mean that the two versions behave the same; the caller must treat it as a failure."
                          % (len(installed), len(procs), missing))
 
     os.makedirs(os.path.dirname(os.path.abspath(ns.out)) or ".", exist_ok=True)

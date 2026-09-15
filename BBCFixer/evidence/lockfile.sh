@@ -130,7 +130,7 @@ cat "$SLLOG"
 # The behavior report goes into the evidence directory; behavior-diff.json is only for the
 # contract generator and stays in the scratch directory (gate.py checks this).
 cp "$SCR/dx/behavior-diff.md" "$OUT/behavior-diff.md" 2>/dev/null || \
-  echo "（本例未产出实测行为差异报告。）" > "$OUT/behavior-diff.md"
+  echo "(No measured behavior difference report was produced for this case.)" > "$OUT/behavior-diff.md"
 
 # ---------------------------------------------------------------- 4. repair contract
 DEC=javascript; [ "$ECO" = pip ] && DEC=python
@@ -148,11 +148,11 @@ import io, sys
 p, ao, an, ro, rn = sys.argv[1:6]
 s = io.open(p, encoding="utf-8").read()
 banner = (
-    "\n> **本例的 D 条（实测契约）不成立：跨版本差分执行没有取到可比对的记录**"
-    "（旧环境 attached=%s 录到 %s 条，新环境 attached=%s 录到 %s 条）。\n"
-    "> 记录为空或只有一侧有记录，都只说明取证装置在本例上没有取到东西，"
-    "**不等于两个版本没有行为差异**。\n"
-    "> 本例的 our 臂按降级运行，只有 C 条（声明契约）与 T 条（判分契约）。\n"
+    "\n> **The D items (measured contract) do not hold for this case: differential execution recorded nothing comparable**"
+    " (intact state attached=%s with %s calls, broken state attached=%s with %s calls).\n"
+    "> An empty recording, or a recording on one side only, only means that the recorder captured nothing here; "
+    "**it does not mean that the two versions behave the same**.\n"
+    "> This case runs with the C items (declared contract) and the T item (judging contract) only.\n"
     % (ao, ro, an, rn))
 lines = s.split("\n")
 for i, ln in enumerate(lines):
@@ -168,26 +168,27 @@ fi
 
 # ---------------------------------------------------------------- 5. evidence guide (read by the agent)
 cat > "$OUT/README.md" <<EOF
-# 上游证据（our 臂 · 全部由机械流水线产出，不含任何人工判断）
+# Library evidence (generated mechanically, no manual judgement)
 
-本目录由两条通道各自独立产出，互为印证（论文第 7 章）：
+Two channels produce this directory independently and corroborate each other:
 
-- **声明通道**：被升级库 ${LIB} 在 ${OLD_FOR_EV} 与 ${VNEW} 之间的源码差异与测试差异，
-  按入口符号切片后落在 \`code-diff-slice.txt\` 与 \`test-diff.txt\`。
-- **实测通道**：同一份下游代码在「依赖旧版」与「依赖新版」两个环境各实际运行一遍，
-  机械比对得到 \`behavior-diff.md\`，其中标星的那一条是**第一分叉点**。
+- **Library diff**: the source and test differences of ${LIB} between ${OLD_FOR_EV} and ${VNEW},
+  sliced by entry symbols into \`code-diff-slice.txt\` and \`test-diff.txt\`.
+- **Differential execution**: the same downstream code runs once with the old and once with the new
+  library version; the mechanical comparison is \`behavior-diff.md\`, where the starred item is the
+  **first divergence**.
 
-| 文件 | 内容 |
+| File | Content |
 | --- | --- |
-| \`behavior-diff.md\` | 实测行为差异报告：哪些测试由过变败、断言实际值、第一分叉点 |
-| \`code-diff-slice.txt\` | 上游源码差异切片（按入口符号切，非整份差异） |
-| \`test-diff.txt\` | 上游测试差异切片：维护者亲手写下的新期望值与新用法 |
-| \`contract.md\` | 升级行为契约：C 条声明、D 条实测、T 条判分，逐条可核验 |
-| \`entry-symbols.txt\` | 入口符号是怎么求出来的（三路来源逐路列出） |
-| \`evidence-guide.md\` | 证据导读：报错符号各命中了证据的哪些段落 |
+| \`behavior-diff.md\` | measured behavior difference: tests that went from passing to failing, asserted values, first divergence |
+| \`code-diff-slice.txt\` | sliced library source diff (cut by entry symbols, not the whole diff) |
+| \`test-diff.txt\` | sliced library test diff: the new expected values and usages written by the library maintainers |
+| \`contract.md\` | repair contract: declared C items, measured D items, the judging T item, each checkable |
+| \`entry-symbols.txt\` | how the entry symbols were derived (each of the three sources listed) |
+| \`evidence-guide.md\` | evidence guide: which fragments each error symbol matched |
 
-取证装置状态：边界调用记录器 旧环境 attached=${AO}（录到 ${RO} 条）、新环境 attached=${AN}（录到 ${RN} 条）；
-实测分叉调用 ${DV} 条；上游测试差异取料 ${TDS}；ESM 载入 ${ES}。
+Recorder status: intact state attached=${AO} (${RO} calls), broken state attached=${AN} (${RN} calls);
+${DV} diverging calls; library test diff ${TDS}; ESM loaded ${ES}.
 EOF
 
 # ---------------------------------------------------------------- 6. content gate

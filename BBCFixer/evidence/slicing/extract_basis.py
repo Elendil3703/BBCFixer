@@ -132,7 +132,7 @@ def sh(script, *args, out=None):
                             encoding="utf-8", errors="replace", timeout=900)
         text = p.stdout + (("\n[stderr]\n" + p.stderr) if p.stderr.strip() else "")
     except Exception as e:
-        return 1, f"(调用 {script} 失败: {e})"
+        return 1, f"(calling {script} failed: {e})"
     if out:
         with open(out, "w", encoding="utf-8", errors="replace") as f:
             f.write(text)
@@ -371,7 +371,7 @@ def derive_entry_symbols(if_text, src_dir, explicit, max_n, group="", err_syms=N
     come first), implementing the data flow "symptom symbols -> slicing"."""
     err_syms = err_syms or []
     if explicit:
-        return explicit[:max_n], f"显式指定：{', '.join(explicit[:max_n])}"
+        return explicit[:max_n], f"given explicitly: {', '.join(explicit[:max_n])}"
 
     def _behavioral_fallback(reason):
         """Behavioural fallback: use the library symbols imported by the downstream project as entry
@@ -382,18 +382,18 @@ def derive_entry_symbols(if_text, src_dir, explicit, max_n, group="", err_syms=N
             raw = collect_downstream_dep_symbols(src_dir, group)
         dep_syms = sorted(s for s in raw if _distinctive(s))
         if not dep_syms:
-            return [], reason + "；且下游未 import 该依赖可辨识符号，请用 --symbol 或就地切片"
+            return [], reason + "; and the downstream project imports no recognisable symbol of this dependency; use --symbol or slice in place"
         dep_syms = _rank_by_symptom(dep_syms, err_syms)[:max_n]
-        anchored = "，报错命中的符号已排最前" if err_syms else ""
-        return dep_syms, (f"行为型回退（{reason}）：改用下游 import 的该依赖符号做入口符号"
-                          f"（算法 §4.3.1 第二步'下游实际调用的上游符号'{anchored}）：{', '.join(dep_syms)}")
+        anchored = ", symbols named in the error ranked first" if err_syms else ""
+        return dep_syms, (f"behavioral fallback ({reason}): the symbols of this dependency imported by the downstream project are used as entry symbols"
+                          f" (the library symbols the downstream project actually calls{anchored}): {', '.join(dep_syms)}")
 
     blocks = parse_japicmp_blocks(if_text)
     if not blocks:
-        return _behavioral_fallback("无 japicmp 改动可供切片")
+        return _behavioral_fallback("no japicmp change to slice by")
     down = collect_downstream_ids(src_dir)
     if not down:
-        return [], "未提供下游源码（--src-dir）或其中无标识符，无法自动交集；请用 --symbol 或就地切片"
+        return [], "no downstream source given (--src-dir) or it has no identifiers, so no automatic intersection; use --symbol or slice in place"
 
     # Core entry symbols = symbols that are actually used by the downstream project, changed, and
     # distinctive enough (reachability slicing to the interfaces the client really touches).
@@ -416,7 +416,7 @@ def derive_entry_symbols(if_text, src_dir, explicit, max_n, group="", err_syms=N
         if s in all_changed and s not in seen and _distinctive(s):
             seen.add(s); broken.append(s)
     if not broken:
-        return _behavioral_fallback("japicmp 改动与下游使用无交集（多为行为型破坏）")
+        return _behavioral_fallback("the japicmp changes do not intersect the downstream usage (mostly a behavioral break)")
     broken = _rank_by_symptom(broken, err_syms)
     # Add the new names that are "case variants" (query1NN -> query1nn, queryKNN -> queryKnn), to
     # cover the case where the old and new names are not in the same hunk
@@ -426,10 +426,10 @@ def derive_entry_symbols(if_text, src_dir, explicit, max_n, group="", err_syms=N
     ordered = broken + [c for c in variants if not (c in seen or seen.add(c))]
     truncated = len(ordered) > max_n
     ordered = ordered[:max_n]
-    anchored = "，报错命中的符号已排最前" if err_syms else ""
-    note = f"自动求得（japicmp 改动 ∩ 下游使用，含相关类名与同块新符号{anchored}）：{', '.join(ordered)}"
+    anchored = ", symbols named in the error ranked first" if err_syms else ""
+    note = f"derived automatically (japicmp changes ∩ downstream usage, including related class names and new symbols of the same block{anchored}): {', '.join(ordered)}"
     if truncated:
-        note += f"  ［已封顶前 {max_n} 个，完整接口改动见 interface-diff.txt，可用工具按需再切］"
+        note += f"  [capped at the first {max_n}; the full interface changes are in interface-diff.txt, slice further with the tools as needed]"
     return ordered, note
 
 
@@ -619,8 +619,8 @@ def slice_to(script, group, art, old, new, regex, out_path, err_regex=""):
     lines = t.splitlines()
     if len(lines) > MAX_DIFF_LINES:
         t = "\n".join(lines[:MAX_DIFF_LINES]) + (
-            f"\n\n... [已封顶 {MAX_DIFF_LINES} 行，切片仍偏大（已按症状相关性排序，被截掉的是相关性最低的段落）。"
-            f"请用更精确的入口符号就地再切：tools/{script} <G> <A> <O> <N> --symbol '<更窄的符号>'] ...\n")
+            f"\n\n... [capped at {MAX_DIFF_LINES} lines; the slice is still large (sections are ordered by symptom relevance, the least relevant ones were cut). "
+            f"Slice further in place with more precise entry symbols: tools/{script} <G> <A> <O> <N> --symbol '<narrower symbol>'] ...\n")
     with open(out_path, "w", encoding="utf-8", errors="replace") as f:
         f.write(t)
     return t
@@ -715,7 +715,7 @@ def main():
     dep_text = open(p_dep, encoding="utf-8", errors="ignore").read() if os.path.exists(p_dep) else ""
     dep_changed = [l for l in dep_text.splitlines()
                    if l[:1] in "+-" and not l.startswith(("+++", "---"))]
-    dep_excerpt = "\n".join(dep_changed[:40]) or "（依赖声明无差异）"
+    dep_excerpt = "\n".join(dep_changed[:40]) or "(no difference in the dependency declarations)"
 
     # 1c) Migration-guide diff (second tier, upstream natural language: CHANGELOG/upgrading etc.
     #     harvested by fetch_upstream_py; usually absent on the Java side)
@@ -739,13 +739,13 @@ def main():
                   if not re.fullmatch(r"[+\-][=\-~^+\s]*", l)]
         gtext = "\n".join(glines)
         with open(p_guide, "w", encoding="utf-8", errors="replace") as f:
-            f.write("# 迁移说明差异（第二档·上游自然语言）\n" + gtext[:120000])
+            f.write("# migration notes diff (tier 2, library natural language)\n" + gtext[:120000])
         # Excerpt: keep only added lines (what the new version says), capped at 60 lines
         added = [l for l in glines if l.startswith("+") and not l.startswith("+++")][:60]
         guide_excerpt = "\n".join(added)
     else:
         with open(p_guide, "w", encoding="utf-8", errors="replace") as f:
-            f.write("（上游发行物中未收割到迁移说明/CHANGELOG）\n")
+            f.write("(no migration notes or CHANGELOG found in the library release)\n")
 
     # 2) Derive the entry symbols automatically (explicit > japicmp intersected with downstream usage
     #    > fall back to a pointer; error symbols first = symptom anchoring)
@@ -791,34 +791,34 @@ def main():
             regex = "|".join(re.escape(s) for s in slice_keys + hops)
             slice_to("code_diff_source.sh", a.group, a.art, a.old, a.new, regex, p_src,
                      err_regex=err_regex)
-            src_note = (f"已按入口符号切片：{', '.join(symbols)}；"
-                        f"二跳追踪并入：{', '.join(hops)}")
+            src_note = (f"sliced by entry symbols: {', '.join(symbols)}; "
+                        f"added by second-hop tracing: {', '.join(hops)}")
         else:
-            src_note = f"已按入口符号切片：{', '.join(symbols)}"
+            src_note = f"sliced by entry symbols: {', '.join(symbols)}"
     else:
         with open(p_src, "w", encoding="utf-8", errors="replace") as f:
-            f.write("（未能自动求出入口符号，未落盘整份源码差异——避免把几千行 raw diff 直接交给 Agent。\n"
-                    "请在思维链第二阶段定出入口符号后，用以下命令就地切片：\n"
-                    "  tools/code_diff_source.sh <G> <A> <O> <N> --symbol <入口符号>\n"
-                    "或一次切多个： --symbol 'sym1|sym2|sym3'）\n")
-        src_note = "未切片（待入口符号确定后用工具就地切，勿通读整份）"
+            f.write("(No entry symbols could be derived automatically, so the whole source diff was not written, to avoid handing thousands of raw diff lines to the agent.\n"
+                    "After determining the entry symbols in the second stage, slice in place with:\n"
+                    "  tools/code_diff_source.sh <G> <A> <O> <N> --symbol <entry symbol>\n"
+                    "or several at once: --symbol 'sym1|sym2|sym3')\n")
+        src_note = "not sliced (slice in place with the tools once the entry symbols are known; do not read the whole diff)"
 
     # 4) Test diff: likewise only the slice is written (also ordered by symptom relevance, then capped)
     p_test = os.path.join(out_dir, "test-diff.txt")
     if (a.compare or has_repo) and slice_keys:
         slice_to("test_diff.sh", a.group, a.art, a.old, a.new, regex, p_test,
                  err_regex=err_regex)
-        test_note = f"已按入口符号切片：{', '.join(symbols)}"
+        test_note = f"sliced by entry symbols: {', '.join(symbols)}"
     elif (a.compare or has_repo) and not slice_keys:
         with open(p_test, "w", encoding="utf-8", errors="replace") as f:
-            f.write("（有上游仓库但未求出入口符号，未落盘整份测试差异——避免几千行 raw diff 直接入 Agent。\n"
-                    "定出入口符号后就地切片：\n"
-                    "  tools/test_diff.sh <G> <A> <O> <N> --symbol '<sym1>|<sym2>'）\n")
-        test_note = "未切片（待入口符号确定后用工具就地切，勿通读整份）"
+            f.write("(There is an upstream repository but no entry symbols were derived, so the whole test diff was not written, to avoid handing thousands of raw diff lines to the agent.\n"
+                    "After determining the entry symbols, slice in place:\n"
+                    "  tools/test_diff.sh <G> <A> <O> <N> --symbol '<sym1>|<sym2>')\n")
+        test_note = "not sliced (slice in place with the tools once the entry symbols are known; do not read the whole diff)"
     else:
         with open(p_test, "w", encoding="utf-8", errors="replace") as f:
-            f.write("（无 compare URL / 未克隆到上游仓库，无法定位上游 tag，测试差异不可用）\n")
-        test_note = "不可用（缺 compare URL / 上游仓库）"
+            f.write("(no compare URL and no upstream repository clone, so the upstream tags cannot be located; the test diff is unavailable)\n")
+        test_note = "unavailable (no compare URL or upstream repository)"
 
     # Evidence guide (mechanically generated, an extension of symptom anchoring): count which
     # evidence sections each error symbol hits, steering the agent's attention straight to the
@@ -846,12 +846,12 @@ def main():
     for fname, label in ((p_src, "source-diff.txt"), (p_test, "test-diff.txt")):
         for sym, per in _section_hits(fname, err_slice).items():
             tops = sorted(per.items(), key=lambda kv: -kv[1])[:3]
-            frag = "、".join(f"{sec} ×{n}" for sec, n in tops)
-            guide_lines.append(f"- 报错符号 `{sym}` 命中 {label}：{frag}")
-    evidence_guide = "\n".join(guide_lines) or "（报错符号未命中任何证据段落）"
+            frag = ", ".join(f"{sec} ×{n}" for sec, n in tops)
+            guide_lines.append(f"- error symbol `{sym}` matches {label}: {frag}")
+    evidence_guide = "\n".join(guide_lines) or "(the error symbols match no evidence fragment)"
     if guide_on:
-        guide_section = ("## 2c. 上游迁移说明差异（第二档·自然语言；全量见 guide-diff.txt。只辅助诊断与定位，采信前须被第一档产物印证）\n"
-                         "```\n" + (guide_excerpt or "（无迁移说明可收割）") + "\n```\n\n")
+        guide_section = ("## 2c. Library migration notes diff (tier 2, natural language; full text in guide-diff.txt. Only an aid to diagnosis and locating; confirm it against the tier-1 artifacts before relying on it)\n"
+                         "```\n" + (guide_excerpt or "(no migration notes to collect)") + "\n```\n\n")
         guide_listed = " / guide-diff.txt"
     else:
         guide_section = ""
@@ -868,63 +868,63 @@ def main():
     #    it is what the agent reads)
     basis = os.path.join(out_dir, "adaptation-basis.md")
     with open(basis, "w", encoding="utf-8", errors="replace") as f:
-        f.write(f"""# 适配依据 —— {a.art} {a.old} → {a.new}（{a.proj}）
+        f.write(f"""# Adaptation basis: {a.art} {a.old} -> {a.new} ({a.proj})
 
-> 本文件是"概括压缩"的脚手架（算法 §3.4 / §4.3.1 第五步）。机械可提取的已自动填入；
-> 标【待 Agent 补全】的部分，请在思维链第三阶段读证据后填好，再据此做第四阶段适配。
-> 注意：源码/测试差异已按入口符号**切片**，切勿通读整份 raw diff；要看更多请用工具按符号再切。
+> This file is a scaffold for summarising the evidence. The parts that can be extracted mechanically are filled in;
+> fill in the parts marked [to be filled in by the agent] after reading the evidence in the third stage, then adapt the code in the fourth stage.
+> Note: the source and test diffs are **sliced** by entry symbols; do not read a whole raw diff; to see more, slice further by symbol with the tools.
 
-## 0. 症状（来自第一阶段锚定）
-{a.symptom or '【待 Agent 补全：首个失败符号 / 失败用例与断言 / 是编译期还是运行期】'}
+## 0. Symptoms (from symptom anchoring in the first stage)
+{a.symptom or '[to be filled in by the agent: first failing symbol / failing test and assertion / compile time or run time]'}
 
-## 1. 入口符号（切片依据）
+## 1. Entry symbols (the slicing keys)
 {sym_note}
 
-## 1b. 证据导读（机械生成：报错里的符号/实际值命中了证据的哪些段落，先读命中最多的段落）
+## 1b. Evidence guide (generated mechanically: which evidence fragments the symbols and actual values of the error match; read the most-matched fragments first)
 {evidence_guide}
 
-## 2. 接口形状差异（第一档·产物；japicmp，仅列与入口符号相关的节选，全量见 interface-diff.txt）
-> 读法提醒：japicmp 给的是两堆**没有配对**的清单——本类里"删了哪些（REMOVED）"+"增了哪些（NEW）"，
-> 它**不会**画箭头告诉你"旧的 X 对应新的 Y"。纯改名（参数表一样、只差大小写/前后缀）可凭名字直接配；
-> 但凡**结构性签名变化**（参数个数/类型变了、挪进了别的嵌套类、返回类型换了，如 create(int,fn)→create(IndexConfig)），
-> 旧→新的对应关系与新参数怎么填，japicmp 都给不出，**必须回第 4 节用测试 diff 里同一处调用的真实迁移来配对**。
+## 2. Interface diff (tier 1, artifact; japicmp, only the excerpt related to the entry symbols, full report in interface-diff.txt)
+> Reading note: japicmp gives two **unpaired** lists, what was removed from a class (REMOVED) and what was added (NEW);
+> it does **not** draw an arrow saying "old X corresponds to new Y". A pure rename (same parameters, only case or prefix/suffix differ) can be paired by name;
+> but for any **structural signature change** (parameter count or types changed, moved into another nested class, return type changed, e.g. create(int,fn) -> create(IndexConfig)),
+> japicmp cannot tell the old-to-new correspondence or how to fill in the new parameters; **go to section 4 and pair them using the real migration of the same call in the test diff**.
 ```
-{if_excerpt or '（japicmp 无输出或未生成；可能是纯行为型破坏，接口未变——此时重心在第 3、4 节）'}
+{if_excerpt or '(japicmp produced no output or was not run; possibly a purely behavioral break with an unchanged interface; look at sections 3 and 4)'}
 ```
 
-## 2b. 传递依赖与版本区间（第一档·产物；被升级库 POM 依赖声明差异，全量见 dependency-diff.txt）
-> 编译器报"缺类"但 japicmp 无对应删除时，先看这里：某传递依赖在新版不再被声明（'-' 行）即根因；
-> 版本区间（如 [2.0,) 开区间）的收放也在此处暴露。需要完整依赖树时在工作区跑 mvn dependency:tree 核对。
+## 2b. Transitive dependencies and version ranges (tier 1, artifact; dependency declaration diff of the upgraded library, full diff in dependency-diff.txt)
+> When the compiler reports a missing class but japicmp shows no corresponding removal, look here first: a transitive dependency no longer declared by the new version ('-' line) is the root cause;
+> changes of version ranges (such as an open range [2.0,)) also show here. For the full dependency tree, run mvn dependency:tree in the workspace.
 ```
 {dep_excerpt}
 ```
 
-{guide_section}## 3. 行为机制（第一档·产物；源码差异已切片，详见 source-diff.txt）
-- 源码差异：{src_note}
-- 行为变更说明【待 Agent 补全】（接口形状型破坏可略，行为型必填）：
-  - 入口符号：
-  - 旧行为：
-  - 新行为及机制：
-  - 证据（source-diff.txt 的哪几段）：
-  - 置信度（是否被下节测试差异印证）：
+{guide_section}## 3. Behavior mechanism (tier 1, artifact; the source diff is sliced, see source-diff.txt)
+- Source diff: {src_note}
+- Behavior change [to be filled in by the agent] (optional for an interface-shape break, required for a behavioral break):
+  - Entry symbol:
+  - Old behavior:
+  - New behavior and mechanism:
+  - Evidence (which fragments of source-diff.txt):
+  - Confidence (confirmed by the test diff in the next section?):
 
-## 4. 测试差异（第一档·产物已切片，详见 test-diff.txt）
-- 状态：{test_note}
-- 旧→新调用的配对与新用法示例【纯改名可略；只要签名是结构性变化（参数/类型/嵌套/返回值变了）就**必填**，接口形状型同样要填】：
-  在 test-diff.txt 里找"同一处调用从旧写法改到新写法"那一段（成对的 - 行 / + 行），据此确认：
-  - 第 2 节里删的旧符号对应新增的哪个：
-  - 新接口怎么构造、传什么参数（旧参数落到新写法的哪里，如 (维度,距离函数)→IndexConfig 怎么建）：
-- 新行为的正确期望值【接口形状型可略，行为型必填】：
+## 4. Test diff (tier 1, artifact, sliced; see test-diff.txt)
+- Status: {test_note}
+- Old-to-new call pairing and new usage examples [optional for a pure rename; **required** whenever the signature changes structurally (parameters, types, nesting, return value), including interface-shape breaks]:
+  in test-diff.txt find the fragment where the same call moves from the old form to the new form (paired - and + lines) and confirm from it:
+  - which added symbol replaces the old symbol removed in section 2:
+  - how the new interface is constructed and which arguments it takes (where the old arguments go in the new form, e.g. how (dimension, distance function) becomes an IndexConfig):
+- Correct expected value of the new behavior [optional for an interface-shape break, required for a behavioral break]:
 
-## 5. 互证与结论（算法 §3.2 闭环）
-- 第 3 节"新行为假设"与第 4 节"新期望值"是否一致【待 Agent 补全：一致→采信；不一致→回去重读源码差异】：
-- 一句话适配依据【待 Agent 补全：什么变了、新的正确用法/期望值是什么、下游应如何改】：
+## 5. Cross-check and conclusion
+- Do the "new behavior hypothesis" of section 3 and the "new expected value" of section 4 agree? [to be filled in by the agent: agree -> accept; disagree -> reread the source diff]:
+- One-sentence adaptation basis [to be filled in by the agent: what changed, what the new correct usage or expected value is, how the downstream project should change]:
 
 ---
-原始证据文件（均已切片或为浓缩报告，勿通读整份）：interface-diff.txt / source-diff.txt / test-diff.txt / dependency-diff.txt{guide_listed}
-就地再切片：tools/code_diff_source.sh / tools/test_diff.sh <G> <A> <O> <N> --symbol '<sym1>|<sym2>'
-深挖单个符号：tools/locate_behavior.sh <G> <A> <O> <N> <入口符号>
-依赖声明差异：tools/dep_diff.sh <G> <A> <O> <N>
+Raw evidence files (all sliced or condensed reports; do not read them whole): interface-diff.txt / source-diff.txt / test-diff.txt / dependency-diff.txt{guide_listed}
+Slice further in place: tools/code_diff_source.sh / tools/test_diff.sh <G> <A> <O> <N> --symbol '<sym1>|<sym2>'
+Dig into one symbol: tools/locate_behavior.sh <G> <A> <O> <N> <entry symbol>
+Dependency declaration diff: tools/dep_diff.sh <G> <A> <O> <N>
 """)
     print(f">>> evidence generated: {basis}")
     print("    - interface-diff.txt (condensed japicmp report) / source-diff.txt (sliced)"

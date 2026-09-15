@@ -334,15 +334,15 @@ def path_matched_sections(text, path_symbols):
         per_stem[stem] = per_stem.get(stem, 0) + 1
         blk = sec[:PATH_PER_FILE]
         if len(sec) > PATH_PER_FILE:
-            blk = blk + ["    …（该文件段落超过 %d 行，此处截断）" % PATH_PER_FILE]
+            blk = blk + ["    ...(this file section exceeds %d lines, truncated here)" % PATH_PER_FILE]
         out += blk + [""]
         used += len(blk)
         per_tier[_tier] = per_tier.get(_tier, 0) + 1
         taken.add(sec[0])
     if not out:
         return "", set()
-    hdr = ["# 以下段落是【文件名本身命中入口符号】的整份文件改动（按方法拆分发布的库会把",
-           "# 一次行为变更整个落在一个以该符号命名的文件里，按行聚焦看不见这种形态）。", ""]
+    hdr = ["# The sections below are whole-file changes whose file name itself matches an entry symbol (libraries published one method per file",
+           "# put a whole behavior change into a file named after the symbol; line-focused slicing cannot see this form).", ""]
     return "\n".join(hdr + out), taken
 
 
@@ -409,12 +409,12 @@ def slice_text(raw_path, regex, err_regex, title, hint, cap=None, symbols=None,
     Every step is the existing extract_basis implementation."""
     cap = cap or MAXL
     if not raw_path or not os.path.isfile(raw_path):
-        return "（本例没有可用的%s。）\n" % title, 0
+        return "(No %s is available for this case.)\n" % title, 0
     text = open(raw_path, encoding="utf-8", errors="replace").read()
     raw_lines = len(text.splitlines())
     if not regex:
-        return ("（求不出入口符号，按硬性规则不落盘整份差异；请在第二阶段定出入口符号后，"
-                "用 %s 就地按符号再切。原始差异共 %d 行。）\n" % (hint, raw_lines)), raw_lines
+        return ("(No entry symbols could be derived; by the hard rule the whole diff is not written. After determining the entry symbols in the second stage, "
+                "slice in place by symbol with %s. The raw diff has %d lines.)\n" % (hint, raw_lines)), raw_lines
     text = EB._strip_boilerplate(text)
     text = EB._drop_reformat_pairs(text)
     pblock, _ = path_matched_sections(text, path_symbols or [])
@@ -425,8 +425,8 @@ def slice_text(raw_path, regex, err_regex, title, hint, cap=None, symbols=None,
     lines = text.splitlines()
     if len(lines) > cap:
         text = "\n".join(lines[:cap]) + (
-            "\n\n... [已封顶 %d 行，切片仍偏大（已按症状相关性排序，被截掉的是相关性最低的"
-            "段落）。请用更精确的入口符号就地再切。] ...\n" % cap)
+            "\n\n... [capped at %d lines; the slice is still large (sections are ordered by symptom relevance, the least relevant "
+            "sections were cut). Slice further in place with more precise entry symbols.] ...\n" % cap)
     return text, raw_lines
 
 
@@ -440,8 +440,8 @@ def guide_lines(err_syms, sliced_texts):
         for name, t in sliced_texts:
             n = sum(1 for ln in t.splitlines() if pat.search(ln))
             if n:
-                hits.append("%s 命中 %d 行" % (name, n))
-        out.append("- `%s`：%s" % (s, "；".join(hits) if hits else "证据里没有命中"))
+                hits.append("%s matches %d lines" % (name, n))
+        out.append("- `%s`: %s" % (s, "; ".join(hits) if hits else "no match in the evidence"))
     return out
 
 
@@ -458,9 +458,9 @@ def run(ns):
     regex = make_regex(syms)
     err_regex = make_regex(err_syms)
 
-    code_hint = "diff -ruN 两版发行产物后按符号 grep"
+    code_hint = "diff -ruN of the two release artifacts, then grep by symbol"
     measured = detail["measured"]
-    code_txt, code_raw = slice_text(ns.source_diff, regex, err_regex, "上游源码差异",
+    code_txt, code_raw = slice_text(ns.source_diff, regex, err_regex, "library source diff",
                                     code_hint, symbols=syms, path_symbols=measured)
     # One round of two-hop tracing: take the deeper symbols repeatedly touched in the changed
     # lines of the first slice, add them to the slice keys and slice again.
@@ -470,32 +470,32 @@ def run(ns):
         hops = [h for h in hops if h not in LANG_NOISE]
         if hops:
             regex2 = make_regex(syms + hops)
-            code_txt, _ = slice_text(ns.source_diff, regex2, err_regex, "上游源码差异",
+            code_txt, _ = slice_text(ns.source_diff, regex2, err_regex, "library source diff",
                                      code_hint, symbols=syms + hops, path_symbols=measured)
             regex = regex2
-    test_txt, test_raw = slice_text(ns.test_diff, regex, err_regex, "上游测试差异",
-                                    "git diff 两个 tag 的测试目录后按符号 grep",
+    test_txt, test_raw = slice_text(ns.test_diff, regex, err_regex, "library test diff",
+                                    "git diff of the test directories between the two tags, then grep by symbol",
                                     symbols=syms + hops, path_symbols=measured)
 
     hdr_code = [
-        "# %s %s -> %s 的上游源码差异切片（our 臂证据 · 机械产出）" % (ns.lib, ns.old, ns.new),
-        "# 原始差异 %d 行，按入口符号切到以下相关段落。切片管线：剥许可证样板、剔纯排版增删对、"
-        "按行聚焦（含符号的增删行上下各 3 行）、按报错符号命中数重排段落、硬上限封顶。" % code_raw,
-        "# 入口符号：%s" % ("、".join(syms) or "（未求出）"),
-        "# 二跳追加符号：%s" % ("、".join(hops) or "（无）"),
+        "# sliced library source diff of %s %s -> %s (BBCFixer evidence, generated mechanically)" % (ns.lib, ns.old, ns.new),
+        "# The raw diff has %d lines, sliced to the relevant sections below by entry symbols. Pipeline: strip license boilerplate, drop pure reformatting pairs, "
+        "focus on lines (3 lines around each changed line containing a symbol), reorder sections by error-symbol matches, apply a hard cap." % code_raw,
+        "# Entry symbols: %s" % (", ".join(syms) or "(none derived)"),
+        "# Added by second-hop tracing: %s" % (", ".join(hops) or "(none)"),
         "",
     ]
     hdr_test = [
-        "# %s %s -> %s 的上游测试差异切片（our 臂证据 · 机械产出）" % (ns.lib, ns.old, ns.new),
-        "# 原始差异 %d 行。上游测试是维护者亲手写下的「升级后正确用法与新期望值」；"
-        "本切片只保留与入口符号相关的段落。" % test_raw,
+        "# sliced library test diff of %s %s -> %s (BBCFixer evidence, generated mechanically)" % (ns.lib, ns.old, ns.new),
+        "# The raw diff has %d lines. Library tests are the maintainers' own statement of the correct usage and new expected values after the upgrade; "
+        "this slice keeps only the sections related to the entry symbols." % test_raw,
         "",
     ]
     note = ""
     if ns.test_diff_note and os.path.isfile(ns.test_diff_note):
         note = open(ns.test_diff_note, encoding="utf-8", errors="replace").read().strip()
         if note:
-            hdr_test.insert(2, "# 取料说明：%s" % note)
+            hdr_test.insert(2, "# Source note: %s" % note)
 
     with open(os.path.join(ns.out_dir, "code-diff-slice.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(hdr_code) + code_txt + "\n")
@@ -503,16 +503,16 @@ def run(ns):
     with open(os.path.join(ns.out_dir, "test-diff.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(hdr_test) + test_txt + "\n")
     with open(os.path.join(ns.out_dir, "entry-symbols.txt"), "w", encoding="utf-8") as f:
-        f.write("实测分叉调用（第一路，第一分叉点排最前）：%s\n" % ("、".join(detail["measured"]) or "（无）"))
-        f.write("症状锚点符号（第二路，round 0 报错）：%s\n" % ("、".join(err_syms) or "（无）"))
-        f.write("可达性交集（第三路，下游标识符 ∩ 上游变更行标识符，已剔裸通用名）：%s\n"
-                % ("、".join(detail["reachable"][:40]) or "（无）"))
-        f.write("二跳追加：%s\n" % ("、".join(hops) or "（无）"))
-        f.write("最终切片键：%s\n" % ("、".join(syms) or "（无）"))
+        f.write("Diverging calls measured (source 1, first divergence first): %s\n" % (", ".join(detail["measured"]) or "(none)"))
+        f.write("Symptom anchor symbols (source 2, broken-state error output): %s\n" % (", ".join(err_syms) or "(none)"))
+        f.write("Reachable intersection (source 3, downstream identifiers ∩ identifiers on changed library lines, bare generic names removed): %s\n"
+                % (", ".join(detail["reachable"][:40]) or "(none)"))
+        f.write("Added by second-hop tracing: %s\n" % (", ".join(hops) or "(none)"))
+        f.write("Final slicing keys: %s\n" % (", ".join(syms) or "(none)"))
 
-    g = ["# 证据导读（纯计数，不含案例知识）", "",
-         "round 0 报错里的特异符号各自命中了证据的哪些段落：", ""]
-    g += guide_lines(err_syms, [("源码差异切片", code_txt), ("测试差异切片", test_txt)])
+    g = ["# Evidence guide (pure counts, no case knowledge)", "",
+         "Which evidence fragments each distinctive symbol of the broken-state error output matches:", ""]
+    g += guide_lines(err_syms, [("sliced source diff", code_txt), ("sliced test diff", test_txt)])
     with open(os.path.join(ns.out_dir, "evidence-guide.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(g) + "\n")
 
@@ -571,28 +571,28 @@ def selfcheck():
 
         rx = make_regex(["maxBy"])
         errx = make_regex(["maxBy"])
-        txt, rawn = slice_text(raw, rx, errx, "源码差异", "工具")
-        chk("正例", "切片保留了含入口符号的变更行（maxBy）", "maxBy" in txt)
-        chk("正例", "许可证样板被剥掉（Apache License 不出现）", "Apache License" not in txt)
-        chk("正例", "纯排版增删对被剔除（indented 那一对不出现）", "indented" not in txt)
-        chk("反例", "与入口符号无关的整段被丢弃（unrelatedHelper 不出现）",
+        txt, rawn = slice_text(raw, rx, errx, "source diff", "tool")
+        chk("pos", "the slice keeps the changed lines containing the entry symbol (maxBy)", "maxBy" in txt)
+        chk("pos", "license boilerplate is stripped (Apache License absent)", "Apache License" not in txt)
+        chk("pos", "pure reformatting pairs are dropped (the indented pair absent)", "indented" not in txt)
+        chk("neg", "a section unrelated to the entry symbol is dropped (unrelatedHelper absent)",
             "unrelatedHelper" not in txt)
-        chk("反例", "求不出入口符号时绝不落盘整份差异",
-            "Apache License" not in slice_text(raw, "", "", "源码差异", "工具")[0])
+        chk("neg", "without entry symbols the whole diff is never written",
+            "Apache License" not in slice_text(raw, "", "", "source diff", "tool")[0])
 
         # The generic-name filter applies only to channel 3: `max` from the first two channels must survive
-        chk("正例", "裸通用名在第三路被剔（distinctive('result') 为假）", not distinctive("result"))
-        chk("正例", "特异名在第三路留得住（distinctive('promisifyAll') 为真）",
+        chk("pos", "a bare generic name is removed in source 3 (distinctive('result') is false)", not distinctive("result"))
+        chk("pos", "a distinctive name survives in source 3 (distinctive('promisifyAll') is true)",
             distinctive("promisifyAll"))
         bj = os.path.join(tmp, "behavior-diff.json")
         json.dump({"divergent_calls": [{"fn": "lodash.max"}], "only_new_calls": [],
                    "only_old_calls": []}, open(bj, "w", encoding="utf-8"))
         m = syms_from_behavior(bj)
-        chk("正例", "实测第一分叉点的裸通用名 max 不被通用名过滤剔掉", "max" in m)
+        chk("pos", "the bare generic name max of a measured first divergence is not filtered out", "max" in m)
 
         # Negative: skipping the slicing step entirely (degraded implementation) necessarily keeps unrelated sections and the licence
         degraded = open(raw, encoding="utf-8").read()
-        chk("反例", "退化实现（原样给整份差异）会同时留下许可证与无关段落，据此可与正例区分",
+        chk("neg", "a degenerate implementation (the whole diff as is) keeps both the license and the unrelated section, so it is distinguishable",
             ("Apache License" in degraded) and ("unrelatedHelper" in degraded))
 
         big = ["+++ b/bundle.js"] + ["-  var v%d = maxBy(x);" % i for i in range(20)] \
@@ -600,10 +600,10 @@ def selfcheck():
         small = ["+++ b/maxBy.js", "+function maxBy(a) {", "+  return a;", "+}"]
         merged = "\n".join(["# t"] + big + small)
         ranked = rank_sections_by_density(merged, make_regex(["maxBy"]), "", ["maxBy"])
-        chk("正例", "密度排序把小而对症的 maxBy.js 排到整份重写的 bundle.js 之前",
+        chk("pos", "density ordering puts the small, relevant maxBy.js before the rewritten bundle.js",
             ranked.index("+++ b/maxBy.js") < ranked.index("+++ b/bundle.js"))
         by_count = EB._rank_sections_by_relevance(merged, make_regex(["maxBy"]))
-        chk("反例", "按命中条数排（退化实现）时 bundle.js 反而排在前面，说明这条排序确有作用",
+        chk("neg", "ordering by match count (degenerate) puts bundle.js first, so this ordering matters",
             by_count.index("+++ b/bundle.js") < by_count.index("+++ b/maxBy.js"))
 
         newfile = "\n".join(["+++ b/other.js", "-var a = max(coll, cb);", "+var a = 0;"]
@@ -611,53 +611,53 @@ def selfcheck():
                             + ["+++ b/maxBy.js", "+function maxBy(coll, iter) {",
                                "+  return coll;", "+}"])
         pb, _t = path_matched_sections(newfile, ["max"])
-        chk("正例", "整份新增的 maxBy.js 靠文件名命中被保留（按行聚焦看不见它）",
+        chk("pos", "the wholly added maxBy.js is kept through its file name (line focusing cannot see it)",
             "maxBy.js" in pb)
-        chk("反例", "只按行聚焦的退化实现会把整份新增文件整个丢掉",
+        chk("neg", "a degenerate line-focus-only implementation drops the wholly added file",
             "maxBy.js" not in EB._focus_to_symbols(newfile, make_regex(["max"])))
         pb2, _t2 = path_matched_sections(newfile, ["transform"])
-        chk("反例", "文件名不含该符号时不会被误留", pb2 == "")
+        chk("neg", "a file whose name lacks the symbol is not kept by mistake", pb2 == "")
         many = "\n".join(
             ["+++ b/_arrayLikeKeys.js"] + ["+  var q%d = 0;" % i for i in range(50)]
             + ["+++ b/maxBy.js", "+function maxBy(c, i) {", "+  return c;", "+}"])
         pb3, _t3 = path_matched_sections(many, ["keys", "max"])
-        chk("正例", "同族新方法（maxBy.js）排在内部件（_arrayLikeKeys.js）之前",
+        chk("pos", "a new sibling method (maxBy.js) ranks before an internal part (_arrayLikeKeys.js)",
             pb3.index("maxBy.js") < pb3.index("_arrayLikeKeys.js"))
         dup = "\n".join(
             ["+++ b/a/max.js", "+var m1 = 1;"] + ["+++ b/b/max.js", "+var m2 = 1;"]
             + ["+++ b/c/max.js", "+var m3 = 1;"] + ["+++ b/maxBy.js", "+var mb = 1;"])
         pb4, _t4 = path_matched_sections(dup, ["max"])
-        chk("正例", "同名副本最多留两份，名额留给 maxBy.js", "maxBy.js" in pb4)
-        chk("反例", "第三份同名副本不再占名额", pb4.count("max.js") == 2)
+        chk("pos", "at most two copies of the same name are kept, leaving room for maxBy.js", "maxBy.js" in pb4)
+        chk("neg", "a third copy of the same name takes no slot", pb4.count("max.js") == 2)
         crowd = []
         for k in range(12):
             crowd += ["+++ b/d%d/max.js" % k, "+var z%d = 1;" % k]
         crowd += ["+++ b/maxBy.js", "+var mb = 1;"]
         pb5, _t5 = path_matched_sections("\n".join(crowd), ["max"])
-        chk("正例", "零等的同名副本再多，同族新方法 maxBy.js 仍有名额", "maxBy.js" in pb5)
+        chk("pos", "however many same-name copies, the sibling maxBy.js still gets a slot", "maxBy.js" in pb5)
 
         # Negative: when entry-symbol derivation ignores the error log, symptom-anchored ranking has no effect
         ordered = EB._rank_by_symptom(["zzz", "maxBy"], ["maxBy"])
-        chk("正例", "症状锚定排序把报错点名的符号排到最前", ordered[0] == "maxBy")
+        chk("pos", "symptom-anchored ordering puts the symbol named in the error first", ordered[0] == "maxBy")
 
         # The measured channel must keep its slots: build an error log full of noise symbols; the first divergence must still be among the keys
         noisy = os.path.join(tmp, "noisy.log")
         open(noisy, "w", encoding="utf-8").write(
             "\n".join("AssertionError at NoiseSymbol%02d.run" % i for i in range(60)))
         syms2, det2 = derive_entry_symbols(bj, noisy, "", raw, max_n=40, scratch=tmp)
-        chk("正例", "报错符号再多，第一分叉点（max）也留在最终切片键里", "max" in syms2)
-        chk("正例", "实测那一路排在最前", syms2[0] in det2["measured"])
+        chk("pos", "however many error symbols, the first divergence (max) stays among the slicing keys", "max" in syms2)
+        chk("pos", "the measured source ranks first", syms2[0] in det2["measured"])
         ansi = os.path.join(tmp, "ansi.log")
         open(ansi, "w", encoding="utf-8").write("\x1b[22mFAILURES: 2/24 \x1b[1mintegration ok\n")
         _, det3 = derive_entry_symbols(bj, ansi, "", raw, max_n=40, scratch=tmp)
-        chk("反例", "终端颜色残片不进入入口符号（mFAILURES / mintegration 不出现）",
+        chk("neg", "terminal colour fragments do not become entry symbols (mFAILURES / mintegration absent)",
             not any(x.startswith("m") and x[1:2].isupper() or x in ("mintegration",)
                     for x in det3["error"]))
         # Degraded implementation: without stripping the colour codes the fragments do get in, which proves this self-check is not vacuous
         _, det4 = derive_entry_symbols(bj, ansi, "", raw, max_n=40, scratch=None)
-        chk("反例", "不剥颜色码的退化实现确实会抽出残片，说明上一条不是空转",
+        chk("neg", "a degenerate implementation that keeps colour codes does extract the fragments, so the previous check is not vacuous",
             any(x in ("mFAILURES", "mintegration") for x in det4["error"]))
-        chk("反例", "不给报错符号时排序退化为原顺序（说明这条排序确实由报错驱动）",
+        chk("neg", "without error symbols the ordering falls back to the original order (so it really is driven by the error)",
             EB._rank_by_symptom(["zzz", "maxBy"], [])[0] == "zzz")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

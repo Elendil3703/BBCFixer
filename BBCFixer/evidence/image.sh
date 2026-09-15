@@ -53,7 +53,7 @@ for triple in $DEPS; do
   python3 "$SL/extract_basis.py" --eco python \
     --proj "$PROJ-$pkg" --group pypi --art "$pkg" --old "$old" --new "$new" \
     --src-dir "$SRC" --error-log "$SYMPTOM_LOG" \
-    --symptom "$(head -8 "$SYMPTOM_LOG" | tr '\n' '；')" || { echo "!! [$PROJ] $pkg: slicing partly failed"; RC_ALL=1; }
+    --symptom "$(head -8 "$SYMPTOM_LOG" | tr '\n' ';')" || { echo "!! [$PROJ] $pkg: slicing partly failed"; RC_ALL=1; }
   # ---- differential execution. Intact-state pins: for a single-package upgrade the pins of the
   # intact state recorded by the harness (the library and any companion that must move with it);
   # for a dated snapshot the library alone.
@@ -67,8 +67,8 @@ for triple in $DEPS; do
   bash "$V2/diffexec_image.sh" gen --work "$SRC" --image "$IMG" --cmd "$TEST_CMD" \
     --net-args "${NET_ARGS:-}" --pkg "$pkg" --old "$old" --new "$new" --old-pins "$PINS" \
     --ev "$EV" --symptom "$SYMPTOM_LOG" --scratch "$SCR" \
-    --label-old "v_old（$pkg==${old}${EXTRA:+，伴随 $EXTRA}，其余依赖同快照）" \
-    --label-new "v_new（$pkg==${new}，$MIG_DATE 快照）" \
+    --label-old "v_old ($pkg==${old}${EXTRA:+, together with $EXTRA}, every other dependency as in the snapshot)" \
+    --label-new "v_new ($pkg==${new}, snapshot $MIG_DATE)" \
     || { echo "!! [$PROJ] $pkg: differential execution partly failed (declared channel only)"; RC_ALL=1; }
   # ---- assemble what the agent sees: the evidence files without the raw captures
   mkdir -p "$OUT/$pkg"

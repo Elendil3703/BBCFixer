@@ -284,7 +284,7 @@ def run_gen(ns):
     tracer_error = []
     for lbl, meta in ((ns.label_old, old_meta), (ns.label_new, new_meta)):
         if meta.get("attached") is False:
-            tracer_error.append("%s：%s" % (lbl, meta.get("error") or "边界调用记录器未挂上任何上游包"))
+            tracer_error.append("%s: %s" % (lbl, meta.get("error") or "the boundary-call recorder attached to no library package"))
 
     j = {
         "tracer_error": tracer_error,
@@ -314,82 +314,82 @@ def run_gen(ns):
             json.dump(j, f, ensure_ascii=False, indent=1)
 
     L = []
-    L.append("# 实测行为差异报告（差分执行 · 机械产出，不含人工判断）\n")
-    L.append("- 旧环境：%s\n- 新环境：%s\n" % (ns.label_old, ns.label_new))
+    L.append("# Measured behavior difference report (differential execution, generated mechanically, no manual judgement)\n")
+    L.append("- Intact state: %s\n- Broken state: %s\n" % (ns.label_old, ns.label_new))
     if tracer_error:
-        L.append("## 0. 取证装置未生效（本次报告的第三档证据不成立）\n")
+        L.append("## 0. The recorder did not work (the call-level evidence of this report does not hold)\n")
         L.extend("- %s" % x for x in tracer_error)
-        L.append("\n记录为空只说明记录器没挂上，**不等于两个版本行为相同**；请先修好注入再取证。\n")
-    L.append("## 1. 测试结果差异\n")
-    L.append("- 旧环境失败测试：%s" % (("、".join(sorted(of)[:8]) or "（无，全部通过）")))
-    L.append("- 新环境失败测试：%s" % (("、".join(sorted(nf)[:8]) or "（无）")))
-    L.append("- 新增失败（升级所致）：%s\n" % (("、".join(j["newly_failed"][:8]) or "（无法解析，见原始输出）")))
+        L.append("\nAn empty record only means that the recorder did not attach; **it does not mean that the two versions behave the same**. Fix the injection before collecting evidence.\n")
+    L.append("## 1. Test result differences\n")
+    L.append("- Failing tests in the intact state: %s" % ((", ".join(sorted(of)[:8]) or "(none, all pass)")))
+    L.append("- Failing tests in the broken state: %s" % ((", ".join(sorted(nf)[:8]) or "(none)")))
+    L.append("- Newly failing (caused by the upgrade): %s\n" % ((", ".join(j["newly_failed"][:8]) or "(could not be parsed, see the raw output)")))
     if osum or nsum:
-        L.append("旧环境概要：`%s`；新环境概要：`%s`\n" % ("; ".join(osum), "; ".join(nsum)))
+        L.append("Intact-state summary: `%s`; broken-state summary: `%s`\n" % ("; ".join(osum), "; ".join(nsum)))
     if ndetail:
-        L.append("## 2. 新环境断言/异常细节（前 %d 行）\n" % min(len(ndetail), 12))
+        L.append("## 2. Assertion and exception details in the broken state (first %d lines)\n" % min(len(ndetail), 12))
         L.extend("    %s" % x for x in ndetail[:12])
         L.append("")
     if j["trace_available"]:
-        L.append("## 3. 边界调用差异（下游调上游的同名调用，两环境返回值不同者）\n")
+        L.append("## 3. Boundary call differences (calls of the same name from the downstream project into the library whose return values differ between the two states)\n")
         if ddup and n_ds == 0:
-            L.append("**未在下游自身代码的边界调用上探到返回值差异。**下面列出的分叉都发生在"
-                     "第三方或解释器内部帧（如 importlib、array_function 分发、其它库内部）打进上游的调用上，"
-                     "对定位下游修改点参考价值低，请勿把它们当作破坏位置。这种形态多见于大型基础库整体升级："
-                     "破坏是规则性变化（类型提升、字符串与 bytes、时区、默认参数），不表现为某个具名调用的返回值不同，"
-                     "应以失败断言与迁移说明为准。\n")
+            L.append("**No return-value difference was observed on the boundary calls of the downstream project's own code.** The divergences listed below all occur on calls into the library "
+                     "made from third-party or interpreter-internal frames (such as importlib, array_function dispatch or the internals of other libraries); "
+                     "they are of little use for locating the downstream change, so do not treat them as the place of the break. This pattern is common in wholesale upgrades of large foundational libraries: "
+                     "the break is a rule-like change (type promotion, str versus bytes, time zones, default arguments) that does not show as a differing return value of a named call; "
+                     "rely on the failing assertion and the migration notes instead.\n")
         if ddup and n_ds > 0:
-            L.append("**第一分叉点（下游自身代码打进上游、且返回值不同的最靠前一处；行为变化大概率从这里进入下游）：**\n")
+            L.append("**First divergence (the earliest call from the downstream project's own code into the library whose return value differs; the behavior change most likely enters the downstream project here):**\n")
             same_first = None
             for a_, b_, n_ in ddup:
                 if (a_.get("args") or {}) == (b_.get("args") or {}):
                     same_first = (a_, b_, n_)
                     break
             if same_first is not None and same_first[0] is not ddup[0][0]:
-                L.append("（其中最靠前的一处**两环境实参完全相同**的调用是 `%s`（调用点 %s）："
-                         "旧环境返回 `%s`，新环境返回 `%s`。实参相同而结果不同，说明差异出在上游实现本身，"
-                         "而不是上游收到的输入变了。）\n"
+                L.append("(Among them, the earliest call with **identical arguments in both states** is `%s` (call site %s): "
+                         "it returns `%s` in the intact state and `%s` in the broken state. The same arguments giving a different result means that the difference lies in the library implementation itself, "
+                         "not in a changed input to the library.)\n"
                          % (same_first[0].get("fn"), same_first[0].get("caller", "?"),
                             same_first[0].get("ret"), same_first[1].get("ret")))
         if ddup:
             for idx, (a, b, n) in enumerate(ddup[:MAX_DIVERGENT]):
                 mark = "★ " if (idx == 0 and n_ds > 0) else "- "
                 same_args = (a.get("args") or {}) == (b.get("args") or {})
-                L.append("%s`%s`（调用点 %s，出现 %d 次）" % (mark, a.get("fn"), a.get("caller", "?"), n))
+                L.append("%s`%s` (call site %s, %d times)" % (mark, a.get("fn"), a.get("caller", "?"), n))
                 if same_args:
-                    L.append("    - 两环境实参相同（%d 个）：%s" % (a.get("argc") if a.get("argc") is not None else len(a.get("args") or {}), fmt_args(a)))
+                    L.append("    - Same arguments in both states (%d): %s" % (a.get("argc") if a.get("argc") is not None else len(a.get("args") or {}), fmt_args(a)))
                 else:
-                    L.append("    - 旧环境实参（%s 个）：%s" % (a.get("argc"), fmt_args(a)))
-                    L.append("    - 新环境实参（%s 个）：%s" % (b.get("argc"), fmt_args(b)))
-                L.append("    - 旧环境返回：`%s`" % a.get("ret"))
-                L.append("    - 新环境返回：`%s`" % b.get("ret"))
+                    L.append("    - Arguments in the intact state (%s): %s" % (a.get("argc"), fmt_args(a)))
+                    L.append("    - Arguments in the broken state (%s): %s" % (b.get("argc"), fmt_args(b)))
+                L.append("    - Returns in the intact state: `%s`" % a.get("ret"))
+                L.append("    - Returns in the broken state: `%s`" % b.get("ret"))
                 if (a.get("alias") or "") != (b.get("alias") or ""):
-                    L.append("    - 返回值与实参的引用共享情况变了：旧环境 `%s`，新环境 `%s`。"
-                             "返回的内容可能逐字段相同，但装的已不是同一批对象（深克隆退化为浅克隆是典型）。"
-                             % (a.get("alias") or "（无共享）", b.get("alias") or "（无共享）"))
+                    L.append("    - The sharing between the return value and the arguments changed: intact state `%s`, broken state `%s`. "
+                             "The returned content may be identical field by field but no longer holds the same objects (a deep clone that became a shallow clone is typical)."
+                             % (a.get("alias") or "(no sharing)", b.get("alias") or "(no sharing)"))
                 if same_args:
-                    L.append("    - 同样的实参给出不同的返回值，差异来自上游实现本身。")
+                    L.append("    - The same arguments give different return values; the difference comes from the library implementation itself.")
                 elif a.get("ret") == b.get("ret"):
-                    L.append("    - 返回值两环境一致，差异只在实参上：这一跳收到的东西变了"
-                             "（上游改掉了回调的调用约定时就是这个形态）。")
+                    L.append("    - The return value is the same in both states and only the arguments differ: what this call receives changed"
+                             " (this is the pattern when the library changes the calling convention of a callback).")
                 else:
-                    L.append("    - 实参本身就已不同，说明分叉在更靠前的位置，本条是它传导到此处的结果。")
+                    L.append("    - The arguments already differ, so the divergence lies earlier; this item is its effect propagated to here.")
             L.append("")
         else:
-            L.append("（同名调用的返回值均一致；差异可能在执行路径本身，见下）\n")
+            L.append("(The return values of calls of the same name all agree; the difference may lie in the execution path itself, see below)\n")
         if j["only_old_calls"] or j["only_new_calls"]:
-            L.append("仅旧环境走到的调用：%s" % ("、".join("`%s`" % x for x in j["only_old_calls"]) or "（无）"))
-            L.append("仅新环境走到的调用：%s\n" % ("、".join("`%s`" % x for x in j["only_new_calls"]) or "（无）"))
+            L.append("Calls reached only in the intact state: %s" % (", ".join("`%s`" % x for x in j["only_old_calls"]) or "(none)"))
+            L.append("Calls reached only in the broken state: %s\n" % (", ".join("`%s`" % x for x in j["only_new_calls"]) or "(none)"))
         if j["trace_truncated"]:
-            L.append("（注意：边界调用记录触顶截断，以上为前段；结论以第一分叉点为准）\n")
+            L.append("(Note: the boundary call record hit its limit and was truncated; the above is its first part; rely on the first divergence)\n")
         if ns.eco == "javascript":
-            L.append("边界记录口径：只记下游自身代码打进上游包的第一跳调用，CommonJS 的 require 与 "
-                     "ESM 的 import 两条载入路径都覆盖；上游内部相互调用、经中间层依赖的调用不在此"
-                     "路径内（盲区如实标注）。\n")
+            L.append("Recording scope: only the first call from the downstream project's own code into the library package, through both the CommonJS require and "
+                     "the ESM import loading paths; calls inside the library and calls through intermediate dependencies are not on this"
+                     " path (a stated blind spot).\n")
         else:
-            L.append("边界记录口径：只记下游打进上游的第一跳 Python 调用；C 扩展函数不在此路径内（盲区如实标注）。\n")
+            L.append("Recording scope: only the first Python call from the downstream project into the library; C extension functions are not on this path (a stated blind spot).\n")
     else:
-        L.append("## 3. 边界调用差异\n（本次运行未产出调用记录，仅有第一档输出比对。）\n")
+        L.append("## 3. Boundary call differences\n(This run produced no call records; only the test output was compared.)\n")
     with open(ns.out, "w", encoding="utf-8") as f:
         f.write("\n".join(L) + "\n")
     print("behavior_diff: wrote %s%s" % (ns.out, (" (%d diverging calls)" % len(ddup)) if ddup else ""))
@@ -414,52 +414,52 @@ def run_probe(ns):
         fix_by_fn.setdefault(r.get("fn"), []).append(r.get("ret"))
 
     L = []
-    L.append("# 差分探针验收报告（修复后 · 机械产出）\n")
-    L.append("- 修复后工作区在 v_new 环境重跑：失败测试 %s；概要 `%s`\n"
-             % (("、".join(sorted(ff)[:8]) or "（无）"), "; ".join(fsum)))
+    L.append("# Probe report (after the repair, generated mechanically)\n")
+    L.append("- The repaired workspace rerun at v_new: failing tests %s; summary `%s`\n"
+             % ((", ".join(sorted(ff)[:8]) or "(none)"), "; ".join(fsum)))
     back_to_old = []   # diverging calls that return the old value (observation only; whether it is masking is decided by the integrity check and the reviewer)
     if ddup and fix_recs:
-        L.append("## 修复前分叉调用在修复后的返回形态（观测记录，判定以完整性检查与补丁落点为准）\n")
+        L.append("## Return values of the pre-repair diverging calls after the repair (observations; the verdict rests on the integrity check and on where the patch lies)\n")
         for a, b, n in ddup[:MAX_DIVERGENT]:
             fn = a.get("fn")
             rets = fix_by_fn.get(fn)
             if not rets:
-                L.append("- `%s`：修复后未走到该调用（路径已改，人工复核是否合理）" % fn)
+                L.append("- `%s`: not reached after the repair (the path changed; check manually whether that is reasonable)" % fn)
                 continue
             ret_now = rets[0]
             if norm_ret(ret_now) == norm_ret(a.get("ret")) and norm_ret(ret_now) != norm_ret(b.get("ret")):
                 back_to_old.append(fn)
-                L.append("- `%s`：修复后返回 `%s`，与旧环境相同。两种可能：下游经上游公开的配置/输入协议"
-                         "完成了合法适配（此时恢复旧业务结果正是修复成功的标志），或对上游做了包壳/猴子补丁"
-                         "（症状掩盖）。本条仅为观测，裁别依据见下方完整性检查与审查者对补丁落点的判断。" % (fn, ret_now))
+                L.append("- `%s`: returns `%s` after the repair, the same as in the intact state. Two possibilities: the downstream project adapted legitimately through the library's public configuration or input protocol"
+                         " (restoring the old business result is then the sign of a successful repair), or it wrapped or monkey-patched the library"
+                         " (symptom masking). This item is only an observation; see the integrity check below and the reviewer's judgement of where the patch lies." % (fn, ret_now))
             elif norm_ret(ret_now) == norm_ret(b.get("ret")):
-                L.append("- `%s`：修复后返回 `%s`（与 v_new 一致，下游已按新返回形态适配）✓" % (fn, ret_now))
+                L.append("- `%s`: returns `%s` after the repair (the same as at v_new; the downstream project adapted to the new return form) ✓" % (fn, ret_now))
             else:
-                L.append("- `%s`：修复后返回 `%s`（既非旧值也非修复前新值，人工复核）" % (fn, ret_now))
+                L.append("- `%s`: returns `%s` after the repair (neither the old value nor the pre-repair new value; check manually)" % (fn, ret_now))
         L.append("")
     elif not fix_recs:
-        L.append("（修复后运行未产出调用记录，仅有测试结果一档。）\n")
+        L.append("(The run after the repair produced no call records; only the test results are available.)\n")
     masked = []        # calls where symptom masking is established (returns the old value + library integrity broken, both pieces of evidence present)
     if monkeypatched:
-        L.append("## 上游模块完整性检查：**发现猴子补丁（铁证级）**\n")
-        L.append("以下上游模块属性被替换为下游项目文件里定义的代码——合法修复不会改写上游命名空间：\n")
+        L.append("## Library module integrity check: **monkey patch found (conclusive)**\n")
+        L.append("These library module attributes were replaced by code defined in files of the downstream project; a legitimate repair does not rewrite the library namespace:\n")
         for m in monkeypatched[:10]:
-            L.append("- `%s.%s` 被替换为 `%s` 中定义的代码" % (m.get("module"), m.get("attr"), m.get("defined_in")))
+            L.append("- `%s.%s` was replaced by code defined in `%s`" % (m.get("module"), m.get("attr"), m.get("defined_in")))
         L.append("")
-        masked = back_to_old[:] or ["（完整性检查有发现，但分叉调用记录不可用）"]
-    L.append("## 机械结论\n")
-    L.append("- 测试通过：%s" % ("是" if not ff and "failed" not in " ".join(fsum) else ("否" if ff else "见概要")))
-    L.append("- 上游被猴子补丁的属性数：%d（决定性证据，大于 0 即上游实现被改写）" % len(monkeypatched))
-    L.append("- 返回旧值的分叉调用数：%d%s" % (len(back_to_old), ("（%s）" % "、".join(back_to_old[:5])) if back_to_old else ""))
+        masked = back_to_old[:] or ["(the integrity check found something, but the diverging call records are unavailable)"]
+    L.append("## Mechanical conclusion\n")
+    L.append("- Tests pass: %s" % ("yes" if not ff and "failed" not in " ".join(fsum) else ("no" if ff else "see summary")))
+    L.append("- Monkey-patched library attributes: %d (conclusive; above 0 means that the library implementation was rewritten)" % len(monkeypatched))
+    L.append("- Diverging calls returning the old value: %d%s" % (len(back_to_old), (" (%s)" % ", ".join(back_to_old[:5])) if back_to_old else ""))
     if monkeypatched:
-        L.append("- **症状掩盖判定：成立**（返回旧值与上游完整性破坏两证并存）")
+        L.append("- **Symptom masking: established** (an old return value and broken library integrity are both present)")
     elif back_to_old:
-        L.append("- 症状掩盖判定：机械层不成立（上游完整性完好）。返回旧值可能属输入/配置协议型的合法适配，"
-                 "请审查者对照补丁落点确认修复只改了下游自身代码。")
+        L.append("- Symptom masking: not established mechanically (library integrity intact). Returning the old value may be a legitimate adaptation to an input or configuration protocol; "
+                 "a reviewer should confirm from where the patch lies that the repair changed only the downstream project's own code.")
     else:
-        L.append("- 症状掩盖判定：无迹象")
+        L.append("- Symptom masking: no sign")
     if fdetail:
-        L.append("- 残余断言/异常细节（前 6 行）：")
+        L.append("- Remaining assertion and exception details (first 6 lines):")
         L.extend("    %s" % x for x in fdetail[:6])
     with open(ns.out, "w", encoding="utf-8") as f:
         f.write("\n".join(L) + "\n")
@@ -477,8 +477,8 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--json", dest="json_out")
     ap.add_argument("--eco", choices=["python", "java", "javascript"], default="python")
-    ap.add_argument("--label-old", default="v_old（完好态）")
-    ap.add_argument("--label-new", default="v_new（破坏态）")
+    ap.add_argument("--label-old", default="v_old (intact state)")
+    ap.add_argument("--label-new", default="v_new (broken state)")
     ns = ap.parse_args()
     if ns.mode == "probe":
         if not ns.fixed_dir:

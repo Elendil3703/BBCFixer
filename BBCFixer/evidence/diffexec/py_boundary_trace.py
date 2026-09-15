@@ -88,9 +88,9 @@ def _safe_repr(v):
     try:
         s = repr(v)
     except Exception as e:  # repr itself may raise
-        s = "<repr失败:%s>" % type(e).__name__
+        s = "<repr failed: %s>" % type(e).__name__
     if len(s) > _REPR:
-        s = s[:_REPR] + "…(截断)"
+        s = s[:_REPR] + "...(truncated)"
     return s
 
 
@@ -261,8 +261,8 @@ def _dump():
         "monkeypatched": monkeypatched,
     }
     if not attached:
-        meta["error"] = ("边界调用记录器没有挂上任何上游包（pkgs=%s 一个都没有被导入）。"
-                         "此时记录为空不代表两个版本行为相同，上层必须按失败处理。" % _PKGS)
+        meta["error"] = ("The boundary-call recorder attached to no library package (none of pkgs=%s was imported). "
+                         "An empty record here does not mean that the two versions behave the same; the caller must treat it as a failure." % _PKGS)
     try:
         with open(_OUT, "w", encoding="utf-8") as f:
             for r in _records:

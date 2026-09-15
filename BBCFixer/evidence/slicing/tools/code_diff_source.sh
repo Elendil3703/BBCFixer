@@ -43,8 +43,8 @@ emit() {
   fi
 }
 
-SYMNOTE=""; [ -n "$SYMBOL" ] && SYMNOTE="  (切片符号: $SYMBOL)"
-HEADER="# 源码差异: $ART $OLD -> $NEW$SYMNOTE"
+SYMNOTE=""; [ -n "$SYMBOL" ] && SYMNOTE="  (sliced by symbol: $SYMBOL)"
+HEADER="# source diff: $ART $OLD -> $NEW$SYMNOTE"
 if [ -n "$OUT" ]; then
   mkdir -p "$(dirname "$OUT")"; { echo "$HEADER"; echo; emit; } | tee "$OUT"
 else

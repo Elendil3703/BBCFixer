@@ -163,15 +163,15 @@ def symptom_hits(evidence_dir: str, init_error: str, budget: int = 2200) -> str:
         seg = seg[:650]
         if used + len(seg) > budget:
             continue
-        out.append("[%s · %s 第 %d 行起 · 命中 %s]\n%s" % (dep, fname, ln, "、".join(hit[:6]), seg))
+        out.append("[%s · %s from line %d · matches %s]\n%s" % (dep, fname, ln, ", ".join(hit[:6]), seg))
         used += len(seg)
         if len(out) >= 4:
             break
     if not out:
         return ""
-    src_label = "上游测试改动与源码差异"
-    return ("报错关键词在上游代码证据里命中最密的段落（机械检索，供定位；来自%s）：" % src_label +
-            "关键词 = " + "、".join(kws[:12]) + "\n\n" + "\n\n".join(out))
+    src_label = "the library test changes and source diff"
+    return ("Fragments of the library code evidence that match the most error keywords (mechanical search, for locating; from %s). " % src_label +
+            "Keywords = " + ", ".join(kws[:12]) + "\n\n" + "\n\n".join(out))
 
 
 def evidence_digest(evidence_dir: str, init_error: str = "") -> str:
@@ -200,12 +200,13 @@ def evidence_digest(evidence_dir: str, init_error: str = "") -> str:
             stops = [j for j in (seg.find(s, 1) for s in ("\n- `", "\n## ", "\n# ")) if j > 0]
             if stops:
                 seg = seg[:min(stops)]
-            parts.append("第一分叉点（差分执行实测，下游自身代码打进上游且返回值不同的最靠前一处）：\n"
+            parts.append("First divergence (measured by differential execution: the earliest call from the downstream project's own code into the library whose return value differs):\n"
                          + seg.strip()[:2200])
-        elif "未在下游自身代码的边界调用上探到返回值差异" in t:
-            parts.append("差分执行结论：未在下游自身代码的边界调用上探到返回值差异（探针盲区：多为类型提升、"
-                         "字符串与 bytes、时区、默认参数这类规则性变化）。不要去 /evidence 里找第一分叉点，"
-                         "以下面的失败断言与关键词命中段落为准。")
+        elif "No return-value difference was observed on the boundary calls of the downstream project's own code" in t:
+            parts.append("Differential execution: no return-value difference was observed on the boundary calls of the "
+                         "downstream project's own code (a blind spot of the recorder, typically rule-like changes such as "
+                         "type promotion, str versus bytes, time zones or default arguments). Do not look for a first "
+                         "divergence under /evidence; rely on the failing assertion and the keyword-matched fragments below.")
     hits = symptom_hits(evidence_dir, init_error)
     if hits:
         parts.append(hits)
@@ -259,7 +260,7 @@ def main():
     proj = os.getenv("MINI_PROJ", save)
     image = os.environ["MINI_IMG"]
     test_cmd = os.getenv("MINI_TEST_CMD", "npm test")
-    key_deps = os.getenv("MINI_KEY_DEPS", "（见项目依赖声明）")
+    key_deps = os.getenv("MINI_KEY_DEPS", "(see the project's dependency declarations)")
     mig_date = os.getenv("MINI_MIG_DATE", "")
 
     cfg_path = Path(os.getenv("MINI_CONFIG") or (HERE / "configs" / "bbc-our.yaml"))
@@ -345,7 +346,7 @@ def main():
             task="",
             proj=proj,
             key_deps=key_deps,
-            mig_date=mig_date or "已固定",
+            mig_date=mig_date or "pinned",
             test_cmd=test_cmd,
             lang=lang,
             manifest_names=manifest_names,

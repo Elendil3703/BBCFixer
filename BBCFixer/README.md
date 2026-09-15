@@ -11,7 +11,6 @@ Repairs a behavioral breaking change by building evidence from the upgrade itsel
 | `evidence/diffexec/` | differential execution: runs the failing test in the intact and the broken state, records every call into the library, compares the two runs |
 | `evidence/slicing/` | library diff filtering: fetches both library versions and slices their source and test diffs down to the candidate root API |
 | `agent/` | the repair agent: mini-swe-agent configurations and the runner |
-| `agent/prompts-en/` | English renderings of the prompts, for reading |
 | `lib/`, `patches/` | a reader for `meta.json`; one patch to mini-swe-agent that the experiments needed |
 
 `run.sh` performs the three steps of the approach in order. Sections refer to the paper.
@@ -57,8 +56,6 @@ The evidence of a case is in `work/<id>/evidence/`:
 ## Configurations
 
 `agent/configs/bbc-our.yaml` is BBCFixer. It inherits every budget, model and environment parameter from `bbc-baseline.yaml`, the baseline setting of the paper, and overrides only the prompt, so the two settings can differ in nothing but the injected evidence. `bbc-our-glm.yaml` is the same prompt with one added line, used with GLM-4.5-Air.
-
-The prompts are in Chinese because that is what the experiments used. `agent/prompts-en/` holds English renderings of both; they are for reading and are never sent to a model.
 
 ## Limits
 
