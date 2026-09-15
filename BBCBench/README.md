@@ -2,14 +2,25 @@
 
 100 real dependency upgrades that break a downstream project through a **behavioral breaking change**: the library keeps its interface but changes its run-time behavior, so the break shows up as a failing test, not a compile error. Every case ships a reproducible harness and a reference fix.
 
+## What is here
+
+| Path | What it holds |
+|---|---|
+| `cases/` | one folder per case (100): metadata, the reference fix, and the pinned environment |
+| `harness/image/` | scripts for the 40 cases whose broken environment is a prebuilt Docker image |
+| `harness/lockfile/` | scripts for the 60 cases whose environment is a public `node`/`python` image plus a pinned lockfile |
+| `scripts/` | helpers: download the source snapshots, regenerate `cases.csv`, push images (maintainers) |
+| `cases.csv` | one row per case: id, ecosystem, harness kind, downstream project, library, versions, root API |
+| `LICENSE` | Apache-2.0 |
+
+`cases.csv` lists every case. `cases/<id>/meta.json` describes one case in plain English: what changed in the library, how the downstream fails, what the reference fix does, and the labeled root API.
+
 | | |
 |---|---|
 | Cases | 100 (41 Python, 59 JavaScript) |
 | Reference fix from | benchmark authors (11), downstream maintainers (29), library documentation (60) |
 | States per case | **intact** (old library, tests pass), **broken** (upgraded library, tests fail), **fixed** (reference fix applied, tests pass) |
 | Task for an agent | edit the downstream code so the tests pass with the upgraded library; downgrading is not allowed |
-
-`cases.csv` lists every case. `cases/<id>/meta.json` describes one case in plain English: what changed in the library, how the downstream fails, what the reference fix does, and the labeled root API.
 
 ## Setup
 
@@ -21,14 +32,9 @@ scripts/get-intact.sh          # source snapshots of the 40 image cases (350 MB)
 harness/image/pull-images.sh   # their prebuilt images (about 80 GB in total; pass case ids to pull a few)
 ```
 
-## Two kinds of harness
-
-`meta.json` says which one a case uses (`"harness": "image"` or `"lockfile"`). The commands are the same.
-
-- **image** (40 Python cases): the broken environment is a prebuilt Docker image; the source snapshot lives in `cases/<id>/intact/`.
-- **lockfile** (60 cases): a public `node:<N>` or `python:3.10` image plus a pinned lockfile; the harness clones the downstream commit and installs exactly the recorded dependency tree.
-
 ## Use
+
+`meta.json` says which harness a case uses (`"harness": "image"` or `"lockfile"`). The commands are the same.
 
 ```bash
 H=harness/image      # or harness/lockfile, see meta.json
