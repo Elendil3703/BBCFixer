@@ -5,9 +5,6 @@
 **100 real behavioral breaking changes, each with a reproducible harness and a reference fix**
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Cases](https://img.shields.io/badge/cases-100-brightgreen.svg)](cases.csv)
-[![Python](https://img.shields.io/badge/Python-41-3776AB.svg?logo=python&logoColor=white)](cases.csv)
-[![JavaScript](https://img.shields.io/badge/JavaScript-59-F7DF1E.svg?logo=javascript&logoColor=black)](cases.csv)
 [![Images](https://img.shields.io/badge/images-ghcr.io-2496ED.svg?logo=docker&logoColor=white)](https://github.com/users/Elendil3703/packages/container/package/bbcbench)
 
 </div>

@@ -5,9 +5,6 @@
 **Replication package of *Fixing Behavioral Breaking Changes with LLM Agents***
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](BBCBench/LICENSE)
-[![Cases](https://img.shields.io/badge/cases-100-brightgreen.svg)](BBCBench/cases.csv)
-[![Python](https://img.shields.io/badge/Python-41-3776AB.svg?logo=python&logoColor=white)](BBCBench/)
-[![JavaScript](https://img.shields.io/badge/JavaScript-59-F7DF1E.svg?logo=javascript&logoColor=black)](BBCBench/)
 [![Docker](https://img.shields.io/badge/Docker-required-2496ED.svg?logo=docker&logoColor=white)](BBCBench/#%EF%B8%8F-setup)
 
 </div>
