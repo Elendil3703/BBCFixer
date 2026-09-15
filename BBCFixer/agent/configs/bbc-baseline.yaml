@@ -1,0 +1,150 @@
+# BBC dataset: baseline configuration (no upstream change evidence is injected).
+# The baseline and BBCFixer configurations share the same agent framework and the same
+# budget; the only difference is whether the instance_template of this file supplies
+# upstream information.
+# The action-format section forbids installing dependencies and editing the dependency
+# manifests (same wording in every configuration): runs whose tests all passed have been
+# judged failed because the manifest had been modified.
+
+agent:
+  system_template: |
+    You are a software engineer working in a Linux container. You interact with the
+    computer only through the `bash` tool.
+
+    Every response must contain exactly one `bash` tool call. Briefly state your reasoning
+    before the call. Do not answer in prose without a tool call.
+
+  instance_template: |
+    你是 {{lang}} 项目 `{{proj}}` 的维护者。项目的依赖已经被升级并【固定】在一组新版本上，
+    其中关键依赖为 {{key_deps}}（版本标识：{{mig_date}}）。
+    在这组已固定的依赖下，项目的测试当前无法通过。
+
+    你的任务：修改【项目源代码】，使其在这些已固定的依赖版本上重新通过测试。
+
+    ## 环境
+    - 项目代码在 `{{work_dir}}`，你的所有命令都在容器内执行，依赖已按上述版本装好。
+    - 测试命令：`{{test_cmd}}`
+    - 每条命令都在新的子 shell 中执行，`cd` 与环境变量不会保留。需要时用
+      `cd {{work_dir}} && ...` 或 `VAR=value cmd` 的写法。
+
+    ## 硬性约束（违反即判失败）
+    - 依赖版本必须保持不变：不得降级、不得钉回旧版本、不得删除依赖、不得改用别的库绕过，
+      也不得修改 {{manifest_names}} 里的版本声明。
+    - 必须解决【代码与新版依赖不兼容】的问题本身。若某个接口被移动、改名或行为发生变化，
+      按新版的正确用法适配源代码。
+    - 不得删除测试、跳过测试、注释掉不通过的代码，不得添加 skip / xfail 标记，
+      不得放宽或删改断言。判分时你对测试文件的一切改动都会被丢弃、还原成原始测试重跑。
+
+    ## 调研限制
+    - 不得查阅本项目（{{proj}}）自身的线上资源，包括它的仓库、提交记录、分支、标签、
+      Pull Request、Issue 与 Release Notes。
+    - 可以查阅所依赖的第三方库（如 {{key_deps}}）自身的官方文档、发行说明与接口变更说明。
+
+    ## 建议的工作流程
+    1. 先运行测试命令，看清楚失败的表现。
+    2. 阅读相关源码，判断是哪一处代码与新版依赖的行为不匹配。
+       注意报错的位置未必就是需要修改的位置。
+    3. 修改源代码。
+    4. 重新运行测试验证。
+    5. 全部通过后，用下面这条命令结束任务：`echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`
+       这条命令必须单独发出，不要和其它命令写在一起。
+       <important>发出这条命令之后就无法继续修改了。</important>
+
+    ## 动作格式
+    每次回复必须且只能包含一次 `bash` 工具调用。常用写法：
+
+    - 【不要运行 `npm install`、`pip install` 等任何安装或卸载命令，也不要以任何方式
+      改动 {{manifest_names}} 与 lockfile（package-lock.json 等）】。依赖已经装好。
+      判分会检查依赖树与依赖清单的完整性：即使测试全部通过，这类改动也会被直接判为失败。
+    - 查看指定行：`nl -ba {{work_dir}}/example.py | sed -n '10,30p'`
+    - 修改任何文件之前，先备份一次：`cp {{work_dir}}/example.py {{work_dir}}/example.py.orig`。
+      改坏了立刻用备份恢复（`cp` 回来），不要在改坏的文件上继续修补。
+    - 修改代码一律用【带行号的】定点替换：先用 `nl -ba` 确认行号，再
+      `sed -i '42s/old/new/' {{work_dir}}/example.py`；改动连续多行时用行区间删除加插入，
+      或写一个只替换目标片段的 python 脚本。
+    - 整文件覆写（`cat <<'EOF' > 文件`）【只允许用于 200 行以下的小文件】。大文件禁止整文件覆写：
+      凭记忆重写长文件必然丢失内容，会把整个模块毁掉。动手前先 `wc -l` 看行数。
+    - 【不要使用不带行号的全局替换】，例如 `sed -i 's/old/new/g'`。它会改掉该文件里所有匹配的地方，
+      包括注释、字符串，以及恰好含有同样字符的其它标识符，很容易把文件改成语法错误。
+    - 每次修改之后，立刻用 `nl -ba ... | sed -n` 查看改动处，确认改的是想改的那一行、没有波及别处；
+      Python 文件再跑 `python -c "import ast; ast.parse(open('文件路径').read())"`、JavaScript 文件再跑
+      `node --check 文件路径` 做语法自查，确认没改坏再继续。
+
+  step_limit: 100
+  cost_limit: 4.0
+  wall_time_limit_seconds: 1800
+
+environment:
+  cwd: /work
+  timeout: 600
+  env:
+    PAGER: cat
+    MANPAGER: cat
+    LESS: -R
+    PIP_PROGRESS_BAR: 'off'
+    TQDM_DISABLE: '1'
+    PYTHONDONTWRITEBYTECODE: '1'
+    PYTEST_ADDOPTS: '-p no:cacheprovider'
+
+model:
+  # Use the OpenRouter-specific model class rather than the default litellm class: the
+  # latter estimates the price itself and under-reports it by 2x to 67x depending on the
+  # provider, which would make the cost_limit budget gate meaningless. This class asks
+  # the API for the real billing (usage.include), so cost_limit is enforced correctly.
+  model_class: openrouter
+  # OpenRouter occasionally returns an empty usage record (Usage {}). The default setting
+  # raises a RuntimeError on the spot and kills the whole run (observed as early as step 3).
+  # Tolerate it instead: that step is billed as 0 and the run continues; the real cost of a
+  # batch does not rely on per-step billing, it is checked against the balance difference
+  # reported by the credits endpoint.
+  cost_tracking: ignore_errors
+  model_kwargs:
+    # If unset, the model's maximum output (65536) is reserved for every request and the
+    # request is rejected outright when the balance is insufficient; each step here needs
+    # only a short reasoning passage plus one command, so 4096 is more than enough.
+    max_tokens: 4096
+    # OpenRouter routes automatically among several upstream providers whose quantization
+    # differs widely (the same model drifts between fp4 / fp8 / bf16, and the cost of a
+    # single call differs by almost 10x). Pin a single provider and disable fallbacks,
+    # otherwise every run effectively uses a different model.
+    # Override with the environment variable OPENROUTER_PROVIDER, see run-mini.py.
+    provider:
+      order: ["Venice"]
+      allow_fallbacks: false
+  observation_template: |
+    {% if output.exception_info -%}
+    <exception>{{output.exception_info}}</exception>
+    {% endif -%}
+    <returncode>{{output.returncode}}</returncode>
+    {% if output.output | length < 3000 -%}
+    <output>
+    {{ output.output -}}
+    </output>
+    {%- else -%}
+    <warning>
+    The output of your last command was too long.
+    Please try a different command that produces less output.
+    If you're looking at a file you can try use head, tail or sed to view a smaller number of lines selectively.
+    If you're using grep or find and it produced too much output, you can use a more selective search pattern.
+    If you really need to see something from the full command's output, you can redirect output to a file and then search in that file.
+    </warning>
+    {%- set elided_chars = output.output | length - 3000 -%}
+    <output_head>
+    {{ output.output[:1500] }}
+    </output_head>
+    <elided_chars>
+    {{ elided_chars }} characters elided
+    </elided_chars>
+    <output_tail>
+    {{ output.output[-1500:] }}
+    </output_tail>
+    {%- endif -%}
+  format_error_template: |
+    Format error:
+
+    <error>
+    {{error}}
+    </error>
+
+    Every response must contain exactly one `bash` tool call; found {{actions|length}}.
+    If you want to end the task, call `bash` with `echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT` alone.

@@ -1,0 +1,23 @@
+OpenRouter sometimes answers HTTP 200 with an error body and no "choices" (for example
+"Provider returned error"). Unpatched, the run dies with a KeyError; with this patch the
+response raises a retryable exception and the model call is retried with backoff.
+Apply to <venv>/lib/python3.*/site-packages/minisweagent/models/openrouter_model.py (mini-swe-agent 2.4.6):
+
+--- a/minisweagent/models/openrouter_model.py
++++ b/minisweagent/models/openrouter_model.py
+@@ -77,7 +77,14 @@
+         try:
+             response = requests.post(self._api_url, headers=headers, data=json.dumps(payload), timeout=60)
+             response.raise_for_status()
+-            return response.json()
++            data = response.json()
++            if "choices" not in data:
++                err = (data.get("error") or {}) if isinstance(data, dict) else {}
++                msg = str(err.get("message") or data)[:300]
++                if "rate" in msg.lower() or str(err.get("code")) in ("429", "502"):
++                    raise OpenRouterRateLimitError(f"Provider error without choices: {msg}")
++                raise OpenRouterAPIError(f"Provider error without choices: {msg}")
++            return data
+         except requests.exceptions.HTTPError as e:
+             if response.status_code == 401:
+                 error_msg = "Authentication failed. You can permanently set your API key with `mini-extra config set OPENROUTER_API_KEY YOUR_KEY`."

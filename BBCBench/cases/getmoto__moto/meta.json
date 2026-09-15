@@ -730,6 +730,6 @@
   },
   "upgrade": {
     "kind": "single-package",
-    "intact_pip": "werkzeug==2.1.2"
+    "intact_pip": "werkzeug==2.1.2 flask==2.1.3"
   }
 }
