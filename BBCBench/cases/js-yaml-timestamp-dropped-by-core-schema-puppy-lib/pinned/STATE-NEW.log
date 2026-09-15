@@ -1,0 +1,137 @@
+
+> @upstatement/puppy@0.13.0 test
+> ava
+
+
+  ✔ puppy returns a promise that resolves to a readable stream
+  ✔ puppy stream sources vinyl files
+  ✘ [fail]: vinyl files are annotated with puppy site and page data Did not match snapshot
+  ─
+
+  vinyl files are annotated with puppy site and page data
+
+  test/index.mjs:30
+
+   29:   const fileData = files.map(f => f.data).filter(f => !!f);
+   30:   t.snapshot(fileData);                                    
+   31: });                                                        
+
+  Did not match snapshot
+
+  Difference (- actual, + expected):
+
+    [
+      {
+        page: {
+          path: 'about.html',
+          screenshot: 'about.html.png',
+          title: 'About',
+        },
+        puppy: {
+          assetUrl: Function assetUrl {},
+          siteUrl: Function siteUrl {},
+          staticUrl: Function staticUrl {},
+          url: Function url {},
+        },
+        site: {
+          data: {
+            'foo/bar.json': Object { … },
+            'js/async.js': 'foo',
+            'js/simple.js': Object { … },
+            'test.json': Object { … },
+            'yaml/invoice.yml': {
+              'bill-to': Object { … },
+              comments: `Late afternoon is best. Backup contact is Nancy Billsmer @ 338-4338.␊
+              `,
+  -           date: '2001-01-23',
+  +           date: Date 2001-01-23 00:00:00 UTC {},
+              invoice: 34843,
+              product: Array [ … ],
+              'ship-to': Object { … },
+              tax: 251.42,
+              total: 4443.52,
+            },
+            'yaml/test.yaml': Object { … },
+          },
+          pages: Array [ … ],
+        },
+      },
+      {
+        page: {
+          path: 'index.html',
+          screenshot: 'index.html.png',
+          title: 'Site Index',
+        },
+        puppy: {
+          assetUrl: Function assetUrl {},
+          siteUrl: Function siteUrl {},
+          staticUrl: Function staticUrl {},
+          url: Function url {},
+        },
+        site: {
+          data: {
+            'foo/bar.json': Object { … },
+            'js/async.js': 'foo',
+            'js/simple.js': Object { … },
+            'test.json': Object { … },
+            'yaml/invoice.yml': {
+              'bill-to': Object { … },
+              comments: `Late afternoon is best. Backup contact is Nancy Billsmer @ 338-4338.␊
+              `,
+  -           date: '2001-01-23',
+  +           date: Date 2001-01-23 00:00:00 UTC {},
+              invoice: 34843,
+              product: Array [ … ],
+              'ship-to': Object { … },
+              tax: 251.42,
+              total: 4443.52,
+            },
+            'yaml/test.yaml': Object { … },
+          },
+          pages: Array [ … ],
+        },
+      },
+      {
+        page: {
+          path: 'contact/index.html',
+          screenshot: 'contact/index.html.png',
+          tags: Array [ … ],
+          title: 'Contact Us',
+        },
+        puppy: {
+          assetUrl: Function assetUrl {},
+          siteUrl: Function siteUrl {},
+          staticUrl: Function staticUrl {},
+          url: Function url {},
+        },
+        site: {
+          data: {
+            'foo/bar.json': Object { … },
+            'js/async.js': 'foo',
+            'js/simple.js': Object { … },
+            'test.json': Object { … },
+            'yaml/invoice.yml': {
+              'bill-to': Object { … },
+              comments: `Late afternoon is best. Backup contact is Nancy Billsmer @ 338-4338.␊
+              `,
+  -           date: '2001-01-23',
+  +           date: Date 2001-01-23 00:00:00 UTC {},
+              invoice: 34843,
+              product: Array [ … ],
+              'ship-to': Object { … },
+              tax: 251.42,
+              total: 4443.52,
+            },
+            'yaml/test.yaml': Object { … },
+          },
+          pages: Array [ … ],
+        },
+      },
+    ]
+
+  › file://test/index.mjs:30:5
+
+  ─
+
+  1 test failed
+STATE-NEW rc=1

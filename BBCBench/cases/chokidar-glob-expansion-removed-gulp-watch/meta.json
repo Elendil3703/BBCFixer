@@ -1,0 +1,62 @@
+{
+  "id": "chokidar-glob-expansion-removed-gulp-watch",
+  "name": "chokidar-glob-expansion-removed-gulp-watch",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "floatdrop/gulp-watch",
+    "url": "https://github.com/floatdrop/gulp-watch",
+    "commit": "39e30a2bc5eb229229bf8cbbebbd6d77c5e34025"
+  },
+  "lib": "chokidar",
+  "v_old": "3.4.2",
+  "v_new": "4.0.3",
+  "library_repo": "https://github.com/paulmillr/chokidar",
+  "library_tags": {
+    "old": "3.4.2",
+    "new": "4.0.3"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "chokidar.watch",
+  "root_symbols": [
+    "WatchHelper",
+    "FSWatcher._getWatchHelpers",
+    "FSWatcher.add"
+  ],
+  "behavioral_change": "In chokidar v_new (4.0.0), glob expansion was removed: v_old (3.x) let `chokidar.watch` accept glob strings, deriving the directory to traverse with glob-parent and matching files with anymatch, whereas v4 treats the first argument of `watch` as a literal path. The call form is unchanged and no exception is raised; a pattern such as `/w/test/fixtures/**/*.js` is treated as a non-existent path, so the watcher emits no add, change or unlink events.",
+  "downstream_effect": "gulp-watch resolves the caller's globs to absolute patterns and passes them to `chokidar.watch(globs, options)` in index.js, so after the upgrade the vinyl stream is created and ready fires but no file is ever pushed, and 21 mocha tests time out. The failures give only test file paths and node-internal timer frames plus one frame inside chokidar's own index.js; no line of the downstream index.js or the `chokidar.watch` statement is named.",
+  "reference_fix": "The reference fix rewrites the `chokidar.watch(globs, options)` call in index.js to watch each pattern's glob-parent root and filter files through an `isIgnored` anymatch predicate that never prunes directories, extracting the existing parent-directory matching into `matchingGlob` and adjusting `outputStream.add` accordingly.",
+  "documented_in": "The chokidar v4 README at https://github.com/paulmillr/chokidar#upgrading contrasts v3 `chok.watch('**/*.js')` with v4 `chok.watch('.', { ignored: (path, stats) => stats?.isFile() && !path.endsWith('.js') })`, and its Changelog section announces `v4 (Sep 2024): remove glob support and bundled fsevents`. The README shows a hard-coded example of the strategy but not the general form used by the reference fix, and the 4.0.0 GitHub release notes say only `Remove glob support` with no code.",
+  "failing_tests": [
+    "test/test-api.js :: api :: Basic functionality :: should normalize reported paths for modified files with non-normalized absolute glob",
+    "test/test-api.js :: api :: Basic functionality :: should normalize reported paths for modified files with non-normalized relative glob",
+    "test/test-api.js :: api :: Basic functionality :: should normalize reported paths for removed files with non-normalized absolute glob",
+    "test/test-api.js :: api :: Basic functionality :: should normalize reported paths for removed files with non-normalized relative glob",
+    "test/test-api.js :: api :: add :: should emit added file",
+    "test/test-api.js :: api :: add :: should emit change event on file change",
+    "test/test-base.js :: base :: should be determined by glob",
+    "test/test-base.js :: base :: should be overridden by option",
+    "test/test-callback.js :: callback :: should be called on add event",
+    "test/test-callback.js :: callback :: should be called on add event in new directory",
+    "test/test-callback.js :: callback :: unlinked `file.path` should be absolute (absolute glob)",
+    "test/test-callback.js :: callback :: unlinked `file.path` should be absolute (relative glob)",
+    "test/test-ignore.js :: ignore :: should ignore files (Uncaught Error: EEXIST, with one stack frame in node_modules/chokidar/index.js)",
+    "test/test-ignore.js :: ignore :: should ignore files (done() called multiple times; mocha lists it under the log section)",
+    "test/test-log.js :: log :: should print file name",
+    "test/test-log.js :: log :: should print relative file name",
+    "test/test-log.js :: log :: should print custom watcher name",
+    "test/test-stream.js :: stream :: should emit added file",
+    "test/test-stream.js :: stream :: should emit change event on file change",
+    "test/test-stream.js :: stream :: should emit changed file with stream contents",
+    "test/test-stream.js :: stream :: should emit changed file with stats"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "floatdrop/gulp-watch",
+  "commit": "39e30a2bc5eb229229bf8cbbebbd6d77c5e34025"
+}

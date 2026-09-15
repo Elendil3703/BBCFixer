@@ -1,0 +1,7 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-OLD.log	value	4	Four of the repository's own test titles, verbatim should use defaults to set <isThresholdPassed> value and three should set <isThresholdPassed> value to true, where value means the value of that property and is unrelated to the lodash evaluation method _#value used by the reference fix; the titles have been in the repository since 2016.
+STATE-NEW.log	value	4	Same as STATE-OLD.log: these four tests do not go through the broken chain and pass in all three states, so the titles are identical.
+STATE-FIXED.log	value	4	Same as STATE-OLD.log.

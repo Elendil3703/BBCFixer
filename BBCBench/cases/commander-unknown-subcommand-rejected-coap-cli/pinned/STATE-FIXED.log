@@ -1,0 +1,35 @@
+
+> coap-cli@0.7.1 test /w
+> standard && mocha --bail --reporter spec --check-leaks
+
+
+
+  coap
+    ✓ should error with a invalid URL (54ms)
+    ✓ should error with a wrong URL (51ms)
+[1m(2.05)[0m	    ✓ should GET a given resource by default (68ms)
+[1m(2.05)[0m	    ✓ should GET a given resource by default (bis) (121ms)
+[1m(2.05)[0m	    ✓ should GET not adding a newline (short) (83ms)
+    ✓ should GET non-confirmable (short) (59ms)
+    ✓ should print help if no url (59ms)
+    ✓ should not print status code on quiet option (61ms)
+    ✓ should only emit status code if the response was a 4.04 (61ms)
+[1m(2.05)[0m	    ✓ should GET a given resource by specifying the verb (63ms)
+    ✓ should PUT a given resource (57ms)
+    ✓ should PUT a given resource from an option (61ms)
+    ✓ should POST a given resource (63ms)
+    ✓ should POST a given resource from an option (131ms)
+    ✓ should DELETE a given resource (96ms)
+[1m(2.05)[0m	    ✓ should observe the given resource and emit the values (93ms)
+[1m(2.05)[0m	[1m(2.05)[0m	    ✓ should observe the given resource and emit the values without a new line (83ms)
+[1m(2.05)[0m	[1m(2.05)[0m	    ✓ should support a 4.04 for an observe (72ms)
+    ✓ should support coap option as string (64ms)
+    ✓ should support multiple coap options as string (58ms)
+    ✓ should support coap option as hex (61ms)
+    ✓ should support multiple coap options as hex (66ms)
+    ✓ should support multiple coap options as string and hex mixed (67ms)
+
+
+  23 passing (2s)
+
+STATE-FIXED rc=0

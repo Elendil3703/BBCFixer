@@ -1,0 +1,46 @@
+{
+  "id": "lodash-maxby-iteratee-jop",
+  "name": "lodash-maxby-iteratee-jop",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "flerro/jop",
+    "url": "https://github.com/flerro/jop",
+    "commit": "71e8054b95ecd80e1e3ce2bfc8e9beef2e7772c7"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.max",
+  "root_symbols": [
+    "max",
+    "maxBy",
+    "min",
+    "minBy",
+    "createExtremum",
+    "baseExtremum"
+  ],
+  "behavioral_change": "lodash v4.0.0 split the iteratee-accepting forms of `_.max` and `_.min` into `_.maxBy` and `_.minBy`; `_.max` and `_.min` no longer accept an iteratee and silently ignore the second argument, comparing elements directly. The same release also split `_.sample` with a count into `_.sampleSize`.",
+  "downstream_effect": "The downstream project's operation table in lib/processor.js maps `min` and `max` directly to `_.min` and `_.max` and calls them with a compiled user expression as iteratee; after the upgrade the iteratee is ignored and the wrong object is returned (for example max age yields {name: Andrea, age: 19} instead of {name: Beatrice, age: 21}). The two failures are nodeunit deepEqual assertions whose stack frames name only nodeunit internals and test/processor.js; lodash, minBy, maxBy and lib/processor.js never appear.",
+  "reference_fix": "The reference fix changes the two mappings in lib/processor.js to `min: _.minBy` and `max: _.maxBy`, and additionally changes `_.sample(content, n)` to `_.sampleSize(content, n)` in the same file.",
+  "documented_in": "The lodash Changelog for v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), Compatibility Warnings section, states \"Split `_.max` & `_.min` into `_.maxBy` & `_.minBy`\" and includes a before/after code block (`_.max(objects, 'a')` in 3.10.1 versus `_.maxBy(objects, 'a')` in 4.0.0), which shows the new code form; the `_.sample` to `_.sampleSize` entry in the same section has prose only.",
+  "failing_tests": [
+    "test/processor.js :: Max age",
+    "test/processor.js :: Min age"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "flerro/jop",
+  "commit": "71e8054b95ecd80e1e3ce2bfc8e9beef2e7772c7"
+}

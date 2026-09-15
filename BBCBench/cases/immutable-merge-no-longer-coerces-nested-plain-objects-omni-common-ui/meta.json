@@ -1,0 +1,49 @@
+{
+  "id": "immutable-merge-no-longer-coerces-nested-plain-objects-omni-common-ui",
+  "name": "immutable-merge-no-longer-coerces-nested-plain-objects-omni-common-ui",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "e1-bsd/omni-common-ui",
+    "url": "https://github.com/e1-bsd/omni-common-ui",
+    "commit": "db5bc2e552084e34d5c8f853e8370a1669914cf2"
+  },
+  "lib": "immutable",
+  "v_old": "3.8.3",
+  "v_new": "4.3.9",
+  "library_repo": "https://github.com/immutable-js/immutable-js",
+  "library_tags": {
+    "old": "v3.8.3",
+    "new": "v4.3.9"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "immutable.OrderedMap.merge",
+  "root_symbols": [
+    "mergeIntoMapWith",
+    "mergeWithSources",
+    "Map.merge"
+  ],
+  "behavioral_change": "immutable 4.0.0 removed the deep coercion of the argument to `merge()`. In v_old (3.x) a plain JavaScript object passed to `Map.merge()` was recursively converted as if by `fromJS()`, so nested plain objects became `Map` instances; in v_new the argument is converted only shallowly and nested plain objects are kept as they are. The method name, arity and call form are unchanged and the returned `OrderedMap` has the same size.",
+  "downstream_effect": "In the downstream project (omni-common-ui), `Sidebar._getItems` merges route sidebar configs into an `OrderedMap` and then filters with `item instanceof Map`; after the upgrade every item is a plain object, the filter removes them all, and the Sidebar renders nothing. Seven of eight failures are `TypeError: Cannot read property 'tagName' of null` with frames in react-dom, enzyme and `src/containers/Sidebar/spec.jsx`; the output never names `component.jsx` or `merge`.",
+  "reference_fix": "The reference fix edits only `src/containers/Sidebar/component.jsx`, adding `fromJS` to the import on line 6 and changing `reduction.merge(value.sidebar)` on line 20 to `reduction.merge(fromJS(value.sidebar))`.",
+  "documented_in": "The immutable CHANGELOG (https://github.com/immutable-js/immutable-js/blob/v4.3.9/CHANGELOG.md), section [4.0.0], BREAKING, entry for `merge()`: No longer deeply coerce argument to merge() (#1339), explaining that the argument was previously converted via `fromJS()`. Tier 2: the change is declared in prose only, with no old versus new code.",
+  "failing_tests": [
+    "src/containers/Sidebar/spec.jsx :: calls onExpand when clicking on it",
+    "src/containers/Sidebar/spec.jsx :: when expanded > renders as expanded",
+    "src/containers/Sidebar/spec.jsx :: when expanded > renders items",
+    "src/containers/Sidebar/spec.jsx :: when expanded > renders items according to their order property",
+    "src/containers/Sidebar/spec.jsx :: when expanded > calls onCollapse if the user clicks outside",
+    "src/containers/Sidebar/spec.jsx :: when expanded > calls onCollapse if the user taps outside",
+    "src/containers/Sidebar/spec.jsx :: when expanded > allows deeper routes to override configuration",
+    "src/containers/Sidebar/spec.jsx :: when expanded > allows deeper routes to remove an item"
+  ],
+  "test_cmd": "./node_modules/.bin/jest --ci",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:8",
+    "node_major": 8,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "e1-bsd/omni-common-ui",
+  "commit": "db5bc2e552084e34d5c8f853e8370a1669914cf2"
+}

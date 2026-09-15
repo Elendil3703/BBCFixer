@@ -1,0 +1,49 @@
+{
+  "id": "FrescolinoGroup__pyhdf5io",
+  "name": "FrescolinoGroup__pyhdf5io",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "FrescolinoGroup/pyhdf5io",
+    "url": "https://github.com/FrescolinoGroup/pyhdf5io",
+    "commit": "06f810f25ea695235fd4a64044542a1f080db9ef"
+  },
+  "lib": "h5py",
+  "v_old": "2.10.0",
+  "v_new": "3.14.0",
+  "library_repo": "https://github.com/h5py/h5py",
+  "library_tags": {
+    "old": "2.10.0",
+    "new": "3.14.0"
+  },
+  "reference_fix_source": "maintainer",
+  "root_api": "h5py.Dataset.__getitem__",
+  "root_symbols": [
+    "conv_vlen2str",
+    "init_vlen2str",
+    "Dataset.__getitem__",
+    "Dataset.asstr",
+    "AsStrView"
+  ],
+  "behavioral_change": "h5py v_old 2.10.0 to v_new 3.14.0. h5py.Dataset.__getitem__ returns bytes instead of str for variable-length string data (the UTF-8 decoding was removed; Dataset.asstr is the new explicit interface).",
+  "downstream_effect": "The serialization type-tag lookup no longer matches, so the failure appears in the dispatch logic at a different line from the one where decoding must be added.",
+  "reference_fix": "The reference fix adds decoding of the string read from HDF5 before the type-tag lookup.",
+  "test_cmd": "bash /work/test_FrescolinoGroup__pyhdf5io.sh",
+  "test_files": [
+    "tests/conftest.py",
+    "tests/simple_class.py",
+    "tests/test_save_load.py",
+    "tests/test_subscribe.py",
+    "tests/test_sympy.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:frescolinogroup__pyhdf5io",
+    "python": "3.9.25"
+  },
+  "upgrade": {
+    "kind": "single-package",
+    "intact_pip": "h5py==2.10.0"
+  }
+}

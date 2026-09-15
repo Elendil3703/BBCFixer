@@ -1,0 +1,22 @@
+diff --git a/lib/cli-help.js b/lib/cli-help.js
+index 8da71e8..ed06240 100644
+--- a/lib/cli-help.js
++++ b/lib/cli-help.js
+@@ -41,7 +41,7 @@ function prepareOptions(options) {
+ 	const optionsSection = {
+ 		header: 'Options:',
+ 		optionList: options.map(option => {
+-			let description = option.required && `[red]{Required}`;
++			let description = option.required && `{red Required}`;
+ 			if(option.description) {
+ 				description = description ? `${description} - ${option.description}` : option.description;
+ 			}
+@@ -50,7 +50,7 @@ function prepareOptions(options) {
+ 				name: option.name,
+ 				description,
+ 				alias: option.alias,
+-				typeLabel: option.type && `[underline]{${option.type}}`
++				typeLabel: option.type && `{underline ${option.type}}`
+ 			}
+ 		})
+ 	};

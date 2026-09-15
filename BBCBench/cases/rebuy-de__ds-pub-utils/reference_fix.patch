@@ -1,0 +1,43 @@
+--- pubdsutils/calcs.py
++++ pubdsutils/calcs.py
+@@ -32,7 +32,13 @@
+     """
+     res_norm = s.value_counts(sort=sort, ascending=ascending,
+                               normalize=True, bins=bins, dropna=dropna)
++    res_norm.name = s.name
++    res_norm.index.name = None
++
+     res_regu = s.value_counts(sort=sort, ascending=ascending,
+                               normalize=False, bins=bins, dropna=dropna)
++    res_regu.name = s.name
++    res_regu.index.name = None
++
+     result = pd.concat([res_norm, res_regu], axis=1, keys=['Ratio', 'Count'])
+     return result
+--- pubdsutils/data_fetch.py
++++ pubdsutils/data_fetch.py
+@@ -1,3 +1,4 @@
++import datetime
+ import pandas as pd
+ from hashlib import sha256
+ import pymssql
+@@ -104,7 +105,7 @@
+     df_hash = sha256(df.to_json().encode()).hexdigest()
+     base_filename = '{}_{}_{}'.format(
+         prefix,
+-        pd.datetime.now().isoformat().replace(":", "-").replace(".", "-"),
++        datetime.datetime.now().isoformat().replace(":", "-").replace(".", "-"),
+         df_hash)
+     if path is not None:
+         base_filename = path + base_filename
+--- pubdsutils/preprocessing.py
++++ pubdsutils/preprocessing.py
+@@ -87,7 +87,7 @@
+         pdu._is_cols_input_valid(cols)
+         self.cols = cols
+         self.n_values = n_values
+-        self.ohe = OneHotEncoder(n_values=self.n_values)
++        self.ohe = OneHotEncoder(categories=[range(self.n_values)] * len(self.cols))
+ 
+     def transform(self, df, y=None, **trans_param):
+         """

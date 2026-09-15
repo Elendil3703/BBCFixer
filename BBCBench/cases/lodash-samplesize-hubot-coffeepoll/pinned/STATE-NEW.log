@@ -1,0 +1,129 @@
+
+> hubot-coffeepoll@1.1.3 test
+> mocha --compilers coffee:coffee-script
+
+
+
+  coffeepoll
+[Fri Jul 31 2026 23:25:42 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ shows all commands
+[Fri Jul 31 2026 23:25:42 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ tries to set a radius with something that is not a number
+[Fri Jul 31 2026 23:25:42 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ tries to set a radius with a not valid number
+[Fri Jul 31 2026 23:25:42 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ configure search radius
+[Fri Jul 31 2026 23:25:42 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ rounds search radius
+[Fri Jul 31 2026 23:25:42 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ starts with a default radius configured
+[Fri Jul 31 2026 23:25:42 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ starts with a default place configured
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ configure a place near
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ tries to vote without a poll
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ tries to finish a poll without start one
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+    ✓ tries to verify the partial without a poll
+    api returning a error
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+(node:2841262) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+(Use `node --trace-deprecation ...` to show where the warning was created)
+      ✓ tries to start a poll in a place with no shops nearby
+    with a poll started
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+      1) saves 3 location samples
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+      2) counts the votes
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+      3) tries to vote twice
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+      4) tries to start another poll before finish it
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+      5) tries to vote in a option that does not exist
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+      6) finishes the poll
+      and finished
+[Fri Jul 31 2026 23:25:43 GMT+1000 (Australian Eastern Standard Time)] INFO /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a5f8bacb26c4/src/src/coffeepoll.js is using deprecated documentation syntax
+        ✓ cleans out the poll data
+
+
+  13 passing (1s)
+  6 failing
+
+  1) coffeepoll with a poll started saves 3 location samples:
+
+      AssertionError: expected 0 to deeply equal 3
+      + expected - actual
+
+      -0
+      +3
+      
+      at Context.<anonymous> (test/coffeepoll.js:148:44)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  2) coffeepoll with a poll started counts the votes:
+     AssertionError: expected undefined to deeply equal 1
+      at Context.<anonymous> (test/coffeepoll.js:153:38)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  3) coffeepoll with a poll started tries to vote twice:
+
+      AssertionError: expected [ Array(2) ] to deeply equal [ Array(2) ]
+      + expected - actual
+
+       [
+         "hubot"
+      -  "There's no poll started. To start a poll type '@hubot coffeepoll start'."
+      +  "Sorry @username, but you already voted on this poll. Don't try to be sneaky !"
+       ]
+      
+      at Context.<anonymous> (test/coffeepoll.js:163:45)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  4) coffeepoll with a poll started tries to start another poll before finish it:
+
+      AssertionError: expected [ Array(2) ] to deeply equal [ Array(2) ]
+      + expected - actual
+
+       [
+      -  "username"
+      -  "@hubot coffeepoll start"
+      +  "hubot"
+      +  "You need to finish your poll first !"
+       ]
+      
+      at Context.<anonymous> (test/coffeepoll.js:173:45)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  5) coffeepoll with a poll started tries to vote in a option that does not exist:
+
+      AssertionError: expected [ Array(2) ] to deeply equal [ Array(2) ]
+      + expected - actual
+
+       [
+         "hubot"
+      -  "There's no poll started. To start a poll type '@hubot coffeepoll start'."
+      +  "Hey dude, this options doesn't exist. Are you trying to be funny or what ?"
+       ]
+      
+      at Context.<anonymous> (test/coffeepoll.js:183:45)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  6) coffeepoll with a poll started finishes the poll:
+     TypeError: Cannot read properties of undefined (reading 'name')
+      at Object.win (lib/messages.js:34:48)
+      at Context.<anonymous> (test/coffeepoll.js:194:68)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+
+
+STATE-NEW rc=6

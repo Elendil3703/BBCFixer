@@ -1,0 +1,42 @@
+{
+  "id": "lodash-uniq-iteratee-simple-sentinel",
+  "name": "lodash-uniq-iteratee-simple-sentinel",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "Vungle/simple-sentinel",
+    "url": "https://github.com/Vungle/simple-sentinel",
+    "commit": "196e39012b992fc431f9de9a4b94716e43262857"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.0",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.0",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.uniq",
+  "root_symbols": [
+    "uniq",
+    "uniqBy",
+    "baseUniq"
+  ],
+  "behavioral_change": "lodash v4.0.0 moved the iteratee capability of `_.uniq` into `_.uniqBy`. In v_old `_.uniq(array, iteratee)` deduplicated by the iteratee's return value; in v_new `_.uniq` accepts one argument, silently ignores the second, and deduplicates by SameValueZero reference comparison.",
+  "downstream_effect": "The downstream project's `RedisSentinel.prototype._dedupeSentinels` calls `_.uniq(this.sentinels, function (conf) { ... })` in src/redisSentinel.js:222 to deduplicate by lowercase host and port; after the upgrade no configuration object is removed. The single failure is an assertion (\"expected 3 to strictly equal 2\") whose only frame is tests/redis_sentinel_test.js:104, a different file and directory from the edit site, and lodash, uniq and uniqBy never appear.",
+  "reference_fix": "The reference fix changes `util._.uniq(this.sentinels, iteratee)` to `util._.uniqBy(this.sentinels, iteratee)` in src/redisSentinel.js:222.",
+  "documented_in": "The lodash Changelog for v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), Compatibility Warnings section, \"Split out methods\" list, states \"Split `_.uniq` into `_.sortedUniq`, `_.sortedUniqBy`, & `_.uniqBy`\" with no code block; the new form must be derived by comparing the lodash 3.10.0 `_.uniq` jsdoc with the 4.17.21 `_.uniqBy` jsdoc.",
+  "failing_tests": [
+    "tests/redis_sentinel_test.js:104 :: RedisSentinel when constructing will dedupe the list of sentinels"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:10",
+    "node_major": 10,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "Vungle/simple-sentinel",
+  "commit": "196e39012b992fc431f9de9a4b94716e43262857"
+}

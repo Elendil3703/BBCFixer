@@ -1,0 +1,12 @@
+changed packages (8): ansi-styles, chalk, color-convert, color-name, command-line-usage, escape-string-regexp, has-flag, supports-color
+  OK new ansi-styles@3.2.1 at command-line-usage/node_modules/ansi-styles
+  OK new chalk@2.4.2 at command-line-usage/node_modules/chalk
+  OK new color-convert@1.9.3 at command-line-usage/node_modules/color-convert
+  OK new color-name@1.1.3 at command-line-usage/node_modules/color-name
+  OK new command-line-usage@4.1.0 at cliss/node_modules/command-line-usage
+  OK new command-line-usage@5.0.5 at command-line-usage
+  OK old command-line-usage@4.1.0 at command-line-usage
+  OK new escape-string-regexp@1.0.5 at command-line-usage/node_modules/escape-string-regexp
+  OK new has-flag@3.0.0 at command-line-usage/node_modules/has-flag
+  OK new supports-color@5.5.0 at command-line-usage/node_modules/supports-color
+TREECHECK_OK: every change is inside the allowed closure (16 allowed names)

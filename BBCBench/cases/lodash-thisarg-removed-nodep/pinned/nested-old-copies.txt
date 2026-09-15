@@ -1,0 +1,4 @@
+conventional-changelog-writer/node_modules/lodash
+conventional-changelog/node_modules/lodash
+conventional-commits-parser/node_modules/lodash
+gulp-jshint/node_modules/lodash

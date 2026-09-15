@@ -1,0 +1,85 @@
+
+> generator-pv8-field@1.3.0 test
+> mocha
+
+(node:2844360) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+
+  pv8-field:app
+[?25h(node:2844360) [DEP0180] DeprecationWarning: fs.Stats constructor is deprecated.
+    ✔ creates files
+    1) exposes the proper component name
+    ✔ exposes the proper actions name
+    2) exposes the proper adapter name
+    3) exposes the proper model name
+    ✔ exposes the proper store name
+    4) exposes the proper view name
+
+
+  3 passing (59ms)
+  4 failing
+
+  1) pv8-field:app
+       exposes the proper component name:
+
+      AssertionError [ERR_ASSERTION]: ./scripts/editor/components/fields/fieldName/index.js did not match '/export default FieldName/'.
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-705b405755cb/src/node_modules/yeoman-assert/index.js:156:14
+      at Array.forEach (<anonymous>)
+      at assert.fileContent (node_modules/yeoman-assert/index.js:148:9)
+      at Context.<anonymous> (test/test-app.js:29:12)
+      at process.processImmediate (node:internal/timers:491:21)
+
+  2) pv8-field:app
+       exposes the proper adapter name:
+
+      AssertionError [ERR_ASSERTION]: ./scripts/editor/components/fields/fieldName/fieldNameAdapter.jsx did not match '/export default FieldNameAdapter/'.
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-705b405755cb/src/node_modules/yeoman-assert/index.js:156:14
+      at Array.forEach (<anonymous>)
+      at assert.fileContent (node_modules/yeoman-assert/index.js:148:9)
+      at Context.<anonymous> (test/test-app.js:41:12)
+      at process.processImmediate (node:internal/timers:491:21)
+
+  3) pv8-field:app
+       exposes the proper model name:
+
+      AssertionError [ERR_ASSERTION]: ./scripts/editor/components/fields/fieldName/fieldNameModel.ts did not match '/export default FieldNameModel/'.
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-705b405755cb/src/node_modules/yeoman-assert/index.js:156:14
+      at Array.forEach (<anonymous>)
+      at assert.fileContent (node_modules/yeoman-assert/index.js:148:9)
+      at Context.<anonymous> (test/test-app.js:47:12)
+      at process.processImmediate (node:internal/timers:491:21)
+
+  4) pv8-field:app
+       exposes the proper view name:
+
+      AssertionError [ERR_ASSERTION]: ./scripts/editor/components/fields/fieldName/fieldNameView.jsx did not match '/export default FieldNameView/'.
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-705b405755cb/src/node_modules/yeoman-assert/index.js:156:14
+      at Array.forEach (<anonymous>)
+      at assert.fileContent (node_modules/yeoman-assert/index.js:148:9)
+      at Context.<anonymous> (test/test-app.js:59:12)
+      at process.processImmediate (node:internal/timers:491:21)
+
+
+
+STATE-NEW rc=4

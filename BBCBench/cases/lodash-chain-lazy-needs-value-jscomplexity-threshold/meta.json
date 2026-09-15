@@ -1,0 +1,46 @@
+{
+  "id": "lodash-chain-lazy-needs-value-jscomplexity-threshold",
+  "name": "lodash-chain-lazy-needs-value-jscomplexity-threshold",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "slyg/grunt-jscomplexity-threshold",
+    "url": "https://github.com/slyg/grunt-jscomplexity-threshold",
+    "commit": "92091a142240b1ead39c73fae3c9570cc7035c6b"
+  },
+  "lib": "lodash",
+  "v_old": "2.4.2",
+  "v_new": "3.10.1",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "2.4.2",
+    "new": "3.10.1"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.chain",
+  "root_symbols": [
+    "mixin",
+    "LodashWrapper",
+    "baseWrapperValue",
+    "wrapperValue",
+    "chain"
+  ],
+  "behavioral_change": "lodash 3.0.0 made chaining lazy: operations on an explicit `_.chain()` sequence are no longer executed segment by segment but deferred until `_#value` is called implicitly or explicitly. Method names, arity and call forms are unchanged and no exception is raised.",
+  "downstream_effect": "The downstream project (grunt-jscomplexity-threshold) runs `_.chain(scanReports).sortBy('complexity').reverse().each(...)` in `tasks/util/render.js` without a terminating `.value()`, so after the upgrade the `each` callback (which calls `reporter.add`) never executes and `reporter.render()` returns an empty result. The three failures are assertions such as `expected [] to deeply equal [ 120 ]`; the only production frame is `render.js:32` (`return reporter.render();`), not the chain at lines 12 to 30, and lodash is never named.",
+  "reference_fix": "The reference fix edits only `tasks/util/render.js`, appending `.value();` to the end of the `_.chain` sequence.",
+  "documented_in": "The lodash Changelog v3.0.0 (https://github.com/lodash/lodash/wiki/Changelog), section Compatibility Warnings, states that chaining was made lazy and execution is deferred until `_#value` is called. Tier 2: the change is declared in prose only, with no old versus new code.",
+  "failing_tests": [
+    "test/tasks/util/render.test.coffee :: the render module should pass and ordered by complexity decreasing array to reporter",
+    "test/tasks/util/render.test.coffee :: the render module should exclude incomplete items passed in array",
+    "test/tasks/util/render.test.coffee :: the render module should add <path>, <complexity>, <maintainability>, <lineNumber> and <isThresholdPassed> properties to reporter from passed array"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:8",
+    "node_major": 8,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "slyg/grunt-jscomplexity-threshold",
+  "commit": "92091a142240b1ead39c73fae3c9570cc7035c6b"
+}

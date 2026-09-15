@@ -1,0 +1,13 @@
+diff --git a/package.json b/package.json
+index 28ec32aa..67193f2a 100644
+--- a/package.json
++++ b/package.json
+@@ -12,7 +12,7 @@
+   "dependencies": {
+     "@sailshq/lodash": "^3.10.2",
+     "anchor": "^1.2.0",
+-    "async": "2.6.4",
++    "async": "3.2.6",
+     "encrypted-attr": "1.0.6",
+     "flaverr": "^1.9.2",
+     "lodash.issafeinteger": "4.0.4",

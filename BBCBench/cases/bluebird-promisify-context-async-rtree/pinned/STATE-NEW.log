@@ -1,0 +1,71 @@
+
+> async-rtree@1.2.2 test /w
+> node test.js
+
+TAP version 13
+# large query
+Unhandled rejection TypeError: Cannot set property '$$lala' of undefined
+    at Object.MemStore.put (/w/lib/memmap.js:29:19)
+    at Object.tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Object.ret [as put] (eval at makeNodePromisifiedEval (/w/node_modules/bluebird/js/release/promisify.js:184:12), <anonymous>:13:39)
+    at /w/lib/memmap.js:48:17
+    at Array.map (<anonymous>)
+    at Object.MemStore.batch (/w/lib/memmap.js:44:28)
+    at Object.tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Object.ret [as batch] (eval at makeNodePromisifiedEval (/w/node_modules/bluebird/js/release/promisify.js:184:12), <anonymous>:13:39)
+    at Batch.save (/w/lib/batches.js:72:21)
+    at /w/lib/index.js:127:18
+    at tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/w/node_modules/bluebird/js/release/promise.js:547:31)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at _drainQueueStep (/w/node_modules/bluebird/js/release/async.js:93:12)
+not ok 1 test exited without ending
+  ---
+    operator: fail
+  ...
+not ok 2 test exited without ending
+  ---
+    operator: fail
+  ...
+not ok 3 test exited without ending
+  ---
+    operator: fail
+  ...
+not ok 4 test exited without ending
+  ---
+    operator: fail
+  ...
+not ok 5 test exited without ending
+  ---
+    operator: fail
+  ...
+not ok 6 test exited without ending
+  ---
+    operator: fail
+  ...
+not ok 7 test exited without ending
+  ---
+    operator: fail
+  ...
+not ok 8 test exited without ending
+  ---
+    operator: fail
+  ...
+not ok 9 test exited without ending
+  ---
+    operator: fail
+  ...
+not ok 10 test exited without ending
+  ---
+    operator: fail
+  ...
+
+1..10
+# tests 10
+# pass  0
+# fail  10
+
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

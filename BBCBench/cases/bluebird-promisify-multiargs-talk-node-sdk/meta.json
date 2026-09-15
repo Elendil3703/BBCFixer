@@ -1,0 +1,48 @@
+{
+  "id": "bluebird-promisify-multiargs-talk-node-sdk",
+  "name": "bluebird-promisify-multiargs-talk-node-sdk",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "jianliaoim/talk-node-sdk",
+    "url": "https://github.com/jianliaoim/talk-node-sdk",
+    "commit": "4511989a8332066d2ab1708a9ecfb03610d876ac"
+  },
+  "lib": "bluebird",
+  "v_old": "2.11.0",
+  "v_new": "3.7.2",
+  "library_repo": "https://github.com/petkaantonov/bluebird",
+  "library_tags": {
+    "old": "v2.11.0",
+    "new": "v3.7.2"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "Promise.promisify",
+  "root_symbols": [
+    "Promise.promisify",
+    "nodebackForPromise",
+    "makeNodePromisified"
+  ],
+  "behavioral_change": "In bluebird v_new (3.0.0), `Promise.promisify` and `Promise.promisifyAll` by default resolve the promise with only the first success value passed to the node-style callback, whereas v_old (2.x) collected multiple success values into an array. The call form is unchanged and no exception is raised by the library itself; the old array behaviour is restored with the new `multiArgs: true` option.",
+  "downstream_effect": "talk-node-sdk's src/client.coffee promisifies the `request` module and consumes results with `.spread (res, body) ->`; after the upgrade the promise resolves to the bare response object, `.spread` throws inside the promise chain, and seven mocha tests time out with `done()` never called. The timeout lines carry no stack frames; the only frames come from unhandled rejections pointing at test/main.coffee, src/worker.coffee and bluebird internals, none of which is the file to edit (src/client.coffee), and promisify or spread never appear.",
+  "reference_fix": "The reference fix changes one line in src/client.coffee, adding `multiArgs: true` to the `Promise.promisify` call on line 3.",
+  "documented_in": "bluebird's \"New in bluebird 3.0\" document (docs/docs/new-in-bluebird-3.md, tag v3.7.2), section Promisification API changes, states in prose that promisification now uses only the first callback argument and that a new boolean option `multiArgs` restores the array behaviour. The document gives only prose for this change and no code showing `Promise.promisify(fn, {multiArgs: true})`.",
+  "failing_tests": [
+    "Talk#Main retry connecting should work when api server is started after the client",
+    "Talk#Main client and call apis should get an NO_PERMISSIONT error without authorization",
+    "Talk#Main client and call apis should call the user.readOne with authorization",
+    "Talk#Main worker and test for what he should do should run the tasks every 100ms",
+    "Talk#Main worker and test for what he should do should execute the tasks each second by cron-like schedule",
+    "Talk#Main worker and test for what he should do should not bother the other tasks when a task crashed",
+    "Talk#Main worker and test for what he should do should send a error integration to server when task failed"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:8",
+    "node_major": 8,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "jianliaoim/talk-node-sdk",
+  "commit": "4511989a8332066d2ab1708a9ecfb03610d876ac"
+}

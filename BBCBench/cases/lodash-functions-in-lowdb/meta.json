@@ -1,0 +1,48 @@
+{
+  "id": "lodash-functions-in-lowdb",
+  "name": "lodash-functions-in-lowdb",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "typicode/lowdb",
+    "url": "https://github.com/typicode/lowdb",
+    "commit": "078f74e10c930d9f579789360e8c65ad0847ca8c"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.functions",
+  "root_symbols": [
+    "functions",
+    "functionsIn",
+    "baseFunctions"
+  ],
+  "behavioral_change": "Since lodash 4.0.0, `_.functions` returns only an object's own method names and no longer includes methods inherited through the prototype chain. The function name and signature are unchanged and no error is raised.",
+  "downstream_effect": "The downstream project (lowdb) uses `_.functions(chain)` in `lowChain` to wrap every method of a lodash chain wrapper so that calls auto-evaluate and persist; after the upgrade the call returns an empty array, nothing is wrapped, and calls such as `db(foo).push(...)` return an unevaluated wrapper without writing data. The seven tape failures point at test files with frames only inside tape; `src/index.js` is never named, and although `functionsIn` appears inside a large dumped wrapper object, nothing links it to the failing call.",
+  "reference_fix": "The reference fix changes `_.functions(chain)` at `src/index.js:17` to `_.functionsIn(chain)`.",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog#v400), section Compatibility Warnings, states that `_.functions` now returns only own method names, and `_.functionsIn` is listed among the added methods under Notable Changes with its jsdoc at https://lodash.com/docs#functionsIn. Tier 2: prose only, no code shown.",
+  "failing_tests": [
+    "test/operations.js:9 :: operations / should be equal (not ok 13)",
+    "test/operations.js:10 :: operations / should be equivalent (not ok 14)",
+    "test/operations.js:13 :: operations / should be equivalent (not ok 15)",
+    "test/operations.js:22 :: operations / should be truthy (not ok 16)",
+    "test/mixin.js:8 :: mixin / should be equivalent (not ok 18)",
+    "test/simple.js:15 :: write / should be equivalent (not ok 19)",
+    "test/index.js:24 :: promises / should be equal (not ok 35)"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:10",
+    "node_major": 10,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "typicode/lowdb",
+  "commit": "078f74e10c930d9f579789360e8c65ad0847ca8c"
+}

@@ -1,0 +1,12 @@
+diff --git a/index.js b/index.js
+index 0dec27b..d7cf69e 100644
+--- a/index.js
++++ b/index.js
+@@ -24,6 +24,7 @@ module.exports = function (bodyParser) {
+           return next(err);
+         }
+         if (typeof req.body !== 'string') {
++          req.body = req.body || {};
+           return next();
+         }
+ 

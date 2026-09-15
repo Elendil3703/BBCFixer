@@ -1,0 +1,370 @@
+
+> i18next-parser@9.3.0 test
+> mocha -r @babel/register -r @babel/polyfill --recursive test/*.test.js test/**/*.test.js
+
+
+
+  parser
+    ✔ parses globally on multiple lines
+    ✔ parses multiline function calls
+    ✔ creates context keys
+    ✔ parses html files
+    ✔ parses handlebars files
+    ✔ parses javascript files
+    ✔ parses react files
+    ✔ parses typescript files
+    ✔ creates one file per namespace and per locale
+    ✔ creates an empty namespace file if no key is provided
+    ✔ does not overwrite the namespace file if it already exists
+    ✔ applies withTranslation namespace globally
+    ✔ applies useTranslation namespace globally
+    ✔ applies useTranslation keyPrefix globally
+    ✔ applies namespaces to the corresponding translation function
+    ✔ handles escaped single and double quotes
+    ✔ handles escaped characters
+    ✔ returns buffers
+    ✔ retrieves values in existing catalog and creates old catalog
+    ✔ does not leak values between locales
+    ✔ retrieves context values in existing catalog
+    ✔ saves unused translations in the old catalog
+    ✔ fails on sort with failOnUpdate option
+    ✔ does not fail on sort with already sorted keys with failOnUpdate option
+    ✔ restores translations from the old catalog
+    ✔ ignores plural values in existing catalog if pluralSeparator set to false
+    ✔ retrieves plural values in existing catalog
+    ✔ retrieves plural and context values in existing catalog
+    options
+      ✔ handles output with $LOCALE and $NAMESPACE var
+      ✔ handles custom namespace and key separators
+      ✔ handles disabling namespace and key separators
+      ✔ supports a defaultValue
+      ✔ supports a defaultValue function
+      ✔ supports a defaultValue function with empty result
+      ✔ supports a defaultValue function with conditionals
+      ✔ supports a lineEnding
+      ✔ supports a lineEnding
+      ✔ parses Trans from js file with lexer override to JsxLexer
+      ✔ parses Trans, keeping tags without attributes inline, if transSupportBasicHtmlNodes is true
+      ✔ writes non-breaking space output to json
+      ✔ supports outputing to yml
+      ✔ writes multiline output to yml
+      ✔ supports custom output configuration for yml
+      ✔ writes non-breaking space output to yml
+      ✔ reads existing yml catalog
+      ✔ supports an indentation option
+      ✔ handles skipping the old catalog with createOldCatalogs=false
+      ✔ generates plurals
+      ✔ generates plurals when count is an expression
+      ✔ generates plurals with custom plural separator
+      - generates plurals according to compatibilityJSON value
+      - generates plurals according to compatibilityJSON value for languages with multiple plural forms
+      ✔ generates one plural key for unknow languages
+      ✔ generates plurals for languages with multiple plural forms
+      ✔ generates plurals for defaultValue function
+      ✔ generates plurals for defaultValue as second parameter
+      ✔ generates plurals for different defaultValue in singular and plural form
+      ✔ generates plurals for different defaultValue in plural forms with fallback
+      ✔ generates plurals for defaultValue function for languages with multiple plural forms
+      ✔ generates ordinal
+      ✔ supports customValueTemplate option
+      ✔ supports keepRemoved option
+      ✔ supports keepRemoved option with patterns
+      resetDefaultValueLocale
+        ✔ will not reset (nested) keys if a default value has not changed in the locale
+        ✔ will reset a key if a default value has changed in the locale
+        ✔ will reset a nested key if a default value has changed in the locale
+      verbose
+Parsing file.js
+[en] namespace1
+Unique keys: 3 (2 are plurals)
+Added keys: 3
+Restored keys: 0
+Removed keys: 0
+
+[en] namespace2
+Unique keys: 1 (0 are plurals)
+Added keys: 1
+Restored keys: 0
+Removed keys: 0
+
+        ✔ logs stats unique keys per namespace
+Parsing file.js
+[en] test_log
+Unique keys: 7 (4 are plurals)
+Added keys: 6
+Restored keys: 0
+Removed keys: 3
+
+        ✔ logs added and removed keys
+        with defaultResetLocale
+Parsing file.js
+[fr] test_reset
+Unique keys: 1 (0 are plurals)
+Added keys: 1
+Restored keys: 0
+Removed keys: 2
+Reset keys: 1
+
+[en] test_reset
+Unique keys: 1 (0 are plurals)
+Added keys: 1
+Restored keys: 0
+Removed keys: 2
+Reset keys: 1
+
+          ✔ logs the number of values reset
+      failOnUpdate
+        ✔ fails if a translation is updated
+        ✔ fails if a translation is updated and keepRemoved is true
+        ✔ fails if a translation is updated and keepRemoved is a regex
+        ✔ passes when no translations are updated
+        ✔ passes when no translations are updated and keepRemoved is true
+        ✔ passes when no translations are updated and keepRemoved is a regex
+        ✔ passes when translations are kept and keepRemoved is true
+      lexers
+        ✔ supports custom lexers options
+        ✔ supports function as custom lexer
+        ✔ pass options to custom lexer
+      sort
+        ✔ does not sort by default
+        ✔ supports sort as a boolean
+        ✔ supports sort of the plural keys in count order
+        ✔ supports sort as a function
+        ✔ supports sort of old catalog
+    events
+      ✔ emits a `reading` event
+      ✔ emits a `error` event if the catalog is not valid json
+      ✔ emits an `error` if a lexer does not exist
+      ✔ emits a `warning` event if a key contains a variable
+      ✔ emits a `warning` event if ns prop contains a variable
+      ✔ emits a `warning` event if a component prop contains a variable
+      ✔ emits a `warning` event if a react value contains two variables
+
+  broccoli plugin
+    ✔ works as a broccoli plugin (300ms)
+
+  CLI
+    ✔ works without options (5290ms)
+    ✔ works with `--fail-on-warnings` option (5135ms)
+    ✔ works when no input found (5288ms)
+    ✔ works with `--fail-on-update` option (5151ms)
+
+  gulp plugin
+    ✔ works as a gulp plugin (305ms)
+
+  dotPathToHash helper function
+    ✔ creates an object from a string path
+    ✔ ignores trailing separator
+    ✔ ignores duplicated separator
+    ✔ supports custom separator
+    ✔ handles an empty namespace
+    ✔ handles a target hash
+    ✔ handles a `defaultValue` option
+    ✔ handles a `separator` option
+    ✔ detects duplicate keys with the same value
+    ✔ detects and overwrites duplicate keys with different values
+    ✔ overwrites keys already mapped to a string with an object value
+    ✔ overwrites keys already mapped to an object with a string value
+    ✔ uses old value when there is no new value and does not conflict
+    ✔ uses new value when there is no old value and does not conflict
+
+  getPluralSuffixPosition helper function
+    ✔ returns suffix position for all valid plural forms
+    ✔ returns `-1` for non plural keys
+
+  getSingularForm helper function
+    ✔ returns singular key for all valid plural forms
+    ✔ returns the key unchanged when not in plural form
+    ✔ returns singular key for all valid plural forms with custom pluralSeparator
+    ✔ returns the key unchanged when not in plural form with custom pluralSeparator
+
+  hasRelatedPluralKey helper function
+    ✔ returns false when `source` does not contain valid plural form of `rawKey`
+    ✔ returns true when `source` contains any valid plural form of `rawKey`
+
+  makeDefaultSort helper function
+    ✔ sorts the keys alphanumerically
+    ✔ sorts plural keys in count order
+    ✔ sorts plural keys among other one
+    ✔ sorts keys with custom `pluralSelector`
+
+  mergeHashes helper function
+    ✔ replaces empty `target` keys with `source`
+    ✔ does not replace empty `target` keys with `source` if it is a hash
+    ✔ keeps `target` keys not in `source`
+    ✔ stores into `old` the keys from `source` that are not in `target`
+    ✔ copies `source` keys to `target` regardless of presence when `keepRemoved` is enabled
+    ✔ copies `source` nested keys to `target` regardless of presence when `keepRemoved` is enabled
+    ✔ restores plural keys when the singular one exists
+    ✔ does not restore plural keys when the singular one does not
+    ✔ restores context keys when the singular one exists
+    ✔ restores context keys when the singular one exists (custom contextSeparator)
+    ✔ does not restore context keys when the singular one does not
+    ✔ does not restore context keys when the singular one does not (custom contextSeparator)
+    ✔ works with deep objects
+    ✔ leaves arrays of values (multiline) untouched
+    ✔ resets keys to the target value if they are flagged in the resetKeys object
+    ✔ resets nested keys to the target value if they are flagged in the resetKeys object
+    ✔ ignores keys if they are plurals
+    ✔ resets and flags keys if the resetAndFlag value is set
+    ✔ resets and flags nested keys if the resetAndFlag value is set
+    ✔ keeps the unused keys if they match patterns in keepRemoved
+    ✔ keeps unused nested keys if they match the patterns in keepRemoved
+
+  transferValues helper function
+    ✔ sets undefined keys
+    ✔ overwrites existing keys
+    ✔ keeps nonexisting keys
+
+  BaseLexer
+    ✔ functionPattern() return a regex pattern
+    validateString()
+      ✔ matches double quote strings
+      ✔ matches single quote strings
+      ✔ does not match variables
+      ✔ does not match null value
+      ✔ does not match undefined value
+      ✔ does not match empty string
+
+  HandlebarsLexer
+    ✔ extracts keys from translation components
+    ✔ extracts multiple keys on a single line
+    ✔ extracts the second argument as defaultValue
+    ✔ extracts the defaultValue arguments
+    ✔ extracts the context arguments
+    ✔ extracts keys from translation functions
+    ✔ supports a `functions` option
+    ✔ extracts custom options
+    ✔ extracts boolean options
+    parseArguments()
+      ✔ matches string arguments
+      ✔ matches variable arguments
+      ✔ matches key-value arguments
+      ✔ skips key-value arguments that are variables
+      ✔ matches combinations
+
+  HTMLLexer
+    ✔ extracts keys from html attributes
+    ✔ ignores leading [] of the key
+    ✔ supports the defaultValue option
+    ✔ grabs the default from innerHTML if missing
+    ✔ supports multiline
+    ✔ skip if no key is found
+    ✔ supports a `attr` option
+    ✔ supports a `optionAttr` option
+    ✔ extracts custom options
+    ✔ extracts boolean options
+
+  JavascriptLexer
+    ✔ extracts keys from translation components
+    ✔ extracts the second argument string literal as defaultValue
+    ✔ extracts the second argument template literal as defaultValue
+    ✔ extracts the second argument string concatenation as defaultValue
+    ✔ extracts the defaultValue/context options
+    ✔ emits a `warning` event if the option argument contains a spread operator
+    ✔ extracts the defaultValue/context on multiple lines
+    ✔ extracts the defaultValue/context options with quotation marks
+    ✔ extracts the defaultValue/context options with interpolated value
+    ✔ supports multiline and concatenation
+    ✔ supports multiline template literal keys
+    ✔ extracts keys from single line comments
+    ✔ extracts keys from multiline comments
+    ✔ parses namespace from `t` type argument
+    ✔ does not parse text with `doesn't` or isolated `t` in it
+    ✔ ignores functions that ends with a t
+    ✔ supports a `functions` option
+    ✔ supports async/await
+    ✔ supports the spread operator
+    ✔ supports dynamic imports
+    ✔ supports the es7 syntax
+    ✔ supports basic typescript syntax
+    ✔ supports for t function in options
+    ✔ extracts custom options
+    ✔ extracts boolean options
+    ✔ emits warnings on dynamic keys
+    ✔ extracts non-interpolated tagged templates
+    ✔ emits warnings on interpolated tagged templates
+    ✔ extracts count options
+    useTranslation
+      ✔ extracts default namespace
+      ✔ extracts the first valid namespace when it is an array
+      ✔ emits a `warning` event if the extracted namespace is not a string literal or undefined
+      ✔ leaves the default namespace unchanged if `undefined` is passed
+      ✔ leaves the default namespace unchanged if `undefined` is passed in an array
+      ✔ uses namespace from t function with priority
+      ✔ extracts namespace with a custom hook
+      ✔ extracts namespace with a custom hook defined as nested properties
+    withTranslation
+      ✔ extracts default namespace when it is a string
+      ✔ extracts first valid namespace when it is an array
+      ✔ emits a `warning` event if the extracted namespace is not a string literal or undefined
+      ✔ leaves the default namespace unchanged if `undefined` is passed
+      ✔ leaves the default namespace unchanged if `undefined` is passed in an array
+      ✔ uses namespace from t function with priority
+
+  JsxLexer
+    <Interpolate>
+      ✔ extracts keys from i18nKey attributes
+    <Translation>
+      ✔ extracts keys from render prop
+      ✔ sets ns (namespace) for expressions within render prop
+    <Trans>
+      ✔ extracts keys from i18nKey attributes from closing tags
+      ✔ extracts default value from string literal `defaults` prop
+      ✔ extracts default value from interpolated expression statement `defaults` prop
+      ✔ extracts keys from user-defined key attributes from closing tags
+      ✔ extracts keys from i18nKey attributes from self-closing tags
+      ✔ extracts keys from user-defined key attributes from self-closing tags
+      ✔ extracts custom attributes
+      ✔ extracts boolean attributes
+      ✔ extracts keys from Trans elements without an i18nKey
+      ✔ extracts keys from Trans elements without an i18nKey, but with a defaults prop
+      ✔ extracts keys from Trans elements without an i18nKey, with defaults, and without children
+      ✔ extracts keys from Trans elements and ignores values of expressions and spaces
+      ✔ extracts formatted interpolations correctly
+      ✔ extracts keys from user-defined components
+      ✔ extracts keys from single line comments
+      ✔ extracts keys from multiline comments
+      ✔ invalid interpolation gets stripped
+      ✔ doesn't add a blank key for self-closing or empty tags
+      ✔ erases tags from content
+      ✔ skips dynamic children
+      ✔ handles spread attributes
+      ✔ erases comment expressions
+      ✔ handles jsx fragments
+      ✔ interpolates literal string values
+      ✔ uses the ns (namespace) prop
+      ✔ uses the ns (namespace) prop with curly braces syntax
+      ✔ emits a `warning` event if the component attribute is a JSX spread attribute
+    supports TypeScript
+      ✔ supports basic tsx syntax
+      <Interpolate>
+        ✔ extracts keys from i18nKey attributes
+      <Trans>
+        ✔ extracts keys from i18nKey attributes from closing tags
+        ✔ extracts keys from user-defined key attributes from closing tags
+        ✔ extracts keys from i18nKey attributes from self-closing tags
+        ✔ does not extract variable identifier from i18nKey as key
+        ✔ extracts keys from user-defined key attributes from self-closing tags
+        ✔ extracts keys from Trans elements without an i18nKey
+        ✔ extracts keys from Trans elements and ignores values of expressions and spaces
+        ✔ strips invalid interpolation
+        ✔ doesn't add a blank key for self-closing or empty tags
+        ✔ erases tags from content
+        ✔ erases comment expressions
+        ✔ erases typecasts
+        ✔ keeps self-closing tags untouched when transSupportBasicHtmlNodes is true
+        ✔ keeps empty tag untouched when transSupportBasicHtmlNodes is true
+        ✔ does not unescape i18nKey
+        ✔ unescapes key when i18nKey is not provided
+        ✔ supports the shouldUnescape options
+        ✔ supports multi-step casts
+        ✔ supports variables in identity functions
+        ✔ emits warning on non-literal child
+        ✔ does not emit a warning about non-literal child when defaults and i18nKey are specified
+
+
+  272 passing (22s)
+  2 pending
+
+STATE-OLD rc=0

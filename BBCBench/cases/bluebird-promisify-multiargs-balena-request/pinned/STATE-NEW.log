@@ -1,0 +1,495 @@
+
+> resin-request@4.0.6 test /w
+> gulp test
+
+[04:11:36] Requiring external module coffee-script/register
+[04:11:36] Using gulpfile /w/gulpfile.coffee
+[04:11:36] Starting 'test'...
+[2J[1;3HUnhandled rejection AssertionError: expected undefined to equal 500
+  at /w/tests/request.spec.coffee:179:44
+  at bound (domain.js:301:14)
+  at runBound (domain.js:314:12)
+  at tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+  at Promise._settlePromiseFromHandler (/w/node_modules/bluebird/js/release/promise.js:547:31)
+  at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:604:18)
+  at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+  at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:725:18)
+  at _drainQueueStep (/w/node_modules/bluebird/js/release/async.js:93:12)
+  at _drainQueue (/w/node_modules/bluebird/js/release/async.js:86:9)
+  at Async._drainQueues (/w/node_modules/bluebird/js/release/async.js:102:5)
+  at Immediate.Async.drainQueues (/w/node_modules/bluebird/js/release/async.js:15:14)
+  at runCallback (timers.js:810:20)
+  at tryOnImmediate (timers.js:768:5)
+  at processImmediate [as _immediateCallback] (timers.js:745:5)
+
+
+[92m [0m[32m 36 passing[0m[90m (11s)[0m
+[31m  22 failing[0m
+
+[0m  1) Request: given the token is always fresh .send() given a simple GET endpoint given an absolute url should preserve the absolute url:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  2) Request: given the token is always fresh .send() given a simple GET endpoint given an absolute url should allow passing a baseUrl:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  3) Request: given the token is always fresh .send() given a simple GET endpoint given there is a token should send an Authorization header:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  4) Request: given the token is always fresh .send() given a simple GET endpoint given there is no token should not send an Authorization header:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  5) Request: given the token is always fresh .send() given multiple endpoints should default to GET:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  6) Request: given the token is always fresh .send() given an endpoint that returns a non json response should resolve with the plain body:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  7) Request: given the token is always fresh .send() given an endpoint that accepts a non json body should take the plain body successfully:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  8) Request: given the token is always fresh .send() given simple read only endpoints given a GET endpoint given no response error should correctly make the request:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  9) Request: given the token is always fresh .send() given simple read only endpoints given a GET endpoint given a response error should be rejected with the error message:
+[0m[31m     AssertionError: expected promise to be rejected with an error including 'Server Error' but got 'TypeError: expecting an array or an iterable object but got [object Null]'[0m[90m
+  
+  
+[0m
+[0m  10) Request: given the token is always fresh .send() given simple read only endpoints given a GET endpoint given a response error should have the status code in the error object:
+[0m[31m     Error: timeout of 10000ms exceeded[0m[90m
+    at Timeout.<anonymous> (/w/node_modules/mocha/lib/runnable.js:158:19)
+    at ontimeout (timers.js:498:11)
+    at tryOnTimeout (timers.js:323:5)
+    at Timer.listOnTimeout (timers.js:290:5)
+  
+[0m
+[0m  11) Request: given the token is always fresh .send() given simple read only endpoints given a HEAD endpoint given no response error should correctly make the request:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  12) Request: given the token is always fresh .send() given simple read only endpoints given a HEAD endpoint given a response error should be rejected with a generic error message:
+[0m[31m     AssertionError: expected promise to be rejected with an error including 'The request was unsuccessful' but got 'TypeError: expecting an array or an iterable object but got [object Null]'[0m[90m
+  
+  
+[0m
+[0m  13) Request: given the token is always fresh .send() given simple endpoints that handle a request body given a POST endpoint that mirrors the request body should eventually return the body:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  14) Request: given the token is always fresh .send() given simple endpoints that handle a request body given a PUT endpoint that mirrors the request body should eventually return the body:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  15) Request: given the token is always fresh .send() given simple endpoints that handle a request body given a PATCH endpoint that mirrors the request body should eventually return the body:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  16) Request: given the token is always fresh .send() given simple endpoints that handle a request body given a DELETE endpoint that mirrors the request body should eventually return the body:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  17) Request: given the token needs to be updated given a simplet GET endpoint given a working /whoami endpoint should refresh the token:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  18) Request: given the token needs to be updated given a simplet GET endpoint given a working /whoami endpoint should use the new token in the same request:
+[0m[31m     TypeError: expecting an array or an iterable object but got [object Null][0m[90m
+    at apiRejection (/w/node_modules/bluebird/js/release/promise.js:10:27)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:64:19)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at Request._callback (/w/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/w/node_modules/request/request.js:185:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/w/node_modules/request/request.js:1154:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/w/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+    at IncomingMessage.emit (events.js:208:7)
+    at endReadableNT (_stream_readable.js:1064:12)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:219:9)
+  
+[0m
+[0m  19) Request: given the token needs to be updated given a simplet GET endpoint given /whoami returns 401 should be rejected with an expiration error:
+[0m[31m     AssertionError: expected promise to be rejected with 'ResinExpiredToken' but it was rejected with [TypeError: expecting an array or an iterable object but got [object Null]][0m[90m
+  
+  
+[0m
+[0m  20) Request: given the token needs to be updated given a simplet GET endpoint given /whoami returns 401 should have the session token as an error attribute:
+[0m[31m     AssertionError: expected undefined to equal 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImpvaG5kb2UxIiwiZW1haWwiOiJqb2huZG9lQGpvaG5kb2UuY29tIiwiZ2l0bGFiX2lkIjoxMzI1LCJzb2NpYWxfc2VydmljZV9hY2NvdW50IjpudWxsLCJoYXNQYXNzd29yZFNldCI6dHJ1ZSwibmVlZHNQYXNzd29yZFJlc2V0IjpmYWxzZSwicHVibGljX2tleSI6ZmFsc2UsImZlYXR1cmVzIjpbXSwiaWQiOjEzNDQsImludGVyY29tVXNlckhhc2giOiJlMDM3NzhkZDI5ZTE1NzQ0NWYyNzJhY2M5MjExNzBjZjI4MTBiNjJmNTAyNjQ1MjY1Y2MzNDlkNmRlZGEzNTI0IiwicGVybWlzc2lvbnMiOltdLCJpYXQiOjE0MjY3ODMzMTJ9.v5bmh9HwyUZu8zhh1rA79mTL-1jzDOO8eUr_lVaBwhg'[0m[90m
+    at /w/tests/request.spec.coffee:582:37
+    at bound (domain.js:301:14)
+    at runBound (domain.js:314:12)
+    at tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/w/node_modules/bluebird/js/release/promise.js:547:31)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:725:18)
+    at _drainQueueStep (/w/node_modules/bluebird/js/release/async.js:93:12)
+    at _drainQueue (/w/node_modules/bluebird/js/release/async.js:86:9)
+    at Async._drainQueues (/w/node_modules/bluebird/js/release/async.js:102:5)
+    at Immediate.Async.drainQueues (/w/node_modules/bluebird/js/release/async.js:15:14)
+    at runCallback (timers.js:810:20)
+    at tryOnImmediate (timers.js:768:5)
+    at processImmediate [as _immediateCallback] (timers.js:745:5)
+  
+[0m
+[0m  21) Request: given the token needs to be updated given a simplet GET endpoint given /whoami returns 401 should clear the token:
+[0m[31m     AssertionError: expected true to be false[0m[90m
+    at doAsserterAsyncAndAddThen (/w/node_modules/chai-as-promised/lib/chai-as-promised.js:296:33)
+    at Assertion.<anonymous> (/w/node_modules/chai-as-promised/lib/chai-as-promised.js:286:25)
+    at Assertion.get (/w/node_modules/chai/lib/chai/utils/overwriteProperty.js:50:37)
+    at /w/tests/request.spec.coffee:588:37
+    at bound (domain.js:301:14)
+    at runBound (domain.js:314:12)
+    at tryCatcher (/w/node_modules/resin-settings-storage/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/w/node_modules/resin-settings-storage/node_modules/bluebird/js/release/promise.js:547:31)
+    at Promise._settlePromise (/w/node_modules/resin-settings-storage/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/w/node_modules/resin-settings-storage/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/resin-settings-storage/node_modules/bluebird/js/release/promise.js:729:18)
+    at _drainQueueStep (/w/node_modules/resin-settings-storage/node_modules/bluebird/js/release/async.js:93:12)
+    at _drainQueue (/w/node_modules/resin-settings-storage/node_modules/bluebird/js/release/async.js:86:9)
+    at Async._drainQueues (/w/node_modules/resin-settings-storage/node_modules/bluebird/js/release/async.js:102:5)
+    at Immediate.Async.drainQueues (/w/node_modules/resin-settings-storage/node_modules/bluebird/js/release/async.js:15:14)
+    at runCallback (timers.js:810:20)
+    at tryOnImmediate (timers.js:768:5)
+    at processImmediate [as _immediateCallback] (timers.js:745:5)
+  
+[0m
+[0m  22) Request: given the token needs to be updated given a simplet GET endpoint given /whoami returns a non 401 status code should be rejected with a request error:
+[0m[31m     AssertionError: expected promise to be rejected with 'ResinRequestError' but it was rejected with [TypeError: expecting an array or an iterable object but got [object Null]][0m[90m
+  
+  
+[0m
+
+
+[04:11:48] 'test' errored after 12 s
+[04:11:48] Error in plugin 'gulp-mocha'
+Message:
+    22 tests failed.
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

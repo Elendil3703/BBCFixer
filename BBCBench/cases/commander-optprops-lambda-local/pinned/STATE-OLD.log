@@ -1,0 +1,233 @@
+
+> lambda-local@1.7.4 build
+> tsc
+
+
+> lambda-local@1.7.4 test
+> mocha
+
+
+
+  - Testing utils.js
+    * getAbsolutePath
+      ✓ should return existing path file
+    * generateRandomHex
+      ✓ should not return twice the same value
+
+  - Testing lambdalocal.js Logger
+    * Use winston logger
+      ✓ should correctly load Logger
+    * Use invalid logger (object)
+Invalid logger object ! Using default logger
+      ✓ should ignore call
+    * Use null logger
+Invalid logger object ! Using default logger
+      ✓ should ignore call
+
+  - Testing lambdalocal.js
+    * Basic Run
+warning Using both auth systems: aws_access_key/id and secret_access_token !
+      # Environment Variables
+        ✓ should have automatic env built correctly
+        ✓ should return correct environment variables
+        ✓ should not have overwritten already-existing env vars
+      # LambdaLocal
+        ✓ should return correct testvar
+      # Context object
+        ✓ should contain initialized functionName
+        ✓ should contain initialized awsRequestId
+        ✓ should contain initialized getRemainingTimeInMillis
+        ✓ should contain initialized invokedFunctionArn
+        ✓ should contain done function
+        ✓ should contain succeed function
+        ✓ should contain fail function
+        ✓ should contain clientContext
+      # Environment Variables (destroy)
+warning Using both auth systems: aws_access_key/id and secret_access_token !
+        ✓ environment should have been deleted
+        ✓ should contain an awsRequestId different from the first one
+      # AWS credentials
+        ✓ should return correct credentials
+      * Mocked function
+        # LambdaLocal
+          ✓ should return mocked value
+      * Test timeout
+[31merror[39m: {
+	"errorMessage": "Task timed out after 0.50 seconds",
+	"errorType": "TimeoutError",
+	"stackTrace": [
+		"new TimeoutError (/w/build/lib/utils.js:112:28)",
+		"Context.<anonymous> (/w/build/lib/context.js:110:19)",
+		"listOnTimeout (node:internal/timers:559:17)",
+		"processTimers (node:internal/timers:502:7)"
+	]
+}
+        ✓ should throw TimeoutError (502ms)
+      * Test aws-sdk import
+        ✓ should return an aws-sdk version >= 2 (1522ms)
+      * Return Error object
+[31merror[39m: {
+	"errorMessage": "Failed for an unknown reason !",
+	"errorType": "Error",
+	"stackTrace": [
+		"Object.exports.handler (/w/test/functs/test-func-cb-error.js:5:14)",
+		"Object._executeSync (/w/build/lambdalocal.js:286:47)",
+		"Object.execute (/w/build/lambdalocal.js:83:22)",
+		"Context.<anonymous> (/w/test/test.js:296:29)",
+		"callFnAsync (/w/node_modules/mocha/lib/runnable.js:402:21)",
+		"Test.Runnable.run (/w/node_modules/mocha/lib/runnable.js:342:7)",
+		"Runner.runTest (/w/node_modules/mocha/lib/runner.js:619:10)",
+		"/w/node_modules/mocha/lib/runner.js:745:12",
+		"next (/w/node_modules/mocha/lib/runner.js:536:14)",
+		"/w/node_modules/mocha/lib/runner.js:546:7",
+		"next (/w/node_modules/mocha/lib/runner.js:448:14)",
+		"Immediate._onImmediate (/w/node_modules/mocha/lib/runner.js:514:5)",
+		"processImmediate (node:internal/timers:466:21)"
+	]
+}
+        ✓ should convert it to correct JSON format
+    * Nested Run
+      ✓ Should handle nested calls properly (context singleton)
+    * Promised Run
+      ✓ should return correct values as promise
+      ✓ should be stateless
+    * Async Run
+      ✓ should understand direct return in async functions
+      ✓ should understand Promise return in functions
+[31merror[39m: Failed
+      ✓ should understand Promise rejection in functions
+
+  - Testing cli.js
+    * Basic Run
+[32minfo[39m: START RequestId: 27c579c1-1a3f-2302-6cfb-da6471442014
+[32minfo[39m: End - Result:
+[32minfo[39m: {
+	"result": "testvar",
+	"context": {
+		"callbackWaitsForEmptyEventLoop": false,
+		"functionName": "handler",
+		"functionVersion": "1.0",
+		"invokedFunctionArn": "arn:aws:lambda:not-us-east:306498894336:function:handler:1.0",
+		"memoryLimitInMB": 59050,
+		"awsRequestId": "27c579c1-1a3f-2302-6cfb-da6471442014",
+		"logGroupName": "Group name",
+		"logStreamName": "Stream name",
+		"identity": null,
+		"clientContext": null,
+		"_stopped": false
+	}
+}
+
+
+      ✓ should end normally (197ms)
+[32minfo[39m: START RequestId: f1f7c2f0-5092-545f-13a7-9903828a8eaa
+[32minfo[39m: End - Result:
+[32minfo[39m: 
+
+
+      ✓ should end normally: callback null (99ms)
+[32minfo[39m: START RequestId: e9f49931-8b95-ed42-551e-1529c1f723dd
+[32minfo[39m: End - Result:
+[32minfo[39m: 
+
+
+      ✓ should end normally: callback undefined (92ms)
+    * Failing Run
+[32minfo[39m: START RequestId: d3d5983a-41bf-1c72-9669-bc514fe7d621
+[31merror[39m: End - Error:
+[31merror[39m: Failed !
+
+      ✓ should fail: context (144ms)
+[32minfo[39m: START RequestId: cca37a8f-052b-66ad-a765-3c47feac0186
+[31merror[39m: End - Error:
+[31merror[39m: Failed !
+
+      ✓ should fail: callback string (134ms)
+[32minfo[39m: START RequestId: faecadd4-b4ef-b49e-c19d-8c7d0d606313
+[31merror[39m: End - Error:
+[31merror[39m: 
+
+      ✓ should fail: callback empty string (99ms)
+[32minfo[39m: START RequestId: 51e2a28a-a8d4-b074-2824-c96817c91b90
+[31merror[39m: End - Error:
+[31merror[39m: false
+
+      ✓ should fail: callback false (96ms)
+[32minfo[39m: START RequestId: c810ee07-8a67-9405-82ed-5900901c6bcf
+[31merror[39m: End - Error:
+[31merror[39m: 0
+
+      ✓ should fail: callback 0 (111ms)
+[32minfo[39m: START RequestId: 58d4190b-c5ae-5452-e28e-7af4043f46ca
+[31merror[39m: End - Error:
+[31merror[39m: {
+	"errorMessage": "Unexpected token '}'",
+	"errorType": "SyntaxError",
+	"stackTrace": [
+		"",
+		"",
+		"",
+		"taxError: Unexpected token '}'",
+		"Object.compileFunction (node:vm:360:18)",
+		"wrapSafe (node:internal/modules/cjs/loader:1126:15)",
+		"Module._compile (node:internal/modules/cjs/loader:1162:27)",
+		"Object.Module._extensions..js (node:internal/modules/cjs/loader:1252:10)",
+		"Module.load (node:internal/modules/cjs/loader:1076:32)",
+		"Function.Module._load (node:internal/modules/cjs/loader:911:12)",
+		"Module.require (node:internal/modules/cjs/loader:1100:19)",
+		"require (node:internal/modules/cjs/helpers:119:18)",
+		"Object._executeSync (/w/build/lambdalocal.js:277:26)",
+		"Object.execute (/w/build/lambdalocal.js:83:22)"
+	]
+}
+
+      ✓ should fail: syntax error (129ms)
+[32minfo[39m: START RequestId: 0c9c96f8-0ecc-14ff-d452-e21a298d9e50
+[31merror[39m: End - Error:
+[31merror[39m: {
+	"errorMessage": "Cannot find module 'doNotExist'\nRequire stack:\n- /w/test/functs/test-func-require-error.js\n- /w/build/lambdalocal.js\n- /w/build/cli.js",
+	"errorType": "Error",
+	"stackTrace": [
+		"uire stack:",
+		"w/test/functs/test-func-require-error.js",
+		"w/build/lambdalocal.js",
+		"w/build/cli.js",
+		"Function.Module._resolveFilename (node:internal/modules/cjs/loader:1028:15)",
+		"Function.Module._load (node:internal/modules/cjs/loader:873:27)",
+		"Module.require (node:internal/modules/cjs/loader:1100:19)",
+		"require (node:internal/modules/cjs/helpers:119:18)",
+		"Object.<anonymous> (/w/test/functs/test-func-require-error.js:4:14)",
+		"Module._compile (node:internal/modules/cjs/loader:1198:14)",
+		"Object.Module._extensions..js (node:internal/modules/cjs/loader:1252:10)",
+		"Module.load (node:internal/modules/cjs/loader:1076:32)",
+		"Function.Module._load (node:internal/modules/cjs/loader:911:12)",
+		"Module.require (node:internal/modules/cjs/loader:1100:19)"
+	]
+}
+
+      ✓ should fail: require error (109ms)
+    * Environment test run
+[32minfo[39m: {
+	"res": "potato-device-97"
+}
+[32minfo[39m: Lambda successfully executed in 11ms.
+
+      ✓ event should have used ENV while building (136ms)
+    * Crashing run
+      ✓ should fail (89ms)
+    * Timeout Run
+
+      ✓ should end arbruptly (1108ms)
+    * Not stringifyable run
+      ✓ should fallback on util.inspect (101ms)
+    * Verbose test
+      ✓ should have no output (96ms)
+    * Test --wait-empty-event-loop
+      ✓ should wait for all timeouts to end (1093ms)
+    * Test --version
+      ✓ should match the current latest version (92ms)
+
+
+  47 passing (6s)
+
+STATE-OLD rc=0

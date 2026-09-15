@@ -1,0 +1,12 @@
+diff --git a/bin/cli.js b/bin/cli.js
+--- a/bin/cli.js
++++ b/bin/cli.js
+@@ -35,6 +35,8 @@
+       'Exit with an exit code of 1 when translations are updated (for CI purpose)'
+     )
+ 
++  program.allowExcessArguments()
++
+   program.on('--help', function () {
+     console.log('  Examples:')
+     console.log('')

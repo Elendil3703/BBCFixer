@@ -1,0 +1,12 @@
+diff --git a/src/client.coffee b/src/client.coffee
+index 3d23a9b..1e7e3b2 100644
+--- a/src/client.coffee
++++ b/src/client.coffee
+@@ -1,6 +1,6 @@
+ logger = require 'graceful-logger'
+ Promise = require 'bluebird'
+-request = Promise.promisify require('request')
++request = Promise.promisify require('request'), multiArgs: true
+ 
+ config = require './config'
+ 

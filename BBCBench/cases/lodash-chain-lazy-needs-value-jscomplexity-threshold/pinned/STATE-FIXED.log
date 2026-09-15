@@ -1,0 +1,41 @@
+
+> grunt-jscomplexity-threshold@1.1.0 test /w
+> mocha --compilers coffee:coffee-script/register test/**/*.test.coffee
+
+
+
+  the hasPassedThreshold module
+    ✓ should expose a function
+    ✓ should throw if passed argument is not an array
+    ✓ should return false if passed argument is an empty array
+    ✓ should return true if one of the items has a truthy property isThresholdPassed
+    ✓ should return false if none of the items has a truthy property isThresholdPassed
+
+  the markThresholds module
+    ✓ should expose a function
+    ✓ should return a function
+    ✓ should throw if option parameter is undefined
+    1rst order function
+      ✓ should throw when passed argument is not an array
+      if passed option.complexity is undefined
+        ✓ should use defaults to set <isThresholdPassed> value
+      if passed option.complexity is lower than item complexity attribute
+        ✓ should set <isThresholdPassed> value to true
+      if passed option.maintainability is higher than item maintainability attribute
+        ✓ should set <isThresholdPassed> value to true
+      if passed option.lineNumber is lower than item lineNumber attribute
+        ✓ should set <isThresholdPassed> value to true
+
+  the render module
+    ✓ should expose a function
+    ✓ should instanciate a new reporter
+    ✓ should add <path>, <complexity>, <maintainability>, <lineNumber> and <isThresholdPassed> properties to reporter from passed array
+    ✓ should pass and ordered by complexity decreasing array to reporter
+    ✓ should exclude incomplete items passed in array
+    ✓ should return the rendered output
+    ✓ should throw if passed parameter is not an array
+
+
+  20 passing (16ms)
+
+EXITCODE=0

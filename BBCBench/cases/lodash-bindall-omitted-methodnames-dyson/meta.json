@@ -1,0 +1,47 @@
+{
+  "id": "lodash-bindall-omitted-methodnames-dyson",
+  "name": "lodash-bindall-omitted-methodnames-dyson",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "webpro/dyson",
+    "url": "https://github.com/webpro/dyson",
+    "commit": "817c53bfefc167a5d655544f27b62515dc14e457"
+  },
+  "lib": "lodash",
+  "v_old": "3.7.0",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.7.0",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.bindAll",
+  "root_symbols": [
+    "bindAll",
+    "functions",
+    "functionsIn"
+  ],
+  "behavioral_change": "lodash 4.0.0 removed the v_old behavior of `_.bindAll` binding all methods when `methodNames` is omitted. In v_new, `_.bindAll(config)` binds nothing; the function name and signature are unchanged and no error is raised.",
+  "downstream_effect": "The downstream project (dyson) calls `_.bindAll(config)` in `lib/defaults.js` and later registers `config.callback` with Express as a bare function; after the upgrade `this` inside `response.generate` is no longer the config, `service.template` and `service.collection` are `undefined`, and endpoints return `{}`. The six failures are HTTP response body assertions with frames only in `test/dyson.integration.js`; lodash and `bindAll` never appear in the output.",
+  "reference_fix": "The reference fix changes `_.bindAll(config)` at `lib/defaults.js:49` to `_.bindAll(config, _.functionsIn(config))`.",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), section Compatibility Warnings, states that support for binding all methods by default was removed from `_.bindAll`; `_.functionsIn` is documented at https://lodash.com/docs/4.17.21#functionsIn. Tier 2: prose only, no old versus new code; the fix is derived from the two versions' jsdoc.",
+  "failing_tests": [
+    "dyson.https request should respond with correct body",
+    "dyson .registerServices [integration] should respond with a non-cached response",
+    "dyson .registerServices [integration] should respond with a collection",
+    "dyson .registerServices [integration] should respond with a collection (function)",
+    "dyson .registerServices [integration] should respond with a collection (function, negative)",
+    "dyson .registerServices [integration] should respond with a collection where size is a function"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:14",
+    "node_major": 14,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "webpro/dyson",
+  "commit": "817c53bfefc167a5d655544f27b62515dc14e457"
+}

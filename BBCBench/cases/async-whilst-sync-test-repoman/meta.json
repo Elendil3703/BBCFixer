@@ -1,0 +1,42 @@
+{
+  "id": "async-whilst-sync-test-repoman",
+  "name": "async-whilst-sync-test-repoman",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "basti1302/repoman",
+    "url": "https://github.com/basti1302/repoman",
+    "commit": "69bae2da6bb5f36e00347c22c2b36cfca5e61dec"
+  },
+  "lib": "async",
+  "v_old": "2.6.0",
+  "v_new": "3.2.6",
+  "library_repo": "https://github.com/caolan/async",
+  "library_tags": {
+    "old": "v2.6.0",
+    "new": "v3.2.6"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "async.whilst",
+  "root_symbols": [
+    "whilst",
+    "whilst.check",
+    "whilst._test"
+  ],
+  "behavioral_change": "In async v_new (3.0.0), the `test` function of `whilst`, `doWhilst`, `until` and `doUntil` changed from a synchronous function returning a boolean to an error-first callback style (`test(cb)` calling `cb(null, condition)`). Function names and argument counts are unchanged and no exception is raised; an old synchronous test ignores the callback it is given, so the loop never enters the iteratee or the final callback and stalls silently.",
+  "downstream_effect": "repoman's `GitHub.prototype._paginate` in lib/generator/github.js uses `async.whilst` to page through the GitHub API; after the upgrade its callback never fires and the caller hangs until mocha reports `Timeout of 2000ms exceeded`. The output contains no production file name or line number and never mentions `whilst`; only the test name hints at `_paginate`.",
+  "reference_fix": "The reference fix changes the `check` function inside `GitHub.prototype._paginate` in lib/generator/github.js so that it accepts a callback and reports its result with `cb(null, <bool>)`.",
+  "documented_in": "The async 3.0.0 CHANGELOG (Breaking Changes) announces that `whilst`, `doWhilst`, `until` and `doUntil` now take asynchronous `test` functions, and the API reference at https://caolan.github.io/async/v3/docs.html#whilst shows the new form `function test(cb) { cb(null, count < 5); }` next to the v2 form `function() { return count < 5; }`. The changelog entry itself contains no code; the code form comes from the API reference of the same version.",
+  "failing_tests": [
+    "github _paginate should log remaining usage and pass result"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:6",
+    "node_major": 6,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "basti1302/repoman",
+  "commit": "69bae2da6bb5f36e00347c22c2b36cfca5e61dec"
+}

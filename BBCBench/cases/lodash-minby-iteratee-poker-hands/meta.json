@@ -1,0 +1,45 @@
+{
+  "id": "lodash-minby-iteratee-poker-hands",
+  "name": "lodash-minby-iteratee-poker-hands",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "dsernst/poker-hands",
+    "url": "https://github.com/dsernst/poker-hands",
+    "commit": "f435c77ea6cc639abd19c73180df97c390bdce18"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.min",
+  "root_symbols": [
+    "min",
+    "minBy",
+    "max",
+    "maxBy",
+    "createExtremum",
+    "baseExtremum"
+  ],
+  "behavioral_change": "lodash v4.0.0 split the iteratee-accepting forms of `_.max` and `_.min` into `_.maxBy` and `_.minBy`; `_.min` no longer accepts an iteratee and silently ignores the second argument, comparing elements directly. The name, arity and call form are unchanged and no exception is thrown.",
+  "downstream_effect": "The downstream project calls `_.min(tiebreakers, getValueIndex)` in index.js:135 to pick the strongest card by its index in `cardOrder`; after the upgrade the card strings are compared directly, so the public method `judgeWinner` silently returns the wrong winner. The single failure is a should assertion (\"expected Array [ 0, 0, 1, 0, 1 ] to equal Array [ 1, 0, 1, 0, 0 ]\") whose only frame is test.js:72; lodash, index.js, `_.min`, minBy and getValueIndex never appear.",
+  "reference_fix": "The reference fix changes one line in index.js:135 from `_.min(tiebreakers, getValueIndex)` to `_.minBy(tiebreakers, getValueIndex)`.",
+  "documented_in": "The lodash Changelog for v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog#v400), Compatibility Warnings section, states \"Split `_.max` & `_.min` into `_.maxBy` & `_.minBy`\" and includes a before/after code block (`_.min(objects, 'a')` in 3.10.1 versus `_.minBy(objects, 'a')` in 4.0.0), which shows the new code form.",
+  "failing_tests": [
+    "test.js :: poker > .judgeWinner(hands) should return the index of the winning hand"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "dsernst/poker-hands",
+  "commit": "f435c77ea6cc639abd19c73180df97c390bdce18"
+}

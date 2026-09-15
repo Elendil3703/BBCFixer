@@ -1,0 +1,13 @@
+diff --git a/index.js b/index.js
+index 6ae073f..03d2e04 100644
+--- a/index.js
++++ b/index.js
+@@ -132,7 +132,7 @@ function judgeWinner(players) {
+     return handStrengths.indexOf(_.min(handStrengths));
+   }
+   var tiebreakers = players.map(bestHands[handStrengths[0]]);
+-  return tiebreakers.indexOf(_.min(tiebreakers, getValueIndex));
++  return tiebreakers.indexOf(_.minBy(tiebreakers, getValueIndex));
+ }
+ 
+ module.exports = {

@@ -1,0 +1,42 @@
+{
+  "id": "commander-unknown-subcommand-rejected-coap-cli",
+  "name": "commander-unknown-subcommand-rejected-coap-cli",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "coapjs/coap-cli",
+    "url": "https://github.com/coapjs/coap-cli",
+    "commit": "099f3aa499d5cfa70dd89bef6dea1b0fe63446dc"
+  },
+  "lib": "commander",
+  "v_old": "4.1.1",
+  "v_new": "5.1.0",
+  "library_repo": "https://github.com/tj/commander.js",
+  "library_tags": {
+    "old": "v4.1.1",
+    "new": "v5.1.0"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "Command.command",
+  "root_symbols": [
+    "Command._parseCommand",
+    "Command.unknownCommand",
+    "Command.parseArgs"
+  ],
+  "behavioral_change": "commander 5.0.0 changed two parsing behaviors without changing any export, signature or command-line syntax. First, when a program has registered subcommands and the first operand is not one of them, v_new prints `error: unknown command '<x>'` and exits, whereas v_old (4.1.1) left the operand in `program.args`. Second, after a subcommand is dispatched, v_new keeps the subcommand name in `program.args` (built as `this.args = operands.concat(unknown)`), so `program.args[0]` is the subcommand name rather than the following operand.",
+  "downstream_effect": "The downstream project (coap-cli) registers GET, PUT, POST and DELETE as subcommands while also accepting `coap <url>`, and reads the URL from `program.args[0]`; after the upgrade `coap coap://localhost` is rejected as an unknown command and `coap get coap://localhost` treats `'get'` as the URL. The test command runs mocha with `--bail`, so only one assertion failure (expected '' to deeply equal an Invalid URL message) is reported at `test.js:38`, with stack frames in concat-stream and node internals and none in `index.js`; the output never names commander.",
+  "reference_fix": "The reference fix edits only `index.js`: it adds a module-level `urlArg`, declares the four subcommands as `.command('get <url>')` and similar with an action that stores the URL, adds `program.arguments('[url]').action(...)` for the verb-less form, and replaces the two `program.args[0]` reads with `urlArg`.",
+  "documented_in": "The commander 5.0.0 CHANGELOG.md declares under Added that an error message is displayed for unknown subcommands by default, and the same version's Readme.md (section Specify the argument syntax) shows code for `.arguments('<cmd> [env]').action(...)` and `.command('rmdir <dir> [otherDirs...]').action(...)`. Tier 1 by the dominant component; the secondary change to `program.args` after dispatch is not explicitly declared in the changelog.",
+  "failing_tests": [
+    "test.js :: coap > should error with a invalid URL"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:14",
+    "node_major": 14,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "coapjs/coap-cli",
+  "commit": "099f3aa499d5cfa70dd89bef6dea1b0fe63446dc"
+}

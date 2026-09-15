@@ -1,0 +1,63 @@
+
+> bulk-html-loader@1.0.23 test
+> mocha
+
+
+
+  HtmlLoader
+    ✔ should instantiate a new BulkHtmlLoader instance
+    ✔ should instantiate a new LoaderItem instance
+    ✔ should create a loaderItem using static method BulkHtmlLoader.getLoaderItem()
+(node:19) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+(Use `node --trace-deprecation ...` to show where the warning was created)
+    1) should load 3 urls successfully
+    2) should produce two successful and one failed load
+    3) should invoke onItemLoadComplete callback three times
+    4) should produce 3 warnings
+    5) should invoke callbacks for onError, onWarning and onItemLoadComplete
+    6) should support method chaining
+    ✔ should change events.EventEmitter.defaultMaxListeners
+
+
+  4 passing (48s)
+  6 failing
+
+  1) HtmlLoader
+       should load 3 urls successfully:
+     Error: Timeout of 8000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.spec.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  2) HtmlLoader
+       should produce two successful and one failed load:
+     Error: Timeout of 8000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.spec.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  3) HtmlLoader
+       should invoke onItemLoadComplete callback three times:
+     Error: Timeout of 8000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.spec.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  4) HtmlLoader
+       should produce 3 warnings:
+     Error: Timeout of 8000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.spec.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  5) HtmlLoader
+       should invoke callbacks for onError, onWarning and onItemLoadComplete:
+     Error: Timeout of 8000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.spec.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  6) HtmlLoader
+       should support method chaining:
+     Error: Timeout of 8000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.spec.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+
+
+STATE-NEW rc=6

@@ -1,0 +1,27 @@
+### pip install pydantic==2.5.3
+Collecting pydantic==2.5.3
+  Using cached pydantic-2.5.3-py3-none-any.whl.metadata (65 kB)
+Collecting annotated-types>=0.4.0 (from pydantic==2.5.3)
+  Using cached annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.14.6 (from pydantic==2.5.3)
+  Using cached pydantic_core-2.14.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.5 kB)
+Collecting typing-extensions>=4.6.1 (from pydantic==2.5.3)
+  Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Using cached pydantic-2.5.3-py3-none-any.whl (381 kB)
+Using cached pydantic_core-2.14.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+Using cached annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Installing collected packages: typing-extensions, annotated-types, pydantic-core, pydantic
+  Attempting uninstall: typing-extensions
+    Found existing installation: typing_extensions 4.2.0
+    Uninstalling typing_extensions-4.2.0:
+      Successfully uninstalled typing_extensions-4.2.0
+  Attempting uninstall: pydantic
+    Found existing installation: pydantic 1.10.2
+    Uninstalling pydantic-1.10.2:
+      Successfully uninstalled pydantic-1.10.2
+
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+komposer 0.1.9 requires pydantic<2.0.0,>=1.9.1, but you have pydantic 2.5.3 which is incompatible.
+virtualenv 20.39.1 requires platformdirs<5,>=3.9.1, but you have platformdirs 2.5.2 which is incompatible.
+Successfully installed annotated-types-0.8.0 pydantic-2.5.3 pydantic-core-2.14.6 typing-extensions-4.16.0

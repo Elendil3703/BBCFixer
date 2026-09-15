@@ -1,0 +1,44 @@
+{
+  "id": "lodash-capitalize-generator-react-reflux",
+  "name": "lodash-capitalize-generator-react-reflux",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "TFaga/generator-react-reflux",
+    "url": "https://github.com/TFaga/generator-react-reflux",
+    "commit": "4072988d50d509c71d312d0b31998aa936824447"
+  },
+  "lib": "lodash",
+  "v_old": "3.8.0",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.8.0",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.capitalize",
+  "root_symbols": [
+    "capitalize",
+    "upperFirst"
+  ],
+  "behavioral_change": "lodash 4.0.0 changed `_.capitalize` so that v_new lowercases every character after the first, whereas v_old left them unchanged. The function name, arity and call form are unchanged, and results differ only for inputs with uppercase letters after the first character.",
+  "downstream_effect": "The downstream project (generator-react-reflux) passes lodash into its Yeoman templates, which compute names such as `lodash.capitalize(path.basename(actionsName) + 'Actions')`; after the upgrade `UserActions` becomes `Useractions` inside the generated files while the file paths stay correct. The four failures are yeoman-assert messages such as `did not match '/var UserActions /'` with frames only in `node_modules/yeoman-assert` and the two test files; lodash, `capitalize` and the template files are never mentioned.",
+  "reference_fix": "The reference fix replaces `_.capitalize` with `_.upperFirst` at eighteen sites across eight production files (four Yeoman templates, two generator entry files and two component templates).",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog#v400), section Compatibility Warnings, states the new `_.capitalize` behavior with an inline link to `_.upperFirst` (https://lodash.com/docs#upperFirst), which is listed among the added methods under Notable Changes. Tier 2: no old versus new code is shown.",
+  "failing_tests": [
+    "test/test-actions.js :: react-reflux:actions > when using javascript > correctly creates variable names",
+    "test/test-actions.js :: react-reflux:actions > when using coffeescript > correctly creates variable names",
+    "test/test-store.js :: react-reflux:store > when using javascript > correctly creates variable names",
+    "test/test-store.js :: react-reflux:store > when using coffeescript > correctly creates variable names"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "TFaga/generator-react-reflux",
+  "commit": "4072988d50d509c71d312d0b31998aa936824447"
+}

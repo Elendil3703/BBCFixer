@@ -1,0 +1,81 @@
+
+> grunt-jscomplexity-threshold@1.1.0 test /w
+> mocha --compilers coffee:coffee-script/register test/**/*.test.coffee
+
+
+
+  the hasPassedThreshold module
+    ✓ should expose a function
+    ✓ should throw if passed argument is not an array
+    ✓ should return false if passed argument is an empty array
+    ✓ should return true if one of the items has a truthy property isThresholdPassed
+    ✓ should return false if none of the items has a truthy property isThresholdPassed
+
+  the markThresholds module
+    ✓ should expose a function
+    ✓ should return a function
+    ✓ should throw if option parameter is undefined
+    1rst order function
+      ✓ should throw when passed argument is not an array
+      if passed option.complexity is undefined
+        ✓ should use defaults to set <isThresholdPassed> value
+      if passed option.complexity is lower than item complexity attribute
+        ✓ should set <isThresholdPassed> value to true
+      if passed option.maintainability is higher than item maintainability attribute
+        ✓ should set <isThresholdPassed> value to true
+      if passed option.lineNumber is lower than item lineNumber attribute
+        ✓ should set <isThresholdPassed> value to true
+
+  the render module
+    ✓ should expose a function
+    ✓ should instanciate a new reporter
+    1) should add <path>, <complexity>, <maintainability>, <lineNumber> and <isThresholdPassed> properties to reporter from passed array
+    2) should pass and ordered by complexity decreasing array to reporter
+    3) should exclude incomplete items passed in array
+    ✓ should return the rendered output
+    ✓ should throw if passed parameter is not an array
+
+
+  17 passing (2s)
+  3 failing
+
+  1) the render module should add <path>, <complexity>, <maintainability>, <lineNumber> and <isThresholdPassed> properties to reporter from passed array:
+     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.
+  
+
+  2) the render module should pass and ordered by complexity decreasing array to reporter:
+
+      AssertionError: expected [] to deeply equal [ 150, 120, 100 ]
+      + expected - actual
+
+      -[]
+      +[
+      +  150
+      +  120
+      +  100
+      +]
+      
+      at ReporterMock.render (test/tasks/util/render.test.coffee:113:39)
+      at displayResults (tasks/util/render.js:32:19)
+      at Context.<anonymous> (test/tasks/util/render.test.coffee:120:5)
+  
+
+  3) the render module should exclude incomplete items passed in array:
+
+      AssertionError: expected [] to deeply equal [ 120 ]
+      + expected - actual
+
+      -[]
+      +[
+      +  120
+      +]
+      
+      at ReporterMock.render (test/tasks/util/render.test.coffee:130:39)
+      at displayResults (tasks/util/render.js:32:19)
+      at Context.<anonymous> (test/tasks/util/render.test.coffee:133:5)
+  
+
+
+
+npm ERR! Test failed.  See above for more details.
+EXITCODE=1

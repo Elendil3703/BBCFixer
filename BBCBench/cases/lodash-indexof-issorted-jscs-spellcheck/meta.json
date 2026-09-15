@@ -1,0 +1,47 @@
+{
+  "id": "lodash-indexof-issorted-jscs-spellcheck",
+  "name": "lodash-indexof-issorted-jscs-spellcheck",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "jscs-dev/jscs-spellcheck",
+    "url": "https://github.com/jscs-dev/jscs-spellcheck",
+    "commit": "9496940834009deb4434676e75991bf7245bf3e4"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.indexOf",
+  "root_symbols": [
+    "indexOf",
+    "sortedIndexOf",
+    "binaryIndex",
+    "baseSortedIndex"
+  ],
+  "behavioral_change": "lodash 4.0.0 split the binary-search mode of `_.indexOf` into `_.sortedIndexOf`; the third argument of `_.indexOf` is now only a numeric `fromIndex`, whereas in v_old passing `true` meant the array is sorted and a binary search should be used. In v_new, `true` is coerced to `1`, so the search starts at index 1 and never finds the element at index 0.",
+  "downstream_effect": "The downstream project (jscs-spellcheck) checks words with `_.indexOf(dictionary, word, true) > -1`; after the upgrade single-word option arrays such as `allowWords` are never matched and allowed words are reported as misspellings. The five failures are `assert(checker.checkString('asdf = 1;').isEmpty())` evaluating to false, with one frame each in `test/specs/rules/require-dictionary-words.js`; lodash, `indexOf` and `sortedIndexOf` never appear.",
+  "reference_fix": "The reference fix changes `_.indexOf(dictionary, word, true)` at `lib/rules/require-dictionary-words.js:162` to `_.sortedIndexOf(dictionary, word)`.",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), section Compatibility Warnings, Split out methods list, states that `_.indexOf` and `_.lastIndexOf` were split into `_.sortedIndexOf` and `_.sortedLastIndexOf`. Tier 2: prose only; the new form is derived by comparing the v3 `_.indexOf` and v4 `_.sortedIndexOf` jsdoc.",
+  "failing_tests": [
+    "test/specs/rules/require-dictionary-words.js:113 :: rules/require-dictionary-words allowWords should not report allowed words",
+    "test/specs/rules/require-dictionary-words.js:135 :: rules/require-dictionary-words allowNames should not report allowed names",
+    "test/specs/rules/require-dictionary-words.js:155 :: rules/require-dictionary-words allowWordsInIdentifiers should not report allowed words in identifiers",
+    "test/specs/rules/require-dictionary-words.js:196 :: rules/require-dictionary-words allowNamesAsIdentifiers should not report allowed names as identifiers",
+    "test/specs/rules/require-dictionary-words.js:230 :: rules/require-dictionary-words excludeWords should report excluded words"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:10",
+    "node_major": 10,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "jscs-dev/jscs-spellcheck",
+  "commit": "9496940834009deb4434676e75991bf7245bf3e4"
+}

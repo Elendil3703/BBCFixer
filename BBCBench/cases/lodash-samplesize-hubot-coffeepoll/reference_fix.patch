@@ -1,0 +1,13 @@
+diff --git a/src/coffeepoll.js b/src/coffeepoll.js
+index 7a922d2..f2812a3 100644
+--- a/src/coffeepoll.js
++++ b/src/coffeepoll.js
+@@ -173,7 +173,7 @@ module.exports = (bot) => {
+       () => (
+         searchVenues(params)
+           .then(payload => handleVenues(
+-            _.sample(payload.response.venues, 3), res)
++            _.sampleSize(payload.response.venues, 3), res)
+           )
+           .catch(e => handleSearchError(e, params.near, res))
+       )

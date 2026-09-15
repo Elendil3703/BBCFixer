@@ -1,0 +1,41 @@
+{
+  "id": "lodash-capitalize-sails-navigator",
+  "name": "lodash-capitalize-sails-navigator",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "Zaggen/sails-navigator",
+    "url": "https://github.com/Zaggen/sails-navigator",
+    "commit": "50977c54d457e0ef3b82619fea48713521111181"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.capitalize",
+  "root_symbols": [
+    "capitalize",
+    "upperFirst"
+  ],
+  "behavioral_change": "lodash 4.0.0 changed `_.capitalize` to uppercase the first character and lowercase the rest, whereas v_old changed only the first character. The function name and call form are unchanged.",
+  "downstream_effect": "The downstream project (sails-navigator) derives controller names with `_.capitalize(_.camelCase(routeFragments.pop()))` in `index.coffee`; after the upgrade `KebabCaseController` becomes `KebabcaseController`, which does not exist. The single failure is `AssertionError: expected 'KebabcaseController' to equal 'KebabCaseController'` with frames only in `test/index.spec.coffee`; lodash, `capitalize` and `index.coffee` never appear.",
+  "reference_fix": "The reference fix changes the two `_.capitalize` calls in `index.coffee` (lines 171 and 174) to `_.upperFirst`.",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), section Compatibility Warnings, declares the `_.capitalize` change and links to `_.upperFirst` (https://lodash.com/docs#upperFirst). Tier 2: the replacement is named in prose but no code is shown.",
+  "failing_tests": [
+    "test/index.spec.coffee :: navigator ... When passing a route in kebab-case (words separated by hyphens) should guess the controller equivalent in camelCase"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "Zaggen/sails-navigator",
+  "commit": "50977c54d457e0ef3b82619fea48713521111181"
+}

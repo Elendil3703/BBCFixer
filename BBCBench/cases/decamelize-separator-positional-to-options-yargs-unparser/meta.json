@@ -1,0 +1,41 @@
+{
+  "id": "decamelize-separator-positional-to-options-yargs-unparser",
+  "name": "decamelize-separator-positional-to-options-yargs-unparser",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "yargs/yargs-unparser",
+    "url": "https://github.com/yargs/yargs-unparser",
+    "commit": "94620f3921c1b953d7bdcfc45aeae473d57728dd"
+  },
+  "lib": "decamelize",
+  "v_old": "4.0.0",
+  "v_new": "5.0.1",
+  "library_repo": "https://github.com/sindresorhus/decamelize",
+  "library_tags": {
+    "old": "v4.0.0",
+    "new": "v5.0.1"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "decamelize",
+  "root_symbols": [
+    "decamelize"
+  ],
+  "behavioral_change": "decamelize 5.0.0 moved `separator` from the second positional argument to a field of an options object: the signature changed from `(text, separator = '_')` to `(text, {separator = '_', preserveConsecutiveUppercase = false} = {})`. The v_old call `decamelize(key, '-')` still runs in v_new, but the string `'-'` is destructured as an options object, `separator` falls back to `'_'`, and no error or warning is raised.",
+  "downstream_effect": "In the downstream project (yargs-unparser), `isCamelCased` uses `decamelize(key, '-')` to rebuild the dash form of a key and check it against argv; after the upgrade it produces `some_string` instead, the check always fails, and `unparse` emits an extra `--someString foo`. The two failures are jest `toEqual` mismatches reported at `test/index.spec.js:74` and `:86` with no frame in `index.js`, and the output never mentions decamelize or separator.",
+  "reference_fix": "The reference fix changes one line in `index.js` (line 19), replacing `argv[decamelize(key, '-')]` with `argv[decamelize(key, { separator: '-' })]`.",
+  "documented_in": "The v5.0.0 release notes at https://github.com/sindresorhus/decamelize/releases/tag/v5.0.0 state under Breaking that the `separator` argument moved to the options object and show a diff (`-decamelize('unicornRainbow', '-');` / `+decamelize('unicornRainbow', {separator: '-'});`); the README API section documents the new `decamelize(input, options?)` signature. Tier 1: the documentation shows the new code form.",
+  "failing_tests": [
+    "test/index.spec.js :: should not duplicate keys that are camel-cased",
+    "test/index.spec.js :: should not duplicate nested keys that are camel-cased"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:14",
+    "node_major": 14,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "yargs/yargs-unparser",
+  "commit": "94620f3921c1b953d7bdcfc45aeae473d57728dd"
+}

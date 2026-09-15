@@ -1,0 +1,43 @@
+{
+  "id": "async-queue-drain-becomes-method-acetate",
+  "name": "async-queue-drain-becomes-method-acetate",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "patrickarlt/acetate",
+    "url": "https://github.com/patrickarlt/acetate",
+    "commit": "045575b1f8c138b6b00cdf1bb101ed7a639912d4"
+  },
+  "lib": "async",
+  "v_old": "2.6.1",
+  "v_new": "3.2.6",
+  "library_repo": "https://github.com/caolan/async",
+  "library_tags": {
+    "old": "v2.6.1",
+    "new": "v3.2.6"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "async.queue",
+  "root_symbols": [
+    "internal/queue",
+    "queue.drain",
+    "eventMethod",
+    "queue"
+  ],
+  "behavioral_change": "In async v_new (3.0.0), the event-style members of `queue`, `priorityQueue`, `cargo` and `cargoQueue` such as `q.drain` changed from assignable properties to methods that register a callback, so `q.drain = fn` must become `q.drain(callback)`. async 3 defines these members as non-writable, so in sloppy-mode CommonJS code the old assignment is silently ignored: no exception, no warning, and the user's function is never registered.",
+  "downstream_effect": "acetate's lib/modes/builder.js assigns the build Promise's `resolve` to `buildQueue.drain`; after the upgrade this callback never fires, `build()` stays pending, and ava reports `Promise returned by test never resolved`. The output gives no production file line, no stack frame into lib/, and never mentions drain, queue or the async library.",
+  "reference_fix": "The reference fix changes one site in lib/modes/builder.js, replacing `buildQueue.drain = function() { resolve(pages); };` with `buildQueue.drain(function() { resolve(pages); });`.",
+  "documented_in": "The async CHANGELOG at https://github.com/caolan/async/blob/v3.2.6/CHANGELOG.md, v3.0.0 Breaking Changes section, announces the change and states the new form `q.drain(callback)` in the same entry, so the changelog itself shows the new code form.",
+  "failing_tests": [
+    "builder › should perform a basic build"
+  ],
+  "test_cmd": "./node_modules/.bin/ava test/*.test.js --verbose --serial",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "patrickarlt/acetate",
+  "commit": "045575b1f8c138b6b00cdf1bb101ed7a639912d4"
+}

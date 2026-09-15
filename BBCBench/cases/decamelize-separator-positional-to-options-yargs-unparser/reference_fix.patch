@@ -1,0 +1,13 @@
+diff --git a/index.js b/index.js
+index c2b7581..7fd40b0 100644
+--- a/index.js
++++ b/index.js
+@@ -16,7 +16,7 @@ function hasDefaultValue(key, value, defaults) {
+ 
+ function isCamelCased(key, argv) {
+     return /[A-Z]/.test(key) && camelcase(key) === key && // Is it camel case?
+-        argv[decamelize(key, '-')] != null; // Is the standard version defined?
++        argv[decamelize(key, { separator: '-' })] != null; // Is the standard version defined?
+ }
+ 
+ function keyToFlag(key) {

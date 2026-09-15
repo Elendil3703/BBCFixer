@@ -1,0 +1,148 @@
+
+> muenchhausen@1.0.8 eslint
+> node node_modules/eslint/bin/eslint.js ./lib
+
+
+> muenchhausen@1.0.8 mocha
+> node node_modules/mocha/bin/_mocha
+
+
+
+  Validate fake methods
+    Date.now
+      ✓ Date.now function should have function .text() which returns a string
+      ✓ Date.now function should have property .value
+    Date.random
+      ✓ Date.random function should have function .text() which returns a string
+      ✓ Date.random function should have property .value
+    Date.future
+      ✓ Date.future function should have function .text() which returns a string
+      ✓ Date.future function should have property .value
+    Date.past
+      ✓ Date.past function should have function .text() which returns a string
+      ✓ Date.past function should have property .value
+    Date.month
+      ✓ Date.month function should have function .text() which returns a string
+      ✓ Date.month function should have property .value
+    Date.weekday
+      ✓ Date.weekday function should have function .text() which returns a string
+      ✓ Date.weekday function should have property .value
+    Emoji.random
+      ✓ Emoji.random function should have function .text() which returns a string
+      ✓ Emoji.random function should have property .value
+    Emoji.icon
+      ✓ Emoji.icon function should have function .text() which returns a string
+      ✓ Emoji.icon function should have property .value
+    Number.random
+      ✓ Number.random function should have function .text() which returns a string
+      ✓ Number.random function should have property .value
+    Phone.international
+      ✓ Phone.international function should have function .text() which returns a string
+      ✓ Phone.international function should have property .value
+    Phone.national
+      ✓ Phone.national function should have function .text() which returns a string
+      ✓ Phone.national function should have property .value
+    Phone.e164
+      ✓ Phone.e164 function should have function .text() which returns a string
+      ✓ Phone.e164 function should have property .value
+    Time.now
+      ✓ Time.now function should have function .text() which returns a string
+      ✓ Time.now function should have property .value
+    Time.random
+      ✓ Time.random function should have function .text() which returns a string
+      ✓ Time.random function should have property .value
+    Time.future
+      ✓ Time.future function should have function .text() which returns a string
+      ✓ Time.future function should have property .value
+    Time.past
+      ✓ Time.past function should have function .text() which returns a string
+      ✓ Time.past function should have property .value
+    Decimal.random
+      ✓ Decimal.random function should have function .text() which returns a string
+      ✓ Decimal.random function should have property .value
+    Boolean.random
+      ✓ Boolean.random function should have function .text() which returns a string
+      ✓ Boolean.random function should have property .value
+    Random.element
+      ✓ Random.element function should have function .text() which returns a string
+      ✓ Random.element function should have property .value
+    Person.firstname
+      ✓ Person.firstname function should have function .text() which returns a string
+      ✓ Person.firstname function should have property .value
+    Person.lastname
+      ✓ Person.lastname function should have function .text() which returns a string
+      ✓ Person.lastname function should have property .value
+    Company.name
+      ✓ Company.name function should have function .text() which returns a string
+      ✓ Company.name function should have property .value
+    Address.random
+      ✓ Address.random function should have function .text() which returns a string
+      ✓ Address.random function should have property .value
+    Address.lon
+      ✓ Address.lon function should have function .text() which returns a string
+      ✓ Address.lon function should have property .value
+    Address.lat
+      ✓ Address.lat function should have function .text() which returns a string
+      ✓ Address.lat function should have property .value
+    Address.street
+      ✓ Address.street function should have function .text() which returns a string
+      ✓ Address.street function should have property .value
+    Address.city
+      ✓ Address.city function should have function .text() which returns a string
+      ✓ Address.city function should have property .value
+    Address.district
+      ✓ Address.district function should have function .text() which returns a string
+      ✓ Address.district function should have property .value
+    Address.postcode
+      ✓ Address.postcode function should have function .text() which returns a string
+      ✓ Address.postcode function should have property .value
+    Address.number
+      ✓ Address.number function should have function .text() which returns a string
+      ✓ Address.number function should have property .value
+
+  muenchhausen weekday name
+    ✓ should render a weeday in english!
+    ✓ should render a weekday in german!
+
+  muenchhausen month name
+    ✓ should render a month name in english!
+    ✓ should render a month name in german!
+    muenchhausen date creation
+      ✓ should render a date within the specified range every time
+
+  muenchhausen decimal
+    ✓ should render a decimal!
+    ✓ should render a decimal between 100 and 200!
+    ✓ should render a decimal between 100 and 200 with 3 decimal places!
+
+  muenchhausen emojis
+    ✓ should render 3 fake emojis!
+    ✓ should render a heart!
+
+  i18n-json-files
+    ✓ should contain valid JSON (Array) in  (88ms)
+
+  muenchhausen main rendering
+    ✓ should render random data!
+    ✓ should fail to render random data!
+
+  muenchhausen number
+    ✓ should render a number!
+    ✓ should render a number between 100 and 200!
+    ✓ should render a number between min and max where min is zero!
+    ✓ should render a number between min and max where max is zero!
+
+  muenchhausen person
+    ✓ should render with unknown culture string!
+
+  muenchhausen random
+    ✓ should render 3 random items!
+
+  large files
+    ✓ should read random line from large file fast!
+    ✓ should fail read random line from large file fast!
+
+
+  81 passing (210ms)
+
+STATE-OLD rc=0

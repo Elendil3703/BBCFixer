@@ -1,0 +1,10 @@
+19c19
+< async	async@2.6.0
+---
+> async	async@3.2.6
+24a25
+> bagofcli/node_modules/async	async@2.6.0
+25a27
+> bagofrequest/node_modules/async	async@2.6.0
+50a53
+> cmdt/node_modules/async	async@2.6.0

@@ -1,0 +1,43 @@
+{
+  "id": "yaml-linepos-shape-change-speccy",
+  "name": "yaml-linepos-shape-change-speccy",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "wework/speccy",
+    "url": "https://github.com/wework/speccy",
+    "commit": "3c2cc952261c4cb314b6a8729da99032417375bd"
+  },
+  "lib": "yaml",
+  "v_old": "1.6.0",
+  "v_new": "2.9.0",
+  "library_repo": "https://github.com/eemeli/yaml",
+  "library_tags": {
+    "old": "v1.6.0",
+    "new": "v2.9.0"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "yaml.parse",
+  "root_symbols": [
+    "YAMLError",
+    "prettifyError",
+    "LineCounter.linePos"
+  ],
+  "behavioral_change": "yaml v2.0.0 changed the shape of the `linePos` property on errors thrown by `parse`. In v_old (1.6.0) it was an object `{ start: { line, col }, end: { line, col } }`; in v_new (2.9.0) it is a tuple `[{ line, col }, { line, col }]` matching the new `error.pos`, and the `start` and `end` properties no longer exist.",
+  "downstream_effect": "The downstream project's `loadSpec` catch block in lib/loader.js:183 reads `err.linePos.start.line`, which now throws a TypeError that escapes the catch block and replaces the intended `ReadError`. The two jest failures report only \"Expected constructor: ReadError, Received constructor: TypeError\" with frames in test/lib/loader.test.js; node_modules/yaml, the version numbers and linePos never appear, although the test title \"Loader › loadSpec()\" points toward lib/loader.js.",
+  "reference_fix": "The reference fix edits the catch block in lib/loader.js so that it takes `err.linePos[0]` when `linePos` is an array, falls back to `err.linePos.start` otherwise, and omits the position prefix when neither is available.",
+  "documented_in": "The yaml release notes for v2.0.0-5 (https://github.com/eemeli/yaml/releases/tag/v2.0.0-5), BREAKING CHANGES entry \"Replace `error.offset` with `error.pos: [number, number]` (#260)\", state that `error.linePos` is changed to a matching tuple of `{ line, col }` values, and the v2.0.0 release notes (https://github.com/eemeli/yaml/releases/tag/v2.0.0) link back to it; the entry is prose only with no code showing how to read the new shape.",
+  "failing_tests": [
+    "test/lib/loader.test.js :: Loader › loadSpec() › errors when duplicate keys exist",
+    "test/lib/loader.test.js :: Loader › loadSpec() › throws ReadError for invalid YAML/JSON"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "wework/speccy",
+  "commit": "3c2cc952261c4cb314b6a8729da99032417375bd"
+}

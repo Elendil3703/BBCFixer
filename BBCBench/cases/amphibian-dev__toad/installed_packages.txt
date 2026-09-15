@@ -1,0 +1,25 @@
+Python 3.12.13
+Cython==3.2.8
+iniconfig==2.3.0
+joblib==1.5.3
+maturin==1.14.1
+narwhals==2.23.0
+numpy==2.5.1
+packaging==26.2
+pandas==3.0.2
+pluggy==1.6.0
+Pygments==2.20.0
+pytest==9.1.1
+python-dateutil==2.9.0.post0
+scikit-learn==1.9.0
+scipy==1.18.0
+semantic-version==2.10.0
+setuptools==83.0.0
+setuptools-rust==1.13.0
+setuptools-scm==10.2.0
+six==1.17.0
+threadpoolctl==3.6.0
+# Editable install with no version control (toad==0.1.5)
+-e /work
+vcs-versioning==2.2.2
+wheel==0.47.0

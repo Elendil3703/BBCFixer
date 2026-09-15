@@ -1,0 +1,153 @@
+
+> glob-watcher@6.0.0 pretest
+> npm run lint
+
+
+> glob-watcher@6.0.0 lint
+> eslint .
+
+
+> glob-watcher@6.0.0 test
+> nyc mocha test test/lib --async-only
+
+
+
+  glob-watcher
+    1) only requires a glob and returns watcher
+    2) picks up added files
+    3) works with OS-specific cwd
+    4) accepts a callback & calls when file is changed
+    5) accepts a callback & calls when file is added
+    6) waits for completion is signaled before running again
+    7) can signal completion with a stream
+    8) emits an error if one occurs in the callback and handler attached
+    9) does not emit an error (and crash) when no handlers attached
+    10) allows the user to disable queueing
+    11) allows the user to adjust delay
+    12) passes options to chokidar
+    13) does not override default values with null values
+    14) watches exactly the given event
+    15) accepts multiple events to watch
+    ✓ can ignore a glob after it has been added (1501ms)
+    ✓ can re-add a glob after it has been negated
+    ✓ can re-add a glob after it has been negated (unix style path)
+    ✓ does not mutate the globs array
+    ✓ passes ignores through to chokidar (1501ms)
+    ✓ ignoring globs also works with `cwd` option (1500ms)
+
+  lib/debounce
+    ✓ should call an original function with specified delay
+    ✓ should extend delay against multiple calls (54ms)
+    ✓ should extends delay if a preceding call doesn't run yet
+    ✓ should run if a preceding call already run
+
+  lib/normalize-args
+    ✓ should normalize glob to an array
+    ✓ should complement options with default options
+    ✓ should normalize options.events to an array
+    ✓ should change 2nd arg to cb if 2nd arg is a function
+
+
+  14 passing (35s)
+  15 failing
+
+  1) glob-watcher
+       only requires a glob and returns watcher:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  2) glob-watcher
+       picks up added files:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  3) glob-watcher
+       works with OS-specific cwd:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  4) glob-watcher
+       accepts a callback & calls when file is changed:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  5) glob-watcher
+       accepts a callback & calls when file is added:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  6) glob-watcher
+       waits for completion is signaled before running again:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  7) glob-watcher
+       can signal completion with a stream:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  8) glob-watcher
+       emits an error if one occurs in the callback and handler attached:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  9) glob-watcher
+       does not emit an error (and crash) when no handlers attached:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  10) glob-watcher
+       allows the user to disable queueing:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  11) glob-watcher
+       allows the user to adjust delay:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  12) glob-watcher
+       passes options to chokidar:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  13) glob-watcher
+       does not override default values with null values:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  14) glob-watcher
+       watches exactly the given event:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  15) glob-watcher
+       accepts multiple events to watch:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/index.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+
+
+
+=============================== Coverage summary ===============================
+Statements   : 76% ( 38/50 )
+Branches     : 44.44% ( 8/18 )
+Functions    : 81.81% ( 9/11 )
+Lines        : 76% ( 38/50 )
+================================================================================
+STATE-NEW rc=15

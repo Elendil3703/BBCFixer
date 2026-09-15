@@ -1,0 +1,86 @@
+
+> sails-navigator@0.7.6 test
+> mocha test/index.spec.coffee
+
+
+
+  navigator
+    ✓ should be an function
+    ✓ .config should be an method
+    ✓ should throw an error when no argument is passed to it
+    ✓ should return an empty object when an empty (or one that does not manipulate the passed arg) fn is provided to it
+    When passing route paths to the fn passed as argument to the provided fn passed to .setRoutes
+      When calling sub-methods of the makeRoute fn (Which is passed by the navigator to the fn provided by the client)
+        When using any sub-method
+          ✓ should guess the controllerName (properly camelCased)
+          When passing a route in kebab-case (words separated by hyphens)
+            1) should guess the controller equivalent in camelCase
+        .REST
+          When passing "all" as argument
+            ✓ should return a restful version of the passed route in a routes object
+            ✓ should always place the index, edit and new action before any other action
+          When passing a list of the actions to include as argument
+            ✓ should return a restful version of the passed route with only the included actions in a routes object
+          When passing a list of the actions to exclude as argument
+            ✓ should return a restful version of the passed route with all but the excluded actions in a routes object
+        .GET
+          ✓ should add the custom path route (prefixed with route) to the routes object, and assigning it the defined controller action
+        .POST
+          ✓ should add the custom path route (prefixed with route) to the routes object, and assigning it the defined controller action
+        .PUT
+          ✓ should add the custom path route (prefixed with route) to the routes object, and assigning it the defined controller action
+        .PATCH
+          ✓ should add the custom path route (prefixed with route) to the routes object, and assigning it the defined controller action
+        .DELETE
+          ✓ should add the custom path route (prefixed with route) to the routes object, and assigning it the defined controller action
+        .GET_and_POST
+          ✓ should add the custom path route (prefixed with route) for both verbs to the routes object, and assigning it the defined controller action
+        .ALL
+          ✓ should add the custom path route (prefixed with route) for all verbs to the routes object, and assigning it the defined controller action
+        When the controllerName is specified before the action
+          ✓ should take precedence over the guessed controller name(based on the route)
+        .path
+          ✓ It should create a route with route passed to makeRoute as prefix
+          When chaining path
+            ✓ It will always refer back to the initial route data
+          When using ignoreRootForControllerName option
+            ✓ It should guess the controllerName without taking the root into account
+        .controller
+          When passing a custom controller
+            ✓ should override the guessed controller default for a given route
+        .confOverride
+          ✓ should only override the settings for a given route, and not the rest
+          When passing a custom controller
+            ✓ should override the guessed controller default for a given route
+          When overriding the default pathToRecordFormat
+            ✓ should change how routes are built when using .REST
+          When overriding the default localizeRoute
+            ✓ should create the regular routes, as well as localized versions of it, based on a locale object
+          When setting rootAsControllerPath as true
+            ✓ should use the route's root path as the controllerPath
+    .config
+      ✓ should modify the module configuration when valid data is passed
+      - should throw an error when invalid settings(attributes) are passed
+    .getConfig
+      ✓ should return a copy of the configuration object
+
+
+  28 passing (17ms)
+  1 pending
+  1 failing
+
+  1) navigator When passing route paths to the fn passed as argument to the provided fn passed to .setRoutes When calling sub-methods of the makeRoute fn (Which is passed by the navigator to the fn provided by the client) When using any sub-method When passing a route in kebab-case (words separated by hyphens) should guess the controller equivalent in camelCase:
+
+      AssertionError: expected 'KebabcaseController' to equal 'KebabCaseController'
+      + expected - actual
+
+      -KebabcaseController
+      +KebabCaseController
+      
+      at Context.<anonymous> (test/index.spec.coffee:42:46)
+      at processImmediate (node:internal/timers:491:21)
+  
+
+
+
+STATE-NEW rc=1

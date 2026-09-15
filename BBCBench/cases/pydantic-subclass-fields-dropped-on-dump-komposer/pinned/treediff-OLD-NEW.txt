@@ -1,0 +1,6 @@
+annotated-types                          -                -> 0.8.0            IN-CLOSURE
+pydantic                                 1.10.2           -> 2.5.3            IN-CLOSURE
+pydantic-core                            -                -> 2.14.6           IN-CLOSURE
+typing-extensions                        4.2.0            -> 4.16.0           IN-CLOSURE
+pipdrift: 4 packages changed between STATE-OLD and STATE-NEW, 0 of them outside closure-allowed.txt
+PIPDRIFT_OK

@@ -1,0 +1,71 @@
+{
+  "id": "lodash-functions-in-restify-validation",
+  "name": "lodash-functions-in-restify-validation",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "z0mt3c/node-restify-validation",
+    "url": "https://github.com/z0mt3c/node-restify-validation",
+    "commit": "118a53e80bf07629a672fedf8bfd11b425e43210"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.functions",
+  "root_symbols": [
+    "functions",
+    "functionsIn",
+    "baseFunctions"
+  ],
+  "behavioral_change": "lodash 4.0.0 narrowed `_.functions` to return only an object's own method names, excluding inherited ones; the same release also removed the `thisArg` parameter from iteration methods (a third argument to `_.reduce` is silently ignored) and removed the alias `_.contains` in favor of `_.includes`. The dominant change is the `_.functions` narrowing; its name and signature are unchanged.",
+  "downstream_effect": "The downstream project (restify-validation) builds its validator table with `_.functions(validator)` on an object created by `Object.create`, so after the upgrade only 3 of 54 validators are registered and rules such as `isEmail` silently pass. The failures are should assertions such as `expected 0 to be 1` in `test/units/validators_test.js` and `test/units/validation_test.js` with frames inside should; lodash, `_.functions` and the prototype chain are never mentioned.",
+  "reference_fix": "The reference fix edits three production sites: `_.functions(validator)` to `_.functionsIn(validator)` at `lib/validators.js:152`, `_.reduce(coll, fn, false, this)` to `_.reduce(coll, fn.bind(this), false)` at `lib/validators.js:104`, and `_.contains` to `_.includes` at `lib/conditions.js:31`.",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog#v400): Compatibility Warnings states that `_.functions` returns only own method names and that `thisArg` params were removed (that entry includes before and after code), and Notable Changes, Removed 17 aliases, states `_.contains` was removed in favor of `_.includes`. Tier 2 by the dominant component: the `_.functions` entry is prose only and `_.functionsIn` is derived from the API reference.",
+  "failing_tests": [
+    "test/integration/restify_test.js :: node-validator error messages",
+    "test/units/validators_test.js :: Validators node-validator isEmail",
+    "test/units/validators_test.js :: Validators node-validator isAlpha",
+    "test/units/validators_test.js :: Validators node-validator isAlphanumeric",
+    "test/units/validators_test.js :: Validators node-validator isNumeric",
+    "test/units/validators_test.js :: Validators node-validator isHexadecimal",
+    "test/units/validators_test.js :: Validators node-validator isHexColor",
+    "test/units/validators_test.js :: Validators node-validator isInt",
+    "test/units/validators_test.js :: Validators node-validator isLowercase",
+    "test/units/validators_test.js :: Validators node-validator isUppercase",
+    "test/units/validators_test.js :: Validators node-validator isFloat",
+    "test/units/validators_test.js :: Validators node-validator equals",
+    "test/units/validators_test.js :: Validators node-validator contains",
+    "test/units/validators_test.js :: Validators node-validator isIn",
+    "test/units/validators_test.js :: Validators node-validator isCreditCard",
+    "test/units/validators_test.js :: Validators node-validator isDate",
+    "test/units/validators_test.js :: Validators node-validator isBefore",
+    "test/units/validators_test.js :: Validators node-validator isAfter",
+    "test/units/validators_test.js :: Validators node-validator arrays",
+    "test/units/validators_test.js :: Validators isDictionary",
+    "test/units/conditions_test.js :: Conditions paramMatches",
+    "test/units/model_test.js :: Model validatorModels { isDate: true } maps \"2018-03-17\" to \"2018-03-17T00:00:00.000Z\"",
+    "test/units/model_test.js :: Model validatorModels { isDivisibleBy: 5 } maps \"10\" to 10",
+    "test/units/model_test.js :: Model validatorModels { isFloat: true } maps \"123.45\" to 123.45",
+    "test/units/model_test.js :: Model validatorModels { isInt: true } maps \"-12345\" to -12345",
+    "test/units/model_test.js :: Model when validation passes should use model value",
+    "test/units/validation_test.js :: Validation validate isArray validate array elements",
+    "test/units/validation_test.js :: Validation validate isDictionary validate dictionary keys",
+    "test/units/validation_test.js :: Validation validate isDictionary validate dictionary values",
+    "test/units/validation_test.js :: Validation validate isObject validate properties"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "z0mt3c/node-restify-validation",
+  "commit": "118a53e80bf07629a672fedf8bfd11b425e43210"
+}

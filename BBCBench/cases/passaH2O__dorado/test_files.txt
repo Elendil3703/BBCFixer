@@ -1,0 +1,3 @@
+tests/test_examplecases.py
+tests/test_lagrangian_walker.py
+tests/test_particle_track.py

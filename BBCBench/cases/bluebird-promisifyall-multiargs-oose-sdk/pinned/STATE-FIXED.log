@@ -1,0 +1,70 @@
+
+> oose-sdk@2.0.2 test /w
+> node ./node_modules/mocha/bin/mocha ./test/*.test.js
+
+
+
+  Prism
+    ✓ should prepare a request object
+    ✓ should get content detail
+    ✓ should upload content (58ms)
+    ✓ should retrieve content
+    ✓ should purchase content
+    ✓ should remove a purchase
+    ✓ should output a purchase url
+    ✓ should output a static url
+    ✓ should connect with a session key
+
+  api:NetworkError
+    ✓ should catch tcp error EINTR
+    ✓ should catch tcp error EBADF
+    ✓ should catch tcp error EAGAIN
+    ✓ should catch tcp error EFAULT
+    ✓ should catch tcp error EBUSY
+    ✓ should catch tcp error EINVAL
+    ✓ should catch tcp error ENFILE
+    ✓ should catch tcp error EMFILE
+    ✓ should catch tcp error ENOSPC
+    ✓ should catch tcp error EPIPE
+    ✓ should catch tcp error EWOULDBLOCK
+    ✓ should catch tcp error ENOTSOCK
+    ✓ should catch tcp error ENOTPROTOOPT
+    ✓ should catch tcp error EADDRINUSE
+    ✓ should catch tcp error EADDRNOTAVAIL
+    ✓ should catch tcp error ENETDOWN
+    ✓ should catch tcp error ENETUNREACH
+    ✓ should catch tcp error ENETRESET
+    ✓ should catch tcp error ECONNRESET
+    ✓ should catch tcp error ENOBUFS
+    ✓ should catch tcp error EISCONN
+    ✓ should catch tcp error ENOTCONN
+    ✓ should catch tcp error ETIMEDOUT
+    ✓ should catch tcp error ECONNREFUSED
+    ✓ should catch tcp error EHOSTDOWN
+    ✓ should catch tcp error EHOSTUNREACH
+    ✓ should catch tcp error ESOCKETTIMEDOUT
+    ✓ should catch tcp error socket hang up
+    ✓ should not catch regular errors
+
+  api:validateResponse
+    ✓ should hand back valid responses
+    ✓ should throw errors
+    ✓ should throw the error on error, invalid response codes
+    ✓ should throw the body on success, invalid response codes
+
+  mock
+    ✓ mock should be up
+    ✓ should not require authentication for public functions
+    ✓ should require a session for all protected prism functions
+    ✓ should login
+    ✓ should upload content (45ms)
+    ✓ should show content detail publicly
+    ✓ should allow purchase of the content
+    ✓ should accept a purchased URL and deliver content on prism1
+    ✓ should allow removal of purchases
+    ✓ should log out
+
+
+  52 passing (300ms)
+
+STATE-FIXED rc=0

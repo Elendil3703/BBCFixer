@@ -1,0 +1,31 @@
+diff --git a/index.js b/index.js
+index 88996df..7526289 100755
+--- a/index.js
++++ b/index.js
+@@ -35,7 +35,7 @@ function iterateMiddleware(middleware, args, immutable, done) {
+ 
+         if (middleware.isAsync) {
+             middleware.fn.apply({}, args.concat(function() {
+-                args = immutable ? _.clone(args, true) : args;
++                args = immutable ? _.cloneDeep(args) : args;
+                 args = _.merge(args, _.toArray(arguments));
+                 next();
+             }));
+@@ -43,7 +43,7 @@ function iterateMiddleware(middleware, args, immutable, done) {
+             //synced
+             var err;
+             try {
+-                middleware.fn.apply({}, immutable ? _.clone(args, true) : args);
++                middleware.fn.apply({}, immutable ? _.cloneDeep(args) : args);
+             } catch (e) {
+                 /* istanbul ignore next: untestable */ err = e;
+             }
+@@ -65,7 +65,7 @@ function Mooring() {
+ Mooring.prototype.callHook = function(name, args, immutable, fn) {
+     var _this = this;
+     var methodCallback = _.isFunction(_.last(args)) ? args.pop() : undefined;
+-    args = immutable ? _.clone(args, true) : args;
++    args = immutable ? _.cloneDeep(args) : args;
+ 
+     dezalgofy(function(safeDone) {
+         async.waterfall([

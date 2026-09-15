@@ -1,0 +1,65 @@
+{
+  "name": "@upstatement/puppy",
+  "version": "0.13.0",
+  "description": "An adorable library for building a static site generator",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Upstatement/puppy-lib.git"
+  },
+  "author": "Upstatement Tech <tech@upstatement.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Upstatement/puppy-lib/issues"
+  },
+  "homepage": "https://github.com/Upstatement/puppy-lib#readme",
+  "engines": {
+    "node": "> 14.16.0",
+    "npm": "> 7.11.2"
+  },
+  "scripts": {
+    "test": "ava",
+    "coverage": "nyc ava",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write"
+    ],
+    "*.js": [
+      "eslint --fix"
+    ]
+  },
+  "ava": {
+    "files": [
+      "test/**/*",
+      "!test/fixture"
+    ]
+  },
+  "dependencies": {
+    "front-matter": "^4.0.2",
+    "js-yaml": "5.2.3",
+    "lodash.defaultsdeep": "^4.6.1",
+    "mississippi": "^4.0.0",
+    "puppeteer": "^20.4.0",
+    "serve-handler": "^6.1.5",
+    "through2": "^4.0.2",
+    "vinyl": "^3.0.0",
+    "vinyl-fs": "^3.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.1",
+    "@babel/eslint-parser": "^7.21.8",
+    "@upstatement/eslint-config": "^2.0.0",
+    "@upstatement/prettier-config": "^1.1.0",
+    "ava": "^5.3.0",
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
+    "husky": "^8.0.3",
+    "is-stream": "^3.0.0",
+    "lint-staged": "^13.2.2",
+    "nyc": "^15.0.0",
+    "prettier": "^2.8.8"
+  }
+}

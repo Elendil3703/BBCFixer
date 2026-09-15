@@ -1,0 +1,6 @@
+annotated-types
+importlib-metadata
+pydantic
+pydantic-core
+typing-extensions
+zipp

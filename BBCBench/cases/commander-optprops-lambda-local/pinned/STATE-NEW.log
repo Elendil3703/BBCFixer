@@ -1,0 +1,384 @@
+
+> lambda-local@1.7.4 build
+> tsc
+
+
+> lambda-local@1.7.4 test
+> mocha
+
+
+
+  - Testing utils.js
+    * getAbsolutePath
+      ✓ should return existing path file
+    * generateRandomHex
+      ✓ should not return twice the same value
+
+  - Testing lambdalocal.js Logger
+    * Use winston logger
+      ✓ should correctly load Logger
+    * Use invalid logger (object)
+Invalid logger object ! Using default logger
+      ✓ should ignore call
+    * Use null logger
+Invalid logger object ! Using default logger
+      ✓ should ignore call
+
+  - Testing lambdalocal.js
+    * Basic Run
+warning Using both auth systems: aws_access_key/id and secret_access_token !
+      # Environment Variables
+        ✓ should have automatic env built correctly
+        ✓ should return correct environment variables
+        ✓ should not have overwritten already-existing env vars
+      # LambdaLocal
+        ✓ should return correct testvar
+      # Context object
+        ✓ should contain initialized functionName
+        ✓ should contain initialized awsRequestId
+        ✓ should contain initialized getRemainingTimeInMillis
+        ✓ should contain initialized invokedFunctionArn
+        ✓ should contain done function
+        ✓ should contain succeed function
+        ✓ should contain fail function
+        ✓ should contain clientContext
+      # Environment Variables (destroy)
+warning Using both auth systems: aws_access_key/id and secret_access_token !
+        ✓ environment should have been deleted
+        ✓ should contain an awsRequestId different from the first one
+      # AWS credentials
+        ✓ should return correct credentials
+      * Mocked function
+        # LambdaLocal
+          ✓ should return mocked value
+      * Test timeout
+[31merror[39m: {
+	"errorMessage": "Task timed out after 0.50 seconds",
+	"errorType": "TimeoutError",
+	"stackTrace": [
+		"new TimeoutError (/w/build/lib/utils.js:112:28)",
+		"Context.<anonymous> (/w/build/lib/context.js:110:19)",
+		"listOnTimeout (node:internal/timers:559:17)",
+		"processTimers (node:internal/timers:502:7)"
+	]
+}
+        ✓ should throw TimeoutError (503ms)
+      * Test aws-sdk import
+        ✓ should return an aws-sdk version >= 2 (136ms)
+      * Return Error object
+[31merror[39m: {
+	"errorMessage": "Failed for an unknown reason !",
+	"errorType": "Error",
+	"stackTrace": [
+		"Object.exports.handler (/w/test/functs/test-func-cb-error.js:5:14)",
+		"Object._executeSync (/w/build/lambdalocal.js:286:47)",
+		"Object.execute (/w/build/lambdalocal.js:83:22)",
+		"Context.<anonymous> (/w/test/test.js:296:29)",
+		"callFnAsync (/w/node_modules/mocha/lib/runnable.js:402:21)",
+		"Test.Runnable.run (/w/node_modules/mocha/lib/runnable.js:342:7)",
+		"Runner.runTest (/w/node_modules/mocha/lib/runner.js:619:10)",
+		"/w/node_modules/mocha/lib/runner.js:745:12",
+		"next (/w/node_modules/mocha/lib/runner.js:536:14)",
+		"/w/node_modules/mocha/lib/runner.js:546:7",
+		"next (/w/node_modules/mocha/lib/runner.js:448:14)",
+		"Immediate._onImmediate (/w/node_modules/mocha/lib/runner.js:514:5)",
+		"processImmediate (node:internal/timers:466:21)"
+	]
+}
+        ✓ should convert it to correct JSON format
+    * Nested Run
+      ✓ Should handle nested calls properly (context singleton)
+    * Promised Run
+      ✓ should return correct values as promise
+      ✓ should be stateless
+    * Async Run
+      ✓ should understand direct return in async functions
+      ✓ should understand Promise return in functions
+[31merror[39m: Failed
+      ✓ should understand Promise rejection in functions
+
+  - Testing cli.js
+    * Basic Run
+Usage: lambda-local [options]
+
+Options:
+  -V, --version                              output the version number
+  -l, --lambda-path <lambda index path>      (required) Lambda function file name.
+  -e, --event-path <path>                    (required if --watch is not in use) Event data file name.
+  -h, --handler <handler name>               (optional) Lambda function handler name. Default is 'handler'.
+  -t, --timeout <timeout seconds>            (optional) Seconds until lambda function timeout. Default is 3 seconds.
+  -r, --region <aws region>                  (optional) default set to us-east-1
+  -p, --profile <aws profile name>           (optional) Read the AWS profile to get the credentials from profile name
+  -P, --profile-path <aws credentials path>  (optional) Read the specified AWS credentials file
+  -E, --environment <JSON {key:value}>       (optional) Set extra environment variables for the lambda
+  --wait-empty-event-loop                    (optional) Sets callbackWaitsForEmptyEventLoop=True => will wait for an empty loop before returning. This is false by default because our implementation isn't perfect and only "emulates" it.
+  --envdestroy                               (optional) Destroy added environment on closing. Defaults to false
+  -v, --verboselevel <3/2/1/0>               (optional) Default 3. Level 2 dismiss handler() text, level 1 dismiss lambda-local text and level 0 dismiss also the result.
+  --envfile <path/to/env/file>               (optional) Load additional environment variables from a file
+  --inspect [[host:]port]                    (optional) Starts lambda-local using the NodeJS inspector (available in nodejs > 8.0.0)
+  -W, --watch [port]                         (optional) Starts lambda-local in watch mode listening to the specified port [1-65535]. Default is 8008
+  --help                                     display help for command
+
+
+      ✓ should end normally (112ms)
+Usage: lambda-local [options]
+
+Options:
+  -V, --version                              output the version number
+  -l, --lambda-path <lambda index path>      (required) Lambda function file name.
+  -e, --event-path <path>                    (required if --watch is not in use) Event data file name.
+  -h, --handler <handler name>               (optional) Lambda function handler name. Default is 'handler'.
+  -t, --timeout <timeout seconds>            (optional) Seconds until lambda function timeout. Default is 3 seconds.
+  -r, --region <aws region>                  (optional) default set to us-east-1
+  -p, --profile <aws profile name>           (optional) Read the AWS profile to get the credentials from profile name
+  -P, --profile-path <aws credentials path>  (optional) Read the specified AWS credentials file
+  -E, --environment <JSON {key:value}>       (optional) Set extra environment variables for the lambda
+  --wait-empty-event-loop                    (optional) Sets callbackWaitsForEmptyEventLoop=True => will wait for an empty loop before returning. This is false by default because our implementation isn't perfect and only "emulates" it.
+  --envdestroy                               (optional) Destroy added environment on closing. Defaults to false
+  -v, --verboselevel <3/2/1/0>               (optional) Default 3. Level 2 dismiss handler() text, level 1 dismiss lambda-local text and level 0 dismiss also the result.
+  --envfile <path/to/env/file>               (optional) Load additional environment variables from a file
+  --inspect [[host:]port]                    (optional) Starts lambda-local using the NodeJS inspector (available in nodejs > 8.0.0)
+  -W, --watch [port]                         (optional) Starts lambda-local in watch mode listening to the specified port [1-65535]. Default is 8008
+  --help                                     display help for command
+
+
+      ✓ should end normally: callback null (152ms)
+Usage: lambda-local [options]
+
+Options:
+  -V, --version                              output the version number
+  -l, --lambda-path <lambda index path>      (required) Lambda function file name.
+  -e, --event-path <path>                    (required if --watch is not in use) Event data file name.
+  -h, --handler <handler name>               (optional) Lambda function handler name. Default is 'handler'.
+  -t, --timeout <timeout seconds>            (optional) Seconds until lambda function timeout. Default is 3 seconds.
+  -r, --region <aws region>                  (optional) default set to us-east-1
+  -p, --profile <aws profile name>           (optional) Read the AWS profile to get the credentials from profile name
+  -P, --profile-path <aws credentials path>  (optional) Read the specified AWS credentials file
+  -E, --environment <JSON {key:value}>       (optional) Set extra environment variables for the lambda
+  --wait-empty-event-loop                    (optional) Sets callbackWaitsForEmptyEventLoop=True => will wait for an empty loop before returning. This is false by default because our implementation isn't perfect and only "emulates" it.
+  --envdestroy                               (optional) Destroy added environment on closing. Defaults to false
+  -v, --verboselevel <3/2/1/0>               (optional) Default 3. Level 2 dismiss handler() text, level 1 dismiss lambda-local text and level 0 dismiss also the result.
+  --envfile <path/to/env/file>               (optional) Load additional environment variables from a file
+  --inspect [[host:]port]                    (optional) Starts lambda-local using the NodeJS inspector (available in nodejs > 8.0.0)
+  -W, --watch [port]                         (optional) Starts lambda-local in watch mode listening to the specified port [1-65535]. Default is 8008
+  --help                                     display help for command
+
+
+      ✓ should end normally: callback undefined (92ms)
+    * Failing Run
+      1) should fail: context
+      2) should fail: callback string
+      3) should fail: callback empty string
+      4) should fail: callback false
+      5) should fail: callback 0
+      6) should fail: syntax error
+      7) should fail: require error
+    * Environment test run
+Usage: lambda-local [options]
+
+Options:
+  -V, --version                              output the version number
+  -l, --lambda-path <lambda index path>      (required) Lambda function file name.
+  -e, --event-path <path>                    (required if --watch is not in use) Event data file name.
+  -h, --handler <handler name>               (optional) Lambda function handler name. Default is 'handler'.
+  -t, --timeout <timeout seconds>            (optional) Seconds until lambda function timeout. Default is 3 seconds.
+  -r, --region <aws region>                  (optional) default set to us-east-1
+  -p, --profile <aws profile name>           (optional) Read the AWS profile to get the credentials from profile name
+  -P, --profile-path <aws credentials path>  (optional) Read the specified AWS credentials file
+  -E, --environment <JSON {key:value}>       (optional) Set extra environment variables for the lambda
+  --wait-empty-event-loop                    (optional) Sets callbackWaitsForEmptyEventLoop=True => will wait for an empty loop before returning. This is false by default because our implementation isn't perfect and only "emulates" it.
+  --envdestroy                               (optional) Destroy added environment on closing. Defaults to false
+  -v, --verboselevel <3/2/1/0>               (optional) Default 3. Level 2 dismiss handler() text, level 1 dismiss lambda-local text and level 0 dismiss also the result.
+  --envfile <path/to/env/file>               (optional) Load additional environment variables from a file
+  --inspect [[host:]port]                    (optional) Starts lambda-local using the NodeJS inspector (available in nodejs > 8.0.0)
+  -W, --watch [port]                         (optional) Starts lambda-local in watch mode listening to the specified port [1-65535]. Default is 8008
+  --help                                     display help for command
+
+      ✓ event should have used ENV while building (83ms)
+    * Crashing run
+      8) should fail
+    * Timeout Run
+      9) should end arbruptly
+    * Not stringifyable run
+      10) should fallback on util.inspect
+    * Verbose test
+      11) should have no output
+    * Test --wait-empty-event-loop
+      12) should wait for all timeouts to end
+    * Test --version
+      ✓ should match the current latest version (115ms)
+
+
+  35 passing (3s)
+  12 failing
+
+  1) - Testing cli.js
+       * Failing Run
+         should fail: context:
+
+      AssertionError: expected +0 to equal 1
+      + expected - actual
+
+      -0
+      +1
+      
+      at Context.<anonymous> (test/test.js:455:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  2) - Testing cli.js
+       * Failing Run
+         should fail: callback string:
+
+      AssertionError: expected +0 to equal 1
+      + expected - actual
+
+      -0
+      +1
+      
+      at Context.<anonymous> (test/test.js:463:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  3) - Testing cli.js
+       * Failing Run
+         should fail: callback empty string:
+
+      AssertionError: expected +0 to equal 1
+      + expected - actual
+
+      -0
+      +1
+      
+      at Context.<anonymous> (test/test.js:471:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  4) - Testing cli.js
+       * Failing Run
+         should fail: callback false:
+
+      AssertionError: expected +0 to equal 1
+      + expected - actual
+
+      -0
+      +1
+      
+      at Context.<anonymous> (test/test.js:479:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  5) - Testing cli.js
+       * Failing Run
+         should fail: callback 0:
+
+      AssertionError: expected +0 to equal 1
+      + expected - actual
+
+      -0
+      +1
+      
+      at Context.<anonymous> (test/test.js:487:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  6) - Testing cli.js
+       * Failing Run
+         should fail: syntax error:
+
+      AssertionError: expected +0 to equal 1
+      + expected - actual
+
+      -0
+      +1
+      
+      at Context.<anonymous> (test/test.js:495:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  7) - Testing cli.js
+       * Failing Run
+         should fail: require error:
+
+      AssertionError: expected +0 to equal 1
+      + expected - actual
+
+      -0
+      +1
+      
+      at Context.<anonymous> (test/test.js:503:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  8) - Testing cli.js
+       * Crashing run
+         should fail:
+
+      AssertionError: expected +0 to equal 1
+      + expected - actual
+
+      -0
+      +1
+      
+      at Context.<anonymous> (test/test.js:524:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  9) - Testing cli.js
+       * Timeout Run
+         should end arbruptly:
+
+      AssertionError: expected +0 to equal 1
+      + expected - actual
+
+      -0
+      +1
+      
+      at Context.<anonymous> (test/test.js:532:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  10) - Testing cli.js
+       * Not stringifyable run
+         should fallback on util.inspect:
+     AssertionError: true: expected false to be truthy
+      at Context.<anonymous> (test/test.js:542:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  11) - Testing cli.js
+       * Verbose test
+         should have no output:
+
+      AssertionError: expected 'Usage: lambda-local [options]\n\nOpti…' to equal ''
+      + expected - actual
+
+      -Usage: lambda-local [options]
+      -
+      -Options:
+      -  -V, --version                              output the version number
+      -  -l, --lambda-path <lambda index path>      (required) Lambda function file name.
+      -  -e, --event-path <path>                    (required if --watch is not in use) Event data file name.
+      -  -h, --handler <handler name>               (optional) Lambda function handler name. Default is 'handler'.
+      -  -t, --timeout <timeout seconds>            (optional) Seconds until lambda function timeout. Default is 3 seconds.
+      -  -r, --region <aws region>                  (optional) default set to us-east-1
+      -  -p, --profile <aws profile name>           (optional) Read the AWS profile to get the credentials from profile name
+      -  -P, --profile-path <aws credentials path>  (optional) Read the specified AWS credentials file
+      -  -E, --environment <JSON {key:value}>       (optional) Set extra environment variables for the lambda
+      -  --wait-empty-event-loop                    (optional) Sets callbackWaitsForEmptyEventLoop=True => will wait for an empty loop before returning. This is false by default because our implementation isn't perfect and only "emulates" it.
+      -  --envdestroy                               (optional) Destroy added environment on closing. Defaults to false
+      -  -v, --verboselevel <3/2/1/0>               (optional) Default 3. Level 2 dismiss handler() text, level 1 dismiss lambda-local text and level 0 dismiss also the result.
+      -  --envfile <path/to/env/file>               (optional) Load additional environment variables from a file
+      -  --inspect [[host:]port]                    (optional) Starts lambda-local using the NodeJS inspector (available in nodejs > 8.0.0)
+      -  -W, --watch [port]                         (optional) Starts lambda-local in watch mode listening to the specified port [1-65535]. Default is 8008
+      -  --help                                     display help for command
+      
+      at Context.<anonymous> (test/test.js:551:20)
+      at processImmediate (node:internal/timers:466:21)
+
+  12) - Testing cli.js
+       * Test --wait-empty-event-loop
+         should wait for all timeouts to end:
+
+      AssertionError: expected false to equal true
+      + expected - actual
+
+      -false
+      +true
+      
+      at Context.<anonymous> (test/test.js:560:20)
+      at processImmediate (node:internal/timers:466:21)
+
+
+
+STATE-NEW rc=12

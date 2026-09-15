@@ -1,0 +1,32 @@
+{
+  "name": "poker-hands",
+  "version": "1.0.2",
+  "description": "Quickly evaluate poker hands",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsernst/poker-hands.git"
+  },
+  "keywords": [
+    "poker",
+    "hands",
+    "5-card",
+    "winning"
+  ],
+  "author": "David Ernst <npm@dsernst.com> (http://dsernst.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dsernst/poker-hands/issues"
+  },
+  "homepage": "https://github.com/dsernst/poker-hands#readme",
+  "dependencies": {
+    "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.0",
+    "should": "^7.1.0"
+  }
+}

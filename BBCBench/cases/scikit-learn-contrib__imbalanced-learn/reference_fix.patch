@@ -1,0 +1,115 @@
+diff --git imblearn/over_sampling/_smote/base.py imblearn/over_sampling/_smote/base.py
+index 29dcabf..8fdf2fe 100644
+--- imblearn/over_sampling/_smote/base.py
++++ imblearn/over_sampling/_smote/base.py
+@@ -12,7 +12,6 @@ from collections import Counter
+ 
+ import numpy as np
+ from scipy import sparse
+-from scipy import stats
+ 
+ from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder
+ from sklearn.utils import check_random_state
+@@ -29,6 +28,7 @@ from ...utils import Substitution
+ from ...utils._docstring import _n_jobs_docstring
+ from ...utils._docstring import _random_state_docstring
+ from ...utils._validation import _deprecate_positional_args
++from ...utils.fixes import _mode
+ 
+ 
+ class BaseSMOTE(BaseOverSampler):
+@@ -786,7 +786,7 @@ class SMOTEN(SMOTE):
+         # where for each feature individually, each category generated is the
+         # most common category
+         X_new = np.squeeze(
+-            stats.mode(X_class[nn_indices[samples_indices]], axis=1).mode, axis=1
++            _mode(X_class[nn_indices[samples_indices]], axis=1).mode, axis=1
+         )
+         y_new = np.full(n_samples, fill_value=klass, dtype=y_dtype)
+         return X_new, y_new
+diff --git imblearn/under_sampling/_prototype_selection/_edited_nearest_neighbours.py imblearn/under_sampling/_prototype_selection/_edited_nearest_neighbours.py
+index be12d0b..77a7afd 100644
+--- imblearn/under_sampling/_prototype_selection/_edited_nearest_neighbours.py
++++ imblearn/under_sampling/_prototype_selection/_edited_nearest_neighbours.py
+@@ -9,7 +9,6 @@ method."""
+ from collections import Counter
+ 
+ import numpy as np
+-from scipy.stats import mode
+ 
+ from sklearn.utils import _safe_indexing
+ 
+@@ -18,6 +17,8 @@ from ...utils import check_neighbors_object
+ from ...utils import Substitution
+ from ...utils._docstring import _n_jobs_docstring
+ from ...utils._validation import _deprecate_positional_args
++from ...utils.fixes import _mode
++
+ 
+ SEL_KIND = ("all", "mode")
+ 
+@@ -155,7 +156,7 @@ EditedNearestNeighbours # doctest:
+                 nnhood_idx = self.nn_.kneighbors(X_class, return_distance=False)[:, 1:]
+                 nnhood_label = y[nnhood_idx]
+                 if self.kind_sel == "mode":
+-                    nnhood_label, _ = mode(nnhood_label, axis=1)
++                    nnhood_label, _ = _mode(nnhood_label, axis=1)
+                     nnhood_bool = np.ravel(nnhood_label) == y_class
+                 elif self.kind_sel == "all":
+                     nnhood_label = nnhood_label == target_class
+diff --git imblearn/under_sampling/_prototype_selection/_neighbourhood_cleaning_rule.py imblearn/under_sampling/_prototype_selection/_neighbourhood_cleaning_rule.py
+index f73e139..016c6d6 100644
+--- imblearn/under_sampling/_prototype_selection/_neighbourhood_cleaning_rule.py
++++ imblearn/under_sampling/_prototype_selection/_neighbourhood_cleaning_rule.py
+@@ -7,7 +7,6 @@
+ from collections import Counter
+ 
+ import numpy as np
+-from scipy.stats import mode
+ 
+ from sklearn.utils import _safe_indexing
+ 
+@@ -17,6 +16,8 @@ from ...utils import check_neighbors_object
+ from ...utils import Substitution
+ from ...utils._docstring import _n_jobs_docstring
+ from ...utils._validation import _deprecate_positional_args
++from ...utils.fixes import _mode
++
+ 
+ SEL_KIND = ("all", "mode")
+ 
+@@ -182,7 +183,7 @@ NeighbourhoodCleaningRule # doctest:
+         nnhood_idx = self.nn_.kneighbors(X_class, return_distance=False)[:, 1:]
+         nnhood_label = y[nnhood_idx]
+         if self.kind_sel == "mode":
+-            nnhood_label_majority, _ = mode(nnhood_label, axis=1)
++            nnhood_label_majority, _ = _mode(nnhood_label, axis=1)
+             nnhood_bool = np.ravel(nnhood_label_majority) == y_class
+         elif self.kind_sel == "all":
+             nnhood_label_majority = nnhood_label == class_minority
+diff --git imblearn/utils/fixes.py imblearn/utils/fixes.py
+new file mode 100644
+index 0000000..ce8d528
+--- /dev/null
++++ imblearn/utils/fixes.py
+@@ -0,0 +1,20 @@
++"""Compatibility fixes for older version of python, numpy, scipy, and
++scikit-learn.
++
++If you add content to this file, please give the version of the package at
++which the fix is no longer needed.
++"""
++
++import scipy
++import scipy.stats
++
++from sklearn.utils.fixes import parse_version
++
++sp_version = parse_version(scipy.__version__)
++
++
++# TODO: Remove when SciPy 1.9 is the minimum supported version
++def _mode(a, axis=0):
++    if sp_version >= parse_version("1.9.0"):
++        return scipy.stats.mode(a, axis=axis, keepdims=True)
++    return scipy.stats.mode(a, axis=axis)

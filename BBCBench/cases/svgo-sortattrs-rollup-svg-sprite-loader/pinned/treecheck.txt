@@ -1,0 +1,22 @@
+changed packages (13): @trysound/sax, css-select, css-tree, csso, dom-serializer, domhandler, domutils, entities, mdn-data, sax, source-map-js, stable, svgo
+  OK new @trysound/sax@0.2.0 at @trysound/sax
+  OK new css-select@5.2.2 at css-select
+  OK old css-select@4.3.0 at css-select
+  OK new css-tree@2.2.1 at csso/node_modules/css-tree
+  OK new css-tree@2.3.1 at css-tree
+  OK old css-tree@1.1.3 at css-tree
+  OK new csso@5.0.5 at csso
+  OK old csso@4.2.0 at csso
+  OK new dom-serializer@2.0.0 at css-select/node_modules/dom-serializer
+  OK new domhandler@5.0.3 at css-select/node_modules/domhandler
+  OK new domutils@3.2.2 at css-select/node_modules/domutils
+  OK new entities@4.5.0 at css-select/node_modules/entities
+  OK new mdn-data@2.0.28 at csso/node_modules/mdn-data
+  OK new mdn-data@2.0.30 at mdn-data
+  OK old mdn-data@2.0.14 at mdn-data
+  OK old sax@1.6.1 at sax
+  OK new source-map-js@1.2.1 at source-map-js
+  OK old stable@0.1.8 at stable
+  OK new svgo@3.0.2 at svgo
+  OK old svgo@2.8.3 at svgo
+TREECHECK_OK: every change is inside the allowed closure (20 allowed names)

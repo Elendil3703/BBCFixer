@@ -1,0 +1,35 @@
+
+> coap-cli@0.7.1 test /w
+> standard && mocha --bail --reporter spec --check-leaks
+
+
+
+  coap
+error: unknown command 'abcde'. See 'index --help'.
+    1) should error with a invalid URL
+
+
+  0 passing (63ms)
+  1 failing
+
+  1) coap
+       should error with a invalid URL:
+
+      Uncaught AssertionError: expected '' to deeply equal 'Invalid URL. Protocol is not given or URL is malformed.\n'
+      + expected - actual
+
+      +Invalid URL. Protocol is not given or URL is malformed.
+      
+      at /w/test.js:38:34
+      at ConcatStream.<anonymous> (node_modules/concat-stream/index.js:37:43)
+      at finishMaybe (node_modules/concat-stream/node_modules/readable-stream/lib/_stream_writable.js:620:14)
+      at endWritable (node_modules/concat-stream/node_modules/readable-stream/lib/_stream_writable.js:629:3)
+      at ConcatStream.Writable.end (node_modules/concat-stream/node_modules/readable-stream/lib/_stream_writable.js:567:22)
+      at Socket.onend (internal/streams/readable.js:670:10)
+      at endReadableNT (internal/streams/readable.js:1333:12)
+      at processTicksAndRejections (internal/process/task_queues.js:82:21)
+
+
+
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

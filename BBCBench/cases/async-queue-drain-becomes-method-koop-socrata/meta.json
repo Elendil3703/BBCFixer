@@ -1,0 +1,47 @@
+{
+  "id": "async-queue-drain-becomes-method-koop-socrata",
+  "name": "async-queue-drain-becomes-method-koop-socrata",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "koopjs/koop-socrata",
+    "url": "https://github.com/koopjs/koop-socrata",
+    "commit": "ca74f5af4f4b59ccf47d4087f264d60cb5d516c2"
+  },
+  "lib": "async",
+  "v_old": "2.6.4",
+  "v_new": "3.2.6",
+  "library_repo": "https://github.com/caolan/async",
+  "library_tags": {
+    "old": "v2.6.4",
+    "new": "v3.2.6"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "async.queue",
+  "root_symbols": [
+    "internal/queue",
+    "queue.drain",
+    "eventMethod",
+    "queue"
+  ],
+  "behavioral_change": "In async v_new (3.0.0), the event-style members of `queue`, `priorityQueue`, `cargo` and `cargoQueue` such as `q.drain` changed from assignable properties to methods that register a callback, so `q.drain = fn` must become `q.drain(callback)`. async 3 defines these members as non-writable, so in sloppy-mode CommonJS code the old assignment is silently ignored: no exception, no warning, and the user's function is never registered.",
+  "downstream_effect": "koop-socrata's models/Socrata.js hangs its data-fetching orchestration on `pageQueue.drain` and `infoQueue.drain`; after the upgrade that code never runs, the dataset is never written to the cache and no failure status is recorded, so a test sees `undefined` where a cache entry is expected and a later `TypeError: Cannot read properties of undefined (reading 'status')`. The stack frames point at models/Socrata.js lines 160, 165 and 219, which are different statements from the drain registrations at lines 86 and 107 that must be edited, and the output never mentions async, drain or queue.",
+  "reference_fix": "The reference fix changes two sites in models/Socrata.js, replacing `pageQueue.drain = function () { ... }` and `infoQueue.drain = function () { ... }` with `pageQueue.drain(function () { ... })` and `infoQueue.drain(function () { ... })`.",
+  "documented_in": "The async CHANGELOG at https://github.com/caolan/async/blob/v3.2.6/CHANGELOG.md, v3.0.0 Breaking Changes section, announces the change and states the new form `q.drain(callback)` in the same entry, so the changelog itself shows the new code form.",
+  "failing_tests": [
+    "test/model.js :: fill the cache with an errored dataset > should be equivalent",
+    "test/model.js :: requesting a socrata dataset that does not exist > TypeError: Cannot read properties of undefined (reading 'status'); the process then aborts"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "koopjs/koop-socrata",
+  "commit": "ca74f5af4f4b59ccf47d4087f264d60cb5d516c2",
+  "no_summary_states": {
+    "STATE-NEW": "The test command is tape test/*.js | tap-spec, and tap-spec prints the summary only after the TAP stream ends. In STATE-NEW, test/model.js line 276 reads .status of an undefined value, tape aborts with a TypeError, the TAP stream never ends, and tap-spec prints no total/passing lines. The tests did run: before the crash tap-spec printed 37 pass marks and 1 fail mark. STATE-OLD and STATE-FIXED print the full summary (total 47, passing 47). The archive-drift gate carries no information for STATE-NEW; the reviewers instead compared, over three runs, the 37 pass marks, the 1 fail mark, the failing assertion and the crash stack (test/model.js lines 265, 276, 274; models/Socrata.js lines 219, 165, 160), all identical to the archive."
+  }
+}

@@ -1,0 +1,196 @@
+
+> node-restify-validation@1.3.0 test
+> mocha --recursive test
+
+
+
+  ✓ node-validator error messages
+  [INTEGRATION][RESTIFY]
+    ISSUES
+      #32
+(node:2839885) [DEP0111] DeprecationWarning: Access to process.binding('http_parser') is deprecated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2839885) [DEP0111] DeprecationWarning: Access to process.binding('http_parser') is deprecated.
+        on GET
+          ✓ not allowed route
+        on POST
+          ✓ with 1 optional field
+      #37
+        on GET
+          ✓ no route
+          ✓ with undefined query
+          ✓ with query present
+      #52 - Support header validation
+        on POST
+          ✓ with required header field
+          ✓ without required header field
+
+  Validators
+    ✓ node-validator isEmail
+    ✓ node-validator isUrl
+    ✓ node-validator isIP
+    ✓ node-validator isIPv4
+    ✓ node-validator isIPv6
+    ✓ node-validator isAlpha
+    ✓ node-validator isAlphanumeric
+    ✓ node-validator isNumeric
+    ✓ node-validator isHexadecimal
+    ✓ node-validator isHexColor
+    ✓ node-validator isBoolean
+    ✓ node-validator isInt
+    ✓ node-validator isNatural
+    ✓ node-validator isLowercase
+    ✓ node-validator isUppercase
+    ✓ node-validator isDecimal
+    ✓ node-validator isFloat
+    ✓ node-validator equals
+    ✓ node-validator contains
+    ✓ node-validator notContains
+    ✓ node-validator is
+    ✓ node-validator regexp
+    ✓ node-validator notRegex
+    ✓ node-validator not
+    ✓ node-validator isIn
+    ✓ node-validator notIn
+    ✓ node-validator max
+    ✓ node-validator min
+    ✓ node-validator isCreditCard
+    ✓ node-validator isUUID
+    ✓ node-validator isUUIDv3
+    ✓ node-validator isUUIDv4
+    ✓ node-validator isUUIDv5
+    ✓ node-validator isDate
+    ✓ node-validator isBefore
+    ✓ node-validator isAfter
+    ✓ node-validator arrays
+    ✓ isArray
+    ✓ isDictionary
+    ✓ isObject
+
+  Conditions
+    ✓ exists
+    ✓ paramMatches
+
+  Errors
+    ✓ handle errors with a custom errorHandler
+    ✓ handle errors object
+    ✓ handle errors array
+
+  Plugin test
+    ✓ Plugin is available
+    ✓ Call handleErrors on validation failures
+    ✓ Call next on successful validation
+    ✓ Call next if no validation model is defined
+
+  Model
+    validatorModels
+      ✓ { isBoolean: true } maps "true" to true
+      ✓ { isDate: true } maps "2018-03-17" to "2018-03-17T00:00:00.000Z"
+      ✓ { isDecimal: true } maps "123.45" to 123.45
+      ✓ { isDivisibleBy: 5 } maps "10" to 10
+      ✓ { isFloat: true } maps "123.45" to 123.45
+      ✓ { isInt: true } maps "-12345" to -12345
+      ✓ { isNatural: true } maps "12345" to 12345
+      ✓ { contains: "es" } keeps "test" unchanged
+      ✓ { equals: "test" } keeps "test" unchanged
+      ✓ { is: "test" } keeps "test" unchanged
+      ✓ { isAfter: "2018-03-17" } keeps "2018-03-18" unchanged
+      ✓ { isAlpha: true } keeps "test" unchanged
+      ✓ { isAlphanumeric: true } keeps "test123" unchanged
+      ✓ { isBefore: "2018-03-17" } keeps "2018-03-16" unchanged
+      ✓ { isCreditCard: true } keeps "4012888888881881" unchanged
+      ✓ { isEmail: true } keeps "bob@example.com" unchanged
+      ✓ { isHexColor: true } keeps "#aabbcc" unchanged
+      ✓ { isHexadecimal: true } keeps "01234567abcdef" unchanged
+      ✓ { isIP: true } keeps "127.0.0.1" unchanged
+      ✓ { isIPNet: true } keeps "127.0.0.1/27" unchanged
+      ✓ { isIPv4: true } keeps "127.0.0.1" unchanged
+      ✓ { isIPv6: true } keeps "2001:0db8:85a3:0000:0000:8a2e:0370:7334" unchanged
+      ✓ { isIn: ["test"] } keeps "test" unchanged
+      ✓ { isLowercase: true } keeps "test" unchanged
+      ✓ { isNumeric: true } keeps "12345" unchanged
+      ✓ { isUUID: true } keeps "bf18cbf6-0cfd-4cc4-8625-a3a150c81e4b" unchanged
+      ✓ { isUUIDv3: true } keeps "6fa459ea-ee8a-3ca4-894e-db77e160355e" unchanged
+      ✓ { isUUIDv4: true } keeps "5d05b396-2ccf-4c6d-bf8b-844191aa3c1b" unchanged
+      ✓ { isUppercase: true } keeps "TEST" unchanged
+      ✓ { isUrl: true } keeps "http://example.com" unchanged
+      ✓ { max: 10 } keeps "5" unchanged
+      ✓ { min: 1 } keeps "5" unchanged
+      ✓ { not: "test" } keeps "TEST" unchanged
+      ✓ { notContains: "se" } keeps "test" unchanged
+      ✓ { notIn: ["TEST"] } keeps "test" unchanged
+      ✓ { notRegex: /TEST/ } keeps "test" unchanged
+      ✓ { regex: /test/ } keeps "test" unchanged
+    option: validatorModels object
+      ✓ should apply validatorModels
+    option: validatorModels array
+      ✓ should apply validatorModels
+    not specified
+      ✓ if no validatorModels, should keep original value
+      ✓ if validatorModels, should use model
+    when validation fails
+      ✓ should keep original value
+    when validation passes
+      ✓ should use model value
+
+  Utils
+    hasValue
+      ✓ for null
+      ✓ for undefined
+      ✓ for string
+      ✓ for array
+    getExternalScope
+      ✓ for null
+      ✓ for resources
+      ✓ for queries
+      ✓ for body
+      ✓ for headers
+    getInternalScope
+      ✓ for null
+      ✓ for resources
+      ✓ for queries
+      ✓ for body
+      ✓ for headers
+
+  Validation
+    getValidatorChain
+      ✓ ignore validator key
+      ✓ single validator
+      ✓ multiple validators
+      ✓ validationChainStore by routeName
+    validate
+      ✓ min
+      ✓ isIPv4
+      ✓ in body scope
+      ✓ example #1
+      ✓ multiple parameters
+      ✓ errorsAsArray / errorsAsObject
+      ✓ forbidUndefinedVariables
+      ✓ function as validation parameter
+      ✓ validation order
+      ✓ validation equalTo
+      isArray
+        ✓ accept array when true
+        ✓ reject non-array when true
+        ✓ reject array when false
+        ✓ validate minLength
+        ✓ validate maxLength
+        ✓ validate array elements
+      isDictionary
+        ✓ accept object when true
+        ✓ reject non-object when true
+        ✓ reject object when false
+        ✓ validate minLength
+        ✓ validate maxLength
+        ✓ validate dictionary keys
+        ✓ validate dictionary values
+      isObject
+        ✓ accept object when true
+        ✓ reject non-object when true
+        ✓ reject object when false
+        ✓ validate properties
+
+
+  145 passing (105ms)
+
+STATE-OLD rc=0

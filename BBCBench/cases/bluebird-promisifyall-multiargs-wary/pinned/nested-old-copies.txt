@@ -1,0 +1,1 @@
+bluebird-queue/node_modules/bluebird

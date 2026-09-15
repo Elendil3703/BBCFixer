@@ -1,0 +1,16 @@
+
+> entwine@0.1.0 test /w
+> mocha
+
+
+
+  system
+    ✓ should detect unknown components and throw an error
+    ✓ should detect cyclical dependencies and throw an error
+    ✓ should start and stop components in dependency order
+    ✓ should allow mapping dependencies with different names
+
+
+  4 passing (10ms)
+
+EXITCODE=0

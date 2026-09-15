@@ -1,0 +1,55 @@
+{
+  "id": "BlueBrain__voxcell",
+  "name": "BlueBrain__voxcell",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "BlueBrain/voxcell",
+    "url": "https://github.com/BlueBrain/voxcell",
+    "commit": "31441fad07404c398ef2fcf6134c2c8dc0768da8"
+  },
+  "lib": "h5py",
+  "v_old": "2.10.0",
+  "v_new": "3.6.0",
+  "library_repo": "https://github.com/h5py/h5py",
+  "library_tags": {
+    "old": "2.10.0",
+    "new": "3.6.0"
+  },
+  "reference_fix_source": "maintainer",
+  "root_api": "h5py.Dataset.__getitem__",
+  "root_symbols": [
+    "conv_vlen2str",
+    "init_vlen2str",
+    "Dataset.__getitem__",
+    "Dataset.asstr",
+    "AsStrWrapper"
+  ],
+  "behavioral_change": "h5py v_old 2.10.0 to v_new 3.6.0. Variable-length string data read through h5py.Dataset.__getitem__ returns bytes instead of str (conv_vlen2str, Dataset.asstr, AsStrWrapper).",
+  "downstream_effect": "Attribute values read back are silently bytes and an assertion in a test helper function fails; no exception is raised.",
+  "reference_fix": "The reference fix replaces np.array(values) with values.asstr() and values[()].",
+  "test_cmd": "bash /work/test_BlueBrain__voxcell.sh",
+  "test_files": [
+    "tests/sonata/test_node_population.py",
+    "tests/test_build.py",
+    "tests/test_cell_collection.py",
+    "tests/test_hierarchy.py",
+    "tests/test_math_utils.py",
+    "tests/test_quaternion.py",
+    "tests/test_region_map.py",
+    "tests/test_traits.py",
+    "tests/test_vector_fields.py",
+    "tests/test_voxel_data.py",
+    "tests/test_voxelbrain.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:bluebrain__voxcell",
+    "python": "3.9.25"
+  },
+  "upgrade": {
+    "kind": "single-package",
+    "intact_pip": "h5py==2.10.0"
+  }
+}

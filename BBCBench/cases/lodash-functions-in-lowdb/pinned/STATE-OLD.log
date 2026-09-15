@@ -1,0 +1,94 @@
+
+> lowdb@0.11.5 test /w
+> babel-node test/all && standard
+
+TAP version 13
+# file-async
+ok 1 should be equivalent
+ok 2 should be equivalent
+# serializer/deserializer
+ok 3 should be equivalent
+ok 4 should be truthy
+ok 5 should be truthy
+# file-sync
+ok 6 should be equivalent
+ok 7 should be equivalent
+# serializer/deserializer
+ok 8 should be equivalent
+ok 9 should be truthy
+ok 10 should be truthy
+# browser
+ok 11 should be equivalent
+ok 12 should be equivalent
+# operations
+ok 13 should be equal
+ok 14 should be equivalent
+ok 15 should be equivalent
+ok 16 should be truthy
+ok 17 should be truthy
+# mixin
+ok 18 should be equivalent
+# write
+ok 19 should be equivalent
+# read
+ok 20 should be equivalent
+# in-memory
+ok 21 should be equal
+ok 22 should be equal
+ok 23 should be equal
+ok 24 should be equal
+# sync
+ok 25 should be equal
+ok 26 should be equal
+ok 27 should be equal
+ok 28 should be equal
+ok 29 should be equal
+ok 30 should be equal
+ok 31 should be equal
+ok 32 should be equivalent
+ok 33 should be equal
+ok 34 should be equivalent
+# promises
+ok 35 should be equal
+ok 36 should be equal
+ok 37 should be equal
+ok 38 should be equal
+ok 39 should be equal
+ok 40 should be equal
+ok 41 should be equal
+ok 42 should be equivalent
+ok 43 should be equal
+ok 44 should be equivalent
+# read-only
+ok 45 should be equal
+ok 46 should be equal
+ok 47 should be equal
+ok 48 should be equal
+ok 49 should be equal
+ok 50 should be equivalent
+# write-only
+ok 51 should be equal
+ok 52 should be equal
+ok 53 should be equal
+ok 54 should be equal
+ok 55 should be equal
+ok 56 should be equal
+ok 57 should be equal
+ok 58 should be equivalent
+# writeOnChange = false
+ok 59 should be equal
+ok 60 should be equal
+ok 61 should be equal
+ok 62 should be equal
+ok 63 should be equal
+ok 64 should be equal
+ok 65 should be equal
+ok 66 should be equivalent
+
+1..66
+# tests 66
+# pass  66
+
+# ok
+
+STATE-OLD rc=0

@@ -1,0 +1,3 @@
+@eslint/eslintrc/node_modules/js-yaml
+cosmiconfig/node_modules/js-yaml
+eslint/node_modules/js-yaml

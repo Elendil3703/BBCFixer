@@ -1,0 +1,11 @@
+--- dorado/particle_track.py
++++ dorado/particle_track.py
+@@ -1203,7 +1203,7 @@
+     if k_nearest_neighbors == 1:  # Only use nearest neighbor
+         index_qFun = interpolate.NearestNDInterpolator(inputXY,
+                      np.arange(len(x), dtype='int64').transpose())
+-        gridqInd = index_qFun(gridXY_array)
++        gridqInd = index_qFun(gridXY_array).astype(np.int64)
+ 
+         # Function to do the interpolation
+         def interp_func(data):

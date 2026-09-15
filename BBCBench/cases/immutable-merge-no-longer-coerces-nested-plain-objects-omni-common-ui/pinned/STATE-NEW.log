@@ -1,0 +1,504 @@
+jest-haste-map: duplicate manual mock found:
+  Module name: index
+  Duplicate Mock path: /w/src/domain/Config/__mocks__/index.js
+This warning is caused by two manual mock files with the same file name.
+Jest will use the mock file found in: 
+/w/src/domain/Config/__mocks__/index.js
+ Please delete one of the following two files: 
+ /w/src/domain/createApiActionCreator/__mocks__/index.js
+/w/src/domain/Config/__mocks__/index.js
+
+
+jest-haste-map: duplicate manual mock found:
+  Module name: index
+  Duplicate Mock path: /w/src/domain/MediaQuery/__mocks__/index.js
+This warning is caused by two manual mock files with the same file name.
+Jest will use the mock file found in: 
+/w/src/domain/MediaQuery/__mocks__/index.js
+ Please delete one of the following two files: 
+ /w/src/domain/Config/__mocks__/index.js
+/w/src/domain/MediaQuery/__mocks__/index.js
+
+
+jest-haste-map: duplicate manual mock found:
+  Module name: index
+  Duplicate Mock path: /w/src/domain/testClass/__mocks__/index.js
+This warning is caused by two manual mock files with the same file name.
+Jest will use the mock file found in: 
+/w/src/domain/testClass/__mocks__/index.js
+ Please delete one of the following two files: 
+ /w/src/domain/MediaQuery/__mocks__/index.js
+/w/src/domain/testClass/__mocks__/index.js
+
+
+ PASS  src/domain/ApiResponseHelper/spec.js
+ PASS  src/containers/ApiCalls/ApiState.spec.js
+ PASS  src/containers/ApiCalls/ApiCall.spec.js
+ PASS  src/domain/createBuildRoute/spec.js
+ PASS  src/containers/ApiCalls/ApiAction.spec.js
+ PASS  src/domain/Api/spec.js
+ PASS  src/domain/createNotificationsMiddleware/spec.js
+ PASS  src/domain/createApiActionCreator/spec.js
+ PASS  src/domain/connect/spec.js
+ PASS  src/domain/parseRoutes/spec.js
+ PASS  src/components/Form/Field/spec.jsx
+ PASS  src/containers/ApiCalls/reducer.spec.js
+ PASS  src/domain/ApiResponse/spec.js
+ PASS  src/domain/log/spec.js
+ PASS  src/domain/log/buildLogToRaven.spec.js
+ PASS  src/domain/BreadcrumbsBuilder/spec.js
+ PASS  src/domain/PrivilegeChecker/spec.js
+ PASS  src/domain/createLoggerMiddleware/spec.js
+ PASS  src/components/Avatar/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `userLastName` of type `number` supplied to `Avatar`, expected `string`.
+          in Avatar
+
+ PASS  src/components/ProgressBar/spec.jsx
+ PASS  src/containers/SingleSignOn/IdleTimeoutHandler.spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `router` is marked as required in `IdleTimeoutHandler`, but its value is `undefined`.
+          in IdleTimeoutHandler
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `routes` is marked as required in `IdleTimeoutHandler`, but its value is `undefined`.
+          in IdleTimeoutHandler
+
+ PASS  src/containers/ApiCalls/ApiKey.spec.js
+ PASS  src/components/HorizontalScroll/spec.jsx
+ FAIL  src/containers/Sidebar/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `routes` is marked as required in `Sidebar`, but its value is `undefined`.
+          in Sidebar
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `location` is marked as required in `Sidebar`, but its value is `undefined`.
+          in Sidebar
+
+  ● calls onExpand when clicking on it
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:36:11)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › renders as expanded
+
+    expect(received).toHaveLength(length)
+    
+    Expected value to have length:
+      1
+    Received:
+      {"complexSelector": {"buildPredicate": [Function buildInstPredicate], "childrenOfNode": [Function childrenOfInst], "findWhereUnwrapped": [Function findWhereUnwrapped]}, "component": null, "length": 0, "node": undefined, "nodes": Array [], "options": {}, "root": {"complexSelector": {"buildPredicate": [Function buildInstPredicate], "childrenOfNode": [Function childrenOfInst], "findWhereUnwrapped": [Function findWhereUnwrapped]}, "component": {"_reactInternalInstance": {"_calledComponentWillUnmount": false, "_compositeType": 0, "_context": {}, "_currentElement": <WrapperComponent Component={[Function Sidebar]} context={null} props={{"expanded": true, "location": [Object], "onCollapse": [Function mockConstructor], "onExpand": [Function mockConstructor], "routes": [Array]}} />, "_debugID": 7, "_hostContainerInfo": {"_ancestorInfo": [Object], "_idCounter": 2, "_namespaceURI": "http://www.w3.org/1999/xhtml", "_node": <div><!-- react-empty: 1 --></div>, "_ownerDocument": [Object], "_tag": "div", "_topLevelWrapper": [Object]}, "_hostParent": null, "_instance": [Circular], "_mountImage": null, "_mountIndex": 0, "_mountOrder": 8, "_pendingCallbacks": null, "_pendingElement": null, "_pendingForceUpdate": false, "_pendingReplaceState": false, "_pendingStateQueue": null, "_renderedComponent": {"_calledComponentWillUnmount": false, "_compositeType": 1, "_context": [Object], "_currentElement": <Sidebar expanded={true} location={[Object]} onCollapse={[Function mockConstructor]} onExpand={[Function mockConstructor]} routes={[Array]} />, "_debugID": 8, "_hostContainerInfo": [Object], "_hostParent": null, "_instance": [Object], "_mountImage": null, "_mountIndex": 0, "_mountOrder": 9, "_pendingCallbacks": null, "_pendingElement": null, "_pendingForceUpdate": false, "_pendingReplaceState": false, "_pendingStateQueue": null, "_renderedComponent": [Object], "_renderedNodeType": 2, "_rootNodeID": 0, "_topLevelWrapper": null, "_updateBatchNumber": null, "_warnedAboutRefsInRender": false}, "_renderedNodeType": 1, "_rootNodeID": 0, "_topLevelWrapper": {"_calledComponentWillUnmount": false, "_compositeType": 0, "_context": [Object], "_currentElement": <TopLevelWrapper child={<WrapperComponent Component={[Function Sidebar]} context={null} props={[Object]} />} />, "_debugID": 0, "_hostContainerInfo": [Object], "_hostParent": null, "_instance": [Object], "_mountImage": null, "_mountIndex": 0, "_mountOrder": 7, "_pendingCallbacks": null, "_pendingElement": null, "_pendingForceUpdate": false, "_pendingReplaceState": false, "_pendingStateQueue": null, "_renderedComponent": [Circular], "_renderedNodeType": 1, "_rootNodeID": 0, "_topLevelWrapper": null, "_updateBatchNumber": null, "_warnedAboutRefsInRender": false}, "_updateBatchNumber": null, "_warnedAboutRefsInRender": false}, "context": {}, "props": {"Component": [Function Sidebar], "context": null, "props": {"expanded": true, "location": [Object], "onCollapse": [Function mockConstructor], "onExpand": [Function mockConstructor], "routes": [Array]}}, "refs": {}, "state": {"context": null, "mount": true, "props": {"expanded": true, "location": [Object], "onCollapse": [Function mockConstructor], "onExpand": [Function mockConstructor], "routes": [Array]}}, "updater": {"enqueueCallback": [Function enqueueCallback], "enqueueCallbackInternal": [Function enqueueCallbackInternal], "enqueueElementInternal": [Function enqueueElementInternal], "enqueueForceUpdate": [Function enqueueForceUpdate], "enqueueReplaceState": [Function enqueueReplaceState], "enqueueSetState": [Function enqueueSetState], "isMounted": [Function isMounted], "validateCallback": [Function validateCallback]}}, "length": 1, "node": {"_color": "headerBgColor", "_items": Immutable.OrderedMap {}, "_onClickedOutside": [Function bound _onClickedOutside], "_onPageScrolled": [Function bound _onPageScrolled], "_reactInternalInstance": {"_calledComponentWillUnmount": false, "_compositeType": 1, "_context": {}, "_currentElement": <Sidebar expanded={true} location={{"pathname": "/current/path"}} onCollapse={[Function mockConstructor]} onExpand={[Function mockConstructor]} routes={[[Object]]} />, "_debugID": 8, "_hostContainerInfo": {"_ancestorInfo": [Object], "_idCounter": 2, "_namespaceURI": "http://www.w3.org/1999/xhtml", "_node": <div><!-- react-empty: 1 --></div>, "_ownerDocument": [Object], "_tag": "div", "_topLevelWrapper": [Object]}, "_hostParent": null, "_instance": [Circular], "_mountImage": null, "_mountIndex": 0, "_mountOrder": 9, "_pendingCallbacks": null, "_pendingElement": null, "_pendingForceUpdate": false, "_pendingReplaceState": false, "_pendingStateQueue": null, "_renderedComponent": {"_currentElement": null, "_debugID": 0, "_domID": 1, "_hostContainerInfo": [Object], "_hostNode": <!-- react-empty: 1 -->, "_hostParent": null, "_mountImage": null, "_mountIndex": 0}, "_renderedNodeType": 2, "_rootNodeID": 0, "_topLevelWrapper": null, "_updateBatchNumber": null, "_warnedAboutRefsInRender": false}, "context": {}, "props": {"expanded": true, "location": {"pathname": "/current/path"}, "onCollapse": [Function mockConstructor], "onExpand": [Function mockConstructor], "routes": [[Object]]}, "refs": {}, "state": null, "updater": {"enqueueCallback": [Function enqueueCallback], "enqueueCallbackInternal": [Function enqueueCallbackInternal], "enqueueElementInternal": [Function enqueueElementInternal], "enqueueForceUpdate": [Function enqueueForceUpdate], "enqueueReplaceState": [Function enqueueReplaceState], "enqueueSetState": [Function enqueueSetState], "isMounted": [Function isMounted], "validateCallback": [Function validateCallback]}}, "nodes": [{"_color": "headerBgColor", "_items": Immutable.OrderedMap {}, "_onClickedOutside": [Function bound _onClickedOutside], "_onPageScrolled": [Function bound _onPageScrolled], "_reactInternalInstance": {"_calledComponentWillUnmount": false, "_compositeType": 1, "_context": [Object], "_currentElement": <Sidebar expanded={true} location={[Object]} onCollapse={[Function mockConstructor]} onExpand={[Function mockConstructor]} routes={[Array]} />, "_debugID": 8, "_hostContainerInfo": [Object], "_hostParent": null, "_instance": [Circular], "_mountImage": null, "_mountIndex": 0, "_mountOrder": 9, "_pendingCallbacks": null, "_pendingElement": null, "_pendingForceUpdate": false, "_pendingReplaceState": false, "_pendingStateQueue": null, "_renderedComponent": [Object], "_renderedNodeType": 2, "_rootNodeID": 0, "_topLevelWrapper": null, "_updateBatchNumber": null, "_warnedAboutRefsInRender": false}, "context": {}, "props": {"expanded": true, "location": [Object], "onCollapse": [Function mockConstructor], "onExpand": [Function mockConstructor], "routes": [Array]}, "refs": {}, "state": null, "updater": {"enqueueCallback": [Function enqueueCallback], "enqueueCallbackInternal": [Function enqueueCallbackInternal], "enqueueElementInternal": [Function enqueueElementInternal], "enqueueForceUpdate": [Function enqueueForceUpdate], "enqueueReplaceState": [Function enqueueReplaceState], "enqueueSetState": [Function enqueueSetState], "isMounted": [Function isMounted], "validateCallback": [Function validateCallback]}}], "options": {}, "root": [Circular]}}
+    received.length:
+      0
+      
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:53:66)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › renders items
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:57:19)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › calls onCollapse if the user clicks outside
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:66:5)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › calls onCollapse if the user taps outside
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:72:5)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › allows deeper routes to override configuration
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:79:19)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › allows deeper routes to remove an item
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:87:19)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › renders items according to their order property
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:97:19)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+ PASS  src/components/SolidRadio/spec.jsx
+ PASS  src/components/ErrorPage/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `replace` is marked as required in `ErrorPage`, but its value is `undefined`.
+          in ErrorPage
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `location` is marked as required in `ErrorPage`, but its value is `undefined`.
+          in ErrorPage
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `id` of value `custom-id` supplied to `Icon`, expected one of ["cross","happy","yingfu-logo","success","bell","chevron-small-right","sorting","cycle","question","arrow-down","unhappy","check","chevron-fat-down","smile","chevron-thin-left","dots","star-full","edit","lock","arrow-left","clock","info","star-half","circle","magnifying-glass","star-empty","chevron-small-up","toggle-course","export","burger","minus-squared-button","add-square-button","ef-logo","close","trash","arrow-right","chevron-small-down","chevron-thin-right","organisation","new-message","add-circle","warning","toggle-session","tick","cross-circle","history2","calendar","home","cross-circle-hollow","chevron-small-left"].
+          in Icon
+
+ PASS  src/components/Dialog/spec.jsx
+ PASS  src/containers/AuthorizationHandler/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: AuthorizationHandler: prop type `user.get` is invalid; it must be a function, usually from the `prop-types` package, but received `undefined`.
+          in AuthorizationHandler
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `havePrivilegesLoaded` is marked as required in `AuthorizationHandler`, but its value is `undefined`.
+          in AuthorizationHandler
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `permissionChecks[0].canAccess` is marked as required in `AuthorizationHandler`, but its value is `undefined`.
+          in AuthorizationHandler
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+
+ PASS  src/components/Person/spec.jsx
+ PASS  src/components/Icon/spec.jsx
+ PASS  src/components/Grid/Group/spec.jsx
+ PASS  src/components/HorizontalSelect/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `getLinkHrefForValue` is marked as required in `HorizontalSelect`, but its value is `undefined`.
+          in HorizontalSelect
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `options[0].value` of type `number` supplied to `HorizontalSelect`, expected `string`.
+          in HorizontalSelect
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `value` of type `number` supplied to `HorizontalSelect`, expected `string`.
+          in HorizontalSelect
+
+ PASS  src/components/Button/validateType.spec.js
+ PASS  src/components/Button/button.spec.jsx
+  ● Console
+
+    console.warn node_modules/jest-util/build/FakeTimers.js:323
+      A function to advance timers was called but the timers API is not mocked with fake timers. Call `jest.useFakeTimers()` in this test or enable fake timers globally by setting `"timers": "fake"` in the configuration file. This warning is likely a result of a default configuration change in Jest 15.
+      
+      Release Blog Post: https://facebook.github.io/jest/blog/2016/09/01/jest-15.html
+      Stack Trace:
+            Error
+            at FakeTimers._checkFakeTimers (node_modules/jest-util/build/FakeTimers.js:332:24)
+            at Object.<anonymous> (src/components/Button/button.spec.jsx:117:12)
+                at new Promise (<anonymous>)
+            at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+                at <anonymous>
+    console.warn node_modules/jest-util/build/FakeTimers.js:323
+      A function to advance timers was called but the timers API is not mocked with fake timers. Call `jest.useFakeTimers()` in this test or enable fake timers globally by setting `"timers": "fake"` in the configuration file. This warning is likely a result of a default configuration change in Jest 15.
+      
+      Release Blog Post: https://facebook.github.io/jest/blog/2016/09/01/jest-15.html
+      Stack Trace:
+            Error
+            at FakeTimers._checkFakeTimers (node_modules/jest-util/build/FakeTimers.js:332:24)
+            at src/components/Button/button.spec.jsx:119:39
+            at Object.<anonymous> (src/components/Button/button.spec.jsx:119:73)
+                at new Promise (<anonymous>)
+
+ PASS  src/components/Grid/Item/spec.jsx
+ PASS  src/components/Card/Content/spec.jsx
+ PASS  src/components/StudentPicture/spec.jsx
+ PASS  src/components/Card/Card/spec.jsx
+ PASS  src/domain/Store/spec.js
+ PASS  src/components/ColourLabel/spec.jsx
+ PASS  src/domain/testClass/spec.js
+ PASS  src/components/StudentCard/StudentCard/spec.jsx
+ PASS  src/components/Breadcrumbs/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `items[1].href` is marked as required in `Breadcrumbs`, but its value is `undefined`.
+          in Breadcrumbs
+
+ PASS  src/components/Form/spec.js
+ PASS  src/components/AdultPicture/spec.jsx
+ PASS  src/domain/Config/spec.js
+ PASS  src/components/Button/type.spec.js
+ PASS  src/components/PageCard/spec.jsx
+ PASS  src/components/StudentCard/Content/spec.jsx
+ PASS  src/components/Grid/spec.js
+ PASS  src/components/StudentCard/Profile/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `gender` of type `number` supplied to `PersonComp`, expected `string`.
+          in PersonComp (created by pure(PersonComp))
+          in pure(PersonComp) (created by Profile)
+          in div (created by Content)
+          in Content (created by pure(Content))
+          in pure(Content) (created by Profile)
+          in Profile (created by WrapperComponent)
+          in WrapperComponent
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `gender` of type `number` supplied to `StudentPicture`, expected `string`.
+          in StudentPicture (created by pure(StudentPicture))
+          in pure(StudentPicture)
+          in div (created by Person)
+          in Person (created by PersonComp)
+          in PersonComp (created by pure(PersonComp))
+          in pure(PersonComp) (created by Profile)
+          in div (created by Content)
+          in Content (created by pure(Content))
+          in pure(Content) (created by Profile)
+          in Profile (created by WrapperComponent)
+          in WrapperComponent
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `gender` of type `number` supplied to `Avatar`, expected `string`.
+          in Avatar (created by StudentPicture)
+          in StudentPicture (created by pure(StudentPicture))
+          in pure(StudentPicture)
+          in div (created by Person)
+          in Person (created by PersonComp)
+          in PersonComp (created by pure(PersonComp))
+          in pure(PersonComp) (created by Profile)
+          in div (created by Content)
+          in Content (created by pure(Content))
+          in pure(Content) (created by Profile)
+          in Profile (created by WrapperComponent)
+          in WrapperComponent
+
+ PASS  src/domain/moment/spec.js
+ PASS  src/components/Grid/Grid/spec.jsx
+ PASS  src/components/Form/Select/spec.jsx
+ PASS  src/components/Detailsboard/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `boardTitle` is marked as required in `DetailsBoard`, but its value is `undefined`.
+          in DetailsBoard
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `boardValue` is marked as required in `DetailsBoard`, but its value is `undefined`.
+          in DetailsBoard
+
+ PASS  src/containers/ErrorPageHandler/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: ErrorPageHandler: prop type `erroredApis.size` is invalid; it must be a function, usually from the `prop-types` package, but received `undefined`.
+          in ErrorPageHandler
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `replace` is marked as required in `ErrorPageHandler`, but its value is `undefined`.
+          in ErrorPageHandler
+
+ PASS  src/components/Form/TextInput/spec.jsx
+ PASS  src/components/SelectionTable/spec.jsx
+
+Summary of all failing tests
+ FAIL  src/containers/Sidebar/spec.jsx
+  ● calls onExpand when clicking on it
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:36:11)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › renders as expanded
+
+    expect(received).toHaveLength(length)
+    
+    Expected value to have length:
+      1
+    Received:
+      {"complexSelector": {"buildPredicate": [Function buildInstPredicate], "childrenOfNode": [Function childrenOfInst], "findWhereUnwrapped": [Function findWhereUnwrapped]}, "component": null, "length": 0, "node": undefined, "nodes": Array [], "options": {}, "root": {"complexSelector": {"buildPredicate": [Function buildInstPredicate], "childrenOfNode": [Function childrenOfInst], "findWhereUnwrapped": [Function findWhereUnwrapped]}, "component": {"_reactInternalInstance": {"_calledComponentWillUnmount": false, "_compositeType": 0, "_context": {}, "_currentElement": <WrapperComponent Component={[Function Sidebar]} context={null} props={{"expanded": true, "location": [Object], "onCollapse": [Function mockConstructor], "onExpand": [Function mockConstructor], "routes": [Array]}} />, "_debugID": 7, "_hostContainerInfo": {"_ancestorInfo": [Object], "_idCounter": 2, "_namespaceURI": "http://www.w3.org/1999/xhtml", "_node": <div><!-- react-empty: 1 --></div>, "_ownerDocument": [Object], "_tag": "div", "_topLevelWrapper": [Object]}, "_hostParent": null, "_instance": [Circular], "_mountImage": null, "_mountIndex": 0, "_mountOrder": 8, "_pendingCallbacks": null, "_pendingElement": null, "_pendingForceUpdate": false, "_pendingReplaceState": false, "_pendingStateQueue": null, "_renderedComponent": {"_calledComponentWillUnmount": false, "_compositeType": 1, "_context": [Object], "_currentElement": <Sidebar expanded={true} location={[Object]} onCollapse={[Function mockConstructor]} onExpand={[Function mockConstructor]} routes={[Array]} />, "_debugID": 8, "_hostContainerInfo": [Object], "_hostParent": null, "_instance": [Object], "_mountImage": null, "_mountIndex": 0, "_mountOrder": 9, "_pendingCallbacks": null, "_pendingElement": null, "_pendingForceUpdate": false, "_pendingReplaceState": false, "_pendingStateQueue": null, "_renderedComponent": [Object], "_renderedNodeType": 2, "_rootNodeID": 0, "_topLevelWrapper": null, "_updateBatchNumber": null, "_warnedAboutRefsInRender": false}, "_renderedNodeType": 1, "_rootNodeID": 0, "_topLevelWrapper": {"_calledComponentWillUnmount": false, "_compositeType": 0, "_context": [Object], "_currentElement": <TopLevelWrapper child={<WrapperComponent Component={[Function Sidebar]} context={null} props={[Object]} />} />, "_debugID": 0, "_hostContainerInfo": [Object], "_hostParent": null, "_instance": [Object], "_mountImage": null, "_mountIndex": 0, "_mountOrder": 7, "_pendingCallbacks": null, "_pendingElement": null, "_pendingForceUpdate": false, "_pendingReplaceState": false, "_pendingStateQueue": null, "_renderedComponent": [Circular], "_renderedNodeType": 1, "_rootNodeID": 0, "_topLevelWrapper": null, "_updateBatchNumber": null, "_warnedAboutRefsInRender": false}, "_updateBatchNumber": null, "_warnedAboutRefsInRender": false}, "context": {}, "props": {"Component": [Function Sidebar], "context": null, "props": {"expanded": true, "location": [Object], "onCollapse": [Function mockConstructor], "onExpand": [Function mockConstructor], "routes": [Array]}}, "refs": {}, "state": {"context": null, "mount": true, "props": {"expanded": true, "location": [Object], "onCollapse": [Function mockConstructor], "onExpand": [Function mockConstructor], "routes": [Array]}}, "updater": {"enqueueCallback": [Function enqueueCallback], "enqueueCallbackInternal": [Function enqueueCallbackInternal], "enqueueElementInternal": [Function enqueueElementInternal], "enqueueForceUpdate": [Function enqueueForceUpdate], "enqueueReplaceState": [Function enqueueReplaceState], "enqueueSetState": [Function enqueueSetState], "isMounted": [Function isMounted], "validateCallback": [Function validateCallback]}}, "length": 1, "node": {"_color": "headerBgColor", "_items": Immutable.OrderedMap {}, "_onClickedOutside": [Function bound _onClickedOutside], "_onPageScrolled": [Function bound _onPageScrolled], "_reactInternalInstance": {"_calledComponentWillUnmount": false, "_compositeType": 1, "_context": {}, "_currentElement": <Sidebar expanded={true} location={{"pathname": "/current/path"}} onCollapse={[Function mockConstructor]} onExpand={[Function mockConstructor]} routes={[[Object]]} />, "_debugID": 8, "_hostContainerInfo": {"_ancestorInfo": [Object], "_idCounter": 2, "_namespaceURI": "http://www.w3.org/1999/xhtml", "_node": <div><!-- react-empty: 1 --></div>, "_ownerDocument": [Object], "_tag": "div", "_topLevelWrapper": [Object]}, "_hostParent": null, "_instance": [Circular], "_mountImage": null, "_mountIndex": 0, "_mountOrder": 9, "_pendingCallbacks": null, "_pendingElement": null, "_pendingForceUpdate": false, "_pendingReplaceState": false, "_pendingStateQueue": null, "_renderedComponent": {"_currentElement": null, "_debugID": 0, "_domID": 1, "_hostContainerInfo": [Object], "_hostNode": <!-- react-empty: 1 -->, "_hostParent": null, "_mountImage": null, "_mountIndex": 0}, "_renderedNodeType": 2, "_rootNodeID": 0, "_topLevelWrapper": null, "_updateBatchNumber": null, "_warnedAboutRefsInRender": false}, "context": {}, "props": {"expanded": true, "location": {"pathname": "/current/path"}, "onCollapse": [Function mockConstructor], "onExpand": [Function mockConstructor], "routes": [[Object]]}, "refs": {}, "state": null, "updater": {"enqueueCallback": [Function enqueueCallback], "enqueueCallbackInternal": [Function enqueueCallbackInternal], "enqueueElementInternal": [Function enqueueElementInternal], "enqueueForceUpdate": [Function enqueueForceUpdate], "enqueueReplaceState": [Function enqueueReplaceState], "enqueueSetState": [Function enqueueSetState], "isMounted": [Function isMounted], "validateCallback": [Function validateCallback]}}, "nodes": [{"_color": "headerBgColor", "_items": Immutable.OrderedMap {}, "_onClickedOutside": [Function bound _onClickedOutside], "_onPageScrolled": [Function bound _onPageScrolled], "_reactInternalInstance": {"_calledComponentWillUnmount": false, "_compositeType": 1, "_context": [Object], "_currentElement": <Sidebar expanded={true} location={[Object]} onCollapse={[Function mockConstructor]} onExpand={[Function mockConstructor]} routes={[Array]} />, "_debugID": 8, "_hostContainerInfo": [Object], "_hostParent": null, "_instance": [Circular], "_mountImage": null, "_mountIndex": 0, "_mountOrder": 9, "_pendingCallbacks": null, "_pendingElement": null, "_pendingForceUpdate": false, "_pendingReplaceState": false, "_pendingStateQueue": null, "_renderedComponent": [Object], "_renderedNodeType": 2, "_rootNodeID": 0, "_topLevelWrapper": null, "_updateBatchNumber": null, "_warnedAboutRefsInRender": false}, "context": {}, "props": {"expanded": true, "location": [Object], "onCollapse": [Function mockConstructor], "onExpand": [Function mockConstructor], "routes": [Array]}, "refs": {}, "state": null, "updater": {"enqueueCallback": [Function enqueueCallback], "enqueueCallbackInternal": [Function enqueueCallbackInternal], "enqueueElementInternal": [Function enqueueElementInternal], "enqueueForceUpdate": [Function enqueueForceUpdate], "enqueueReplaceState": [Function enqueueReplaceState], "enqueueSetState": [Function enqueueSetState], "isMounted": [Function isMounted], "validateCallback": [Function validateCallback]}}], "options": {}, "root": [Circular]}}
+    received.length:
+      0
+      
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:53:66)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › renders items
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:57:19)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › calls onCollapse if the user clicks outside
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:66:5)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › calls onCollapse if the user taps outside
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:72:5)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › allows deeper routes to override configuration
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:79:19)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › allows deeper routes to remove an item
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:87:19)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+  ● when expanded › renders items according to their order property
+
+    TypeError: Cannot read property 'tagName' of null
+      
+      at node_modules/react-dom/lib/ReactTestUtils.js:323:35
+      at ReactWrapper.<anonymous> (node_modules/enzyme/build/ReactWrapper.js:776:11)
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1421:25)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:769:14)
+      at mountAndClick (src/containers/Sidebar/spec.jsx:43:13)
+      at Object.<anonymous> (src/containers/Sidebar/spec.jsx:97:19)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:189:7)
+
+
+Test Suites: 1 failed, 57 passed, 58 total
+Tests:       8 failed, 429 passed, 437 total
+Snapshots:   0 total
+Time:        2.029s
+Ran all test suites.
+STATE-NEW rc=1

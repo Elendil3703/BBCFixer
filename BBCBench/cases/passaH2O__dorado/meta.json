@@ -1,0 +1,46 @@
+{
+  "id": "passaH2O__dorado",
+  "name": "passaH2O__dorado",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "passaH2O/dorado",
+    "url": "https://github.com/passaH2O/dorado",
+    "commit": "8c90ac9043f9932a6e07559a7d6180d3b66bb652",
+    "license": "MIT"
+  },
+  "lib": "scipy",
+  "v_old": "1.10.1",
+  "v_new": "1.16.1",
+  "library_repo": "https://github.com/scipy/scipy",
+  "library_tags": {
+    "old": "v1.10.1",
+    "new": "v1.16.1"
+  },
+  "reference_fix_source": "benchmark-authors",
+  "root_api": "scipy.interpolate.NearestNDInterpolator.__call__",
+  "root_symbols": [
+    "NearestNDInterpolator.__call__"
+  ],
+  "behavioral_change": "scipy v_old 1.10.1 to v_new 1.16.1 (v_old is a resolved value). The array returned by scipy.interpolate.NearestNDInterpolator.__call__ no longer has an integer dtype (the result container is created with np.full in v_new).",
+  "downstream_effect": "The downstream project uses the returned values as array indices, which now raises an error; the original tests need no change.",
+  "reference_fix": "The reference fix adds .astype(np.int64) at the call site.",
+  "test_cmd": "bash /work/test_passaH2O__dorado.sh",
+  "test_files": [
+    "tests/test_examplecases.py",
+    "tests/test_lagrangian_walker.py",
+    "tests/test_particle_track.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:passah2o__dorado",
+    "python": "3.12.11"
+  },
+  "upgrade": {
+    "kind": "dated-snapshot",
+    "intact_date": "2023-06-20",
+    "broken_date": "2025-07-31",
+    "note": "TimeMachine-bench case: every dependency is resolved at the dated snapshot; the library at v_old/v_new is the one whose behavioral change breaks the tests."
+  }
+}

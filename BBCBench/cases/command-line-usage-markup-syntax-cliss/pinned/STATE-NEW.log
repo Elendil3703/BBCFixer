@@ -1,0 +1,137 @@
+
+> cliss@0.0.9 test
+> mocha ./test/main.test.js  ./test/main.test.pipe.stdin.js
+
+
+
+  cliss-options
+    1) options.validateRequiredParameters = true
+    ✓ command.subcommandsDelimiter = '-' + options.pipe.before + command.pipe.after (59ms)
+
+  complex-cases
+    ✓ Main command version (48ms)
+    ✓ Main command help (when there is no args for a command without an action) (66ms)
+    ✓ Main command help (63ms)
+    2) Nested command help
+    ✓ Nested command specific version (49ms)
+    ✓ Nested command call (48ms)
+    ✓ Nested command call passing in options / args (46ms)
+    ✓ Nested command help showing variading arguments (based on rest parameters definition) (67ms)
+    ✓ Nested command version (getting the value from main command) (47ms)
+    ✓ Nested command call resolving a Promise (1550ms)
+    ✓ Nested command call variadic arguments (63ms)
+    ✓ Nested command call variadic arguments (with arbitrary named options) (56ms)
+    ✓ Nested command with no action plus having more nested commands defined --help (73ms)
+    ✓ Nested command, of an already nested command, call (3 level deep) (63ms)
+    ✓ Nested command with action plus having more nested commands defined --help (73ms)
+    ✓ Nested command with action plus having more nested commands defined --help (185ms)
+    ✓ Nested command with action plus having more nested commands defined call (80ms)
+    ✓ Nested command, of an already nested command, call (3 level deep, when the parent also contains an action) (55ms)
+
+  destructuring-parameters-cli
+    ✓ object specification + passing in options / args (47ms)
+    ✓ Passing in only one argument (48ms)
+    ✓ --help (63ms)
+
+  fn-cli
+    ✓ cli function with no object spec definition (46ms)
+    ✓ Passing in only one argument (using default values) (45ms)
+    ✓ --help (57ms)
+
+  simple-cli
+    ✓ object specification + passing in options / args (45ms)
+    ✓ Passing in only one argument (49ms)
+    ✓ --help (62ms)
+
+  stdin
+    ✓ command.pipe.stdin (60ms)
+
+
+  28 passing (3s)
+  2 failing
+
+  1) cliss-options
+       options.validateRequiredParameters = true:
+     Command failed: node /w/test/specs/cliss-options --param2=A
+/w/node_modules/command-line-usage/node_modules/chalk/templates.js:109
+				throw new Error('Found extraneous } in Chalk template literal');
+				^
+
+Error: Found extraneous } in Chalk template literal
+    at /w/node_modules/command-line-usage/node_modules/chalk/templates.js:109:11
+    at String.replace (<anonymous>)
+    at module.exports (/w/node_modules/command-line-usage/node_modules/chalk/templates.js:99:6)
+    at chalkTag (/w/node_modules/command-line-usage/node_modules/chalk/index.js:221:9)
+    at Chalk.chalk.template (/w/node_modules/command-line-usage/node_modules/chalk/index.js:36:20)
+    at format (/w/node_modules/command-line-usage/lib/chalk-format.js:4:10)
+    at chalkFormat (/w/node_modules/command-line-usage/lib/chalk-format.js:10:12)
+    at /w/node_modules/command-line-usage/lib/option-list.js:41:22
+    at Array.map (<anonymous>)
+    at new OptionList (/w/node_modules/command-line-usage/lib/option-list.js:38:30)
+
+  Error: Command failed: node /w/test/specs/cliss-options --param2=A
+  /w/node_modules/command-line-usage/node_modules/chalk/templates.js:109
+  				throw new Error('Found extraneous } in Chalk template literal');
+  				^
+  
+  Error: Found extraneous } in Chalk template literal
+      at /w/node_modules/command-line-usage/node_modules/chalk/templates.js:109:11
+      at String.replace (<anonymous>)
+      at module.exports (node_modules/command-line-usage/node_modules/chalk/templates.js:99:6)
+      at chalkTag (node_modules/command-line-usage/node_modules/chalk/index.js:221:9)
+      at Chalk.chalk.template (node_modules/command-line-usage/node_modules/chalk/index.js:36:20)
+      at format (node_modules/command-line-usage/lib/chalk-format.js:4:10)
+      at chalkFormat (node_modules/command-line-usage/lib/chalk-format.js:10:12)
+      at /w/node_modules/command-line-usage/lib/option-list.js:41:22
+      at Array.map (<anonymous>)
+      at new OptionList (node_modules/command-line-usage/lib/option-list.js:38:30)
+  
+      at ChildProcess.exithandler (node:child_process:402:12)
+      at ChildProcess.emit (node:events:513:28)
+      at maybeClose (node:internal/child_process:1100:16)
+      at Process.ChildProcess._handle.onexit (node:internal/child_process:304:5)
+
+  2) complex-cases
+       Nested command help:
+     Command failed: node /w/test/specs/complex-cases nested-command-1 --help
+/w/node_modules/command-line-usage/node_modules/chalk/templates.js:109
+				throw new Error('Found extraneous } in Chalk template literal');
+				^
+
+Error: Found extraneous } in Chalk template literal
+    at /w/node_modules/command-line-usage/node_modules/chalk/templates.js:109:11
+    at String.replace (<anonymous>)
+    at module.exports (/w/node_modules/command-line-usage/node_modules/chalk/templates.js:99:6)
+    at chalkTag (/w/node_modules/command-line-usage/node_modules/chalk/index.js:221:9)
+    at Chalk.chalk.template (/w/node_modules/command-line-usage/node_modules/chalk/index.js:36:20)
+    at format (/w/node_modules/command-line-usage/lib/chalk-format.js:4:10)
+    at chalkFormat (/w/node_modules/command-line-usage/lib/chalk-format.js:10:12)
+    at /w/node_modules/command-line-usage/lib/option-list.js:41:22
+    at Array.map (<anonymous>)
+    at new OptionList (/w/node_modules/command-line-usage/lib/option-list.js:38:30)
+
+  Error: Command failed: node /w/test/specs/complex-cases nested-command-1 --help
+  /w/node_modules/command-line-usage/node_modules/chalk/templates.js:109
+  				throw new Error('Found extraneous } in Chalk template literal');
+  				^
+  
+  Error: Found extraneous } in Chalk template literal
+      at /w/node_modules/command-line-usage/node_modules/chalk/templates.js:109:11
+      at String.replace (<anonymous>)
+      at module.exports (node_modules/command-line-usage/node_modules/chalk/templates.js:99:6)
+      at chalkTag (node_modules/command-line-usage/node_modules/chalk/index.js:221:9)
+      at Chalk.chalk.template (node_modules/command-line-usage/node_modules/chalk/index.js:36:20)
+      at format (node_modules/command-line-usage/lib/chalk-format.js:4:10)
+      at chalkFormat (node_modules/command-line-usage/lib/chalk-format.js:10:12)
+      at /w/node_modules/command-line-usage/lib/option-list.js:41:22
+      at Array.map (<anonymous>)
+      at new OptionList (node_modules/command-line-usage/lib/option-list.js:38:30)
+  
+      at ChildProcess.exithandler (node:child_process:402:12)
+      at ChildProcess.emit (node:events:513:28)
+      at maybeClose (node:internal/child_process:1100:16)
+      at Process.ChildProcess._handle.onexit (node:internal/child_process:304:5)
+
+
+
+STATE-NEW rc=2

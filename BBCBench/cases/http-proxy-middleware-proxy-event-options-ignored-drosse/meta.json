@@ -1,0 +1,43 @@
+{
+  "id": "http-proxy-middleware-proxy-event-options-ignored-drosse",
+  "name": "http-proxy-middleware-proxy-event-options-ignored-drosse",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "jota-one/drosse",
+    "url": "https://github.com/jota-one/drosse",
+    "commit": "638eb4f249e8e7782f656d6765e7c6d6490e57b4"
+  },
+  "lib": "http-proxy-middleware",
+  "v_old": "2.0.6",
+  "v_new": "3.0.5",
+  "library_repo": "https://github.com/chimurai/http-proxy-middleware",
+  "library_tags": {
+    "old": "v2.0.6",
+    "new": "v3.0.5"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "http-proxy-middleware.createProxyMiddleware options.onProxyRes / options.on.proxyRes",
+  "root_symbols": [
+    "proxyEventsPlugin",
+    "getHandlers",
+    "legacyOptionsAdapter",
+    "verifyConfig"
+  ],
+  "behavioral_change": "http-proxy-middleware 3.0.0 moved the six proxy event callbacks (`onError`, `onProxyReq`, `onProxyRes`, `onProxyReqWs`, `onOpen`, `onClose`) from top-level options into an `on` object (`on.error`, `on.proxyReq`, `on.proxyRes`, `on.proxyReqWs`, `on.open`, `on.close`). v_new validates only `target` and `router`, so top-level event keys from v_old are silently dropped, while `selfHandleResponse` is still honored.",
+  "downstream_effect": "The downstream project (drosse) sets `selfHandleResponse` to true for the `/proxy` route and relies on `onProxyRes` to write the rewritten response; after the upgrade the handler is ignored, the proxied request never receives a response, and the vitest case fails with `Test timed out in 5000ms`. The output contains no stack frame, file name or line number, and never mentions http-proxy-middleware or `src/app/builder.js`.",
+  "reference_fix": "The reference fix edits only `src/app/builder.js`, moving the top-level `onProxyReq` and `onProxyRes` entries of the proxy options into an `on` object as `proxyReq` and `proxyRes`.",
+  "documented_in": "The library's v2 to v3 migration guide MIGRATION.md (https://github.com/chimurai/http-proxy-middleware/blob/master/MIGRATION.md), section Refactored proxy events, declares the change and gives before and after code blocks mapping each old key to its `on` field. Tier 1: the documentation shows the new code form.",
+  "failing_tests": [
+    "test/serve.test.js :: serve > proxies requests"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "jota-one/drosse",
+  "commit": "638eb4f249e8e7782f656d6765e7c6d6490e57b4"
+}

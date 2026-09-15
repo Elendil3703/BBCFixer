@@ -1,0 +1,12 @@
+110a111
+> conventional-changelog-writer/node_modules/lodash	lodash@3.10.1
+112a114
+> conventional-changelog/node_modules/lodash	lodash@3.10.1
+115a118
+> conventional-commits-parser/node_modules/lodash	lodash@3.10.1
+263a267
+> gulp-jshint/node_modules/lodash	lodash@3.10.1
+410c414
+< lodash	lodash@3.10.1
+---
+> lodash	lodash@4.17.21

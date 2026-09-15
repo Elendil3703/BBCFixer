@@ -1,0 +1,46 @@
+{
+  "id": "lodash-samplesize-hubot-coffeepoll",
+  "name": "lodash-samplesize-hubot-coffeepoll",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "wallacyyy/hubot-coffeepoll",
+    "url": "https://github.com/wallacyyy/hubot-coffeepoll",
+    "commit": "1f5d2325d8af72025a9ee3745fdc9c6c32dac2a8"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.sample",
+  "root_symbols": [
+    "sample",
+    "sampleSize"
+  ],
+  "behavioral_change": "lodash v4.0.0 split `_.sample` with a count into `_.sampleSize`; `_.sample` no longer accepts a second argument and always returns a single random element. The call form is unchanged and no exception is thrown, but the return shape silently changes from an array of length n to a scalar.",
+  "downstream_effect": "The downstream Hubot plugin calls `_.sample(payload.response.venues, 3)` in src/coffeepoll.js:176 to pick three venues for a poll; after the upgrade it receives one object instead of an array, the candidate list written to the bot brain is empty, and voting, counting and reporting all fail. The six failures are chai assertions (for example \"expected 0 to deeply equal 3\") with frames only in test/coffeepoll.js; lodash and sampleSize never appear, and the 19 mentions of src/coffeepoll.js are unrelated startup deprecation notices also present before the upgrade.",
+  "reference_fix": "The reference fix changes one line in src/coffeepoll.js:176 from `_.sample(payload.response.venues, 3)` to `_.sampleSize(payload.response.venues, 3)`.",
+  "documented_in": "The lodash Changelog for v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog#v400), Compatibility Warnings section, \"Split out methods\" list, states \"Split `_.sample` into `_.sampleSize`\", and `_.sampleSize` is listed under \"Added 80 methods\" in Notable Changes; the entry has no code block, and the new form must be derived from the jsdoc definitions of `_.sampleSize` and `_.sample`.",
+  "failing_tests": [
+    "test/coffeepoll.js :: coffeepoll > with a poll started > saves 3 location samples",
+    "test/coffeepoll.js :: coffeepoll > with a poll started > counts the votes",
+    "test/coffeepoll.js :: coffeepoll > with a poll started > tries to vote twice",
+    "test/coffeepoll.js :: coffeepoll > with a poll started > tries to start another poll before finish it",
+    "test/coffeepoll.js :: coffeepoll > with a poll started > tries to vote in a option that does not exist",
+    "test/coffeepoll.js :: coffeepoll > with a poll started > finishes the poll"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "wallacyyy/hubot-coffeepoll",
+  "commit": "1f5d2325d8af72025a9ee3745fdc9c6c32dac2a8"
+}

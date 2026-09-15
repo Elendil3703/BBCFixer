@@ -1,0 +1,4 @@
+babel-eslint/node_modules/babel-core/node_modules/lodash
+babel-plugin-proto-to-assign/node_modules/lodash
+esformatter-jsx/node_modules/babel-core/node_modules/lodash
+inquirer/node_modules/lodash

@@ -1,0 +1,52 @@
+
+> cliss@0.0.9 test
+> mocha ./test/main.test.js  ./test/main.test.pipe.stdin.js
+
+
+
+  cliss-options
+    ✓ options.validateRequiredParameters = true (66ms)
+    ✓ command.subcommandsDelimiter = '-' + options.pipe.before + command.pipe.after (43ms)
+
+  complex-cases
+    ✓ Main command version (45ms)
+    ✓ Main command help (when there is no args for a command without an action) (58ms)
+    ✓ Main command help (59ms)
+    ✓ Nested command help (56ms)
+    ✓ Nested command specific version (45ms)
+    ✓ Nested command call (42ms)
+    ✓ Nested command call passing in options / args (55ms)
+    ✓ Nested command help showing variading arguments (based on rest parameters definition) (58ms)
+    ✓ Nested command version (getting the value from main command) (45ms)
+    ✓ Nested command call resolving a Promise (1547ms)
+    ✓ Nested command call variadic arguments (43ms)
+    ✓ Nested command call variadic arguments (with arbitrary named options) (44ms)
+    ✓ Nested command with no action plus having more nested commands defined --help (66ms)
+    ✓ Nested command, of an already nested command, call (3 level deep) (44ms)
+    ✓ Nested command with action plus having more nested commands defined --help (60ms)
+    ✓ Nested command with action plus having more nested commands defined --help (60ms)
+    ✓ Nested command with action plus having more nested commands defined call (44ms)
+    ✓ Nested command, of an already nested command, call (3 level deep, when the parent also contains an action) (45ms)
+
+  destructuring-parameters-cli
+    ✓ object specification + passing in options / args (47ms)
+    ✓ Passing in only one argument (46ms)
+    ✓ --help (62ms)
+
+  fn-cli
+    ✓ cli function with no object spec definition (46ms)
+    ✓ Passing in only one argument (using default values) (46ms)
+    ✓ --help (59ms)
+
+  simple-cli
+    ✓ object specification + passing in options / args (45ms)
+    ✓ Passing in only one argument (43ms)
+    ✓ --help (56ms)
+
+  stdin
+    ✓ command.pipe.stdin (57ms)
+
+
+  30 passing (3s)
+
+STATE-FIXED rc=0

@@ -1,0 +1,7 @@
+moabb/tests/__init__.py
+moabb/tests/analysis.py
+moabb/tests/datasets.py
+moabb/tests/download.py
+moabb/tests/evaluations.py
+moabb/tests/paradigms.py
+moabb/tests/util_tests.py

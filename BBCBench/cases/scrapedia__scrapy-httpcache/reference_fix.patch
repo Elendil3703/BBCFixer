@@ -1,0 +1,20 @@
+--- scrapy_httpcache/extensions/cache_storage/__init__.py
++++ scrapy_httpcache/extensions/cache_storage/__init__.py
+@@ -5,7 +5,7 @@
+ from typing import Optional
+ 
+ from scrapy.settings import Settings
+-from scrapy.utils.request import request_fingerprint
++from scrapy.utils.request import fingerprint
+ 
+ from scrapy_httpcache import TRequest, TResponse, TSpider
+ 
+@@ -73,7 +73,7 @@
+         :return:
+         :rtype: str
+         """
+-        return request_fingerprint(request)
++        return fingerprint(request).hex()
+ 
+     def delete_response(
+         self, request: TRequest, response: TResponse, spider: TSpider, *args, **kwargs

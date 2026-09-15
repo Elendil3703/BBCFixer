@@ -1,0 +1,10 @@
+changed packages (7): @sindresorhus/is, char-regex, emojilib, lodash.toarray, node-emoji, skin-tone, unicode-emoji-modifier-base
+  OK new @sindresorhus/is@4.6.0 at @sindresorhus/is
+  OK new char-regex@1.0.2 at char-regex
+  OK new emojilib@2.4.0 at emojilib
+  OK old lodash.toarray@4.4.0 at lodash.toarray
+  OK new node-emoji@2.2.0 at node-emoji
+  OK old node-emoji@1.10.0 at node-emoji
+  OK new skin-tone@2.0.0 at skin-tone
+  OK new unicode-emoji-modifier-base@1.0.0 at unicode-emoji-modifier-base
+TREECHECK_OK: every change is inside the allowed closure (7 allowed names)

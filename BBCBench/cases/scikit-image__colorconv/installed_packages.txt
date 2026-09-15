@@ -1,0 +1,32 @@
+Python 3.11.15
+beniget==0.4.2.post1
+certifi==2026.6.17
+charset-normalizer==3.4.9
+Cython==3.0.10
+gast==0.6.0
+idna==3.18
+ImageIO==2.37.4
+iniconfig==2.3.0
+lazy-loader==0.5
+meson==1.11.2
+meson-python==0.15.0
+networkx==3.6.1
+ninja==1.13.0
+numpy==2.0.2
+packaging==26.2
+pillow==12.3.0
+platformdirs==4.11.0
+pluggy==1.6.0
+ply==3.11
+pooch==1.9.0
+Pygments==2.20.0
+pyproject-metadata==0.12.1
+pytest==9.1.1
+pythran==0.18.1
+PyWavelets==1.9.0
+requests==2.34.2
+# Editable install with no version control (scikit-image==0.23.0rc0.dev0)
+-e /work
+scipy==1.13.1
+tifffile==2026.3.3
+urllib3==2.7.0

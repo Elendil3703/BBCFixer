@@ -1,0 +1,18 @@
+changed packages (3): @babel/runtime, regenerator-runtime, yaml
+  OK new @babel/runtime@7.4.5 at oas-linter/node_modules/yaml/node_modules/@babel/runtime
+  OK new @babel/runtime@7.4.5 at oas-resolver/node_modules/yaml/node_modules/@babel/runtime
+  OK new @babel/runtime@7.4.5 at oas-validator/node_modules/yaml/node_modules/@babel/runtime
+  OK new @babel/runtime@7.4.5 at swagger2openapi/node_modules/yaml/node_modules/@babel/runtime
+  OK old @babel/runtime@7.4.5 at yaml/node_modules/@babel/runtime
+  OK new regenerator-runtime@0.13.2 at oas-linter/node_modules/yaml/node_modules/regenerator-runtime
+  OK new regenerator-runtime@0.13.2 at oas-resolver/node_modules/yaml/node_modules/regenerator-runtime
+  OK new regenerator-runtime@0.13.2 at oas-validator/node_modules/yaml/node_modules/regenerator-runtime
+  OK new regenerator-runtime@0.13.2 at swagger2openapi/node_modules/yaml/node_modules/regenerator-runtime
+  OK old regenerator-runtime@0.13.2 at yaml/node_modules/regenerator-runtime
+  OK new yaml@1.6.0 at oas-linter/node_modules/yaml
+  OK new yaml@1.6.0 at oas-resolver/node_modules/yaml
+  OK new yaml@1.6.0 at oas-validator/node_modules/yaml
+  OK new yaml@1.6.0 at swagger2openapi/node_modules/yaml
+  OK new yaml@2.9.0 at yaml
+  OK old yaml@1.6.0 at yaml
+TREECHECK_OK: every change is inside the allowed closure (3 allowed names)

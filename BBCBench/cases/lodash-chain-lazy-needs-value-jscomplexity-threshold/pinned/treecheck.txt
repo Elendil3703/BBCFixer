@@ -1,0 +1,12 @@
+changed packages (1): lodash
+  OK new lodash@2.4.2 at grunt-legacy-util/node_modules/lodash
+  OK new lodash@2.4.2 at grunt/node_modules/lodash
+  OK new lodash@2.4.2 at jscomplexity/node_modules/lodash
+  OK new lodash@2.4.2 at jshint/node_modules/lodash
+  OK new lodash@3.10.1 at lodash
+  OK old lodash@0.9.2 at grunt-legacy-util/node_modules/lodash
+  OK old lodash@0.9.2 at grunt/node_modules/lodash
+  OK old lodash@2.4.1 at jscomplexity/node_modules/lodash
+  OK old lodash@2.4.2 at lodash
+  OK old lodash@4.17.23 at jshint/node_modules/lodash
+TREECHECK_OK: every change is inside the allowed closure (1 allowed names)

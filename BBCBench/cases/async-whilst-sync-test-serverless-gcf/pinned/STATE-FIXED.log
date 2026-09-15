@@ -1,0 +1,123 @@
+
+> serverless-google-cloudfunctions@4.6.0 test
+> jest
+
+(node:2836472) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836459) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836432) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836458) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836434) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836503) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836505) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836441) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836433) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836465) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836450) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836502) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836435) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836504) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836506) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+PASS remove/lib/emptyDeploymentBucket.test.js
+PASS deploy/lib/cleanupDeploymentBucket.test.js
+PASS provider/googleProvider.test.js
+PASS deploy/lib/updateDeployment.test.js
+PASS package/googlePackage.test.js
+PASS shared/validate.test.js
+PASS invokeLocal/googleInvokeLocal.test.js
+PASS shared/monitorDeployment.test.js
+PASS package/lib/writeFilesToDisk.test.js
+PASS package/lib/cleanupServerlessDir.test.js
+PASS remove/googleRemove.test.js
+PASS package/lib/compileFunctions.test.js
+PASS deploy/lib/createDeployment.test.js
+PASS info/googleInfo.test.js
+PASS invokeLocal/lib/getDataAndContext.test.js
+PASS package/lib/mergeServiceResources.test.js
+PASS logs/lib/retrieveLogs.test.js
+PASS logs/googleLogs.test.js
+PASS invoke/lib/invokeFunction.test.js
+PASS shared/setDeploymentBucketName.test.js
+PASS remove/lib/removeDeployment.test.js
+PASS shared/utils.test.js
+PASS ./index.test.js
+PASS package/lib/prepareDeployment.test.js
+PASS deploy/googleDeploy.test.js
+PASS deploy/lib/uploadArtifacts.test.js
+PASS invoke/googleInvoke.test.js
+PASS package/lib/generateArtifactDirectoryName.test.js
+PASS info/lib/displayServiceInfo.test.js
+PASS invokeLocal/lib/nodeJs.test.js
+  ● Console
+
+    console.log
+      EVENT_SYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      EVENT_SYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      EVENT_ASYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      EVENT_ASYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      MY_VAR_VALUE
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      HTTP_SYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      HTTP_SYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      HTTP_ASYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      HTTP_ASYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      MY_VAR_VALUE
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+
+Test Suites: 30 passed, 30 total
+Tests:       224 passed, 224 total
+Snapshots:   0 total
+Time:        2.243s, estimated 21s
+Ran all test suites.
+STATE-FIXED rc=0

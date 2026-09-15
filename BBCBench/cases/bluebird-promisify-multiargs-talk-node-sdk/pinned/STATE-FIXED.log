@@ -1,0 +1,26 @@
+
+> talk-node-sdk@0.4.10 test /w
+> NODE_ENV=test ./node_modules/.bin/mocha --require coffee-script/register --require should --reporter spec test/main.coffee
+
+
+
+  Talk#Main
+    retry connecting
+      ✓ should work when api server is started after the client (624ms)
+    client and call apis
+      ✓ should get an NO_PERMISSIONT error without authorization
+      ✓ should call the user.readOne with authorization
+    service and listen for events
+      ✓ should intialize the express server and call the api
+      ✓ should listen for the user.readOne event
+      ✓ should listen for the wildcard * event
+    worker and test for what he should do
+      ✓ should run the tasks every 100ms (401ms)
+      ✓ should execute the tasks each second by cron-like schedule (1050ms)
+      ✓ should not bother the other tasks when a task crashed (42ms)
+      ✓ should send a error integration to server when task failed (104ms)
+
+
+  10 passing (2s)
+
+STATE-FIXED rc=0

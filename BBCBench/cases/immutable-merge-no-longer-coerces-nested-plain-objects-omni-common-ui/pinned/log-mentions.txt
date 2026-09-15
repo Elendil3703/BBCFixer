@@ -1,0 +1,5 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	immutable	4	Project output, not introduced by the harness: all 4 hits are on lines 103 and 398 of the archived log, the component instance dump that enzyme prints when the assertion in when expanded > renders as expanded fails, reading "_items": Immutable.OrderedMap {}; the same dump is printed once in the failure details and once in the final summary, with 2 hits per dump (the component itself and the same instance in the nodes array), hence 4. The dump is generated automatically by jest's failing toHaveLength assertion, so removing it would tamper with the project's genuine failure; it is kept and recorded here. It is also a genuine diagnostic clue, revealing that the problematic collection is an empty immutable OrderedMap, which is recorded in error_neq_fix in meta.json; STATE-OLD and STATE-FIXED pass, produce no dump and have 0 hits.

@@ -1,0 +1,44 @@
+{
+  "id": "lodash-frompairs-key-casing",
+  "name": "lodash-frompairs-key-casing",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "ckross01/key-casing",
+    "url": "https://github.com/ckross01/key-casing",
+    "commit": "373ddd0285183dca54012eac3b50365112b369a5"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.zipObject",
+  "root_symbols": [
+    "zipObject",
+    "fromPairs",
+    "baseZipObject"
+  ],
+  "behavioral_change": "lodash 4.0.0 changed the input form of `_.zipObject`: v_old accepted an array of `[key, value]` pairs, while v_new takes a keys array and a values array. Passing the old pair form to v_new does not throw; each pair is stringified into a key with value `undefined`, producing objects such as `{ 'A,3': undefined, 'B,4': undefined }`. The same release added `_.fromPairs` for the pair form.",
+  "downstream_effect": "The downstream project (key-casing) rebuilds objects with `_(obj).map(keyMapper).zipObject().value()` in `index.js`; after the upgrade the conversion silently yields the malformed objects above at every level. The three tape failures print expected and actual values with frames only in `test.js`; lodash, `zipObject`, `fromPairs` and `index.js` never appear.",
+  "reference_fix": "The reference fix changes the two `.zipObject()` calls in `index.js` to `.fromPairs()`.",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), section Compatibility Warnings, Split out methods list, states that `_.zipObject` was split into `_.fromPairs`. Tier 2: prose only; the call form is derived from the `_.fromPairs` jsdoc.",
+  "failing_tests": [
+    "test.js :: validate object is expected default",
+    "test.js :: validate object that contains an array",
+    "test.js :: validate object that contains an array and nested objects"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "ckross01/key-casing",
+  "commit": "373ddd0285183dca54012eac3b50365112b369a5"
+}

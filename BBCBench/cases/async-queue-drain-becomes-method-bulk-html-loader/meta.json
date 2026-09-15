@@ -1,0 +1,48 @@
+{
+  "id": "async-queue-drain-becomes-method-bulk-html-loader",
+  "name": "async-queue-drain-becomes-method-bulk-html-loader",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "ChristianRich/bulk-html-loader",
+    "url": "https://github.com/ChristianRich/bulk-html-loader",
+    "commit": "7e0589768c9d789394283726ae25741f3adf0b47"
+  },
+  "lib": "async",
+  "v_old": "2.6.4",
+  "v_new": "3.2.6",
+  "library_repo": "https://github.com/caolan/async",
+  "library_tags": {
+    "old": "v2.6.4",
+    "new": "v3.2.6"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "async.queue",
+  "root_symbols": [
+    "internal/queue",
+    "queue.drain",
+    "eventMethod",
+    "queue"
+  ],
+  "behavioral_change": "In async v_new (3.0.0), the event-style members of `queue`, `priorityQueue`, `cargo` and `cargoQueue` such as `q.drain` changed from assignable properties to methods that register a callback, so `q.drain = fn` must become `q.drain(callback)`. async 3 defines these members as non-writable, so in sloppy-mode CommonJS code the old assignment is silently ignored: no exception, no warning, and the user's function is never registered.",
+  "downstream_effect": "bulk-html-loader's `BulkHtmlLoader.prototype.load` signals completion of a batch of URL fetches through `q.drain`; after the upgrade the completion callback never fires and all six end-to-end mocha tests time out. The failures contain only mocha's timeout message and node-internal timer frames, with no production file, line number, or mention of drain, queue or the async library.",
+  "reference_fix": "The reference fix changes one site in lib/BulkHtmlLoader.js, replacing `q.drain = function() { callback(null, that._queue); };` with `q.drain(function() { callback(null, that._queue); });`.",
+  "documented_in": "The async CHANGELOG at https://github.com/caolan/async/blob/v3.2.6/CHANGELOG.md, v3.0.0 Breaking Changes section, announces the change and states the new form `q.drain(callback)` in the same entry, so the changelog itself shows the new code form.",
+  "failing_tests": [
+    "HtmlLoader should load 3 urls successfully",
+    "HtmlLoader should produce two successful and one failed load",
+    "HtmlLoader should invoke onItemLoadComplete callback three times",
+    "HtmlLoader should produce 3 warnings",
+    "HtmlLoader should invoke callbacks for onError, onWarning and onItemLoadComplete",
+    "HtmlLoader should support method chaining"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "ChristianRich/bulk-html-loader",
+  "commit": "7e0589768c9d789394283726ae25741f3adf0b47"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "micromatch-matcher-arity-handlebars-helpers",
+  "name": "micromatch-matcher-arity-handlebars-helpers",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "helpers/handlebars-helpers",
+    "url": "https://github.com/helpers/handlebars-helpers",
+    "commit": "5d3405f178a9ec4c90df3c7dc07b4faf9a09dfd7"
+  },
+  "lib": "micromatch",
+  "v_old": "3.1.10",
+  "v_new": "4.0.8",
+  "library_repo": "https://github.com/micromatch/micromatch",
+  "library_tags": {
+    "old": "3.1.10",
+    "new": "4.0.8"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "micromatch.matcher",
+  "root_symbols": [
+    "micromatch.matcher",
+    "picomatch"
+  ],
+  "behavioral_change": "micromatch v4.0.0 replaced its matching implementation with picomatch, so `micromatch.matcher` now forwards to `picomatch(pattern, options)`. The method's name, parameters and return type are unchanged, but the returned predicate changed: in v_old it accepted one argument and ignored extras, whereas the picomatch predicate treats a truthy second argument as `returnObject` and returns an always-truthy result object instead of a boolean.",
+  "downstream_effect": "The downstream project's `readdir` helper passes the matcher directly to `Array#filter` in lib/fs.js (`files.filter(utils.mm.matcher(filter))`), so from index 1 onward the predicate receives a truthy index and every element is kept; the glob filter silently returns all 22 entries instead of 5. The single mocha failure is an assert.deepEqual mismatch with a frame only in test/fs.js:101; the changed statement and lib/fs.js line numbers do not appear, although the test title \"fs readdir\" points toward the file.",
+  "reference_fix": "The reference fix rewrites one 8-line hunk in lib/fs.js, storing the matcher in a local `isMatch` variable and passing an anonymous function that forwards only the single element argument to `Array#filter`.",
+  "documented_in": "The micromatch v4 README API section for `.matcher` (https://github.com/micromatch/micromatch#matcher) states that the returned function takes a string as its only argument and includes a code block calling `isMatch('a.a')` with one argument, which the reference fix follows; however, the v4 CHANGELOG lists eight breaking changes without mentioning this predicate change, and the README text is identical to v3, so the change is not announced anywhere in the library's own documentation.",
+  "failing_tests": [
+    "test/fs.js :: fs :: readdir :: should filter using a glob pattern"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "helpers/handlebars-helpers",
+  "commit": "5d3405f178a9ec4c90df3c7dc07b4faf9a09dfd7"
+}

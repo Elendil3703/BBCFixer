@@ -1,0 +1,67 @@
+{
+  "id": "python-restx__flask-restx",
+  "name": "python-restx__flask-restx",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "python-restx/flask-restx",
+    "url": "https://github.com/python-restx/flask-restx",
+    "commit": "44c9dea8683e92b99bb5eb1466996e5beb786ad8"
+  },
+  "lib": "werkzeug",
+  "v_old": "2.0.3",
+  "v_new": "2.1.2",
+  "library_repo": "https://github.com/pallets/werkzeug",
+  "library_tags": {
+    "old": "2.0.3",
+    "new": "2.1.2"
+  },
+  "reference_fix_source": "maintainer",
+  "root_api": "werkzeug.wrappers.Request.json, reached through getattr(request, location)",
+  "root_symbols": [
+    "Request.get_json",
+    "Request.on_json_loading_failed",
+    "Request.json"
+  ],
+  "behavioral_change": "werkzeug v_old 2.0.3 to v_new 2.1.2 (2.1.2 is required because 2.2.x adds an unrelated interface break). werkzeug.wrappers.Request.json / Request.get_json on non-JSON content now raises (Request.on_json_loading_failed) instead of returning None.",
+  "downstream_effect": "Resolving the argument location with getattr on the request triggers the new exception and the existing tests fail; one test with an unclean scoring basis is excluded from the scoring set.",
+  "reference_fix": "Changes `Argument.source` in `flask_restx/reqparse.py` so that when a location is `\"json\"` or `\"get_json\"` the value is obtained via `request.get_json(silent=True)` instead of `getattr(request, location, ...)`, in both the single-location and multi-location branches.",
+  "test_cmd": "bash /work/test_python-restx__flask-restx.sh",
+  "test_files": [
+    "tests/__init__.py",
+    "tests/benchmarks/bench_marshalling.py",
+    "tests/benchmarks/bench_swagger.py",
+    "tests/conftest.py",
+    "tests/legacy/test_api_legacy.py",
+    "tests/legacy/test_api_with_blueprint.py",
+    "tests/test_accept.py",
+    "tests/test_api.py",
+    "tests/test_apidoc.py",
+    "tests/test_cors.py",
+    "tests/test_errors.py",
+    "tests/test_fields.py",
+    "tests/test_fields_mask.py",
+    "tests/test_inputs.py",
+    "tests/test_logging.py",
+    "tests/test_marshalling.py",
+    "tests/test_model.py",
+    "tests/test_namespace.py",
+    "tests/test_payload.py",
+    "tests/test_postman.py",
+    "tests/test_reqparse.py",
+    "tests/test_schemas.py",
+    "tests/test_swagger.py",
+    "tests/test_swagger_utils.py",
+    "tests/test_utils.py"
+  ],
+  "reference_fix_tests": true,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:python-restx__flask-restx",
+    "python": "3.9.25"
+  },
+  "upgrade": {
+    "kind": "single-package",
+    "intact_pip": "werkzeug==2.0.3"
+  }
+}

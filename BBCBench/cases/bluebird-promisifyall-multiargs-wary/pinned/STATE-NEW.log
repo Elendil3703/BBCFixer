@@ -1,0 +1,181 @@
+
+> wary@1.1.1 test /w
+> gulp test
+
+[03:29:47] Requiring external module coffee-script/register
+[03:29:47] Using gulpfile /w/gulpfile.coffee
+[03:29:47] Starting 'test'...
+[2J[1;3H> should pass
+> first test
+> second test
+
+[92m [0m[32m 9 passing[0m[90m (179ms)[0m
+[31m  8 failing[0m
+
+[0m  1) Temporal: .fromFile() given a file should create a temporal file:
+[0m[31m     Error: EISDIR: illegal operation on a directory, open '/'[0m[90m
+    at Object.fs.openSync (fs.js:646:18)
+    at copyFileSync (/w/node_modules/fs-extra/lib/copy-sync/copy-file-sync.js:16:16)
+    at Object.copySync (/w/node_modules/fs-extra/lib/copy-sync/copy-sync.js:31:7)
+    at /w/lib/temporal.coffee:54:6
+    at bound (domain.js:301:14)
+    at runBound (domain.js:314:12)
+    at tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/w/node_modules/bluebird/js/release/promise.js:544:35)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at PromiseArray._resolve (/w/node_modules/bluebird/js/release/promise_array.js:127:19)
+    at PromiseArray._promiseFulfilled (/w/node_modules/bluebird/js/release/promise_array.js:145:14)
+    at PromiseArray._iterate (/w/node_modules/bluebird/js/release/promise_array.js:115:31)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:79:10)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at /w/node_modules/bluebird/js/release/nodeback.js:42:21
+    at _fileCreated (/w/node_modules/tmp/lib/tmp.js:224:7)
+    at OpenReq.Req.done (/w/node_modules/mocha/node_modules/graceful-fs/graceful-fs.js:143:5)
+    at OpenReq.done (/w/node_modules/mocha/node_modules/graceful-fs/graceful-fs.js:63:22)
+    at FSReqWrap.oncomplete (fs.js:135:15)
+  
+[0m
+[0m  2) Temporal: .fromFile() given a file should be a copy of the file:
+[0m[31m     Error: EISDIR: illegal operation on a directory, open '/'[0m[90m
+    at Object.fs.openSync (fs.js:646:18)
+    at copyFileSync (/w/node_modules/fs-extra/lib/copy-sync/copy-file-sync.js:16:16)
+    at Object.copySync (/w/node_modules/fs-extra/lib/copy-sync/copy-sync.js:31:7)
+    at /w/lib/temporal.coffee:54:6
+    at bound (domain.js:301:14)
+    at runBound (domain.js:314:12)
+    at tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/w/node_modules/bluebird/js/release/promise.js:544:35)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at PromiseArray._resolve (/w/node_modules/bluebird/js/release/promise_array.js:127:19)
+    at PromiseArray._promiseFulfilled (/w/node_modules/bluebird/js/release/promise_array.js:145:14)
+    at PromiseArray._iterate (/w/node_modules/bluebird/js/release/promise_array.js:115:31)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:79:10)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at /w/node_modules/bluebird/js/release/nodeback.js:42:21
+    at _fileCreated (/w/node_modules/tmp/lib/tmp.js:224:7)
+    at OpenReq.Req.done (/w/node_modules/mocha/node_modules/graceful-fs/graceful-fs.js:143:5)
+    at OpenReq.done (/w/node_modules/mocha/node_modules/graceful-fs/graceful-fs.js:63:22)
+    at FSReqWrap.oncomplete (fs.js:135:15)
+  
+[0m
+[0m  3) Temporal: .fromFile() given a directory should create a temporal directory:
+[0m[31m     Error: EACCES: permission denied, open '/foo.txt'[0m[90m
+    at Object.fs.openSync (fs.js:646:18)
+    at copyFileSync (/w/node_modules/fs-extra/lib/copy-sync/copy-file-sync.js:16:16)
+    at copySync (/w/node_modules/fs-extra/lib/copy-sync/copy-sync.js:31:7)
+    at /w/node_modules/fs-extra/lib/copy-sync/copy-sync.js:39:7
+    at Array.forEach (<anonymous>:null:null)
+    at Object.copySync (/w/node_modules/fs-extra/lib/copy-sync/copy-sync.js:36:14)
+    at /w/lib/temporal.coffee:54:6
+    at bound (domain.js:301:14)
+    at runBound (domain.js:314:12)
+    at tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/w/node_modules/bluebird/js/release/promise.js:544:35)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at PromiseArray._resolve (/w/node_modules/bluebird/js/release/promise_array.js:127:19)
+    at PromiseArray._promiseFulfilled (/w/node_modules/bluebird/js/release/promise_array.js:145:14)
+    at PromiseArray._iterate (/w/node_modules/bluebird/js/release/promise_array.js:115:31)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:79:10)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at /w/node_modules/bluebird/js/release/nodeback.js:42:21
+    at _dirCreated (/w/node_modules/tmp/lib/tmp.js:309:7)
+    at FSReqWrap.oncomplete (fs.js:135:15)
+  
+[0m
+[0m  4) Temporal: .fromFile() given a directory should be a copy of the directory:
+[0m[31m     Error: EACCES: permission denied, open '/foo.txt'[0m[90m
+    at Object.fs.openSync (fs.js:646:18)
+    at copyFileSync (/w/node_modules/fs-extra/lib/copy-sync/copy-file-sync.js:16:16)
+    at copySync (/w/node_modules/fs-extra/lib/copy-sync/copy-sync.js:31:7)
+    at /w/node_modules/fs-extra/lib/copy-sync/copy-sync.js:39:7
+    at Array.forEach (<anonymous>:null:null)
+    at Object.copySync (/w/node_modules/fs-extra/lib/copy-sync/copy-sync.js:36:14)
+    at /w/lib/temporal.coffee:54:6
+    at bound (domain.js:301:14)
+    at runBound (domain.js:314:12)
+    at tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/w/node_modules/bluebird/js/release/promise.js:544:35)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at PromiseArray._resolve (/w/node_modules/bluebird/js/release/promise_array.js:127:19)
+    at PromiseArray._promiseFulfilled (/w/node_modules/bluebird/js/release/promise_array.js:145:14)
+    at PromiseArray._iterate (/w/node_modules/bluebird/js/release/promise_array.js:115:31)
+    at PromiseArray.init [as _init] (/w/node_modules/bluebird/js/release/promise_array.js:79:10)
+    at bound (domain.js:301:14)
+    at PromiseArray.runBound (domain.js:314:12)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:601:21)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:729:18)
+    at Promise._fulfill (/w/node_modules/bluebird/js/release/promise.js:673:18)
+    at /w/node_modules/bluebird/js/release/nodeback.js:42:21
+    at _dirCreated (/w/node_modules/tmp/lib/tmp.js:309:7)
+    at FSReqWrap.oncomplete (fs.js:135:15)
+  
+[0m
+[0m  5) Unit: .run() given promised actions given a temporal file "before each" hook:
+[0m[31m     Error: EISDIR: illegal operation on a directory, open '/'[0m[90m
+  
+  
+[0m
+[0m  6) Unit: .run() given promised actions given a temporal file "after each" hook:
+[0m[31m     TypeError: path must be a string or Buffer[0m[90m
+    at Object.fs.unlink (fs.js:1055:11)
+    at context.<anonymous> (/w/tests/unit.spec.coffee:30:9)
+    at Hook.Runnable.run (/w/node_modules/mocha/lib/runnable.js:217:15)
+    at next (/w/node_modules/mocha/lib/runner.js:258:10)
+    at Immediate._onImmediate (/w/node_modules/mocha/lib/runner.js:275:5)
+    at runCallback (timers.js:810:20)
+    at tryOnImmediate (timers.js:768:5)
+    at processImmediate [as _immediateCallback] (timers.js:745:5)
+  
+[0m
+[0m  7) Unit: .run() given promised actions given multiple temporal files "before each" hook:
+[0m[31m     Error: EISDIR: illegal operation on a directory, open '/'[0m[90m
+  
+  
+[0m
+[0m  8) Unit: .run() given promised actions given multiple temporal files "after each" hook:
+[0m[31m     TypeError: Cannot read property 'foo' of undefined[0m[90m
+    at context.<anonymous> (/w/tests/unit.spec.coffee:71:29)
+    at Hook.Runnable.run (/w/node_modules/mocha/lib/runnable.js:217:15)
+    at next (/w/node_modules/mocha/lib/runner.js:258:10)
+    at Immediate._onImmediate (/w/node_modules/mocha/lib/runner.js:275:5)
+    at runCallback (timers.js:810:20)
+    at tryOnImmediate (timers.js:768:5)
+    at processImmediate [as _immediateCallback] (timers.js:745:5)
+  
+[0m
+
+
+[03:29:48] 'test' errored after 458 ms
+[03:29:48] Error in plugin 'gulp-mocha'
+Message:
+    8 tests failed.
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

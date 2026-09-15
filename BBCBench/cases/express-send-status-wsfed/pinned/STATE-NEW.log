@@ -1,0 +1,180 @@
+
+> wsfed@8.0.0 test
+> mocha
+
+(node:2837717) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+
+  encoders
+    thumbprint
+      ✓ should return the thumbprint in all caps
+
+  wsfed federationserverservice
+    ✓ should have the location field
+    ✓ should have the wsdl url
+    when loading wsdl
+      ✓ should have have portType
+    when posting to the thumbprint endpoint
+      ✓ should have have portType
+
+  interpolation template
+    ✓ should work
+
+  wsfed+jwt
+    authorizing
+      ✓ should have the attributes
+      ✓ should have jwt attributes
+    when using a key and an algorithm that do not match
+      when not passing jwtAllowInvalidAsymmetricKeyTypes
+        ✓ should error because of the mismatch between the key and the algorithm
+      when passing jwtAllowInvalidAsymmetricKeyTypes = true
+<html>
+<head>
+    <title>Working...</title>
+</head>
+<body>
+    <form method="post" name="hiddenform" action="http://office.google.com">
+        <input type="hidden" name="wa" value="wsignin1.0">
+        <input type="hidden" 
+               name="wresult" 
+               value="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzM0NDQ0NDQ0IiwiZGlzcGxheU5hbWUiOiJKb3PDqSBSb21hbmllbGxvIiwibmFtZSI6eyJmYW1pbHlOYW1lIjoiUm9tYW5pZWxsbyIsImdpdmVuTmFtZSI6Ikpvc8OpIn0sImVtYWlscyI6W3sidHlwZSI6IndvcmsiLCJ2YWx1ZSI6ImpmckBqZnIuY29tIn1dLCJpYXQiOjE3ODU1MDQyOTQsImV4cCI6MTc4NTUzMzA5NCwiYXVkIjoidXJuOnRoZS1zdXBlci1jbGllbnQtaWQiLCJpc3MiOiJ1cm46Zml4dHVyZS10ZXN0In0.MEUCIQCJu4f6s2XBJkMpkf9-Z5CJwPsrpqFYP7iUbgbOjA_urQIgIN0jqGX2vIA6RKquT27qbeW6WMEVmg3p0oy9zek4W8Q">
+        <input type="hidden" name="wctx" value="123">
+        <noscript>
+            <p>
+                Script is disabled. Click Submit to continue.
+            </p><input type="submit" value="Submit">
+        </noscript>
+    </form>
+    <script language="javascript" type="text/javascript">
+        window.setTimeout('document.forms[0].submit()', 0);
+    </script>
+</body>
+</html>
+        ✓ should allow the mismatch between the key and the algorithm
+    when using insecure key sizes
+      when not passing jwtAllowInsecureKeySizes
+        ✓ should error because of the size of key
+      when passing jwtAllowInsecureKeySizes = true
+        ✓ should allow the insecure key
+    authorizing with extra claims
+      ✓ should have the attributes
+      ✓ should have jwt attributes
+
+  wsfed metadata
+    request to metadata
+      ✓ sholud have the endpoint url
+      ✓ sholud have the claim types
+      ✓ sholud have the issuer
+      ✓ sholud have the pem
+      ✓ should not contain line breaks
+    request to metadata with proxy
+      ✓ should have the custom endpoint url
+
+  when dwdw encrypting the assertion
+    when encrypting the assertion
+      ✓ should contain a form in the result
+      ✓ should contain an encrypted xml
+      ✓ should contain a valid encrypted xml with the assertion
+    with aes256-cbc encryption algorithm
+      ✓ should response with 400 status code and insecure algorithm error message
+    with aes256-gcm encryption algorithm
+      ✓ should response with 200 status code
+    with aes256-cbc encryption algorithm and disallowEncryptionWithInsecureAlgorithm set to true
+      ✓ should response with 400 error
+    with aes256-cbc encryption algorithm and disallowEncryptionWithInsecureAlgorithm set to false
+http://www.w3.org/2001/04/xmlenc#aes256-cbc is no longer recommended due to security reasons. Please deprecate its use as soon as possible.
+http://www.w3.org/2001/04/xmlenc#aes256-cbc is no longer recommended due to security reasons. Please deprecate its use as soon as possible.
+      ✓ should response with 200 status code
+
+  wsfed with sha1
+    authorizing
+      ✓ should use sha1 as signature algorithm
+      ✓ should use sha1 as digest algorithm
+
+  wsfed
+    authorizing
+      ✓ should contain a form in the result
+      ✓ should contain the wctx input
+      ✓ should contain a valid signal assertion
+      ✓ should use sha256 as default signature algorithm
+      ✓ should use sha256 as default diigest algorithm
+      ✓ should map every attributes from profile
+      ✓ should contains the name identifier
+      ✓ should contains the issuer
+      ✓ should contains the audiences
+      ✓ should contain the callback
+    when the audience has colon(:)
+      ✓ should work
+    when the wctx has ampersand(&)
+      ✓ should return escaped Context value
+    when attribute has ampersand(&)
+      ✓ should return escaped value
+    when using an invalid callback url
+      1) should return error
+
+  wsfed
+    authorizing
+      ✓ should contain a form in the result
+      ✓ should contain the wctx input
+      ✓ should contain a valid signal assertion
+      ✓ should use sha256 as default signature algorithm
+      ✓ should use sha256 as default diigest algorithm
+      ✓ should map every attributes from profile
+      ✓ should contains the name identifier
+      ✓ should set name identifier format to urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified by default
+      ✓ should contains the issuer
+      ✓ should contains the audiences
+      ✓ should contain the callback
+    when a name identifier format is passed as an auth option
+      ✓ should set name identifier format to the passed auth option
+    when the audience has colon(:)
+      ✓ should work
+    when the wctx has ampersand(&)
+      ✓ should return escaped Context value
+    when attribute has ampersand(&)
+      ✓ should return escaped value
+    when using an invalid callback url
+      2) should return error
+    using custom profile mapper
+      when NameIdentifier and NameIdentifierFormat have been configured in the profile mapper
+        when a name identifier format is passed as an auth option
+          ✓ should set name identifier
+          ✓ should set name identifier format
+        when a name identifier format is NOT passed as an auth option
+          ✓ should set name identifier
+          ✓ should set name identifier format
+      when NameIdentifier is not found
+        ✓ should return an error
+
+
+  62 passing (218ms)
+  2 failing
+
+  1) wsfed
+       when using an invalid callback url
+         should return error:
+
+      Uncaught AssertionError: expected 200 to equal 400
+      + expected - actual
+
+      -200
+      +400
+      
+  
+
+  2) wsfed
+       when using an invalid callback url
+         should return error:
+
+      Uncaught AssertionError: expected 200 to equal 400
+      + expected - actual
+
+      -200
+      +400
+      
+  
+
+
+
+STATE-NEW rc=2

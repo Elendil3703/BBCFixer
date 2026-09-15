@@ -1,0 +1,5 @@
+changed packages (1): lodash
+  OK new lodash@3.10.1 at xmlbuilder/node_modules/lodash
+  OK new lodash@4.17.21 at lodash
+  OK old lodash@3.10.1 at lodash
+TREECHECK_OK: every change is inside the allowed closure (1 allowed names)

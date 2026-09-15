@@ -1,0 +1,19 @@
+93a94
+> @types/sax	@types/sax@1.2.7
+108a110
+> arg	arg@4.1.3
+541d542
+< lodash.chunk	lodash.chunk@4.2.0
+547,548d547
+< lodash.padstart	lodash.padstart@4.6.1
+< lodash.sortby	lodash.sortby@4.7.0
+737c736
+< sitemap	sitemap@3.2.2
+---
+> sitemap	sitemap@4.1.1
+802d800
+< tr46	tr46@1.0.1
+840d837
+< webidl-conversions	webidl-conversions@4.0.2
+842d838
+< whatwg-url	whatwg-url@7.0.0

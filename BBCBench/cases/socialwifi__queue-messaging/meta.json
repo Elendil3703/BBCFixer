@@ -1,0 +1,57 @@
+{
+  "id": "socialwifi__queue-messaging",
+  "name": "socialwifi__queue-messaging",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "socialwifi/queue-messaging",
+    "url": "https://github.com/socialwifi/queue-messaging",
+    "commit": "c400108297823a126e4675fe5b3fb16838e4faaf",
+    "license": "BSD-3-Clause"
+  },
+  "lib": "netaddr",
+  "v_old": "0.7.19",
+  "v_new": "1.3.0",
+  "library_repo": "https://github.com/netaddr/netaddr",
+  "library_tags": {
+    "old": "netaddr-0.7.19",
+    "new": "1.3.0"
+  },
+  "reference_fix_source": "benchmark-authors",
+  "root_api": "marshmallow.Schema.dumps / Schema.loads, and Field.fail replaced by Field.make_error",
+  "root_symbols": [
+    "Schema.dumps",
+    "Schema.loads",
+    "Schema._do_load",
+    "MarshalResult",
+    "UnmarshalResult",
+    "Field.make_error",
+    "Field.fail"
+  ],
+  "behavioral_change": "marshmallow v_old 2.16.3 to v_new 4.0.0 (v_old is a resolved value). Schema.dumps and Schema.loads no longer return a result object with .data and .errors (MarshalResult and UnmarshalResult) but return the data directly and raise on validation errors, and load now rejects unknown fields by default (unknown=RAISE) instead of ignoring them.",
+  "downstream_effect": "The downstream serialization and deserialization paths fail at runtime under the new return-value and unknown-field semantics; the original tests need no change (empty test_patch).",
+  "reference_fix": "The reference fix rewrites the serialization paths to the new semantics and passes unknown=EXCLUDE explicitly on deserialization, plus a minor change of self.fail() to raise self.make_error().",
+  "test_cmd": "bash /work/test_socialwifi__queue-messaging.sh",
+  "test_files": [
+    "tests/__init__.py",
+    "tests/data/__init__.py",
+    "tests/data/test_encoding.py",
+    "tests/data/test_fields.py",
+    "tests/data/test_structures.py",
+    "tests/services/__init__.py",
+    "tests/services/test_pubsub.py",
+    "tests/test_integration.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:socialwifi__queue-messaging",
+    "python": "3.12.11"
+  },
+  "upgrade": {
+    "kind": "dated-snapshot",
+    "intact_date": "2018-12-12",
+    "broken_date": "2025-07-31",
+    "note": "TimeMachine-bench case: every dependency is resolved at the dated snapshot; the library at v_old/v_new is the one whose behavioral change breaks the tests."
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "js-yaml-timestamp-dropped-by-core-schema-puppy-lib",
+  "name": "js-yaml-timestamp-dropped-by-core-schema-puppy-lib",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "Upstatement/puppy-lib",
+    "url": "https://github.com/Upstatement/puppy-lib",
+    "commit": "dae62fa73711615ebf124e69e79d6fdde8a47640"
+  },
+  "lib": "js-yaml",
+  "v_old": "4.1.0",
+  "v_new": "5.2.3",
+  "library_repo": "https://github.com/nodeca/js-yaml",
+  "library_tags": {
+    "old": "4.1.0",
+    "new": "5.2.3"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "js-yaml.load",
+  "root_symbols": [
+    "load",
+    "DEFAULT_CONSTRUCTOR_OPTIONS",
+    "CORE_SCHEMA",
+    "YAML11_SCHEMA",
+    "timestampTag"
+  ],
+  "behavioral_change": "js-yaml 5.0.0 made the YAML 1.2 `CORE_SCHEMA` the default schema of `load()`; this schema lacks the YAML 1.1 `!!timestamp` tag, so a scalar such as `date: 2001-01-23` is returned as the string `'2001-01-23'` instead of a JavaScript `Date`. The function name, arity and call form are unchanged and no error or warning is raised.",
+  "downstream_effect": "The downstream project (puppy-lib) loads every data file in `src/data` with `yaml.load` and exposes the result on `site.data`; after the upgrade the `date` field of the invoice fixture becomes a string and the checked-in ava snapshot no longer matches. The only location in the output is `test/index.mjs:30:5`; `lib/context.js`, js-yaml, schema and timestamp are never mentioned.",
+  "reference_fix": "The reference fix changes one line in `lib/context.js` (line 63), calling `yaml.load(file.contents.toString(), { schema: yaml.YAML11_SCHEMA })`.",
+  "documented_in": "The js-yaml v4 to v5 migration guide (https://github.com/nodeca/js-yaml/blob/5.2.3/docs/migrate_v4_to_v5.md), section Schema, states that legacy YAML 1.1 types such as `!!timestamp` require `YAML11_SCHEMA` and shows `load(source, { schema: YAML11_SCHEMA })`; the 5.0.0 CHANGELOG also declares the change. Tier 1: the documentation shows the new code form.",
+  "failing_tests": [
+    "test/index.mjs :: vinyl files are annotated with puppy site and page data"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "Upstatement/puppy-lib",
+  "commit": "dae62fa73711615ebf124e69e79d6fdde8a47640"
+}

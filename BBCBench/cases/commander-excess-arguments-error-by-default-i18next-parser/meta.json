@@ -1,0 +1,45 @@
+{
+  "id": "commander-excess-arguments-error-by-default-i18next-parser",
+  "name": "commander-excess-arguments-error-by-default-i18next-parser",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "i18next/i18next-parser",
+    "url": "https://github.com/i18next/i18next-parser",
+    "commit": "6c10a2b66ebadb8250039d078ad2a53e52753a6e"
+  },
+  "lib": "commander",
+  "v_old": "12.1.0",
+  "v_new": "13.1.0",
+  "library_repo": "https://github.com/tj/commander.js",
+  "library_tags": {
+    "old": "v12.1.0",
+    "new": "v13.1.0"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "Command.parse",
+  "root_symbols": [
+    "Command.constructor",
+    "Command.allowExcessArguments",
+    "Command._checkNumberOfArguments"
+  ],
+  "behavioral_change": "In commander v_new (13.0.0), the default of `allowExcessArguments` changed from true to false: v_old (12.1.0) left extra command-arguments in `program.args` for the downstream to use, whereas v13 rejects the same command line with `error: too many arguments. Expected 0 arguments but got N.` and exit code 1. Option declarations, `program.parse` and the reading of `program.args` are unchanged and no exception or deprecation warning is raised.",
+  "downstream_effect": "i18next-parser's bin/cli.js declares only `.option()` entries and reads file globs from `program.args` after `program.parse(process.argv)`, so after the upgrade every invocation with a glob on the command line exits with `too many arguments` and four tests in test/cli/cli.test.js fail with `ExecaError` or string assertions. No stack frame falls in bin/cli.js and the output never names the commander package; the file name appears only inside the echoed child command line.",
+  "reference_fix": "The reference fix adds one line to bin/cli.js, calling `program.allowExcessArguments()` after the option declarations and before `program.parse(process.argv)`.",
+  "documented_in": "The commander v13.0.0 release notes announce the breaking change in the Changed section and, under Migration Tips (Excess command-arguments), show the error text and two code blocks, one of which uses `program.allowExcessArguments();` exactly as in the reference fix. The Readme.md of the same version also states that `.allowExcessArguments()` suppresses the check.",
+  "failing_tests": [
+    "test/cli/cli.test.js :: CLI > works without options",
+    "test/cli/cli.test.js :: CLI > works with `--fail-on-warnings` option",
+    "test/cli/cli.test.js :: CLI > works when no input found",
+    "test/cli/cli.test.js :: CLI > works with `--fail-on-update` option"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:20",
+    "node_major": 20,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "i18next/i18next-parser",
+  "commit": "6c10a2b66ebadb8250039d078ad2a53e52753a6e"
+}

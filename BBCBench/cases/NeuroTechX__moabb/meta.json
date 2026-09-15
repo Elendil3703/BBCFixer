@@ -1,0 +1,51 @@
+{
+  "id": "NeuroTechX__moabb",
+  "name": "NeuroTechX__moabb",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "NeuroTechX/moabb",
+    "url": "https://github.com/NeuroTechX/moabb",
+    "commit": "14fadf4b19c1614c63a1f2c5783322d698d453e6"
+  },
+  "lib": "h5py",
+  "v_old": "2.10.0",
+  "v_new": "3.14.0",
+  "library_repo": "https://github.com/h5py/h5py",
+  "library_tags": {
+    "old": "2.10.0",
+    "new": "3.14.0"
+  },
+  "reference_fix_source": "maintainer",
+  "root_api": "h5py.Dataset.__getitem__",
+  "root_symbols": [
+    "conv_vlen2str",
+    "init_vlen2str",
+    "Dataset.__getitem__",
+    "Dataset.asstr",
+    "AsStrView"
+  ],
+  "behavioral_change": "h5py v_old 2.10.0 to v_new 3.14.0. h5py.Dataset.__getitem__ returns bytes instead of str for variable-length string data.",
+  "downstream_effect": "A membership check of a str against the bytes array read from the dataset is silently always False, so the cache deduplication silently stops working; no exception is raised and the cause must be traced back from the assertion to the encoding site.",
+  "reference_fix": "The reference fix encodes str(subject) before comparing it with dset['id'][:, 0].",
+  "test_cmd": "bash /work/test_NeuroTechX__moabb.sh",
+  "test_files": [
+    "moabb/tests/__init__.py",
+    "moabb/tests/analysis.py",
+    "moabb/tests/datasets.py",
+    "moabb/tests/download.py",
+    "moabb/tests/evaluations.py",
+    "moabb/tests/paradigms.py",
+    "moabb/tests/util_tests.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:neurotechx__moabb",
+    "python": "3.9.25"
+  },
+  "upgrade": {
+    "kind": "single-package",
+    "intact_pip": "h5py==2.10.0"
+  }
+}

@@ -1,0 +1,31 @@
+diff --git a/lib/ParseContext.js b/lib/ParseContext.js
+index 4414807..e047079 100644
+--- a/lib/ParseContext.js
++++ b/lib/ParseContext.js
+@@ -25,7 +25,7 @@ ParseContext.prototype.parse = function (callback) {
+     }
+ 
+     return true;
+-  }, this);
++  }.bind(this));
+ 
+   if (!promise) {
+     promise = this._filterWithConstant();
+@@ -48,7 +48,7 @@ ParseContext.prototype.map = function (selector, filter) {
+     });
+ 
+     return subcontext.parse();
+-  }, this);
++  }.bind(this));
+ 
+   return Promise.all(promises);
+ };
+@@ -88,7 +88,7 @@ ParseContext.prototype._filterWithObject = function () {
+         subcontext.parse().done(resolve, reject);
+       });
+     });
+-  }, this);
++  }.bind(this));
+ 
+   return Promise.props(propertyMap);
+ };

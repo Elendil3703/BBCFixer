@@ -1,0 +1,4 @@
+cheerio/node_modules/lodash
+inquirer/node_modules/lodash
+mem-fs-editor/node_modules/lodash
+yeoman-generator/node_modules/lodash

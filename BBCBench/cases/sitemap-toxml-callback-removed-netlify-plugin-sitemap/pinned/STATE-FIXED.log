@@ -1,0 +1,92 @@
+TAP version 13
+# beforeEach hook for Creates Sitemap with all html files - relative path
+# beforeEach hook for Creates Sitemap with all html files with trailing slash - relative path
+# beforeEach hook for Sitemap pretty urls off works correctly - relative path
+# beforeEach hook for Sitemap applies changeFreq and priority when configured - relative path
+# beforeEach hook for Sitemap changefreq and priority defaults to weekly and 0.8 - relative path
+# beforeEach hook for Sitemap exclude works correctly - relative path
+# beforeEach hook for Sitemap urlPrefix works correctly - relative path
+# beforeEach hook for Creates Sitemap with all html files - absolute path
+# beforeEach hook for Creates Sitemap with all html files with trailing slash - absolute path
+# beforeEach hook for Sitemap pretty urls off works correctly - absolute path
+# beforeEach hook for Sitemap applies changeFreq and priority when configured - absolute path
+# beforeEach hook for Sitemap changefreq and priority defaults to weekly and 0.8 - absolute path
+# beforeEach hook for Sitemap exclude works correctly - absolute path
+# beforeEach hook for Sitemap urlPrefix works correctly - absolute path
+# beforeEach hook for Creates Sitemap with all html files - root relative path
+# beforeEach hook for Creates Sitemap with all html files with trailing slash - root relative path
+# beforeEach hook for Sitemap pretty urls off works correctly - root relative path
+# beforeEach hook for Sitemap applies changeFreq and priority when configured - root relative path
+# beforeEach hook for Sitemap changefreq and priority defaults to weekly and 0.8 - root relative path
+# beforeEach hook for Sitemap exclude works correctly - root relative path
+# beforeEach hook for Sitemap urlPrefix works correctly - root relative path
+# Creates Sitemap with all html files - relative path
+ok 1 - Creates Sitemap with all html files - relative path
+# Sitemap applies changeFreq and priority when configured - relative path
+ok 2 - Sitemap applies changeFreq and priority when configured - relative path
+# Sitemap pretty urls off works correctly - relative path
+ok 3 - Sitemap pretty urls off works correctly - relative path
+# Sitemap urlPrefix works correctly - relative path
+ok 4 - Sitemap urlPrefix works correctly - relative path
+# Sitemap exclude works correctly - relative path
+ok 5 - Sitemap exclude works correctly - relative path
+# Creates Sitemap with all html files with trailing slash - absolute path
+ok 6 - Creates Sitemap with all html files with trailing slash - absolute path
+# Creates Sitemap with all html files - absolute path
+ok 7 - Creates Sitemap with all html files - absolute path
+# Sitemap pretty urls off works correctly - absolute path
+ok 8 - Sitemap pretty urls off works correctly - absolute path
+# Sitemap applies changeFreq and priority when configured - absolute path
+ok 9 - Sitemap applies changeFreq and priority when configured - absolute path
+# Sitemap changefreq and priority defaults to weekly and 0.8 - absolute path
+ok 10 - Sitemap changefreq and priority defaults to weekly and 0.8 - absolute path
+# Creates Sitemap with all html files - root relative path
+ok 11 - Creates Sitemap with all html files - root relative path
+# Sitemap exclude works correctly - absolute path
+ok 12 - Sitemap exclude works correctly - absolute path
+# Creates Sitemap with all html files with trailing slash - root relative path
+ok 13 - Creates Sitemap with all html files with trailing slash - root relative path
+# Sitemap applies changeFreq and priority when configured - root relative path
+ok 14 - Sitemap applies changeFreq and priority when configured - root relative path
+# Sitemap changefreq and priority defaults to weekly and 0.8 - root relative path
+ok 15 - Sitemap changefreq and priority defaults to weekly and 0.8 - root relative path
+# Sitemap exclude works correctly - root relative path
+ok 16 - Sitemap exclude works correctly - root relative path
+# Sitemap pretty urls off works correctly - root relative path
+ok 17 - Sitemap pretty urls off works correctly - root relative path
+# Sitemap urlPrefix works correctly - absolute path
+ok 18 - Sitemap urlPrefix works correctly - absolute path
+# Sitemap urlPrefix works correctly - root relative path
+ok 19 - Sitemap urlPrefix works correctly - root relative path
+# Creates Sitemap with all html files with trailing slash - relative path
+ok 20 - Creates Sitemap with all html files with trailing slash - relative path
+# Sitemap changefreq and priority defaults to weekly and 0.8 - relative path
+ok 21 - Sitemap changefreq and priority defaults to weekly and 0.8 - relative path
+# afterEach hook for Creates Sitemap with all html files - relative path
+# afterEach hook for Sitemap applies changeFreq and priority when configured - relative path
+# afterEach hook for Sitemap pretty urls off works correctly - relative path
+# afterEach hook for Sitemap urlPrefix works correctly - relative path
+# afterEach hook for Sitemap exclude works correctly - relative path
+# afterEach hook for Creates Sitemap with all html files with trailing slash - absolute path
+# afterEach hook for Creates Sitemap with all html files - absolute path
+# afterEach hook for Sitemap pretty urls off works correctly - absolute path
+# afterEach hook for Sitemap applies changeFreq and priority when configured - absolute path
+# afterEach hook for Sitemap changefreq and priority defaults to weekly and 0.8 - absolute path
+# afterEach hook for Creates Sitemap with all html files - root relative path
+# afterEach hook for Sitemap exclude works correctly - absolute path
+# afterEach hook for Creates Sitemap with all html files with trailing slash - root relative path
+# afterEach hook for Sitemap applies changeFreq and priority when configured - root relative path
+# afterEach hook for Sitemap changefreq and priority defaults to weekly and 0.8 - root relative path
+# afterEach hook for Sitemap exclude works correctly - root relative path
+# afterEach hook for Sitemap pretty urls off works correctly - root relative path
+# afterEach hook for Sitemap urlPrefix works correctly - absolute path
+# afterEach hook for Sitemap urlPrefix works correctly - root relative path
+# afterEach hook for Creates Sitemap with all html files with trailing slash - relative path
+# afterEach hook for Sitemap changefreq and priority defaults to weekly and 0.8 - relative path
+
+1..21
+# tests 21
+# pass 21
+# fail 0
+
+STATE-FIXED rc=0

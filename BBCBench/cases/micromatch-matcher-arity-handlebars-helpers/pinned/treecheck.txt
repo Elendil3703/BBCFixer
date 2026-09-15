@@ -1,0 +1,30 @@
+changed packages (11): assign-symbols, braces, define-property, extend-shallow, fill-range, is-extendable, is-number, kind-of, micromatch, picomatch, to-regex-range
+  OK new assign-symbols@1.0.0 at findup-sync/node_modules/assign-symbols
+  OK old assign-symbols@1.0.0 at micromatch/node_modules/assign-symbols
+  OK new braces@2.3.2 at findup-sync/node_modules/braces
+  OK new braces@3.0.3 at braces
+  OK old braces@2.3.2 at braces
+  OK new define-property@2.0.2 at findup-sync/node_modules/define-property
+  OK old define-property@2.0.2 at micromatch/node_modules/define-property
+  OK new extend-shallow@3.0.2 at findup-sync/node_modules/micromatch/node_modules/extend-shallow
+  OK old extend-shallow@3.0.2 at micromatch/node_modules/extend-shallow
+  OK new fill-range@4.0.0 at findup-sync/node_modules/fill-range
+  OK new fill-range@7.1.1 at fill-range
+  OK old fill-range@4.0.0 at fill-range
+  OK new is-extendable@1.0.1 at findup-sync/node_modules/is-extendable
+  OK old is-extendable@1.0.1 at micromatch/node_modules/is-extendable
+  OK new is-number@3.0.0 at findup-sync/node_modules/is-number
+  OK new is-number@7.0.0 at to-regex-range/node_modules/is-number
+  OK old is-number@3.0.0 at fill-range/node_modules/is-number
+  OK old is-number@3.0.0 at to-regex-range/node_modules/is-number
+  OK new kind-of@3.2.2 at findup-sync/node_modules/is-number/node_modules/kind-of
+  OK old kind-of@3.2.2 at fill-range/node_modules/kind-of
+  OK old kind-of@3.2.2 at to-regex-range/node_modules/kind-of
+  OK new micromatch@3.1.10 at findup-sync/node_modules/micromatch
+  OK new micromatch@4.0.8 at micromatch
+  OK old micromatch@3.1.10 at micromatch
+  OK new picomatch@2.3.2 at picomatch
+  OK new to-regex-range@2.1.1 at findup-sync/node_modules/to-regex-range
+  OK new to-regex-range@5.0.1 at to-regex-range
+  OK old to-regex-range@2.1.1 at to-regex-range
+TREECHECK_OK: every change is inside the allowed closure (72 allowed names)

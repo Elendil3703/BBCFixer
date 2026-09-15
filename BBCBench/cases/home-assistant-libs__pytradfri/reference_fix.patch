@@ -1,0 +1,119 @@
+--- pytradfri/device/__init__.py
++++ pytradfri/device/__init__.py
+@@ -43,26 +43,26 @@
+     model_number: str = Field(alias=ATTR_DEVICE_MODEL_NUMBER)
+     serial: str = Field(alias=ATTR_DEVICE_SERIAL)
+     firmware_version: str = Field(alias=ATTR_DEVICE_FIRMWARE_VERSION)
+-    power_source: int | None = Field(alias=ATTR_DEVICE_POWER_SOURCE)
+-    battery_level: int | None = Field(alias=ATTR_DEVICE_BATTERY)
++    power_source: int | None = Field(alias=ATTR_DEVICE_POWER_SOURCE, default=None)
++    battery_level: int | None = Field(alias=ATTR_DEVICE_BATTERY, default=None)
+ 
+ 
+ class DeviceResponse(ApiResourceResponse):
+     """Represent a device response."""
+ 
+     air_purifier_control: list[AirPurifierResponse] | None = Field(
+-        alias=ROOT_AIR_PURIFIER
++        alias=ROOT_AIR_PURIFIER, default=None
+     )
+     application_type: int = Field(alias=ATTR_APPLICATION_TYPE)
+-    blind_control: list[BlindResponse] | None = Field(alias=ATTR_START_BLINDS)
++    blind_control: list[BlindResponse] | None = Field(alias=ATTR_START_BLINDS, default=None)
+     device_info: DeviceInfoResponse = Field(alias=ATTR_DEVICE_INFO)
+-    last_seen: int | None = Field(alias=ATTR_LAST_SEEN)
+-    light_control: list[LightResponse] | None = Field(alias=ATTR_LIGHT_CONTROL)
++    last_seen: int | None = Field(alias=ATTR_LAST_SEEN, default=None)
++    light_control: list[LightResponse] | None = Field(alias=ATTR_LIGHT_CONTROL, default=None)
+     reachable: int = Field(alias=ATTR_REACHABLE_STATE)
+     signal_repeater_control: list[SignalRepeaterResponse] | None = Field(
+-        alias=ROOT_SIGNAL_REPEATER
++        alias=ROOT_SIGNAL_REPEATER, default=None
+     )
+-    socket_control: list[SocketResponse] | None = Field(alias=ATTR_SWITCH_PLUG)
++    socket_control: list[SocketResponse] | None = Field(alias=ATTR_SWITCH_PLUG, default=None)
+ 
+ 
+ class Device(ApiResource):
+--- pytradfri/device/light.py
++++ pytradfri/device/light.py
+@@ -31,13 +31,13 @@
+ class LightResponse(BaseResponse):
+     """Represent API response for a blind."""
+ 
+-    color_mireds: int | None = Field(alias=ATTR_LIGHT_MIREDS)
+-    color_hex: str | None = Field(alias=ATTR_LIGHT_COLOR_HEX)
+-    color_xy_x: int | None = Field(alias=ATTR_LIGHT_COLOR_X)
+-    color_xy_y: int | None = Field(alias=ATTR_LIGHT_COLOR_Y)
+-    color_hue: int | None = Field(alias=ATTR_LIGHT_COLOR_HUE)
+-    color_saturation: int | None = Field(alias=ATTR_LIGHT_COLOR_SATURATION)
+-    dimmer: int | None = Field(alias=ATTR_LIGHT_DIMMER)
++    color_mireds: int | None = Field(alias=ATTR_LIGHT_MIREDS, default=None)
++    color_hex: str | None = Field(alias=ATTR_LIGHT_COLOR_HEX, default=None)
++    color_xy_x: int | None = Field(alias=ATTR_LIGHT_COLOR_X, default=None)
++    color_xy_y: int | None = Field(alias=ATTR_LIGHT_COLOR_Y, default=None)
++    color_hue: int | None = Field(alias=ATTR_LIGHT_COLOR_HUE, default=None)
++    color_saturation: int | None = Field(alias=ATTR_LIGHT_COLOR_SATURATION, default=None)
++    dimmer: int | None = Field(alias=ATTR_LIGHT_DIMMER, default=None)
+     state: int = Field(alias=ATTR_DEVICE_STATE)
+ 
+ 
+--- pytradfri/gateway.py
++++ pytradfri/gateway.py
+@@ -46,11 +46,11 @@
+     """Represent API response for the gateway."""
+ 
+     certificate_provisioned: int = Field(alias=ATTR_CERTIFICATE_PROV)
+-    current_time: int | None = Field(alias=ATTR_CURRENT_TIME_UNIX)
++    current_time: int | None = Field(alias=ATTR_CURRENT_TIME_UNIX, default=None)
+     current_time_iso8601: str = Field(alias=ATTR_CURRENT_TIME_ISO8601)
+     commissioning_mode: int = Field(alias=ATTR_COMMISSIONING_MODE)
+     firmware_version: str = Field(alias=ATTR_FIRMWARE_VERSION)
+-    first_setup: int | None = Field(alias=ATTR_FIRST_SETUP)
++    first_setup: int | None = Field(alias=ATTR_FIRST_SETUP, default=None)
+     homekit_id: str = Field(alias=ATTR_HOMEKIT_ID)
+     id: str = Field(alias=ATTR_GATEWAY_ID)
+     ntp_server: str = Field(alias=ATTR_NTP)
+--- pytradfri/group.py
++++ pytradfri/group.py
+@@ -42,10 +42,10 @@
+ class GroupResponse(ApiResourceResponse):
+     """Represent API response for a blind."""
+ 
+-    color_hex: str | None = Field(alias=ATTR_LIGHT_COLOR_HEX)
++    color_hex: str | None = Field(alias=ATTR_LIGHT_COLOR_HEX, default=None)
+     dimmer: int = Field(alias=ATTR_LIGHT_DIMMER)
+     group_members: dict[str, dict[str, list[int]]] = Field(alias=ATTR_GROUP_MEMBERS)
+-    mood_id: str = Field(alias=ATTR_MOOD)
++    mood_id: str = Field(alias=ATTR_MOOD, coerce_numbers_to_str=True)
+     state: int = Field(alias=ATTR_DEVICE_STATE)
+ 
+ 
+--- pytradfri/resource.py
++++ pytradfri/resource.py
+@@ -24,9 +24,9 @@
+ class ApiResourceResponse(BaseResponse):
+     """Represent a resource response."""
+ 
+-    name: str | None = Field(alias=ATTR_NAME)
+-    created_at: int | None = Field(alias=ATTR_CREATED_AT)
+-    ota_update_state: int | None = Field(alias=ATTR_OTA_UPDATE_STATE)
++    name: str | None = Field(alias=ATTR_NAME, default=None)
++    created_at: int | None = Field(alias=ATTR_CREATED_AT, default=None)
++    ota_update_state: int | None = Field(alias=ATTR_OTA_UPDATE_STATE, default=None)
+ 
+ 
+ class ApiResource:
+--- pytradfri/smart_task.py
++++ pytradfri/smart_task.py
+@@ -66,8 +66,8 @@
+ class StartActionResponse(BaseResponse):
+     """Represent a start action response."""
+ 
+-    transition_time: int | None = Field(alias=ATTR_TRANSITION_TIME)
+-    dimmer: int | None = Field(alias=ATTR_LIGHT_DIMMER)
++    transition_time: int | None = Field(alias=ATTR_TRANSITION_TIME, default=None)
++    dimmer: int | None = Field(alias=ATTR_LIGHT_DIMMER, default=None)
+ 
+ 
+ class TimeIntervalResponse(BaseModel):

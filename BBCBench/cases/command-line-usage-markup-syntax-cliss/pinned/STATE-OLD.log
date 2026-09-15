@@ -1,0 +1,52 @@
+
+> cliss@0.0.9 test
+> mocha ./test/main.test.js  ./test/main.test.pipe.stdin.js
+
+
+
+  cliss-options
+    ✓ options.validateRequiredParameters = true (63ms)
+    ✓ command.subcommandsDelimiter = '-' + options.pipe.before + command.pipe.after (48ms)
+
+  complex-cases
+    ✓ Main command version (47ms)
+    ✓ Main command help (when there is no args for a command without an action) (50ms)
+    ✓ Main command help (57ms)
+    ✓ Nested command help (61ms)
+    ✓ Nested command specific version (46ms)
+    ✓ Nested command call (47ms)
+    ✓ Nested command call passing in options / args (53ms)
+    ✓ Nested command help showing variading arguments (based on rest parameters definition) (58ms)
+    ✓ Nested command version (getting the value from main command) (48ms)
+    ✓ Nested command call resolving a Promise (1549ms)
+    ✓ Nested command call variadic arguments (48ms)
+    ✓ Nested command call variadic arguments (with arbitrary named options) (48ms)
+    ✓ Nested command with no action plus having more nested commands defined --help (53ms)
+    ✓ Nested command, of an already nested command, call (3 level deep) (56ms)
+    ✓ Nested command with action plus having more nested commands defined --help (57ms)
+    ✓ Nested command with action plus having more nested commands defined --help (54ms)
+    ✓ Nested command with action plus having more nested commands defined call (49ms)
+    ✓ Nested command, of an already nested command, call (3 level deep, when the parent also contains an action) (60ms)
+
+  destructuring-parameters-cli
+    ✓ object specification + passing in options / args (53ms)
+    ✓ Passing in only one argument (47ms)
+    ✓ --help (53ms)
+
+  fn-cli
+    ✓ cli function with no object spec definition (48ms)
+    ✓ Passing in only one argument (using default values) (58ms)
+    ✓ --help (51ms)
+
+  simple-cli
+    ✓ object specification + passing in options / args (52ms)
+    ✓ Passing in only one argument (49ms)
+    ✓ --help (53ms)
+
+  stdin
+    ✓ command.pipe.stdin (48ms)
+
+
+  30 passing (3s)
+
+STATE-OLD rc=0

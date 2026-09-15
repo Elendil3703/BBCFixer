@@ -1,0 +1,27 @@
+
+> body-parser-xml@2.0.5 test
+> prettier --check . && mocha test.js
+
+Checking formatting...
+All matched files use Prettier code style!
+
+
+  XML Body Parser
+    ✓ should parse a body with content-type application/xml
+    ✓ should parse a body with content-type text/xml
+    ✓ should parse a body with content-type application/rss+xml
+    ✓ should accept xmlParseOptions
+    ✓ should accept custom ContentType as array
+    ✓ should accept custom ContentType as string
+    ✓ should accept custom ContentType as function
+    ✓ should ignore non-XML
+    ✓ should reject invalid XML
+    ✓ should not throw an exception after the callback is returned
+    ✓ should not set/change prototype using __proto__
+    ✓ should not set/change using prototype
+    ✓ should not set/change using constructor
+
+
+  13 passing (54ms)
+
+STATE-OLD rc=0

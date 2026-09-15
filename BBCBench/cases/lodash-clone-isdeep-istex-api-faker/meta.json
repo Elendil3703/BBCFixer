@@ -1,0 +1,43 @@
+{
+  "id": "lodash-clone-isdeep-istex-api-faker",
+  "name": "lodash-clone-isdeep-istex-api-faker",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "istex/istex-api-faker",
+    "url": "https://github.com/istex/istex-api-faker",
+    "commit": "cc492230ca10230f4b325509c9e5aa59018fc47e"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.clone",
+  "root_symbols": [
+    "clone",
+    "cloneDeep",
+    "baseClone"
+  ],
+  "behavioral_change": "lodash 4.0.0 removed the `isDeep` parameter of `_.clone`; deep cloning is now provided by `_.cloneDeep`. In v_new, `_.clone(x, true)` performs a shallow clone because the second argument has no effect; the function name and call form are unchanged.",
+  "downstream_effect": "The downstream project (istex-api-faker) builds its route table with `urls.push(_.clone(urlTmp, true))` and then mutates `urlTmp.query` in place; after the upgrade all twelve records share one `query` object, request matching by `_.isEqual` fails, and requests return 404. The two failures are `expected 404 to equal 200` with frames only in `test/basic.spec.js` and superagent; lodash, `clone` and `urls-to-fake.js` never appear.",
+  "reference_fix": "The reference fix changes the twelve `_.clone(urlTmp, true)` calls in `urls-to-fake.js` to `_.cloneDeep(urlTmp)`.",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), section Compatibility Warnings, states that the `isDeep` params were removed from `_.clone` and `_.flatten`, and the Split out methods list mentions `_.clone` and `_.cloneDeep`. Tier 2: prose only; the new form is derived from the v3 `_.clone` and v4 `_.cloneDeep` jsdoc.",
+  "failing_tests": [
+    "test/basic.spec.js:24 :: Istex API faker should return a JSON when /document/?q=* is requested",
+    "test/basic.spec.js:45 :: Istex API faker should ignore _1424268118509 querystring parameters comming from jquery-jsonp"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:10",
+    "node_major": 10,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "istex/istex-api-faker",
+  "commit": "cc492230ca10230f4b325509c9e5aa59018fc47e"
+}

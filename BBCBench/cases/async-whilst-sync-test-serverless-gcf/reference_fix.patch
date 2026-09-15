@@ -1,0 +1,13 @@
+diff --git a/shared/monitorDeployment.js b/shared/monitorDeployment.js
+index 89af79b..4248902 100644
+--- a/shared/monitorDeployment.js
++++ b/shared/monitorDeployment.js
+@@ -15,7 +15,7 @@ module.exports = {
+ 
+     return new BbPromise((resolve, reject) => {
+       async.whilst(
+-        () => validStatuses.indexOf(deploymentStatus) === -1,
++        (nextTest) => nextTest(null, validStatuses.indexOf(deploymentStatus) === -1),
+ 
+         (callback) => {
+           setTimeout(() => {

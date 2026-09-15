@@ -1,0 +1,48 @@
+{
+  "id": "lodash-iteratee-thisarg",
+  "name": "lodash-iteratee-thisarg",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "prolificinteractive/node-html-to-json",
+    "url": "https://github.com/prolificinteractive/node-html-to-json",
+    "commit": "1db4749c1ed8698adf0ef1c23496d47e7081a861"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.every",
+  "root_symbols": [
+    "every",
+    "bindCallback",
+    "baseCallback",
+    "baseIteratee",
+    "iteratee"
+  ],
+  "behavioral_change": "lodash v4.0.0 removed the `thisArg` parameter from iteration methods such as `_.every`, `_.map` and `_.each`. The signature and call form are unchanged and the third argument is silently ignored, so `this` inside the iteratee is no longer bound to the caller object as it was in v_old.",
+  "downstream_effect": "In the downstream project, `ParseContext.prototype.parse` uses `_.every(['Function','Array','Object'], fn, this)` to classify a filter; after the upgrade `this.filter` inside `fn` is undefined, every branch is rejected, and parsing falls back to returning the filter function itself. The failure is a should assertion (\"expected Function { name: 'foo' } to be 'bar'\") pointing at test/Parser-test.js and library-internal frames, never mentioning lodash, thisArg or ParseContext.",
+  "reference_fix": "The reference fix edits three iteratee calls in lib/ParseContext.js (around lines 25, 48 and 88), dropping the third `this` argument and binding the iteratee with `Function#bind` instead.",
+  "documented_in": "The lodash Changelog for v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog#v400), Compatibility Warnings section, states that `thisArg` params were removed and can be replaced with `_.bind`, `Function#bind` or arrow functions; the entry includes a before/after code block (`_.map(objects, callback, context)` in 3.10.1 versus `_.map(objects, _.bind(callback, context))` in 4.0.0), which shows the new code form.",
+  "failing_tests": [
+    "Parser provides helper methods #parse runs htmlToJson.parse against the stored filter",
+    "Parser provides helper methods #request runs htmlToJson.request against the stored filter"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "prolificinteractive/node-html-to-json",
+  "commit": "1db4749c1ed8698adf0ef1c23496d47e7081a861",
+  "no_summary_states": {
+    "STATE-NEW": "mocha 2.5.3 aborts the process right after printing Fatal AssertionError in STATE-NEW and never reaches the epilogue, so that state has no summary line. STATE-OLD and STATE-FIXED both report 20 passing; exit code 2 comes from a real assertion failure, not from a test run that failed to start."
+  }
+}

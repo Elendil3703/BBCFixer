@@ -1,0 +1,4 @@
+591c591
+< js-yaml	js-yaml@4.1.0
+---
+> js-yaml	js-yaml@5.0.0

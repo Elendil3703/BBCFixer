@@ -1,0 +1,5 @@
+Python 3.12.11
+click==8.2.1
+pyparsing==3.2.3
+rdflib==7.1.4
+SPARQLWrapper==2.0.0

@@ -1,0 +1,4 @@
+jscomplexity/node_modules/lodash
+grunt/node_modules/lodash
+jshint/node_modules/lodash
+grunt-legacy-util/node_modules/lodash

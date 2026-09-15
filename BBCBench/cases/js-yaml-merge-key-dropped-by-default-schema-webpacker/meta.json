@@ -1,0 +1,53 @@
+{
+  "id": "js-yaml-merge-key-dropped-by-default-schema-webpacker",
+  "name": "js-yaml-merge-key-dropped-by-default-schema-webpacker",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "rails/webpacker",
+    "url": "https://github.com/rails/webpacker",
+    "commit": "a715e055d937748c7cfd34b0450295348ca13ee6"
+  },
+  "lib": "js-yaml",
+  "v_old": "4.1.0",
+  "v_new": "5.0.0",
+  "library_repo": "https://github.com/nodeca/js-yaml",
+  "library_tags": {
+    "old": "4.1.0",
+    "new": "5.0.0"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "js-yaml.load",
+  "root_symbols": [
+    "DEFAULT_CONSTRUCTOR_OPTIONS",
+    "CORE_SCHEMA",
+    "DEFAULT_SCHEMA",
+    "load"
+  ],
+  "behavioral_change": "js-yaml 5.0.0 changed the default schema of `load()` from the YAML 1.1 `DEFAULT_SCHEMA` to the YAML 1.2 `CORE_SCHEMA`, which lacks the `!!merge` tag. The merge key `<<` is therefore no longer applied and is parsed as an ordinary string key whose value is the referenced anchor object; the function name, arity and call form are unchanged and no error or warning is raised.",
+  "downstream_effect": "The downstream project (webpacker) relies on `<< : *default` in `webpacker.yml`; after the upgrade keys such as `public_root_path` are missing from the loaded sections and `path.resolve` throws `TypeError: The \"paths[1]\" argument must be of type string. Received undefined` at module load time, failing 8 of 9 test suites. The stack frame names `package/config.js:20`, but the lines to edit are 2, 12 and 17, and the output never mentions yaml, js-yaml, schema or merge keys.",
+  "reference_fix": "The reference fix edits only `package/config.js`, extending the require to `{ load, CORE_SCHEMA, mergeTag }` and passing `{ schema: CORE_SCHEMA.withTags(mergeTag) }` to both `load` calls.",
+  "documented_in": "The js-yaml v4 to v5 migration guide (https://github.com/nodeca/js-yaml/blob/5.0.0/docs/migrate_v4_to_v5.md), section Schema, explains that `load()` now uses `CORE_SCHEMA` and that `!!merge` is missing, and shows the code `load(source, { schema: CORE_SCHEMA.withTags(mergeTag) })`; the 5.0.0 README and CHANGELOG state the same. Tier 1: the documentation shows the new code form.",
+  "failing_tests": [
+    "package/__tests__/development.js :: Development environment > webpackConfig > should use development config and environment including devServer if WEBPACK_SERVE",
+    "package/__tests__/development.js :: Development environment > webpackConfig > should use development config and environment if WEBPACK_SERVE",
+    "package/__tests__/production.js :: Production environment > webpackConfig > should use production config and environment",
+    "package/__tests__/staging.js :: Custom environment > webpackConfig > should use staging config and default production environment",
+    "package/__tests__/test.js :: Test environment > toWebpackConfig > should use test config and production environment",
+    "package/__tests__/dev_server.js :: DevServer > with NODE_ENV and RAILS_ENV set to development",
+    "package/__tests__/dev_server.js :: DevServer > with custom env prefix",
+    "package/__tests__/dev_server.js :: DevServer > with NODE_ENV and RAILS_ENV set to production",
+    "package/__tests__/config.js :: Test suite failed to run",
+    "package/__tests__/index.js :: Test suite failed to run",
+    "package/environments/__tests__/base.js :: Test suite failed to run"
+  ],
+  "test_cmd": "./node_modules/.bin/jest",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "rails/webpacker",
+  "commit": "a715e055d937748c7cfd34b0450295348ca13ee6"
+}

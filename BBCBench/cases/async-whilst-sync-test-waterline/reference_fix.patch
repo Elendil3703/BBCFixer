@@ -1,0 +1,17 @@
+diff --git a/lib/waterline/methods/stream.js b/lib/waterline/methods/stream.js
+index 54194b0..905455e 100644
+--- a/lib/waterline/methods/stream.js
++++ b/lib/waterline/methods/stream.js
+@@ -262,9 +262,9 @@ module.exports = function stream( /* criteria?, eachRecordFn?, explicitCbMaybe?,
+       var i = 0;
+ 
+ 
+-      async.whilst(function _checkHasntReachedLastBatchYet(){
+-        if (!reachedLastBatch) { return true; }
+-        else { return false; }
++      async.whilst(function _checkHasntReachedLastBatchYet(nextTest){
++        if (!reachedLastBatch) { return nextTest(undefined, true); }
++        else { return nextTest(undefined, false); }
+       },// ~∞%°
+       function _beginBatchMaybe(next) {
+ 

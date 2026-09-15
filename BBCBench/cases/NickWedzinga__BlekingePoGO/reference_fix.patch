@@ -1,0 +1,51 @@
+--- sneaselcommands/dex.py
++++ sneaselcommands/dex.py
+@@ -31,7 +31,7 @@
+ 
+ 
+ def create_no_matches_info_message(ctx, pokemon_name: str):
+-    pokemon_spelling_candidates = instances.SPELLCHECKER.candidates(pokemon_name)
++    pokemon_spelling_candidates = instances.SPELLCHECKER.candidates(pokemon_name) or {pokemon_name}
+     pokemon_containing_matches = _find_containing_matches(pokemon_name=pokemon_name)
+ 
+     info_message = f"Could not find any matches for {pokemon_name} {ctx.author.mention}"
+@@ -47,7 +47,7 @@
+     """Creates a str that lists the corrected Pokémon and attempts to give spelling alternatives"""
+     info_message = f"Showing result for **{corrected_name.title()}**, did not find **{incorrect_name.title()}** {ctx.author.mention}"
+ 
+-    candidates = instances.SPELLCHECKER.candidates(incorrect_name)
++    candidates = instances.SPELLCHECKER.candidates(incorrect_name) or {incorrect_name}
+     if len(candidates) > 1:
+         info_message += f"\nOther spelling options: {', '.join(list(map(str.title, candidates)))}"
+     return info_message
+--- sneaselcommands/raids/raid.py
++++ sneaselcommands/raids/raid.py
+@@ -140,7 +140,7 @@
+     for word in report:
+         if word.upper() in corrected_pokemon_name.upper():
+             original_pokemon_list.append(word)
+-        elif instances.SPELLCHECKER.correction(word).upper() in corrected_pokemon_name.upper():
++        elif (instances.SPELLCHECKER.correction(word) or word).upper() in corrected_pokemon_name.upper():
+             original_pokemon_list.append(word)
+     return " ".join(original_pokemon_list)
+ 
+--- utils/pokemon_corrector.py
++++ utils/pokemon_corrector.py
+@@ -46,7 +46,7 @@
+     """
+     if pokemon_misspelled.upper() in constants.RAID_EGG_TYPES:
+         return None
+-    pokemon_spell_checked = instances.SPELLCHECKER.correction(pokemon_misspelled)
++    pokemon_spell_checked = instances.SPELLCHECKER.correction(pokemon_misspelled) or pokemon_misspelled
+     return instances.POKEDEX.lookup(pokemon_spell_checked)
+ 
+ 
+@@ -62,7 +62,7 @@
+     maybe_correctly_spelled_pokemon: list = []
+     for pokemon_sub_name in incorrect_pokemon_list:
+         if pokemon_sub_name.upper() not in constants.RAID_EGG_TYPES:
+-            maybe_correctly_spelled_pokemon.append(instances.SPELLCHECKER.correction(pokemon_sub_name))
++            maybe_correctly_spelled_pokemon.append(instances.SPELLCHECKER.correction(pokemon_sub_name) or pokemon_sub_name)
+         else:
+             maybe_correctly_spelled_pokemon.append(pokemon_sub_name)
+ 

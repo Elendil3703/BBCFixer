@@ -1,0 +1,13 @@
+diff --git a/lib/assetsfile.js b/lib/assetsfile.js
+index f2ae1cd..a57caee 100644
+--- a/lib/assetsfile.js
++++ b/lib/assetsfile.js
+@@ -60,7 +60,7 @@ AssetsFile.prototype.remove = function(canonicalLink) {
+ 
+     if (this.has(canonicalLink)) {
+         console.log('remove asset'.white.bold, '\t', canonicalLink);
+-        this.data.assets = _.where(this.data.assets, function (asset) {
++        this.data.assets = _.filter(this.data.assets, function (asset) {
+             return asset.canonicalLink != canonicalLink;
+         });
+ 

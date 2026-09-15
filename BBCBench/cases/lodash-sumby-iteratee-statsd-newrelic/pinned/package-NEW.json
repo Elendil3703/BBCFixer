@@ -1,0 +1,37 @@
+{
+  "name": "statsd-newrelic-backend",
+  "version": "1.2.3",
+  "description": "A backend implementation for StatsD which flushed the metrics data to a configured New Relic account",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mpayetta/statsd-newrelic-backend.git"
+  },
+  "keywords": [
+    "statsd",
+    "newrelic",
+    "backend"
+  ],
+  "author": "mpayetta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mpayetta/statsd-newrelic-backend/issues"
+  },
+  "homepage": "https://github.com/mpayetta/statsd-newrelic-backend",
+  "scripts": {
+    "lint": "node_modules/.bin/gulp lint",
+    "test": "node_modules/.bin/gulp mocha"
+  },
+  "dependencies": {
+    "lodash": "4.17.21",
+    "newrelic": "^1.21.2"
+  },
+  "devDependencies": {
+    "chai": "~3.2.0",
+    "gulp": "^3.9.0",
+    "gulp-jslint": "^0.2.2",
+    "gulp-mocha": "^2.1.3",
+    "mocha": "*",
+    "sinon": "^1.15.4"
+  }
+}

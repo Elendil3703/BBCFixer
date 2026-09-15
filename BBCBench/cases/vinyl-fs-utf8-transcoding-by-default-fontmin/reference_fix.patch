@@ -1,0 +1,28 @@
+diff --git a/index.js b/index.js
+index 35c27d4..99d4b51 100644
+--- a/index.js
++++ b/index.js
+@@ -133,7 +133,22 @@ Fontmin.prototype.getFiles = function () {
+         return bufferToVinyl.stream(this._src[0]);
+     }
+ 
+-    return vfs.src.apply(vfs, this.src());
++    var args = Array.prototype.slice.call(this.src());
++    var opts = {};
++
++    if (args[1] && typeof args[1] === 'object') {
++        for (var key in args[1]) {
++            if (Object.prototype.hasOwnProperty.call(args[1], key)) {
++                opts[key] = args[1][key];
++            }
++        }
++    }
++
++    opts.encoding = false;
++    opts.allowEmpty = true;
++    args[1] = opts;
++
++    return vfs.src.apply(vfs, args);
+ };
+ 
+ /**

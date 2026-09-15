@@ -1,0 +1,10 @@
+28a29
+> @eslint/eslintrc/node_modules/js-yaml	js-yaml@4.1.0
+149a151
+> cosmiconfig/node_modules/js-yaml	js-yaml@4.1.0
+196a199
+> eslint/node_modules/js-yaml	js-yaml@4.1.0
+328c331
+< js-yaml	js-yaml@4.1.0
+---
+> js-yaml	js-yaml@5.2.3

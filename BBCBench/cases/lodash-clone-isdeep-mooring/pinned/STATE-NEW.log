@@ -1,0 +1,111 @@
+
+> mooring@2.0.0 test /w
+> ./node_modules/mocha/bin/mocha --timeout 5 ./test/*
+
+
+
+  before hooks
+    ✓ runs before hooks with a synchronous API
+    ✓ also runs before hooks with an asynchronous API
+    ✓ can run multipe before hooks
+
+  after hooks
+    ✓ runs after hooks with a synchronous API
+    ✓ also runs after hooks with an asynchronous API
+    ✓ can run multipe after hooks
+
+  call hooks
+    ✓ lets you call a hook without first defining it
+
+  Immutablity tests
+    1) should not allow non-passed changed to be passed to the hooked method
+    2) should not allow non-passed changed to be passed from the hooked method
+    3) should not mutate the orig request
+
+  Mutablity tests
+    ✓ should mutate the orig request
+
+  New API
+    ✓ Entire API exists
+
+  New API before hooks
+    ✓ runs basic serial pre hooks
+    ✓ can run multipe pre hooks
+    ✓ can run fully synchronous pre hooks
+
+  after hooks
+    ✓ executes with parameters passed in
+    ✓ can run fully synchronous post hooks
+
+  createHook()
+    4) wraps a callable function in hooks
+    ✓ ensures all params are passed in, even methods
+
+
+  15 passing (11ms)
+  4 failing
+
+  1) Immutablity tests should not allow non-passed changed to be passed to the hooked method:
+
+      Uncaught AssertionError: expected 'A' to equal 'burger'
+      + expected - actual
+
+      -A
+      +burger
+      
+      at Object.hooks.createHook.food (test/immutable.test.js:19:34)
+      at index.js:98:38
+      at fn (node_modules/async/lib/async.js:746:34)
+      at node_modules/async/lib/async.js:1213:16
+      at node_modules/async/lib/async.js:166:37
+      at node_modules/async/lib/async.js:706:43
+      at node_modules/async/lib/async.js:167:37
+      at Immediate.<anonymous> (node_modules/async/lib/async.js:1206:34)
+
+  2) Immutablity tests should not allow non-passed changed to be passed from the hooked method:
+
+      Uncaught AssertionError: expected 'turkey' to equal 'chicken'
+      + expected - actual
+
+      -turkey
+      +chicken
+      
+      at test/immutable.test.js:37:34
+      at Object.safeDone (index.js:20:18)
+      at index.js:118:22
+      at node_modules/async/lib/async.js:52:16
+      at Immediate.<anonymous> (node_modules/async/lib/async.js:1206:34)
+
+  3) Immutablity tests should not mutate the orig request:
+
+      Uncaught AssertionError: expected 'A' to equal 'burger'
+      + expected - actual
+
+      -A
+      +burger
+      
+      at Object.hooks.createHook.food (test/immutable.test.js:51:39)
+      at index.js:98:38
+      at fn (node_modules/async/lib/async.js:746:34)
+      at node_modules/async/lib/async.js:1213:16
+      at node_modules/async/lib/async.js:166:37
+      at node_modules/async/lib/async.js:706:43
+      at node_modules/async/lib/async.js:167:37
+      at Immediate.<anonymous> (node_modules/async/lib/async.js:1206:34)
+
+  4) createHook() wraps a callable function in hooks:
+
+      Uncaught AssertionError [ERR_ASSERTION]: { bacon: 3, eggs: 4, waffles: false, tofu: 'no' } != { bacon: 3, eggs: 4, waffles: false, tofu: 'no' }
+      + expected - actual
+
+      
+      at test/newAPI.test.js:189:20
+      at Object.safeDone (index.js:20:18)
+      at index.js:118:22
+      at node_modules/async/lib/async.js:52:16
+      at Immediate.<anonymous> (node_modules/async/lib/async.js:1206:34)
+
+
+
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

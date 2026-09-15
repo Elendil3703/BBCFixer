@@ -1,0 +1,8 @@
+922c922
+< immutable	immutable@3.8.3
+---
+> immutable	immutable@4.3.9
+923a924
+> immutable-cursor/node_modules/immutable	immutable@3.8.3
+1859a1861
+> react-daterange-picker/node_modules/immutable	immutable@3.8.3

@@ -1,0 +1,9 @@
+........................................................................ [ 50%]
+........................................................................ [100%]
+=============================== warnings summary ===============================
+../.venv/lib/python3.10/site-packages/stringcase.py:247
+  /work/.venv/lib/python3.10/site-packages/stringcase.py:247: DeprecationWarning: invalid escape sequence '\W'
+    return re.sub("\W+", "", string)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+144 passed, 1 warning in 0.21s

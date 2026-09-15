@@ -1,0 +1,28 @@
+
+> key-casing@1.0.1 test
+> tape test.js | node_modules/.bin/tap-spec
+
+
+  validate object is returned
+
+    ✔ should be equal
+
+  validate object is expected default
+
+    ✔ should be equivalent
+
+  validate object that contains an array
+
+    ✔ should be equivalent
+
+  validate object that contains an array and nested objects
+
+    ✔ should be equivalent
+
+
+  total:     4
+  passing:   4
+  duration:  21ms
+
+
+STATE-FIXED rc=0

@@ -1,0 +1,28 @@
+diff --git a/src/app/builder.js b/src/app/builder.js
+index 95a7d59..333f3bd 100644
+--- a/src/app/builder.js
++++ b/src/app/builder.js
+@@ -231,6 +231,13 @@ const createRoute = async function (def, root, defHierarchy) {
+         })
+       }
+ 
++      const on = { proxyReq: onProxyReq }
++      const proxyRes = applyProxyRes(proxyResHooks, def)
++
++      if (proxyRes) {
++        on.proxyRes = proxyRes
++      }
++
+       proxies.push({
+         path: path.join('/'),
+         context: {
+@@ -240,8 +247,7 @@ const createRoute = async function (def, root, defHierarchy) {
+           pathRewrite: {
+             [path.join('/')]: '/',
+           },
+-          onProxyReq,
+-          onProxyRes: applyProxyRes(proxyResHooks, def),
++          on,
+         },
+         def,
+       })

@@ -1,0 +1,16 @@
+diff --git a/lib/modes/builder.js b/lib/modes/builder.js
+index 0164f99..aab817f 100644
+--- a/lib/modes/builder.js
++++ b/lib/modes/builder.js
+@@ -41,9 +41,9 @@ module.exports = function build(acetate, { strict } = {}) {
+             });
+         }, 5);
+ 
+-        buildQueue.drain = function() {
++        buildQueue.drain(function() {
+           resolve(pages);
+-        };
++        });
+ 
+         buildQueue.push(pages);
+       });

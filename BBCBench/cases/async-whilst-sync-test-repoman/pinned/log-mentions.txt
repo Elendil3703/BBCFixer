@@ -1,0 +1,4 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under test.
+# log	token	count	justification
+STATE-NEW.log	async	1	mocha's own timeout wording, verbatim: 'For async tests and hooks, ensure "done()" is called'. The test framework emits this for every timeout regardless of which library is involved; it does not refer to the trigger library. The decisive token 'whilst' appears 0 times in all three logs, and the call form 'async.' appears 0 times.

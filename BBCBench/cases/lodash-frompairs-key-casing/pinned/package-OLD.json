@@ -1,0 +1,36 @@
+{
+  "name": "key-casing",
+  "version": "1.0.1",
+  "description": "change casing of object keys",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/jshint *.js --reporter node_modules/jshint-stylish",
+    "prepublish": "npm run lint",
+    "test": "tape test.js | node_modules/.bin/tap-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckross01/key-casing.git"
+  },
+  "keywords": [
+    "object",
+    "key",
+    "casing",
+    "capitalize"
+  ],
+  "author": "Chris Ross",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ckross01/key-casing/issues"
+  },
+  "homepage": "https://github.com/ckross01/key-casing#readme",
+  "devDependencies": {
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.0.1",
+    "tap-spec": "^4.0.2",
+    "tape": "^4.1.0"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1"
+  }
+}

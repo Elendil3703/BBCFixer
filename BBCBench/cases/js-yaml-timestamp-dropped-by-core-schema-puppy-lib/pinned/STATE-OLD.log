@@ -1,0 +1,12 @@
+
+> @upstatement/puppy@0.13.0 test
+> ava
+
+
+  ✔ puppy returns a promise that resolves to a readable stream
+  ✔ puppy stream sources vinyl files
+  ✔ vinyl files are annotated with puppy site and page data
+  ─
+
+  3 tests passed
+STATE-OLD rc=0

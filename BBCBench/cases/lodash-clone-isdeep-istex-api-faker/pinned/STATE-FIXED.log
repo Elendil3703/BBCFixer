@@ -1,0 +1,17 @@
+
+> istex-api-faker@1.5.7 test /w
+> ./node_modules/mocha/bin/mocha
+
+
+
+  Istex API faker
+    ✓ should return a html home page
+(node:26) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+    ✓ should return a JSON when /document/?q=* is requested
+    ✓ should return 404 when the requested URL is not in data/
+    ✓ should ignore _1424268118509 querystring parameters comming from jquery-jsonp
+
+
+  4 passing (41ms)
+
+STATE-FIXED rc=0

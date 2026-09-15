@@ -1,0 +1,42 @@
+{
+  "id": "lodash-where-predicate-ignored-fasm",
+  "name": "lodash-where-predicate-ignored-fasm",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "vincent/fasm",
+    "url": "https://github.com/vincent/fasm",
+    "commit": "c00fc2e1172c8102750c463270fd01efcaacf1c6"
+  },
+  "lib": "lodash",
+  "v_old": "2.4.2",
+  "v_new": "3.10.1",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "2.4.2",
+    "new": "3.10.1"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.where",
+  "root_symbols": [
+    "where",
+    "baseMatches",
+    "filter"
+  ],
+  "behavioral_change": "From lodash v3.0.0, `_.where` always evaluates its second argument through `_.matches`, so only a source object for partial deep comparison is accepted. In v_old (2.4.2) `_.where` was literally `_.filter`, so a predicate function worked; in v_new (3.10.1) a function passed as the second argument yields a matcher that returns true for every element, and the whole collection is returned without any exception or deprecation notice.",
+  "downstream_effect": "The downstream project's `AssetsFile.prototype.remove` uses `_.where` with a predicate function to drop entries matching a `canonicalLink` from `this.data.assets`; after the upgrade removal becomes a no-op and the array only grows. The two nodeunit failures (\"AssertionError: 2 === 1\" and \"2 === 0\") have frames only in test.js and nodeunit internals, and lodash, where, predicate, filter and matches never appear in the output.",
+  "reference_fix": "The reference fix changes one line in lib/assetsfile.js:63, replacing `_.where` with `_.filter` and leaving the anonymous predicate function unchanged.",
+  "documented_in": "The lodash Changelog v3.0.0 section (https://github.com/lodash/lodash/wiki/Changelog#v300) states \"Ensured `_.findWhere` & `_.where` always use `_.matches`\" (under Other Changes, not Compatibility Warnings); the API references at https://lodash.com/docs/2.4.2 and https://lodash.com/docs/3.10.1 show the parameter change from props to source, and the Deprecations page (https://github.com/lodash/lodash/wiki/Deprecations) names `_.filter` as the replacement, with the 3.10.1 `_.filter` example code block showing the new code form.",
+  "failing_tests": [
+    "test.js :: assets file methods (the two strictEqual assertions at lines 92 and 102 fail; nodeunit reports FAILURES: 2/14 assertions failed)"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:14",
+    "node_major": 14,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "vincent/fasm",
+  "commit": "c00fc2e1172c8102750c463270fd01efcaacf1c6"
+}

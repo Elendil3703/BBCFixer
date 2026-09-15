@@ -1,0 +1,34 @@
+diff --git skimage/filters/edges.py skimage/filters/edges.py
+index 644f4a597..050ed5a30 100644
+--- skimage/filters/edges.py
++++ skimage/filters/edges.py
+@@ -193,7 +193,7 @@ def _generic_edge_filter(
+         output += ax_output
+ 
+     if return_magnitude:
+-        output = np.sqrt(output) / np.sqrt(ndim)
++        output = np.sqrt(output) / np.sqrt(ndim, dtype=output.dtype)
+     return output
+ 
+ 
+diff --git skimage/filters/ridges.py skimage/filters/ridges.py
+index 8f4ba8582..505ac2c8f 100644
+--- skimage/filters/ridges.py
++++ skimage/filters/ridges.py
+@@ -294,9 +294,13 @@ def frangi(
+         # blobness exponential factor underflowing to zero whenever the second
+         # or third eigenvalues are negative (we clip them to 1e-10, to make r_b
+         # very large).
+-        vals = 1.0 - np.exp(-(r_a**2) / (2 * alpha**2))  # plate sensitivity
+-        vals *= np.exp(-(r_b**2) / (2 * beta**2))  # blobness
+-        vals *= 1.0 - np.exp(-(s**2) / (2 * gamma**2))  # structuredness
++        vals = 1.0 - np.exp(
++            -(r_a**2) / (2 * alpha**2), dtype=image.dtype
++        )  # plate sensitivity
++        vals *= np.exp(-(r_b**2) / (2 * beta**2), dtype=image.dtype)  # blobness
++        vals *= 1.0 - np.exp(
++            -(s**2) / (2 * gamma**2), dtype=image.dtype
++        )  # structuredness
+         filtered_max = np.maximum(filtered_max, vals)
+     return filtered_max  # Return pixel-wise max over all sigmas.
+ 

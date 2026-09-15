@@ -1,0 +1,269 @@
+
+> serverless-google-cloudfunctions@4.6.0 test
+> jest
+
+(node:2835933) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835924) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835932) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835951) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835945) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835994) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835925) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836003) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835926) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835939) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835963) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835961) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835996) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836002) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2835995) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+PASS info/lib/displayServiceInfo.test.js
+PASS deploy/lib/updateDeployment.test.js
+PASS logs/lib/retrieveLogs.test.js
+PASS deploy/googleDeploy.test.js
+PASS shared/validate.test.js
+PASS deploy/lib/cleanupDeploymentBucket.test.js
+PASS package/lib/compileFunctions.test.js
+PASS remove/lib/emptyDeploymentBucket.test.js
+PASS invokeLocal/lib/nodeJs.test.js
+  ● Console
+
+    console.log
+      EVENT_SYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      EVENT_SYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      EVENT_ASYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      EVENT_ASYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      MY_VAR_VALUE
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      HTTP_SYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      HTTP_SYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      HTTP_ASYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      HTTP_ASYNC_HANDLER
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+    console.log
+      MY_VAR_VALUE
+
+      at console.<anonymous> (node_modules/jest-mock/build/index.js:814:25)
+
+PASS package/googlePackage.test.js
+PASS logs/googleLogs.test.js
+PASS shared/setDeploymentBucketName.test.js
+PASS package/lib/cleanupServerlessDir.test.js
+PASS provider/googleProvider.test.js
+PASS package/lib/mergeServiceResources.test.js
+PASS package/lib/prepareDeployment.test.js
+PASS invokeLocal/lib/getDataAndContext.test.js
+PASS invoke/lib/invokeFunction.test.js
+PASS info/googleInfo.test.js
+PASS ./index.test.js
+PASS deploy/lib/uploadArtifacts.test.js
+PASS package/lib/writeFilesToDisk.test.js
+PASS invoke/googleInvoke.test.js
+PASS package/lib/generateArtifactDirectoryName.test.js
+PASS remove/lib/removeDeployment.test.js
+PASS deploy/lib/createDeployment.test.js
+PASS shared/utils.test.js
+PASS remove/googleRemove.test.js
+PASS invokeLocal/googleInvokeLocal.test.js
+FAIL shared/monitorDeployment.test.js (20.995s)
+  ● MonitorDeployment › #monitorDeployment() › when monitoring creations or updates › should keep monitoring until "DONE" status is reached
+
+    : Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Error:
+
+      40 |   describe('#monitorDeployment()', () => {
+      41 |     describe('when monitoring creations or updates', () => {
+    > 42 |       it('should keep monitoring until "DONE" status is reached', () => {
+         |       ^
+      43 |         const deploymentName = 'sls-my-service-dev';
+      44 |         const response1 = {
+      45 |           deployments: [
+
+      at new Spec (node_modules/jest-jasmine2/build/jasmine/Spec.js:116:22)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:42:7)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:41:5)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:40:3)
+      at Object.<anonymous> (shared/monitorDeployment.test.js:11:1)
+
+  ● MonitorDeployment › #monitorDeployment() › when monitoring creations or updates › should throw an error if deployment errors out
+
+    : Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Error:
+
+      79 |       });
+      80 | 
+    > 81 |       it('should throw an error if deployment errors out', () => {
+         |       ^
+      82 |         const deploymentName = 'sls-my-service-dev';
+      83 |         const response = {
+      84 |           deployments: [
+
+      at new Spec (node_modules/jest-jasmine2/build/jasmine/Spec.js:116:22)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:81:7)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:41:5)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:40:3)
+      at Object.<anonymous> (shared/monitorDeployment.test.js:11:1)
+
+  ● MonitorDeployment › #monitorDeployment() › when monitoring removals › should stop if there are no deployments and the action is "remove"
+
+    : Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Error:
+
+      114 | 
+      115 |     describe('when monitoring removals', () => {
+    > 116 |       it('should stop if there are no deployments and the action is "remove"', () => {
+          |       ^
+      117 |         const deploymentName = 'sls-my-service-dev';
+      118 |         const response = {};
+      119 | 
+
+      at new Spec (node_modules/jest-jasmine2/build/jasmine/Spec.js:116:22)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:116:7)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:115:5)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:40:3)
+      at Object.<anonymous> (shared/monitorDeployment.test.js:11:1)
+
+  ● MonitorDeployment › #monitorDeployment() › when monitoring removals › should stop if the deployment is unavailable and the action is "remove"
+
+    : Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Error:
+
+      133 |       });
+      134 | 
+    > 135 |       it('should stop if the deployment is unavailable and the action is "remove"', () => {
+          |       ^
+      136 |         const deploymentName = 'sls-my-service-dev';
+      137 |         const response = {
+      138 |           deployments: [{ name: 'a-different-deployment' }],
+
+      at new Spec (node_modules/jest-jasmine2/build/jasmine/Spec.js:116:22)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:135:7)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:115:5)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:40:3)
+      at Object.<anonymous> (shared/monitorDeployment.test.js:11:1)
+
+Summary of all failing tests
+FAIL shared/monitorDeployment.test.js (20.995s)
+  ● MonitorDeployment › #monitorDeployment() › when monitoring creations or updates › should keep monitoring until "DONE" status is reached
+
+    : Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Error:
+
+      40 |   describe('#monitorDeployment()', () => {
+      41 |     describe('when monitoring creations or updates', () => {
+    > 42 |       it('should keep monitoring until "DONE" status is reached', () => {
+         |       ^
+      43 |         const deploymentName = 'sls-my-service-dev';
+      44 |         const response1 = {
+      45 |           deployments: [
+
+      at new Spec (node_modules/jest-jasmine2/build/jasmine/Spec.js:116:22)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:42:7)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:41:5)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:40:3)
+      at Object.<anonymous> (shared/monitorDeployment.test.js:11:1)
+
+  ● MonitorDeployment › #monitorDeployment() › when monitoring creations or updates › should throw an error if deployment errors out
+
+    : Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Error:
+
+      79 |       });
+      80 | 
+    > 81 |       it('should throw an error if deployment errors out', () => {
+         |       ^
+      82 |         const deploymentName = 'sls-my-service-dev';
+      83 |         const response = {
+      84 |           deployments: [
+
+      at new Spec (node_modules/jest-jasmine2/build/jasmine/Spec.js:116:22)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:81:7)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:41:5)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:40:3)
+      at Object.<anonymous> (shared/monitorDeployment.test.js:11:1)
+
+  ● MonitorDeployment › #monitorDeployment() › when monitoring removals › should stop if there are no deployments and the action is "remove"
+
+    : Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Error:
+
+      114 | 
+      115 |     describe('when monitoring removals', () => {
+    > 116 |       it('should stop if there are no deployments and the action is "remove"', () => {
+          |       ^
+      117 |         const deploymentName = 'sls-my-service-dev';
+      118 |         const response = {};
+      119 | 
+
+      at new Spec (node_modules/jest-jasmine2/build/jasmine/Spec.js:116:22)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:116:7)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:115:5)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:40:3)
+      at Object.<anonymous> (shared/monitorDeployment.test.js:11:1)
+
+  ● MonitorDeployment › #monitorDeployment() › when monitoring removals › should stop if the deployment is unavailable and the action is "remove"
+
+    : Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout.Error:
+
+      133 |       });
+      134 | 
+    > 135 |       it('should stop if the deployment is unavailable and the action is "remove"', () => {
+          |       ^
+      136 |         const deploymentName = 'sls-my-service-dev';
+      137 |         const response = {
+      138 |           deployments: [{ name: 'a-different-deployment' }],
+
+      at new Spec (node_modules/jest-jasmine2/build/jasmine/Spec.js:116:22)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:135:7)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:115:5)
+      at Suite.<anonymous> (shared/monitorDeployment.test.js:40:3)
+      at Object.<anonymous> (shared/monitorDeployment.test.js:11:1)
+
+
+Test Suites: 1 failed, 29 passed, 30 total
+Tests:       4 failed, 220 passed, 224 total
+Snapshots:   0 total
+Time:        21.894s
+Ran all test suites.
+STATE-NEW rc=1

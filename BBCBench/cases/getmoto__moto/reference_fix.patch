@@ -1,0 +1,136 @@
+diff --git moto/apigateway/urls.py moto/apigateway/urls.py
+index 816395a32..461d899bb 100644
+--- moto/apigateway/urls.py
++++ moto/apigateway/urls.py
+@@ -19,8 +19,9 @@ url_paths = {
+     "{0}/restapis/(?P<function_id>[^/]+)/resources/(?P<resource_id>[^/]+)/?$": response.resource_individual,
+     "{0}/restapis/(?P<function_id>[^/]+)/resources/(?P<resource_id>[^/]+)/methods/(?P<method_name>[^/]+)/?$": response.resource_methods,
+     r"{0}/restapis/(?P<function_id>[^/]+)/resources/(?P<resource_id>[^/]+)/methods/(?P<method_name>[^/]+)/responses/(?P<status_code>\d+)$": response.resource_method_responses,
+-    "{0}/restapis/(?P<function_id>[^/]+)/resources/(?P<resource_id>[^/]+)/methods/(?P<method_name>[^/]+)/integration/?$": response.integrations,
+-    r"{0}/restapis/(?P<function_id>[^/]+)/resources/(?P<resource_id>[^/]+)/methods/(?P<method_name>[^/]+)/integration/responses/(?P<status_code>\d+)/?$": response.integration_responses,
++    r"{0}/restapis/(?P<function_id>[^/]+)/resources/(?P<resource_id>[^/]+)/methods/(?P<method_name>[^/]+)/integration$": response.integrations,
++    r"{0}/restapis/(?P<function_id>[^/]+)/resources/(?P<resource_id>[^/]+)/methods/(?P<method_name>[^/]+)/integration/responses/(?P<status_code>\d+)$": response.integration_responses,
++    r"{0}/restapis/(?P<function_id>[^/]+)/resources/(?P<resource_id>[^/]+)/methods/(?P<method_name>[^/]+)/integration/responses/(?P<status_code>\d+)/$": response.integration_responses,
+     "{0}/apikeys$": response.apikeys,
+     "{0}/apikeys/(?P<apikey>[^/]+)": response.apikey_individual,
+     "{0}/usageplans$": response.usage_plans,
+diff --git moto/apigatewayv2/urls.py moto/apigatewayv2/urls.py
+index 375ca5b3e..bf66afe44 100644
+--- moto/apigatewayv2/urls.py
++++ moto/apigatewayv2/urls.py
+@@ -26,7 +26,9 @@ url_paths = {
+     "{0}/v2/apis/(?P<api_id>[^/]+)/routes/(?P<route_id>[^/]+)/routeresponses$": response_v2.route_responses,
+     "{0}/v2/apis/(?P<api_id>[^/]+)/routes/(?P<route_id>[^/]+)/routeresponses/(?P<route_response_id>[^/]+)$": response_v2.route_response,
+     "{0}/v2/apis/(?P<api_id>[^/]+)/routes/(?P<route_id>[^/]+)/requestparameters/(?P<request_parameter>[^/]+)$": response_v2.route_request_parameter,
+-    "{0}/v2/tags/(?P<resource_arn>.+)$": response_v2.tags,
++    "{0}/v2/tags/(?P<resource_arn>[^/]+)$": response_v2.tags,
++    "{0}/v2/tags/(?P<resource_arn_pt1>[^/]+)/apis/(?P<resource_arn_pt2>[^/]+)$": response_v2.tags,
++    "{0}/v2/tags/(?P<resource_arn_pt1>[^/]+)/vpclinks/(?P<resource_arn_pt2>[^/]+)$": response_v2.tags,
+     "{0}/v2/vpclinks$": response_v2.vpc_links,
+     "{0}/v2/vpclinks/(?P<vpc_link_id>[^/]+)$": response_v2.vpc_link,
+ }
+diff --git moto/appsync/urls.py moto/appsync/urls.py
+index e165c7944..1b078f720 100644
+--- moto/appsync/urls.py
++++ moto/appsync/urls.py
+@@ -16,5 +16,6 @@ url_paths = {
+     "{0}/v1/apis/(?P<api_id>[^/]+)/apikeys/(?P<api_key_id>[^/]+)$": response.api_key_individual,
+     "{0}/v1/apis/(?P<api_id>[^/]+)/schemacreation$": response.schemacreation,
+     "{0}/v1/tags/(?P<resource_arn>.+)$": response.tags,
++    "{0}/v1/tags/(?P<resource_arn_pt1>.+)/(?P<resource_arn_pt2>.+)$": response.tags,
+     "{0}/v1/apis/(?P<api_id>[^/]+)/types/(?P<type_name>.+)$": response.types,
+ }
+diff --git moto/awslambda/urls.py moto/awslambda/urls.py
+index 348014251..3d7c310f0 100644
+--- moto/awslambda/urls.py
++++ moto/awslambda/urls.py
+@@ -5,16 +5,18 @@ url_bases = [r"https?://lambda\.(.+)\.amazonaws\.com"]
+ response = LambdaResponse()
+ 
+ url_paths = {
+-    r"{0}/(?P<api_version>[^/]+)/functions/?$": response.root,
++    r"{0}/(?P<api_version>[^/]+)/functions$": response.root,
++    r"{0}/(?P<api_version>[^/]+)/functions/$": response.root,
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/?$": response.function,
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/aliases$": response.aliases,
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/aliases/(?P<alias_name>[\w_-]+)$": response.alias,
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/versions/?$": response.versions,
+-    r"{0}/(?P<api_version>[^/]+)/event-source-mappings/?$": response.event_source_mappings,
++    r"{0}/(?P<api_version>[^/]+)/event-source-mappings/$": response.event_source_mappings,
+     r"{0}/(?P<api_version>[^/]+)/event-source-mappings/(?P<UUID>[\w_-]+)/?$": response.event_source_mapping,
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_-]+)/invocations/?$": response.invoke,
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<resource_arn>.+)/invocations/?$": response.invoke,
+-    r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/invoke-async/?$": response.invoke_async,
++    r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/invoke-async$": response.invoke_async,
++    r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/invoke-async/$": response.invoke_async,
+     r"{0}/(?P<api_version>[^/]+)/tags/(?P<resource_arn>.+)": response.tag,
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/policy/(?P<statement_id>[\w_-]+)$": response.policy,
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/policy/?$": response.policy,
+@@ -23,7 +25,9 @@ url_paths = {
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/code-signing-config$": response.code_signing_config,
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/concurrency/?$": response.function_concurrency,
+     r"{0}/(?P<api_version>[^/]+)/functions/(?P<function_name>[\w_:%-]+)/url/?$": response.function_url_config,
+-    r"{0}/(?P<api_version>[^/]+)/layers/?$": response.list_layers,
+-    r"{0}/(?P<api_version>[^/]+)/layers/(?P<layer_name>[\w_-]+)/versions/?$": response.layers_versions,
++    r"{0}/(?P<api_version>[^/]+)/layers$": response.list_layers,
++    r"{0}/(?P<api_version>[^/]+)/layers/$": response.list_layers,
++    r"{0}/(?P<api_version>[^/]+)/layers/(?P<layer_name>[\w_-]+)/versions$": response.layers_versions,
++    r"{0}/(?P<api_version>[^/]+)/layers/(?P<layer_name>[\w_-]+)/versions/$": response.layers_versions,
+     r"{0}/(?P<api_version>[^/]+)/layers/(?P<layer_name>[\w_-]+)/versions/(?P<layer_version>[\w_-]+)$": response.layers_version,
+ }
+diff --git moto/moto_server/utilities.py moto/moto_server/utilities.py
+index 27b45dcac..bf8e504e9 100644
+--- moto/moto_server/utilities.py
++++ moto/moto_server/utilities.py
+@@ -8,6 +8,8 @@ from werkzeug.routing import BaseConverter
+ class RegexConverter(BaseConverter):
+     # http://werkzeug.pocoo.org/docs/routing/#custom-converters
+ 
++    part_isolating = False
++
+     def __init__(self, url_map, *items):
+         super().__init__(url_map)
+         self.regex = items[0]
+diff --git moto/pinpoint/urls.py moto/pinpoint/urls.py
+index 58e801af5..9051ffd51 100644
+--- moto/pinpoint/urls.py
++++ moto/pinpoint/urls.py
+@@ -14,5 +14,6 @@ url_paths = {
+     "{0}/v1/apps/(?P<app_id>[^/]+)$": response.app,
+     "{0}/v1/apps/(?P<app_id>[^/]+)/eventstream": response.eventstream,
+     "{0}/v1/apps/(?P<app_id>[^/]+)/settings$": response.app_settings,
+-    "{0}/v1/tags/(?P<app_arn>.+)$": response.tags,
++    "{0}/v1/tags/(?P<app_arn>[^/]+)$": response.tags,
++    "{0}/v1/tags/(?P<app_arn_pt_1>[^/]+)/(?P<app_arn_pt_2>[^/]+)$": response.tags,
+ }
+diff --git moto/route53/urls.py moto/route53/urls.py
+index a8679154d..b5b8f0819 100644
+--- moto/route53/urls.py
++++ moto/route53/urls.py
+@@ -15,8 +15,10 @@ def tag_response2(*args, **kwargs):
+ url_paths = {
+     r"{0}/(?P<api_version>[\d_-]+)/hostedzone$": Route53().list_or_create_hostzone_response,
+     r"{0}/(?P<api_version>[\d_-]+)/hostedzone/(?P<zone_id>[^/]+)$": Route53().get_or_delete_hostzone_response,
+-    r"{0}/(?P<api_version>[\d_-]+)/hostedzone/(?P<zone_id>[^/]+)/rrset/?$": Route53().rrset_response,
+-    r"{0}/(?P<api_version>[\d_-]+)/hostedzone/(?P<zone_id>[^/]+)/dnssec/?$": Route53().get_dnssec_response,
++    r"{0}/(?P<api_version>[\d_-]+)/hostedzone/(?P<zone_id>[^/]+)/rrset$": Route53().rrset_response,
++    r"{0}/(?P<api_version>[\d_-]+)/hostedzone/(?P<zone_id>[^/]+)/rrset/$": Route53().rrset_response,
++    r"{0}/(?P<api_version>[\d_-]+)/hostedzone/(?P<zone_id>[^/]+)/dnssec$": Route53().get_dnssec_response,
++    r"{0}/(?P<api_version>[\d_-]+)/hostedzone/(?P<zone_id>[^/]+)/dnssec/$": Route53().get_dnssec_response,
+     r"{0}/(?P<api_version>[\d_-]+)/hostedzone/(?P<zone_id>[^/]+)/associatevpc/?$": Route53().associate_vpc_response,
+     r"{0}/(?P<api_version>[\d_-]+)/hostedzone/(?P<zone_id>[^/]+)/disassociatevpc/?$": Route53().disassociate_vpc_response,
+     r"{0}/(?P<api_version>[\d_-]+)/hostedzonesbyname": Route53().list_hosted_zones_by_name_response,
+diff --git moto/s3/urls.py moto/s3/urls.py
+index a9f989915..52fe69d50 100644
+--- moto/s3/urls.py
++++ moto/s3/urls.py
+@@ -14,7 +14,8 @@ url_paths = {
+     # subdomain bucket
+     "{0}/$": S3ResponseInstance.bucket_response,
+     # subdomain key of path-based bucket
+-    "{0}/(?P<key_or_bucket_name>[^/]+)/?$": S3ResponseInstance.ambiguous_response,
++    "{0}/(?P<key_or_bucket_name>[^/]+)$": S3ResponseInstance.ambiguous_response,
++    "{0}/(?P<key_or_bucket_name>[^/]+)/$": S3ResponseInstance.ambiguous_response,
+     # path-based bucket + key
+     "{0}/(?P<bucket_name_path>[^/]+)/(?P<key_name>.+)": S3ResponseInstance.key_response,
+     # subdomain bucket + key with empty first part of path

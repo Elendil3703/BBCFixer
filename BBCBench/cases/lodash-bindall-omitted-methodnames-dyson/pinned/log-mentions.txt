@@ -1,0 +1,5 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+# The trigger-library name and the offending method names occur zero times in all three archived state logs, so no entry is needed.

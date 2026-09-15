@@ -1,0 +1,6 @@
+changed packages (1): lodash
+  OK new lodash@2.4.2 at cheerio/node_modules/lodash
+  OK new lodash@2.4.2 at unfluff/node_modules/lodash
+  OK new lodash@3.10.1 at lodash
+  OK old lodash@2.4.2 at lodash
+TREECHECK_OK: every change is inside the allowed closure (1 allowed names)

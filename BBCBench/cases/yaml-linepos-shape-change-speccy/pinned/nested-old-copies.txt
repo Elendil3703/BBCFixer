@@ -1,0 +1,4 @@
+oas-linter/node_modules/yaml
+oas-resolver/node_modules/yaml
+oas-validator/node_modules/yaml
+swagger2openapi/node_modules/yaml

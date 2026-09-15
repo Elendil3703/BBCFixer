@@ -1,0 +1,49 @@
+{
+  "name": "resin-request",
+  "version": "4.0.6",
+  "description": "Resin.io HTTP client",
+  "main": "build/request.js",
+  "homepage": "https://github.com/resin-io-modules/resin-request",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/resin-io-modules/resin-request.git"
+  },
+  "keywords": [
+    "resin",
+    "request",
+    "http"
+  ],
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "gulp test",
+    "prepublish": "gulp build",
+    "readme": "jsdoc2md --template doc/README.hbs build/request.js > README.md"
+  },
+  "author": "Juan Cruz Viotti <juanchiviotti@gmail.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "coffee-script": "~1.8.0",
+    "gulp": "~3.8.10",
+    "gulp-coffee": "~2.2.0",
+    "gulp-coffeelint": "~0.4.0",
+    "gulp-mocha": "~2.0.0",
+    "gulp-util": "~3.0.1",
+    "jsdoc-to-markdown": "^1.1.1",
+    "mocha": "~2.0.1",
+    "mochainon": "^1.0.0",
+    "nock": "^5.3.1",
+    "timekeeper": "0.0.5"
+  },
+  "dependencies": {
+    "bluebird": "3.7.2",
+    "lodash": "^3.5.0",
+    "progress-stream": "^1.1.1",
+    "request": "^2.53.0",
+    "resin-errors": "^2.3.0",
+    "resin-settings-client": "^3.0.0",
+    "resin-token": "^2.4.1",
+    "rindle": "^1.2.0"
+  }
+}

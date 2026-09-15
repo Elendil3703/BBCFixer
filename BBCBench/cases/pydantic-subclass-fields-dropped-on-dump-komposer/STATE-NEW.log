@@ -1,0 +1,970 @@
+..........................................FFFFF......................... [ 50%]
+........................................................................ [100%]
+=================================== FAILURES ===================================
+__________ test_generate_manifest_from_docker_compose[Single service] __________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x7f4c19333940>
+context = Context(docker_compose_path=PosixPath('docker-compose.yml'), branch_name='test-branch', repository_name='test-reposito...t(annotations_path=None, service_account_name=None), ingress=IngressContext(tls_path=None, domain='svc.cluster.local'))
+compose = DockerCompose(services={'my-service': Service(image=None, ports=[], command=None, env_file=None, environment=None)})
+config_maps = []
+deployment = Deployment(api_version='apps/v1', kind='Deployment', metadata=Metadata(labels={'repository': 'test-repository', 'branc...ch': 'test-branch'}, annotations=None), spec=TemplateSpec(service_account_name=None, host_aliases=[], containers=[]))))
+services = [Service(api_version='v1', kind='Service', metadata=Metadata(labels={'repository': 'test-repository', 'branch': 'test-...-branch-my-service'), spec=ServiceSpec(ports=[], selector={'repository': 'test-repository', 'branch': 'test-branch'}))]
+extra_manifests = []
+expected = {'apiVersion': 'v1', 'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labe...ice'}, 'spec': {'ports': [], 'selector': {'branch': 'test-branch', 'repository': 'test-repository'}}}], 'kind': 'List'}
+
+    @pytest.mark.parametrize(
+        "context, compose, config_maps, deployment, services, extra_manifests, expected",
+        [
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service",
+            ),
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(ports=["8080"]),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service with single port",
+            ),
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(ports=["8080:8080"]),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service with same mapped port",
+            ),
+            pytest.param(
+                make_context(ingress_for_service="my-service"),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                        as_json_object(make_minimal_ingress()),
+                    ],
+                },
+                id="Single service with ingress",
+            ),
+            pytest.param(
+                make_context(extra_manifest_paths=[Path("extra.yaml")]),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                make_minimal_extra_manifest_items(),
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                        *make_minimal_extra_manifest_items(),
+                    ],
+                },
+                id="Single service with extra manifest",
+            ),
+        ],
+    )
+    def test_generate_manifest_from_docker_compose(
+        mocker: MockerFixture,
+        context: Context,
+        compose: docker_compose.DockerCompose,
+        config_maps: Sequence[kubernetes.ConfigMap],
+        deployment: kubernetes.Deployment,
+        services: Sequence[kubernetes.Service],
+        extra_manifests: Sequence[Mapping],
+        expected: Mapping,
+    ) -> None:
+        """
+        GIVEN a Docker Compose file
+        WHEN generating a manifest
+        THEN a manifest is returned
+        """
+        # GIVEN
+        mocker.patch("komposer.core.base.parse_docker_compose_file", return_value=compose)
+        mocker.patch("komposer.core.base.generate_config_maps", return_value=config_maps)
+        mocker.patch("komposer.core.base.generate_deployment", return_value=deployment)
+        mocker.patch("komposer.core.base.generate_services", return_value=services)
+        mocker.patch("komposer.core.base.load_extra_manifests", return_value=extra_manifests)
+    
+        if context.ingress_for_service:
+            mocker.patch(
+                "komposer.core.base.generate_ingress_from_services",
+                return_value=make_minimal_ingress(),
+            )
+    
+        # WHEN
+        actual = generate_manifest_from_docker_compose(context)
+    
+        # THEN
+>       assert actual == expected
+E       AssertionError: assert {'apiVersion'...kind': 'List'} == {'apiVersion'...kind': 'List'}
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labels': {'branch': 'tes...ch': 'test-branch', 'repository': 'test-repository'}, 'name': 'test-project-test-repository-test-branch-my-service'}}]} != {'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labels': {'branch': 'tes...t-branch-my-service'}, 'spec': {'ports': [], 'selector': {'branch': 'test-branch', 'repository': 'test-repository'}}}]}
+E         Full diff:
+E           {
+E            'apiVersion': 'v1',
+E            'items': [{'apiVersion': 'apps/v1',
+E                       'kind': 'Deployment',
+E                       'metadata': {'annotations': None,
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch'},
+E         +                          'name': 'test-project-test-repository-test-branch'}},
+E         ?                                                                             +
+E         -             'spec': {'replicas': 1,
+E         -                      'selector': {'matchLabels': {'branch': 'test-branch',
+E         -                                                   'repository': 'test-repository'}},
+E         -                      'template': {'metadata': {'annotations': None,
+E         -                                                'labels': {'branch': 'test-branch',
+E         -                                                           'repository': 'test-repository'}},
+E         -                                   'spec': {'containers': [],
+E         -                                            'hostAliases': [],
+E         -                                            'serviceAccountName': None}}}},
+E                      {'apiVersion': 'v1',
+E                       'kind': 'Service',
+E                       'metadata': {'annotations': None,
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch-my-service'},
+E         +                          'name': 'test-project-test-repository-test-branch-my-service'}}],
+E         ?                                                                                        ++
+E         -             'spec': {'ports': [],
+E         -                      'selector': {'branch': 'test-branch',
+E         -                                   'repository': 'test-repository'}}}],
+E            'kind': 'List',
+E           }
+
+tests/core/base_test.py:368: AssertionError
+_ test_generate_manifest_from_docker_compose[Single service with single port] __
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x7f4c193330a0>
+context = Context(docker_compose_path=PosixPath('docker-compose.yml'), branch_name='test-branch', repository_name='test-reposito...t(annotations_path=None, service_account_name=None), ingress=IngressContext(tls_path=None, domain='svc.cluster.local'))
+compose = DockerCompose(services={'my-service': Service(image=None, ports=['8080'], command=None, env_file=None, environment=None)})
+config_maps = []
+deployment = Deployment(api_version='apps/v1', kind='Deployment', metadata=Metadata(labels={'repository': 'test-repository', 'branc...ch': 'test-branch'}, annotations=None), spec=TemplateSpec(service_account_name=None, host_aliases=[], containers=[]))))
+services = [Service(api_version='v1', kind='Service', metadata=Metadata(labels={'repository': 'test-repository', 'branch': 'test-...-branch-my-service'), spec=ServiceSpec(ports=[], selector={'repository': 'test-repository', 'branch': 'test-branch'}))]
+extra_manifests = []
+expected = {'apiVersion': 'v1', 'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labe...ice'}, 'spec': {'ports': [], 'selector': {'branch': 'test-branch', 'repository': 'test-repository'}}}], 'kind': 'List'}
+
+    @pytest.mark.parametrize(
+        "context, compose, config_maps, deployment, services, extra_manifests, expected",
+        [
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service",
+            ),
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(ports=["8080"]),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service with single port",
+            ),
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(ports=["8080:8080"]),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service with same mapped port",
+            ),
+            pytest.param(
+                make_context(ingress_for_service="my-service"),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                        as_json_object(make_minimal_ingress()),
+                    ],
+                },
+                id="Single service with ingress",
+            ),
+            pytest.param(
+                make_context(extra_manifest_paths=[Path("extra.yaml")]),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                make_minimal_extra_manifest_items(),
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                        *make_minimal_extra_manifest_items(),
+                    ],
+                },
+                id="Single service with extra manifest",
+            ),
+        ],
+    )
+    def test_generate_manifest_from_docker_compose(
+        mocker: MockerFixture,
+        context: Context,
+        compose: docker_compose.DockerCompose,
+        config_maps: Sequence[kubernetes.ConfigMap],
+        deployment: kubernetes.Deployment,
+        services: Sequence[kubernetes.Service],
+        extra_manifests: Sequence[Mapping],
+        expected: Mapping,
+    ) -> None:
+        """
+        GIVEN a Docker Compose file
+        WHEN generating a manifest
+        THEN a manifest is returned
+        """
+        # GIVEN
+        mocker.patch("komposer.core.base.parse_docker_compose_file", return_value=compose)
+        mocker.patch("komposer.core.base.generate_config_maps", return_value=config_maps)
+        mocker.patch("komposer.core.base.generate_deployment", return_value=deployment)
+        mocker.patch("komposer.core.base.generate_services", return_value=services)
+        mocker.patch("komposer.core.base.load_extra_manifests", return_value=extra_manifests)
+    
+        if context.ingress_for_service:
+            mocker.patch(
+                "komposer.core.base.generate_ingress_from_services",
+                return_value=make_minimal_ingress(),
+            )
+    
+        # WHEN
+        actual = generate_manifest_from_docker_compose(context)
+    
+        # THEN
+>       assert actual == expected
+E       AssertionError: assert {'apiVersion'...kind': 'List'} == {'apiVersion'...kind': 'List'}
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labels': {'branch': 'tes...ch': 'test-branch', 'repository': 'test-repository'}, 'name': 'test-project-test-repository-test-branch-my-service'}}]} != {'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labels': {'branch': 'tes...t-branch-my-service'}, 'spec': {'ports': [], 'selector': {'branch': 'test-branch', 'repository': 'test-repository'}}}]}
+E         Full diff:
+E           {
+E            'apiVersion': 'v1',
+E            'items': [{'apiVersion': 'apps/v1',
+E                       'kind': 'Deployment',
+E                       'metadata': {'annotations': None,
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch'},
+E         +                          'name': 'test-project-test-repository-test-branch'}},
+E         ?                                                                             +
+E         -             'spec': {'replicas': 1,
+E         -                      'selector': {'matchLabels': {'branch': 'test-branch',
+E         -                                                   'repository': 'test-repository'}},
+E         -                      'template': {'metadata': {'annotations': None,
+E         -                                                'labels': {'branch': 'test-branch',
+E         -                                                           'repository': 'test-repository'}},
+E         -                                   'spec': {'containers': [],
+E         -                                            'hostAliases': [],
+E         -                                            'serviceAccountName': None}}}},
+E                      {'apiVersion': 'v1',
+E                       'kind': 'Service',
+E                       'metadata': {'annotations': None,
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch-my-service'},
+E         +                          'name': 'test-project-test-repository-test-branch-my-service'}}],
+E         ?                                                                                        ++
+E         -             'spec': {'ports': [],
+E         -                      'selector': {'branch': 'test-branch',
+E         -                                   'repository': 'test-repository'}}}],
+E            'kind': 'List',
+E           }
+
+tests/core/base_test.py:368: AssertionError
+_ test_generate_manifest_from_docker_compose[Single service with same mapped port] _
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x7f4c1a1fd900>
+context = Context(docker_compose_path=PosixPath('docker-compose.yml'), branch_name='test-branch', repository_name='test-reposito...t(annotations_path=None, service_account_name=None), ingress=IngressContext(tls_path=None, domain='svc.cluster.local'))
+compose = DockerCompose(services={'my-service': Service(image=None, ports=['8080:8080'], command=None, env_file=None, environment=None)})
+config_maps = []
+deployment = Deployment(api_version='apps/v1', kind='Deployment', metadata=Metadata(labels={'repository': 'test-repository', 'branc...ch': 'test-branch'}, annotations=None), spec=TemplateSpec(service_account_name=None, host_aliases=[], containers=[]))))
+services = [Service(api_version='v1', kind='Service', metadata=Metadata(labels={'repository': 'test-repository', 'branch': 'test-...-branch-my-service'), spec=ServiceSpec(ports=[], selector={'repository': 'test-repository', 'branch': 'test-branch'}))]
+extra_manifests = []
+expected = {'apiVersion': 'v1', 'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labe...ice'}, 'spec': {'ports': [], 'selector': {'branch': 'test-branch', 'repository': 'test-repository'}}}], 'kind': 'List'}
+
+    @pytest.mark.parametrize(
+        "context, compose, config_maps, deployment, services, extra_manifests, expected",
+        [
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service",
+            ),
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(ports=["8080"]),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service with single port",
+            ),
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(ports=["8080:8080"]),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service with same mapped port",
+            ),
+            pytest.param(
+                make_context(ingress_for_service="my-service"),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                        as_json_object(make_minimal_ingress()),
+                    ],
+                },
+                id="Single service with ingress",
+            ),
+            pytest.param(
+                make_context(extra_manifest_paths=[Path("extra.yaml")]),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                make_minimal_extra_manifest_items(),
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                        *make_minimal_extra_manifest_items(),
+                    ],
+                },
+                id="Single service with extra manifest",
+            ),
+        ],
+    )
+    def test_generate_manifest_from_docker_compose(
+        mocker: MockerFixture,
+        context: Context,
+        compose: docker_compose.DockerCompose,
+        config_maps: Sequence[kubernetes.ConfigMap],
+        deployment: kubernetes.Deployment,
+        services: Sequence[kubernetes.Service],
+        extra_manifests: Sequence[Mapping],
+        expected: Mapping,
+    ) -> None:
+        """
+        GIVEN a Docker Compose file
+        WHEN generating a manifest
+        THEN a manifest is returned
+        """
+        # GIVEN
+        mocker.patch("komposer.core.base.parse_docker_compose_file", return_value=compose)
+        mocker.patch("komposer.core.base.generate_config_maps", return_value=config_maps)
+        mocker.patch("komposer.core.base.generate_deployment", return_value=deployment)
+        mocker.patch("komposer.core.base.generate_services", return_value=services)
+        mocker.patch("komposer.core.base.load_extra_manifests", return_value=extra_manifests)
+    
+        if context.ingress_for_service:
+            mocker.patch(
+                "komposer.core.base.generate_ingress_from_services",
+                return_value=make_minimal_ingress(),
+            )
+    
+        # WHEN
+        actual = generate_manifest_from_docker_compose(context)
+    
+        # THEN
+>       assert actual == expected
+E       AssertionError: assert {'apiVersion'...kind': 'List'} == {'apiVersion'...kind': 'List'}
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labels': {'branch': 'tes...ch': 'test-branch', 'repository': 'test-repository'}, 'name': 'test-project-test-repository-test-branch-my-service'}}]} != {'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labels': {'branch': 'tes...t-branch-my-service'}, 'spec': {'ports': [], 'selector': {'branch': 'test-branch', 'repository': 'test-repository'}}}]}
+E         Full diff:
+E           {
+E            'apiVersion': 'v1',
+E            'items': [{'apiVersion': 'apps/v1',
+E                       'kind': 'Deployment',
+E                       'metadata': {'annotations': None,
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch'},
+E         +                          'name': 'test-project-test-repository-test-branch'}},
+E         ?                                                                             +
+E         -             'spec': {'replicas': 1,
+E         -                      'selector': {'matchLabels': {'branch': 'test-branch',
+E         -                                                   'repository': 'test-repository'}},
+E         -                      'template': {'metadata': {'annotations': None,
+E         -                                                'labels': {'branch': 'test-branch',
+E         -                                                           'repository': 'test-repository'}},
+E         -                                   'spec': {'containers': [],
+E         -                                            'hostAliases': [],
+E         -                                            'serviceAccountName': None}}}},
+E                      {'apiVersion': 'v1',
+E                       'kind': 'Service',
+E                       'metadata': {'annotations': None,
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch-my-service'},
+E         +                          'name': 'test-project-test-repository-test-branch-my-service'}}],
+E         ?                                                                                        ++
+E         -             'spec': {'ports': [],
+E         -                      'selector': {'branch': 'test-branch',
+E         -                                   'repository': 'test-repository'}}}],
+E            'kind': 'List',
+E           }
+
+tests/core/base_test.py:368: AssertionError
+___ test_generate_manifest_from_docker_compose[Single service with ingress] ____
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x7f4c193319c0>
+context = Context(docker_compose_path=PosixPath('docker-compose.yml'), branch_name='test-branch', repository_name='test-reposito...t(annotations_path=None, service_account_name=None), ingress=IngressContext(tls_path=None, domain='svc.cluster.local'))
+compose = DockerCompose(services={'my-service': Service(image=None, ports=[], command=None, env_file=None, environment=None)})
+config_maps = []
+deployment = Deployment(api_version='apps/v1', kind='Deployment', metadata=Metadata(labels={'repository': 'test-repository', 'branc...ch': 'test-branch'}, annotations=None), spec=TemplateSpec(service_account_name=None, host_aliases=[], containers=[]))))
+services = [Service(api_version='v1', kind='Service', metadata=Metadata(labels={'repository': 'test-repository', 'branch': 'test-...-branch-my-service'), spec=ServiceSpec(ports=[], selector={'repository': 'test-repository', 'branch': 'test-branch'}))]
+extra_manifests = []
+expected = {'apiVersion': 'v1', 'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labe...h.svc.cluster.local', 'http': {...}}], 'tls': [{'hosts': [...], 'secretName': 'plum-app-tls-cert'}]}}], 'kind': 'List'}
+
+    @pytest.mark.parametrize(
+        "context, compose, config_maps, deployment, services, extra_manifests, expected",
+        [
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service",
+            ),
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(ports=["8080"]),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service with single port",
+            ),
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(ports=["8080:8080"]),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service with same mapped port",
+            ),
+            pytest.param(
+                make_context(ingress_for_service="my-service"),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                        as_json_object(make_minimal_ingress()),
+                    ],
+                },
+                id="Single service with ingress",
+            ),
+            pytest.param(
+                make_context(extra_manifest_paths=[Path("extra.yaml")]),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                make_minimal_extra_manifest_items(),
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                        *make_minimal_extra_manifest_items(),
+                    ],
+                },
+                id="Single service with extra manifest",
+            ),
+        ],
+    )
+    def test_generate_manifest_from_docker_compose(
+        mocker: MockerFixture,
+        context: Context,
+        compose: docker_compose.DockerCompose,
+        config_maps: Sequence[kubernetes.ConfigMap],
+        deployment: kubernetes.Deployment,
+        services: Sequence[kubernetes.Service],
+        extra_manifests: Sequence[Mapping],
+        expected: Mapping,
+    ) -> None:
+        """
+        GIVEN a Docker Compose file
+        WHEN generating a manifest
+        THEN a manifest is returned
+        """
+        # GIVEN
+        mocker.patch("komposer.core.base.parse_docker_compose_file", return_value=compose)
+        mocker.patch("komposer.core.base.generate_config_maps", return_value=config_maps)
+        mocker.patch("komposer.core.base.generate_deployment", return_value=deployment)
+        mocker.patch("komposer.core.base.generate_services", return_value=services)
+        mocker.patch("komposer.core.base.load_extra_manifests", return_value=extra_manifests)
+    
+        if context.ingress_for_service:
+            mocker.patch(
+                "komposer.core.base.generate_ingress_from_services",
+                return_value=make_minimal_ingress(),
+            )
+    
+        # WHEN
+        actual = generate_manifest_from_docker_compose(context)
+    
+        # THEN
+>       assert actual == expected
+E       AssertionError: assert {'apiVersion'...kind': 'List'} == {'apiVersion'...kind': 'List'}
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labels': {'branch': 'tes...ch': 'test-branch', 'repository': 'test-repository'}, 'name': 'test-project-test-repository-test-branch-my-service'}}]} != {'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labels': {'branch': 'tes...itory-test-branch.svc.cluster.local', 'http': {...}}], 'tls': [{'hosts': [...], 'secretName': 'plum-app-tls-cert'}]}}]}
+E         Full diff:
+E           {
+E            'apiVersion': 'v1',
+E            'items': [{'apiVersion': 'apps/v1',
+E                       'kind': 'Deployment',
+E                       'metadata': {'annotations': None,
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch'},
+E         +                          'name': 'test-project-test-repository-test-branch'}},
+E         ?                                                                             +
+E         -             'spec': {'replicas': 1,
+E         -                      'selector': {'matchLabels': {'branch': 'test-branch',
+E         -                                                   'repository': 'test-repository'}},
+E         -                      'template': {'metadata': {'annotations': None,
+E         -                                                'labels': {'branch': 'test-branch',
+E         -                                                           'repository': 'test-repository'}},
+E         -                                   'spec': {'containers': [],
+E         -                                            'hostAliases': [],
+E         -                                            'serviceAccountName': None}}}},
+E                      {'apiVersion': 'v1',
+E                       'kind': 'Service',
+E                       'metadata': {'annotations': None,
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch-my-service'},
+E         +                          'name': 'test-project-test-repository-test-branch-my-service'}},
+E         ?                                                                                        +
+E         -             'spec': {'ports': [],
+E         -                      'selector': {'branch': 'test-branch',
+E         -                                   'repository': 'test-repository'}}},
+E                      {'apiVersion': 'networking.k8s.io/v1',
+E                       'kind': 'Ingress',
+E                       'metadata': {'annotations': {'cert-manager.io/cluster-issuer': 'letsencrypt-prod'},
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch-my-service'},
+E         +                          'name': 'test-project-test-repository-test-branch-my-service'}}],
+E         ?                                                                                        ++
+E         -             'spec': {'ingressClassName': 'nginx-internal',
+E         -                      'rules': [{'host': 'my-service.test-project-test-repository-test-branch.svc.cluster.local',
+E         -                                 'http': {'paths': [{'backend': {'service': {'name': 'test-project-test-repository-test-branch-my-service',
+E         -                                                                             'port': {'number': 8080}}},
+E         -                                                     'path': '/',
+E         -                                                     'pathType': 'Prefix'}]}}],
+E         -                      'tls': [{'hosts': ['my-service.test-project-test-repository-test-branch.svc.cluster.local'],
+E         -                               'secretName': 'plum-app-tls-cert'}]}}],
+E            'kind': 'List',
+E           }
+
+tests/core/base_test.py:368: AssertionError
+_ test_generate_manifest_from_docker_compose[Single service with extra manifest] _
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x7f4c1a1fcc40>
+context = Context(docker_compose_path=PosixPath('docker-compose.yml'), branch_name='test-branch', repository_name='test-reposito...t(annotations_path=None, service_account_name=None), ingress=IngressContext(tls_path=None, domain='svc.cluster.local'))
+compose = DockerCompose(services={'my-service': Service(image=None, ports=[], command=None, env_file=None, environment=None)})
+config_maps = []
+deployment = Deployment(api_version='apps/v1', kind='Deployment', metadata=Metadata(labels={'repository': 'test-repository', 'branc...ch': 'test-branch'}, annotations=None), spec=TemplateSpec(service_account_name=None, host_aliases=[], containers=[]))))
+services = [Service(api_version='v1', kind='Service', metadata=Metadata(labels={'repository': 'test-repository', 'branch': 'test-...-branch-my-service'), spec=ServiceSpec(ports=[], selector={'repository': 'test-repository', 'branch': 'test-branch'}))]
+extra_manifests = [{'apiVersion': 'v1', 'data': {'DEBUG': '1'}, 'kind': 'ConfigMap', 'metadata': {'name': 'my-config-map'}}, {'apiVersio...bel-value'}, 'name': 'my-job'}, 'spec': {'template': {'spec': {'containers': [{...}], 'restartPolicy': 'OnFailure'}}}}]
+expected = {'apiVersion': 'v1', 'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labe...ame': 'my-job'}, 'spec': {'template': {'spec': {'containers': [...], 'restartPolicy': 'OnFailure'}}}}], 'kind': 'List'}
+
+    @pytest.mark.parametrize(
+        "context, compose, config_maps, deployment, services, extra_manifests, expected",
+        [
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service",
+            ),
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(ports=["8080"]),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service with single port",
+            ),
+            pytest.param(
+                make_context(),
+                make_minimal_docker_compose(ports=["8080:8080"]),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                    ],
+                },
+                id="Single service with same mapped port",
+            ),
+            pytest.param(
+                make_context(ingress_for_service="my-service"),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                [],
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                        as_json_object(make_minimal_ingress()),
+                    ],
+                },
+                id="Single service with ingress",
+            ),
+            pytest.param(
+                make_context(extra_manifest_paths=[Path("extra.yaml")]),
+                make_minimal_docker_compose(),
+                [],
+                make_minimal_deployment(),
+                [make_minimal_service()],
+                make_minimal_extra_manifest_items(),
+                {
+                    "apiVersion": "v1",
+                    "kind": "List",
+                    "items": [
+                        as_json_object(make_minimal_deployment()),
+                        as_json_object(make_minimal_service()),
+                        *make_minimal_extra_manifest_items(),
+                    ],
+                },
+                id="Single service with extra manifest",
+            ),
+        ],
+    )
+    def test_generate_manifest_from_docker_compose(
+        mocker: MockerFixture,
+        context: Context,
+        compose: docker_compose.DockerCompose,
+        config_maps: Sequence[kubernetes.ConfigMap],
+        deployment: kubernetes.Deployment,
+        services: Sequence[kubernetes.Service],
+        extra_manifests: Sequence[Mapping],
+        expected: Mapping,
+    ) -> None:
+        """
+        GIVEN a Docker Compose file
+        WHEN generating a manifest
+        THEN a manifest is returned
+        """
+        # GIVEN
+        mocker.patch("komposer.core.base.parse_docker_compose_file", return_value=compose)
+        mocker.patch("komposer.core.base.generate_config_maps", return_value=config_maps)
+        mocker.patch("komposer.core.base.generate_deployment", return_value=deployment)
+        mocker.patch("komposer.core.base.generate_services", return_value=services)
+        mocker.patch("komposer.core.base.load_extra_manifests", return_value=extra_manifests)
+    
+        if context.ingress_for_service:
+            mocker.patch(
+                "komposer.core.base.generate_ingress_from_services",
+                return_value=make_minimal_ingress(),
+            )
+    
+        # WHEN
+        actual = generate_manifest_from_docker_compose(context)
+    
+        # THEN
+>       assert actual == expected
+E       AssertionError: assert {'apiVersion'...kind': 'List'} == {'apiVersion'...kind': 'List'}
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labels': {'branch': 'tes...abel-value'}, 'name': 'my-job'}, 'spec': {'template': {'spec': {'containers': [...], 'restartPolicy': 'OnFailure'}}}}]} != {'items': [{'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'annotations': None, 'labels': {'branch': 'tes...abel-value'}, 'name': 'my-job'}, 'spec': {'template': {'spec': {'containers': [...], 'restartPolicy': 'OnFailure'}}}}]}
+E         Full diff:
+E           {
+E            'apiVersion': 'v1',
+E            'items': [{'apiVersion': 'apps/v1',
+E                       'kind': 'Deployment',
+E                       'metadata': {'annotations': None,
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch'},
+E         +                          'name': 'test-project-test-repository-test-branch'}},
+E         ?                                                                             +
+E         -             'spec': {'replicas': 1,
+E         -                      'selector': {'matchLabels': {'branch': 'test-branch',
+E         -                                                   'repository': 'test-repository'}},
+E         -                      'template': {'metadata': {'annotations': None,
+E         -                                                'labels': {'branch': 'test-branch',
+E         -                                                           'repository': 'test-repository'}},
+E         -                                   'spec': {'containers': [],
+E         -                                            'hostAliases': [],
+E         -                                            'serviceAccountName': None}}}},
+E                      {'apiVersion': 'v1',
+E                       'kind': 'Service',
+E                       'metadata': {'annotations': None,
+E                                    'labels': {'branch': 'test-branch',
+E                                               'repository': 'test-repository'},
+E         -                          'name': 'test-project-test-repository-test-branch-my-service'},
+E         +                          'name': 'test-project-test-repository-test-branch-my-service'}},
+E         ?                                                                                        +
+E         -             'spec': {'ports': [],
+E         -                      'selector': {'branch': 'test-branch',
+E         -                                   'repository': 'test-repository'}}},
+E                      {'apiVersion': 'v1',
+E                       'data': {'DEBUG': '1'},
+E                       'kind': 'ConfigMap',
+E                       'metadata': {'name': 'my-config-map'}},
+E                      {'apiVersion': 'batch/v1',
+E                       'kind': 'Job',
+E                       'metadata': {'labels': {'my-lable': 'my-label-value'},
+E                                    'name': 'my-job'},
+E                       'spec': {'template': {'spec': {'containers': [{'args': ['python',
+E                                                                               'run.py'],
+E                                                                      'env': [{'name': 'DEBUG',
+E                                                                               'valueFrom': {'configMapKeyRef': {'key': 'DEBUG',
+E                                                                                                                 'name': 'my-config-map'}}}],
+E                                                                      'image': '${IMAGE}',
+E                                                                      'imagePullPolicy': 'IfNotPresent',
+E                                                                      'name': 'my-container'}],
+E                                                      'restartPolicy': 'OnFailure'}}}}],
+E            'kind': 'List',
+E           }
+
+tests/core/base_test.py:368: AssertionError
+=============================== warnings summary ===============================
+../.venv/lib/python3.10/site-packages/stringcase.py:247
+  /work/.venv/lib/python3.10/site-packages/stringcase.py:247: DeprecationWarning: invalid escape sequence '\W'
+    return re.sub("\W+", "", string)
+
+../.venv/lib/python3.10/site-packages/pydantic/_internal/_config.py:271
+../.venv/lib/python3.10/site-packages/pydantic/_internal/_config.py:271
+  /work/.venv/lib/python3.10/site-packages/pydantic/_internal/_config.py:271: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+
+../.venv/lib/python3.10/site-packages/pydantic/_internal/_config.py:321
+  /work/.venv/lib/python3.10/site-packages/pydantic/_internal/_config.py:321: UserWarning: Valid config keys have changed in V2:
+  * 'allow_mutation' has been removed
+    warnings.warn(message, UserWarning)
+
+komposer/types/cli.py:47
+  /work/repo/komposer/types/cli.py:47: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator("project_name")
+
+komposer/types/cli.py:54
+  /work/repo/komposer/types/cli.py:54: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator("branch_name")
+
+komposer/types/cli.py:60
+  /work/repo/komposer/types/cli.py:60: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator("repository_name")
+
+komposer/utils.py:68: 11 warnings
+tests/core/base_test.py: 5 warnings
+  /work/repo/komposer/utils.py:68: PydanticDeprecatedSince20: The `json` method is deprecated; use `model_dump_json` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    return cast(dict[str, Any], json.loads(type_.json(by_alias=True)))
+
+../.venv/lib/python3.10/site-packages/pydantic/main.py:1005: 11 warnings
+tests/core/base_test.py: 5 warnings
+  /work/.venv/lib/python3.10/site-packages/pydantic/main.py:1005: PydanticDeprecatedSince20: The `json` method is deprecated; use `model_dump_json` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    warnings.warn('The `json` method is deprecated; use `model_dump_json` instead.', DeprecationWarning)
+
+tests/utils_test.py::test_parse_docker_compose_file[Single service with image+ports+env_file]
+tests/utils_test.py::test_parse_docker_compose_file[Single service with image+ports+environment as array]
+tests/utils_test.py::test_parse_docker_compose_file[Single service with image+ports+environment as map]
+tests/utils_test.py::test_parse_docker_compose_file[Single service]
+  /work/repo/komposer/utils.py:49: PydanticDeprecatedSince20: The `parse_obj` method is deprecated; use `model_validate` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    config = docker_compose.DockerCompose.parse_obj(content)
+
+tests/utils_test.py::test_parse_docker_compose_file[Single service with image+ports+env_file]
+tests/utils_test.py::test_parse_docker_compose_file[Single service with image+ports+environment as array]
+tests/utils_test.py::test_parse_docker_compose_file[Single service with image+ports+environment as map]
+tests/utils_test.py::test_parse_docker_compose_file[Single service]
+  /work/.venv/lib/python3.10/site-packages/pydantic/main.py:1026: PydanticDeprecatedSince20: The `parse_obj` method is deprecated; use `model_validate` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    warnings.warn('The `parse_obj` method is deprecated; use `model_validate` instead.', DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/core/base_test.py::test_generate_manifest_from_docker_compose[Single service]
+FAILED tests/core/base_test.py::test_generate_manifest_from_docker_compose[Single service with single port]
+FAILED tests/core/base_test.py::test_generate_manifest_from_docker_compose[Single service with same mapped port]
+FAILED tests/core/base_test.py::test_generate_manifest_from_docker_compose[Single service with ingress]
+FAILED tests/core/base_test.py::test_generate_manifest_from_docker_compose[Single service with extra manifest]
+5 failed, 139 passed, 47 warnings in 0.28s

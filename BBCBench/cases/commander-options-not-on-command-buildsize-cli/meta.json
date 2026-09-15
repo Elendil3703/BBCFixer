@@ -1,0 +1,43 @@
+{
+  "id": "commander-options-not-on-command-buildsize-cli",
+  "name": "commander-options-not-on-command-buildsize-cli",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "ssulivan11/buildsize-cli",
+    "url": "https://github.com/ssulivan11/buildsize-cli",
+    "commit": "bfe18c510671bca01410aba3f9e7de713ebb5e3a"
+  },
+  "lib": "commander",
+  "v_old": "5.1.0",
+  "v_new": "7.2.0",
+  "library_repo": "https://github.com/tj/commander.js",
+  "library_tags": {
+    "old": "v5.1.0",
+    "new": "v7.2.0"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "commander.Command.option and program.opts",
+  "root_symbols": [
+    "Command._storeOptionsAsProperties",
+    "Command.storeOptionsAsProperties",
+    "Command.opts",
+    "Command._setOptionValue"
+  ],
+  "behavioral_change": "From commander v_new (7.0.0), parsed option values are no longer stored as properties on the Command object and must be read through `program.opts()`. The declaration and parse calls are unchanged and no exception is raised; the old form `program.config` now evaluates to `undefined` as if the option had never been passed.",
+  "downstream_effect": "buildsize-cli's src/index.ts reads `program.config` and passes it to cosmiconfig's `explorer.search(configPath)`; after the upgrade the path is `undefined`, cosmiconfig falls back to searching upward from the working directory, and the CLI prints `Sorry, cannot find a valid config file in root path` and exits with code 1, failing the `check:valid` step. The output contains no stack frame at all and never mentions index.ts, configPath, commander, opts or program, so the symptom looks like a missing configuration file rather than a library change.",
+  "reference_fix": "The reference fix changes one statement in src/index.ts, replacing `const configPath = program?.config;` with `const configPath = program.opts().config;`.",
+  "documented_in": "The commander 7.2.0 CHANGELOG.md, [7.0.0] Changed section, announces that options are no longer stored as properties on the command and points to `program.opts()`; its Migration Tips section shows old code `if (program.debug)` next to new code `const options = program.opts(); if (options.debug)`, which is the code form the reference fix follows. The Readme.md of the same version also states that parsed options are accessed by calling `.opts()` on a Command object.",
+  "failing_tests": [
+    "package.json scripts.check:valid :: tsc && ts-node __mocks__/scripts.ts -- valid"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "ssulivan11/buildsize-cli",
+  "commit": "bfe18c510671bca01410aba3f9e7de713ebb5e3a"
+}

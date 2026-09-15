@@ -1,0 +1,139 @@
+
+> opt-merger@1.1.1 test /w/wk-85d09ff6ba83/src
+> mocha --recursive test
+
+(node:281) [DEP0006] DeprecationWarning: child_process: options.customFds option is deprecated. Use options.stdio instead.
+
+[0m[0m
+[0m  Merging opts[0m
+  [32m  ✓[0m[90m can merge certain options with a callback [0m
+  [32m  ✓[0m[90m can merge certain options from command-line [0m
+  [32m  ✓[0m[90m can merge multiple options from command-line [0m
+  [32m  ✓[0m[90m can merge simple option from command-line [0m
+  [31m  1) can merge options from command-line + Config together[0m
+  [31m  2) can merge options from command-line + Config together with command-line taking precedence[0m
+  [32m  ✓[0m[90m can merge options from command-line + Config together with command-line taking precedence (2) [0m
+  [32m  ✓[0m[90m can merge options from command-line when it relies on other args [0m
+  [32m  ✓[0m[90m can merge options from config when it relies on other config args [0m
+  [32m  ✓[0m[90m can ignore cli options [0m
+  [31m  3) can give correct info[0m
+
+[0m  Merging opts[0m
+  [31m  4) should merge simple[0m
+  [31m  5) should merge simple[0m
+  [32m  ✓[0m[90m should merge simple with functions [0m
+
+
+[92m [0m[32m 9 passing[0m[90m (8ms)[0m
+[31m  5 failing[0m
+
+[0m  1) Merging opts can merge options from command-line + Config together:
+[0m[31m     AssertionError [ERR_ASSERTION]: [ 'kittie', 'sally' ] deepEqual [ 'shane', 'sally', 'kittie' ][0m[90m
+      at context.<anonymous> (/w/wk-85d09ff6ba83/src/test/merge.callbacks.js:161:16)
+      at callFn (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:250:21)
+      at Test.Runnable.run (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:243:7)
+      at Runner.runTest (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:373:10)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:451:12
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:298:14)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:308:7
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:246:23)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:270:7
+      at done (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:206:5)
+      at callFn (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:261:7)
+      at Hook.Runnable.run (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:243:7)
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:258:10)
+      at Immediate.<anonymous> (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:275:5)
+      at runCallback (timers.js:705:18)
+      at tryOnImmediate (timers.js:676:5)
+      at processImmediate (timers.js:658:5)
+[0m
+[0m  2) Merging opts can merge options from command-line + Config together with command-line taking precedence:
+[0m[31m     AssertionError [ERR_ASSERTION]: [ 'sally' ] deepEqual [ 'shane', 'sally' ][0m[90m
+      at context.<anonymous> (/w/wk-85d09ff6ba83/src/test/merge.callbacks.js:185:16)
+      at callFn (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:250:21)
+      at Test.Runnable.run (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:243:7)
+      at Runner.runTest (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:373:10)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:451:12
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:298:14)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:308:7
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:246:23)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:270:7
+      at done (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:206:5)
+      at callFn (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:261:7)
+      at Hook.Runnable.run (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:243:7)
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:258:10)
+      at Immediate.<anonymous> (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:275:5)
+      at runCallback (timers.js:705:18)
+      at tryOnImmediate (timers.js:676:5)
+      at processImmediate (timers.js:658:5)
+[0m
+[0m  3) Merging opts can give correct info:
+[0m[31m     AssertionError [ERR_ASSERTION]: [ 'osbourne' ] deepEqual [ 'shane', 'osbourne' ][0m[90m
+      at context.<anonymous> (/w/wk-85d09ff6ba83/src/test/merge.callbacks.js:345:16)
+      at callFn (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:250:21)
+      at Test.Runnable.run (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:243:7)
+      at Runner.runTest (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:373:10)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:451:12
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:298:14)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:308:7
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:246:23)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:270:7
+      at done (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:206:5)
+      at callFn (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:261:7)
+      at Hook.Runnable.run (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:243:7)
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:258:10)
+      at Immediate.<anonymous> (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:275:5)
+      at runCallback (timers.js:705:18)
+      at tryOnImmediate (timers.js:676:5)
+      at processImmediate (timers.js:658:5)
+[0m
+
+[0m  4) Merging opts should merge simple:
+[0m[31m     AssertionError [ERR_ASSERTION]: [ 4, 2, 3 ] deepEqual [ 1, 2, 3, 4 ][0m[90m
+      at context.<anonymous> (/w/wk-85d09ff6ba83/src/test/merge.simple.js:54:16)
+      at callFn (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:250:21)
+      at Test.Runnable.run (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:243:7)
+      at Runner.runTest (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:373:10)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:451:12
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:298:14)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:308:7
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:246:23)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:270:7
+      at done (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:206:5)
+      at callFn (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:261:7)
+      at Hook.Runnable.run (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:243:7)
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:258:10)
+      at Immediate.<anonymous> (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:275:5)
+      at runCallback (timers.js:705:18)
+      at tryOnImmediate (timers.js:676:5)
+      at processImmediate (timers.js:658:5)
+[0m
+[0m  5) Merging opts should merge simple:
+[0m[31m     AssertionError [ERR_ASSERTION]: { name: 'kittie',
+  numbers: [ 4 ],
+  user: { username: 'shane', password: '654321' },
+  ghostMode: { links: true, forms: { s... deepEqual { name: 'kittie',
+  numbers: [ 10, 4 ],
+  ghostMode: { links: true, forms: { submit: true, checkboxes: true } },
+  user: { us...[0m[90m
+      at context.<anonymous> (/w/wk-85d09ff6ba83/src/test/merge.simple.js:95:16)
+      at callFn (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:250:21)
+      at Test.Runnable.run (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:243:7)
+      at Runner.runTest (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:373:10)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:451:12
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:298:14)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:308:7
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:246:23)
+      at /w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:270:7
+      at done (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:206:5)
+      at callFn (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:261:7)
+      at Hook.Runnable.run (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runnable.js:243:7)
+      at next (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:258:10)
+      at Immediate.<anonymous> (/w/wk-85d09ff6ba83/src/node_modules/mocha/lib/runner.js:275:5)
+      at runCallback (timers.js:705:18)
+      at tryOnImmediate (timers.js:676:5)
+      at processImmediate (timers.js:658:5)
+[0m
+
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

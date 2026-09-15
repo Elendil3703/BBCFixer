@@ -1,0 +1,99 @@
+{
+  "name": "acetate",
+  "description": "A layout and templating framework for static websites.",
+  "version": "2.1.0",
+  "author": "Patrick Arlt <patrick.arlt@gmail.com> (https://patrickarlt.com/)",
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/patrickarlt/acetate/issues/"
+  },
+  "dependencies": {
+    "async": "3.2.6",
+    "browser-sync": "^2.24.4",
+    "chalk": "^1.1.3",
+    "chokidar": "^2.0.3",
+    "common-tags": "^1.8.0",
+    "es6-promisify": "^5.0.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "fs-extra": "^7.0.1",
+    "glob": "^7.0.3",
+    "graceful-fs": "^4.1.11",
+    "highlight.js": "^9.9.0",
+    "js-yaml": "^3.11.0",
+    "lodash": "^4.17.10",
+    "markdown-it": "^8.4.1",
+    "mime": "^1.3.4",
+    "minimatch": "^3.0.4",
+    "mkdirp": "^0.5.1",
+    "node-uuid": "^1.4.7",
+    "normalize-newline": "^3.0.0",
+    "normalize-url": "^1.5.2",
+    "nunjucks": "^3.1.3",
+    "pretty-hrtime": "^1.0.2",
+    "symlink-dir": "^1.1.3",
+    "yargs": "^6.6.0"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "babel": "^6.5.2",
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-register": "^6.9.0",
+    "codeclimate-test-reporter": "^0.5.0",
+    "coveralls": "^3.0.1",
+    "eslint": "^3.13.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-semistandard": "^7.0.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-react": "^6.8.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "gh-release": "^3.2.1",
+    "husky": "^0.12.0",
+    "ncp": "^2.0.0",
+    "node-mocks-http": "^1.7.0",
+    "nyc": "^11.8.0",
+    "prettier": "^1.13.0",
+    "rimraf": "^2.5.2",
+    "sinon": "^1.17.7"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "homepage": "https://acetate.io",
+  "keywords": [
+    "site",
+    "static",
+    "template",
+    "templating"
+  ],
+  "license": "ISC",
+  "main": "lib/Acetate.js",
+  "nyc": {
+    "exclude": [
+      ".acetate_fixtures",
+      "test/**/*"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:patrickarlt/acetate.git"
+  },
+  "scripts": {
+    "clean:fixtures": "rimraf .acetate_fixtures",
+    "lint": "eslint lib test",
+    "lint:fix": "eslint lib test --fix",
+    "prepublish": "npm test",
+    "release": "npm publish && gh-release",
+    "pretest": "npm run clean:fixtures && npm run lint",
+    "test": "ava test/*.test.js --verbose --serial",
+    "test:coverage": "nyc --reporter text --reporter html --require babel-register ava test/*.test.js ",
+    "precommit": "npm run prettier && npm run lint",
+    "prepush": "npm test",
+    "prettier": "prettier --write \"{lib,src}/**/*.js\""
+  }
+}

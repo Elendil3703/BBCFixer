@@ -1,0 +1,10 @@
+changed packages (3): binary-extensions, chokidar, readdirp
+  OK new binary-extensions@2.3.0 at binary-extensions
+  OK old binary-extensions@2.1.0 at binary-extensions
+  OK new chokidar@3.4.2 at mocha/node_modules/chokidar
+  OK new chokidar@4.0.3 at chokidar
+  OK old chokidar@3.4.2 at chokidar
+  OK new readdirp@3.4.0 at mocha/node_modules/readdirp
+  OK new readdirp@4.1.2 at readdirp
+  OK old readdirp@3.4.0 at readdirp
+TREECHECK_OK: every change is inside the allowed closure (15 allowed names)

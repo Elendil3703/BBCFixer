@@ -1,0 +1,60 @@
+
+> glob-watcher@6.0.0 pretest
+> npm run lint
+
+
+> glob-watcher@6.0.0 lint
+> eslint .
+
+
+> glob-watcher@6.0.0 test
+> nyc mocha test test/lib --async-only
+
+
+
+  glob-watcher
+    ✓ only requires a glob and returns watcher
+    ✓ picks up added files
+    ✓ works with OS-specific cwd
+    ✓ accepts a callback & calls when file is changed (204ms)
+    ✓ accepts a callback & calls when file is added (203ms)
+    ✓ waits for completion is signaled before running again (804ms)
+    ✓ can signal completion with a stream (804ms)
+    ✓ emits an error if one occurs in the callback and handler attached (203ms)
+    ✓ does not emit an error (and crash) when no handlers attached (804ms)
+    ✓ allows the user to disable queueing (804ms)
+    ✓ allows the user to adjust delay (703ms)
+    ✓ passes options to chokidar (202ms)
+    ✓ does not override default values with null values (202ms)
+    ✓ watches exactly the given event (704ms)
+    ✓ accepts multiple events to watch (704ms)
+    ✓ can ignore a glob after it has been added (1501ms)
+    ✓ can re-add a glob after it has been negated
+    ✓ can re-add a glob after it has been negated (unix style path)
+    ✓ does not mutate the globs array
+    ✓ passes ignores through to chokidar (1501ms)
+    ✓ ignoring globs also works with `cwd` option (1500ms)
+
+  lib/debounce
+    ✓ should call an original function with specified delay
+    ✓ should extend delay against multiple calls (53ms)
+    ✓ should extends delay if a preceding call doesn't run yet
+    ✓ should run if a preceding call already run
+
+  lib/normalize-args
+    ✓ should normalize glob to an array
+    ✓ should complement options with default options
+    ✓ should normalize options.events to an array
+    ✓ should change 2nd arg to cb if 2nd arg is a function
+
+
+  29 passing (11s)
+
+
+=============================== Coverage summary ===============================
+Statements   : 93.2% ( 96/103 )
+Branches     : 72.3% ( 47/65 )
+Functions    : 95.23% ( 20/21 )
+Lines        : 93.2% ( 96/103 )
+================================================================================
+STATE-FIXED rc=0

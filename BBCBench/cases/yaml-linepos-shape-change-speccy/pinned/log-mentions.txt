@@ -1,0 +1,5 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	yaml	3	Genuine output of the project under test: all three hits are on the test side and none points to the triggering library's install location. One is the fixture file name duplicates.yaml in the source snippet jest prints for a failing test (test/lib/loader.test.js line 79); the other two are the title of another failing test, throws ReadError for invalid YAML/JSON, once in the failure heading and once in the test('throws ReadError for invalid YAML/JSON', ...) call inside the same snippet, counted because logscan matches case-insensitively. node_modules/yaml occurs 0 times in the whole log, the library versions 1.6.0 and 2.9.0 occur 0 times, and the property name linePos occurs 0 times; these tests are about YAML parsing by nature, so removing the text would falsify the project's output.

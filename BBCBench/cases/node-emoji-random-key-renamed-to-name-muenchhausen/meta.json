@@ -1,0 +1,41 @@
+{
+  "id": "node-emoji-random-key-renamed-to-name-muenchhausen",
+  "name": "node-emoji-random-key-renamed-to-name-muenchhausen",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "s-a/muenchhausen",
+    "url": "https://github.com/s-a/muenchhausen",
+    "commit": "6725ec023dd253a402d898dbbc1224b794f42b7b"
+  },
+  "lib": "node-emoji",
+  "v_old": "1.10.0",
+  "v_new": "2.2.0",
+  "library_repo": "https://github.com/omnidan/node-emoji",
+  "library_tags": {
+    "old": "v1.10.0",
+    "new": "v2.2.0"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "node-emoji.random",
+  "root_symbols": [
+    "random",
+    "Emoji.random"
+  ],
+  "behavioral_change": "node-emoji v2.0.0 rewrote the codebase and changed the field names of the object returned by `emoji.random()`. In v_old (1.10.0) it returned `{ key, emoji }`; in v_new (2.2.0) it returns `{ emoji, name }`, so reading `.key` yields undefined without any exception or warning.",
+  "downstream_effect": "The downstream project's `Emoji.prototype.random` in lib/fake/emoji/index.js maps `res.key` to `result.value`, which becomes undefined after the upgrade while `result.text` still works. The single failure is a should assertion (\"expected 'undefined' to be equals one of Array [...]\") from a reflection-generated test with frames only in should internals and test/fake-functions-interface-validation.js:28; node-emoji, the edited file, res.key and res.name never appear.",
+  "reference_fix": "The reference fix changes one line in lib/fake/emoji/index.js:19 from `value : res.key` to `value : res.name`.",
+  "documented_in": "The node-emoji 2.2.0 README section `### emoji.random()` shows the example output `// { name: 'unicorn', emoji: '🦄' }`, and the 1.10.0 README shows `{ emoji: '❤️', key: 'heart' }`; the rename is not announced in any changelog or migration guide (the v2.0.2 release notes mention only a new codebase, ESM support and a `replace` change), so the new form must be inferred by comparing the two READMEs.",
+  "failing_tests": [
+    "test/fake-functions-interface-validation.js :: Validate fake methods > Emoji.random > Emoji.random function should have property .value"
+  ],
+  "test_cmd": "npm run eslint && npm run mocha",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "s-a/muenchhausen",
+  "commit": "6725ec023dd253a402d898dbbc1224b794f42b7b"
+}

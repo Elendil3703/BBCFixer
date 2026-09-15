@@ -1,0 +1,13 @@
+diff --git a/src/redisSentinel.js b/src/redisSentinel.js
+index 567502a..38c8d1e 100644
+--- a/src/redisSentinel.js
++++ b/src/redisSentinel.js
+@@ -219,7 +219,7 @@ RedisSentinel.prototype._handleErrorAndReconnect = function _handleErrorAndRecon
+ 
+ RedisSentinel.prototype._dedupeSentinels = function _dedupeSentinels() {
+   // Dedupe the list based on "host(lowercase):port":
+-  this.sentinels = util._.uniq(this.sentinels, function (conf) {
++  this.sentinels = util._.uniqBy(this.sentinels, function (conf) {
+     return conf.host.toLowerCase() + ":" + conf.port;
+   });
+ };

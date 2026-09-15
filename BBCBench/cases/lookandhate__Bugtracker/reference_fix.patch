@@ -1,0 +1,192 @@
+--- api/resources.py
++++ api/resources.py
+@@ -34,14 +34,16 @@
+     Implements interaction with User entity by API
+     """
+     # Arguments, requirement for API requests
+-    user_parser = reqparse.RequestParser()
+-    # Username and password requirement to POST query(registering new User)
+-    user_parser.add_argument('username', required=False)
+-    user_parser.add_argument('password', required=False)
++    get_user_parser = reqparse.RequestParser()
+     # API_KEY requirement for GET query(get some info about other or self User)
+-    user_parser.add_argument('API_KEY', required=False)
++    get_user_parser.add_argument('API_KEY', required=False, location='args')
+     # user_id: Integer parameter that represent unique User id about who we want to get information
+-    user_parser.add_argument('user_id', required=False)
++    get_user_parser.add_argument('user_id', required=False, location='args')
++
++    post_user_parser = reqparse.RequestParser()
++    # Username and password requirement to POST query(registering new User)
++    post_user_parser.add_argument('username', required=False)
++    post_user_parser.add_argument('password', required=False)
+ 
+     def get(self):
+         """
+@@ -51,7 +53,7 @@
+         """
+ 
+         # Get args and check if user_id been passed
+-        args = self.user_parser.parse_args()
++        args = self.get_user_parser.parse_args()
+         if 'user_id' not in args.keys():
+             app.logger.info(f'GET to UserResource, not user_id was not not passed')
+             abort(400, message='You did not pass user_id argument')
+@@ -86,7 +88,7 @@
+         Otherwise 409 if we got bad credentials or 409 if user with that username already exists
+         """
+ 
+-        args = self.user_parser.parse_args()
++        args = self.post_user_parser.parse_args()
+         # Check if we have all necessary data
+         if 'username' not in args.keys() or 'password' not in args.keys():
+             app.logger.info(f'POST to UserResource, username or password have not been passed')
+@@ -148,15 +150,18 @@
+     """
+     Implements interaction with Project entity by API
+     """
+-    project_request_args = reqparse.RequestParser()
+-    project_request_args.add_argument('API_KEY', required=True)
+-    project_request_args.add_argument('project_id', required=False)
+-    project_request_args.add_argument('project_name', required=False)
+-    project_request_args.add_argument('description', required=False)
+-    project_request_args.add_argument('short_tag', required=False)
++    get_project_request_args = reqparse.RequestParser()
++    get_project_request_args.add_argument('API_KEY', required=True, location='args')
++    get_project_request_args.add_argument('project_id', required=False, location='args')
++
++    post_project_request_args = reqparse.RequestParser()
++    post_project_request_args.add_argument('API_KEY', required=True, location='args')
++    post_project_request_args.add_argument('project_name', required=False)
++    post_project_request_args.add_argument('description', required=False)
++    post_project_request_args.add_argument('short_tag', required=False)
+ 
+     def get(self):
+-        args = self.project_request_args.parse_args()
++        args = self.get_project_request_args.parse_args()
+ 
+         # Check if project_if in args
+         if 'project_id' not in args.keys():
+@@ -202,7 +207,7 @@
+         409 If project with that project name or project tag already exist
+         """
+         session = db_session.create_session()
+-        args = self.project_request_args.parse_args()
++        args = self.post_project_request_args.parse_args()
+         # Check if project name and project description passed
+         if 'project_name' not in args.keys() or 'description' not in args.keys():
+             app.logger.info('POST to ProjectResource project_name or description have not been passed')
+@@ -296,16 +301,17 @@
+     """
+     Implements interaction with Issue entity by API
+     """
+-    issue_parser = reqparse.RequestParser()
+-    issue_parser.add_argument('API_KEY', required=True)
+-    issue_parser.add_argument('tag', required=False)
+-
+-    issue_parser.add_argument('project_id', required=False)
+-    issue_parser.add_argument('summary', required=False)
+-    issue_parser.add_argument('steps_to_reproduce', required=False)
+-    issue_parser.add_argument('description', required=False)
+-    issue_parser.add_argument('state', required=False)
+-    issue_parser.add_argument('priority', required=False)
++    get_issue_parser = reqparse.RequestParser()
++    get_issue_parser.add_argument('API_KEY', required=True, location='args')
++    get_issue_parser.add_argument('tag', required=False, location='args')
++
++    post_issue_parser = reqparse.RequestParser()
++    post_issue_parser.add_argument('project_id', required=False)
++    post_issue_parser.add_argument('summary', required=False)
++    post_issue_parser.add_argument('steps_to_reproduce', required=False)
++    post_issue_parser.add_argument('description', required=False)
++    post_issue_parser.add_argument('state', required=False)
++    post_issue_parser.add_argument('priority', required=False)
+ 
+     def get(self):
+         """
+@@ -316,7 +322,7 @@
+         401 if API key is incorrect
+         400 if one of necessary have not been passed
+         """
+-        args = self.issue_parser.parse_args()
++        args = self.get_issue_parser.parse_args()
+ 
+         # Check if project_if in args
+         if 'tag' not in args.keys():
+@@ -359,7 +365,7 @@
+         """
+ 
+         session = db_session.create_session()
+-        args = self.project_request_args.parse_args()
++        args = self.post_project_request_args.parse_args()
+         # Check if project name and project description passed
+         if 'project_id' not in args.keys() or 'summary' not in args.keys() or 'steps_to_reproduce' not in args.keys() or 'description' not in args.keys() \
+                 or 'state' not in args.keys() or 'priority' not in args.keys():
+@@ -417,8 +423,8 @@
+     Implements get request to all Issues
+     """
+     issues_list_parser = reqparse.RequestParser()
+-    issues_list_parser.add_argument('API_KEY', required=True)
+-    issues_list_parser.add_argument('project_id', required=False)
++    issues_list_parser.add_argument('API_KEY', required=True, location='args')
++    issues_list_parser.add_argument('project_id', required=False, location='args')
+ 
+     def get(self):
+         """
+--- data/models.py
++++ data/models.py
+@@ -79,10 +79,10 @@
+     role = sqlalchemy.Column(sqlalchemy.String, default='User')
+     API_KEY = sqlalchemy.Column(sqlalchemy.String(24))
+ 
+-    issues = orm.relation('Issue',
++    issues = orm.relationship('Issue',
+                           secondary=association_table_user_to_issue,
+                           backref='assignees')
+-    projects = orm.relation('Project',
++    projects = orm.relationship('Project',
+                             secondary=association_table_user_to_project,
+                             backref='members')
+ 
+@@ -205,7 +205,7 @@
+ 
+     description = sqlalchemy.Column(sqlalchemy.String(256))
+     short_project_tag = sqlalchemy.Column(sqlalchemy.String, unique=True)
+-    issues = orm.relation('Issue', secondary=association_table_project_to_issue, backref='project')
++    issues = orm.relationship('Issue', secondary=association_table_project_to_issue, backref='project')
+ 
+     def __repr__(self):
+         return f'Project name= {self.project_name}; id= {self.id}; root= {self.get_root().username}\ndesc: {self.description}' \
+@@ -221,7 +221,7 @@
+ 
+         session = create_session()
+         result = session.execute(
+-            select([association_table_subsystems_to_project.c.subsystem]).where(
++            select(association_table_subsystems_to_project.c.subsystem).where(
+                 association_table_subsystems_to_project.c.project_id == self.id
+             )
+         ).fetchall()
+@@ -247,7 +247,7 @@
+         """
+         session = create_session()
+         priorities_list = session.execute(
+-            select([association_table_priority_to_project.c.priority]).where(
++            select(association_table_priority_to_project.c.priority).where(
+                 association_table_priority_to_project.c.project_id == self.id
+             )
+         ).fetchall()
+@@ -274,12 +274,12 @@
+         """
+         session = create_session()
+         member_id = session.execute(
+-            select([association_table_user_to_project.c.member_id]).where(
++            select(association_table_user_to_project.c.member_id).where(
+                 association_table_user_to_project.c.project_id == self.id
+             ).where(
+                 association_table_user_to_project.c.project_role == 'root'
+             )
+-        ).fetchone()
++        ).mappings().fetchone()
+         member_id = member_id['member_id']
+         user = session.query(User).filter(User.id == member_id).first()
+         session.close()

@@ -1,0 +1,41 @@
+
+> yargs-unparser@2.0.0 test /w
+> jest --env node --coverage
+
+PASS test/index.spec.js
+  ✓ should unparse options whose values are primitives (3ms)
+  ✓ should unparse options whose values are arrays (1ms)
+  ✓ should unparse options whose values are objects (1ms)
+  ✓ should unparse options whose values are not primitives, arrays or objects
+  ✓ should unparse options whose values are empty strings correctly (1ms)
+  ✓ should only add a dash for short option names
+  ✓ should not duplicate keys that are camel-cased (2ms)
+  ✓ should keep camel-cased keys if standard ones were not found on argv
+  ✓ should not duplicate nested keys that are camel-cased (1ms)
+  ✓ should keep nested camel-cased keys if standard ones were not found on argv
+  ✓ should ignore nullish option values
+  ✓ should add unknown positional arguments at the start (1ms)
+  ✓ should add arguments after -- at the end
+  ✓ should ignore $0
+  options
+    ✓ should ignore aliases specified via `options.aliases` (1ms)
+    ✓ should filter flags with default values via `options.defaults`
+    ✓ should handle known positional arguments specified via `options.command` (9ms)
+    ✓ should handle optional known positional arguments specified via `options.command` (1ms)
+    ✓ should handle unknown positional arguments when `options.command` is set (1ms)
+    ✓ should handle positional arguments with alias specified in `options.command` (1ms)
+  interoperation with other libraries
+    ✓ should have basic integration with minimist (1ms)
+
+----------|----------|----------|----------|----------|-------------------|
+File      |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+----------|----------|----------|----------|----------|-------------------|
+All files |    98.53 |    95.45 |      100 |      100 |                   |
+ index.js |    98.53 |    95.45 |      100 |      100 |             32,78 |
+----------|----------|----------|----------|----------|-------------------|
+Test Suites: 1 passed, 1 total
+Tests:       21 passed, 21 total
+Snapshots:   0 total
+Time:        1.399s
+Ran all test suites.
+STATE-OLD rc=0

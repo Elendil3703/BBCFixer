@@ -1,0 +1,291 @@
+
+> nodep@0.2.3 test /w
+> gulp test
+
+[03:08:21] Using gulpfile /w/gulpfile.js
+[03:08:21] Starting 'jshint'...
+[03:08:21] Finished 'jshint' after 77 ms
+[03:08:21] Starting 'spec'...
+[03:08:21] Finished 'spec' after 145 ms
+[03:08:21] Starting 'test'...
+[03:08:21] Finished 'test' after 14 μs
+
+nodep.js
+  line 373  col 37  Misleading line break before '||'; readers may interpret this as an expression boundary.
+  line 374  col 37  Misleading line break before '||'; readers may interpret this as an expression boundary.
+  line 375  col 33  Misleading line break before '?'; readers may interpret this as an expression boundary.
+
+  ⚠  3 warnings
+
+
+
+  $p
+    ✓ should register itself
+
+  $p.name
+    ✓ should camelcase paths
+
+  $p.args
+    ✓ should find no arguments
+    ✓ should find no arguments from commented function
+    ✓ should find one argument
+    ✓ should find one argument from commented function
+    ✓ should find arguments
+    ✓ should find arguments from commented function
+
+  $p.decorator
+    ✓ should create and apply dependency
+    ✓ should create and not apply dependency
+    ✓ should create dependency string
+    ✓ should create dependency object
+    ✓ should create dependency number
+    ✓ should overwrite dependency
+    1) should overwrite and inject dependency
+    2) should overwrite and inject old dependency
+
+  $p.easyRegister
+    ✓ should reject a non-string type
+    ✓ should find a dependency
+    ✓ should register npm dependency
+    ✓ should not register path
+
+  $p.register
+    ✓ should register npm module
+    ✓ should register string
+    ✓ should register number
+    ✓ should register object
+    ✓ should throw error for undefined
+    ✓ should throw error for non-existent dependency
+    ✓ should throw error for non-existent npm module
+    ✓ should not overwrite existing dependency
+    3) should find new npm module
+    4) should inject dependency
+    5) should inject dependencies
+    6) should inject dependency array
+    7) should inject dependencies in reverse
+    ✓ should detect circular dependency
+
+  $p.resolveFiles
+    ✓ should resolve file names from directory
+    ✓ should resolve absolute file names from directory
+
+  $p.init
+    ✓ should register dependency
+    8) should register dependency array
+    9) should register dependency object
+    10) should not overwrite dependency from array
+    11) should not overwrite dependency from object
+    ✓ should register undefined return dependency as function
+    12) should return $p
+    ✓ should call resolve files
+
+  $p.provider
+    13) should register other provider object
+    14) should register other provider function
+    15) should register other provider array
+    16) should register other provider string function
+    17) should register other provider string object
+    ✓ should error on invalid provider
+    18) should return $p
+
+  $p.inject
+    ✓ should return a reference to $p
+    ✓ should return a reference to dependency
+    ✓ should return an undefined reference
+
+
+  36 passing (72ms)
+  18 failing
+
+  1) $p.decorator should overwrite and inject dependency:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:3007
+      at arrayMap (node_modules/lodash/lodash.js:653:23)
+      at Function.map (node_modules/lodash/lodash.js:9622:14)
+      at Object.applyArgs (nodep.js:9:2894)
+      at Object.decorator (nodep.js:9:4240)
+      at Context.<anonymous> (test/spec.js:126:12)
+
+  2) $p.decorator should overwrite and inject old dependency:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:3007
+      at arrayMap (node_modules/lodash/lodash.js:653:23)
+      at Function.map (node_modules/lodash/lodash.js:9622:14)
+      at Object.applyArgs (nodep.js:9:2894)
+      at Object.decorator (nodep.js:9:4240)
+      at Context.<anonymous> (test/spec.js:134:12)
+
+  3) $p.register should find new npm module:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:3007
+      at arrayMap (node_modules/lodash/lodash.js:653:23)
+      at Function.map (node_modules/lodash/lodash.js:9622:14)
+      at Object.applyArgs (nodep.js:9:2894)
+      at Object.decorator (nodep.js:9:4240)
+      at Object.register (nodep.js:9:8905)
+      at Context.<anonymous> (test/spec.js:210:12)
+
+  4) $p.register should inject dependency:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:3007
+      at arrayMap (node_modules/lodash/lodash.js:653:23)
+      at Function.map (node_modules/lodash/lodash.js:9622:14)
+      at Object.applyArgs (nodep.js:9:2894)
+      at Object.decorator (nodep.js:9:4240)
+      at Object.register (nodep.js:9:8905)
+      at Context.<anonymous> (test/spec.js:216:12)
+
+  5) $p.register should inject dependencies:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:3007
+      at arrayMap (node_modules/lodash/lodash.js:653:23)
+      at Function.map (node_modules/lodash/lodash.js:9622:14)
+      at Object.applyArgs (nodep.js:9:2894)
+      at Object.decorator (nodep.js:9:4240)
+      at Object.register (nodep.js:9:8905)
+      at Context.<anonymous> (test/spec.js:223:12)
+
+  6) $p.register should inject dependency array:
+     TypeError: Cannot read property 'easyRegister' of undefined
+      at nodep.js:9:5870
+      at arrayEach (node_modules/lodash/lodash.js:530:11)
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.register (nodep.js:9:5755)
+      at Context.<anonymous> (test/spec.js:231:12)
+
+  7) $p.register should inject dependencies in reverse:
+     TypeError: Cannot read property 'easyRegister' of undefined
+      at nodep.js:9:5870
+      at arrayEach (node_modules/lodash/lodash.js:530:11)
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.register (nodep.js:9:5755)
+      at Context.<anonymous> (test/spec.js:243:12)
+
+  8) $p.init should register dependency array:
+     TypeError: Cannot read property 'easyRegister' of undefined
+      at nodep.js:9:5870
+      at arrayEach (node_modules/lodash/lodash.js:530:11)
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.register (nodep.js:9:5755)
+      at Object.init (nodep.js:9:10401)
+      at Context.<anonymous> (test/spec.js:292:12)
+
+  9) $p.init should register dependency object:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:10762
+      at node_modules/lodash/lodash.js:4967:15
+      at baseForOwn (node_modules/lodash/lodash.js:3032:24)
+      at node_modules/lodash/lodash.js:4936:18
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.init (nodep.js:9:10628)
+      at Context.<anonymous> (test/spec.js:301:12)
+
+  10) $p.init should not overwrite dependency from array:
+     TypeError: Cannot read property 'easyRegister' of undefined
+      at nodep.js:9:5870
+      at arrayEach (node_modules/lodash/lodash.js:530:11)
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.register (nodep.js:9:5755)
+      at Object.init (nodep.js:9:10401)
+      at Context.<anonymous> (test/spec.js:308:12)
+
+  11) $p.init should not overwrite dependency from object:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:10762
+      at node_modules/lodash/lodash.js:4967:15
+      at baseForOwn (node_modules/lodash/lodash.js:3032:24)
+      at node_modules/lodash/lodash.js:4936:18
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.init (nodep.js:9:10628)
+      at Context.<anonymous> (test/spec.js:315:12)
+
+  12) $p.init should return $p:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:10762
+      at node_modules/lodash/lodash.js:4967:15
+      at baseForOwn (node_modules/lodash/lodash.js:3032:24)
+      at node_modules/lodash/lodash.js:4936:18
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.init (nodep.js:9:10628)
+      at Context.<anonymous> (test/spec.js:330:25)
+
+  13) $p.provider should register other provider object:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:10762
+      at node_modules/lodash/lodash.js:4967:15
+      at baseForOwn (node_modules/lodash/lodash.js:3032:24)
+      at node_modules/lodash/lodash.js:4936:18
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.init (nodep.js:9:10628)
+      at Context.<anonymous> (test/spec.js:354:29)
+
+  14) $p.provider should register other provider function:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:10762
+      at node_modules/lodash/lodash.js:4967:15
+      at baseForOwn (node_modules/lodash/lodash.js:3032:24)
+      at node_modules/lodash/lodash.js:4936:18
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.init (nodep.js:9:10628)
+      at test/spec.js:362:28
+      at Object.provide (nodep.js:9:12061)
+      at Object.provider (nodep.js:9:12819)
+      at Context.<anonymous> (test/spec.js:361:12)
+
+  15) $p.provider should register other provider array:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:10762
+      at node_modules/lodash/lodash.js:4967:15
+      at baseForOwn (node_modules/lodash/lodash.js:3032:24)
+      at node_modules/lodash/lodash.js:4936:18
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.init (nodep.js:9:10628)
+      at Context.<anonymous> (test/spec.js:371:21)
+
+  16) $p.provider should register other provider string function:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:10762
+      at node_modules/lodash/lodash.js:4967:15
+      at baseForOwn (node_modules/lodash/lodash.js:3032:24)
+      at node_modules/lodash/lodash.js:4936:18
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.init (nodep.js:9:10628)
+      at module.exports (test/mock/provider.js:6:8)
+      at Object.provide (nodep.js:9:12061)
+      at Object.provider (nodep.js:9:12819)
+      at Context.<anonymous> (test/spec.js:383:12)
+
+  17) $p.provider should register other provider string object:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:10762
+      at node_modules/lodash/lodash.js:4967:15
+      at baseForOwn (node_modules/lodash/lodash.js:3032:24)
+      at node_modules/lodash/lodash.js:4936:18
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.init (nodep.js:9:10628)
+      at Object.<anonymous> (test/mock/provider.obj.js:5:4)
+      at Module._compile (internal/modules/cjs/loader.js:778:30)
+      at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+      at Object.Module._extensions.(anonymous function) [as .js] (node_modules/istanbul/lib/hook.js:109:37)
+
+  18) $p.provider should return $p:
+     TypeError: Cannot read property 'dependencies' of undefined
+      at nodep.js:9:10762
+      at node_modules/lodash/lodash.js:4967:15
+      at baseForOwn (node_modules/lodash/lodash.js:3032:24)
+      at node_modules/lodash/lodash.js:4936:18
+      at Function.forEach (node_modules/lodash/lodash.js:9410:14)
+      at Object.init (nodep.js:9:10628)
+      at Object.provide (nodep.js:9:12512)
+      at Object.provider (nodep.js:9:12819)
+      at Context.<anonymous> (test/spec.js:397:25)
+
+
+
+
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+Error: 18 tests failed.
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

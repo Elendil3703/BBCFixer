@@ -1,0 +1,15 @@
+changed packages (8): @types/http-proxy, braces, debug, fill-range, http-proxy-middleware, is-plain-obj, micromatch, ms
+  OK new @types/http-proxy@1.17.17 at @types/http-proxy
+  OK old @types/http-proxy@1.17.9 at @types/http-proxy
+  OK new braces@3.0.3 at braces
+  OK old braces@3.0.2 at braces
+  OK new debug@4.4.3 at http-proxy-middleware/node_modules/debug
+  OK new fill-range@7.1.1 at fill-range
+  OK old fill-range@7.0.1 at fill-range
+  OK new http-proxy-middleware@3.0.5 at http-proxy-middleware
+  OK old http-proxy-middleware@2.0.6 at http-proxy-middleware
+  OK old is-plain-obj@3.0.0 at is-plain-obj
+  OK new micromatch@4.0.8 at micromatch
+  OK old micromatch@4.0.5 at micromatch
+  OK new ms@2.1.3 at http-proxy-middleware/node_modules/ms
+TREECHECK_OK: every change is inside the allowed closure (19 allowed names)

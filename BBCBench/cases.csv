@@ -1,0 +1,101 @@
+id,ecosystem,harness,downstream,library,v_old,v_new,reference_fix_source,root_api,image
+async-applyeach-curried-sc-broker,javascript,lockfile,SocketCluster/sc-broker,async,2.6.1,3.2.6,documentation,async.applyEachSeries,node:16
+async-callback-false-cancels-forerunnerdb,javascript,lockfile,Irrelon/ForerunnerDB,async,2.6.0,3.2.6,documentation,async.waterfall,node:16
+async-queue-drain-becomes-method-acetate,javascript,lockfile,patrickarlt/acetate,async,2.6.1,3.2.6,documentation,async.queue,node:18
+async-queue-drain-becomes-method-bulk-html-loader,javascript,lockfile,ChristianRich/bulk-html-loader,async,2.6.4,3.2.6,documentation,async.queue,node:18
+async-queue-drain-becomes-method-koop-socrata,javascript,lockfile,koopjs/koop-socrata,async,2.6.4,3.2.6,documentation,async.queue,node:16
+async-whilst-sync-test-repoman,javascript,lockfile,basti1302/repoman,async,2.6.0,3.2.6,documentation,async.whilst,node:6
+async-whilst-sync-test-serverless-gcf,javascript,lockfile,serverless/serverless-google-cloudfunctions,async,2.6.4,3.2.6,documentation,async.whilst,node:16
+async-whilst-sync-test-waterline,javascript,lockfile,balderdashy/waterline,async,2.6.4,3.2.6,documentation,async.whilst,node:16
+bluebird-promisify-context-async-rtree,javascript,lockfile,calvinmetcalf/async-rtree,bluebird,2.11.0,3.7.2,documentation,Promise.promisify,node:8
+bluebird-promisify-multiargs-balena-request,javascript,lockfile,balena-io-modules/balena-request,bluebird,2.11.0,3.7.2,documentation,Promise.promisify,node:8
+bluebird-promisify-multiargs-talk-node-sdk,javascript,lockfile,jianliaoim/talk-node-sdk,bluebird,2.11.0,3.7.2,documentation,Promise.promisify,node:8
+bluebird-promisifyall-multiargs-oose-sdk,javascript,lockfile,nullivex/oose-sdk,bluebird,2.11.0,3.7.2,documentation,bluebird.promisifyAll,node:8
+bluebird-promisifyall-multiargs-wary,javascript,lockfile,balena-io-modules/wary,bluebird,2.11.0,3.7.2,documentation,bluebird.promisifyAll,node:8
+body-parser-req-body-no-longer-initialized-body-parser-xml,javascript,lockfile,fiznool/body-parser-xml,body-parser,1.20.2,2.3.0,documentation,bodyParser.text,node:18
+chokidar-glob-expansion-removed-esbuild-plugin-copy-watch,javascript,lockfile,tinchoz49/esbuild-plugin-copy-watch,chokidar,3.6.0,4.0.3,documentation,chokidar.watch,node:18
+chokidar-glob-expansion-removed-glob-watcher,javascript,lockfile,gulpjs/glob-watcher,chokidar,3.6.0,4.0.3,documentation,chokidar.watch,node:18
+chokidar-glob-expansion-removed-gulp-watch,javascript,lockfile,floatdrop/gulp-watch,chokidar,3.4.2,4.0.3,documentation,chokidar.watch,node:18
+command-line-usage-markup-syntax-cliss,javascript,lockfile,DiegoZoracKy/cliss,command-line-usage,4.1.0,5.0.5,documentation,commandLineUsage,node:16
+commander-excess-arguments-error-by-default-i18next-parser,javascript,lockfile,i18next/i18next-parser,commander,12.1.0,13.1.0,documentation,Command.parse,node:20
+commander-options-not-on-command-buildsize-cli,javascript,lockfile,ssulivan11/buildsize-cli,commander,5.1.0,7.2.0,documentation,commander.Command.option and program.opts,node:18
+commander-optprops-lambda-local,javascript,lockfile,ashiina/lambda-local,commander,6.2.1,7.2.0,documentation,Command.opts,node:16
+commander-unknown-subcommand-rejected-coap-cli,javascript,lockfile,coapjs/coap-cli,commander,4.1.1,5.1.0,documentation,Command.command,node:14
+decamelize-separator-positional-to-options-yargs-unparser,javascript,lockfile,yargs/yargs-unparser,decamelize,4.0.0,5.0.1,documentation,decamelize,node:14
+express-send-status-wsfed,javascript,lockfile,auth0/node-wsfed,express,4.17.3,5.1.0,documentation,res.send,node:20
+http-proxy-middleware-proxy-event-options-ignored-drosse,javascript,lockfile,jota-one/drosse,http-proxy-middleware,2.0.6,3.0.5,documentation,http-proxy-middleware.createProxyMiddleware options.onProxyRes / options.on.proxyRes,node:18
+immutable-merge-no-longer-coerces-nested-plain-objects-omni-common-ui,javascript,lockfile,e1-bsd/omni-common-ui,immutable,3.8.3,4.3.9,documentation,immutable.OrderedMap.merge,node:8
+js-yaml-merge-key-dropped-by-default-schema-webpacker,javascript,lockfile,rails/webpacker,js-yaml,4.1.0,5.0.0,documentation,js-yaml.load,node:18
+js-yaml-timestamp-dropped-by-core-schema-puppy-lib,javascript,lockfile,Upstatement/puppy-lib,js-yaml,4.1.0,5.2.3,documentation,js-yaml.load,node:18
+lodash-bindall-no-names-miaow,javascript,lockfile,miaowjs/miaow,lodash,3.10.1,4.17.21,documentation,lodash.bindAll,node:10
+lodash-bindall-omitted-methodnames-dyson,javascript,lockfile,webpro/dyson,lodash,3.7.0,4.17.21,documentation,lodash.bindAll,node:14
+lodash-capitalize-generator-pv8-field,javascript,lockfile,mauricedb/generator-pv8-field,lodash,3.10.1,4.17.21,documentation,lodash.capitalize,node:18
+lodash-capitalize-generator-react-reflux,javascript,lockfile,TFaga/generator-react-reflux,lodash,3.8.0,4.17.21,documentation,lodash.capitalize,node:18
+lodash-capitalize-sails-navigator,javascript,lockfile,Zaggen/sails-navigator,lodash,3.10.1,4.17.21,documentation,lodash.capitalize,node:16
+lodash-chain-lazy-needs-value-jscomplexity-threshold,javascript,lockfile,slyg/grunt-jscomplexity-threshold,lodash,2.4.2,3.10.1,documentation,lodash.chain,node:8
+lodash-clone-isdeep-istex-api-faker,javascript,lockfile,istex/istex-api-faker,lodash,3.10.1,4.17.21,documentation,lodash.clone,node:10
+lodash-clone-isdeep-mooring,javascript,lockfile,appersonlabs/mooring,lodash,3.10.1,4.17.21,documentation,lodash.clone,node:10
+lodash-frompairs-key-casing,javascript,lockfile,ckross01/key-casing,lodash,3.10.1,4.17.21,documentation,lodash.zipObject,node:16
+lodash-functions-in-lowdb,javascript,lockfile,typicode/lowdb,lodash,3.10.1,4.17.21,documentation,lodash.functions,node:10
+lodash-functions-in-restify-validation,javascript,lockfile,z0mt3c/node-restify-validation,lodash,3.10.1,4.17.21,documentation,lodash.functions,node:16
+lodash-indexof-issorted-jscs-spellcheck,javascript,lockfile,jscs-dev/jscs-spellcheck,lodash,3.10.1,4.17.21,documentation,lodash.indexOf,node:10
+lodash-invoke-renamed-azul-transaction,javascript,lockfile,wbyoung/azul-transaction,lodash,3.10.1,4.17.21,documentation,lodash.invoke,node:10
+lodash-iteratee-thisarg,javascript,lockfile,prolificinteractive/node-html-to-json,lodash,3.10.1,4.17.21,documentation,lodash.every,node:16
+lodash-maxby-iteratee-jop,javascript,lockfile,flerro/jop,lodash,3.10.1,4.17.21,documentation,lodash.max,node:16
+lodash-merge-customizer-opt-merger,javascript,lockfile,shakyShane/opt-merger,lodash,3.10.1,4.17.21,documentation,lodash.merge,node:10
+lodash-merge-customizer-rest-emulator,javascript,lockfile,temrdm/rest-emulator,lodash,3.10.1,4.17.21,documentation,lodash.merge,node:10
+lodash-minby-iteratee-poker-hands,javascript,lockfile,dsernst/poker-hands,lodash,3.10.1,4.17.21,documentation,lodash.min,node:16
+lodash-samplesize-hubot-coffeepoll,javascript,lockfile,wallacyyy/hubot-coffeepoll,lodash,3.10.1,4.17.21,documentation,lodash.sample,node:16
+lodash-sumby-iteratee-statsd-newrelic,javascript,lockfile,mpayetta/statsd-newrelic-backend,lodash,3.10.1,4.17.21,documentation,lodash.sum,node:10
+lodash-thisarg-removed-nodep,javascript,lockfile,BrainBacon/Nodep,lodash,3.10.1,4.17.21,documentation,"lodash.map, lodash.forEach, lodash.filter, lodash.every",node:10
+lodash-uniq-iteratee-simple-sentinel,javascript,lockfile,Vungle/simple-sentinel,lodash,3.10.0,4.17.21,documentation,lodash.uniq,node:10
+lodash-where-predicate-ignored-fasm,javascript,lockfile,vincent/fasm,lodash,2.4.2,3.10.1,documentation,lodash.where,node:14
+lodash-zipobject-pairs-form-entwine,javascript,lockfile,mojotech/entwine,lodash,3.10.1,4.17.21,documentation,lodash.zipObject,node:8
+micromatch-matcher-arity-handlebars-helpers,javascript,lockfile,helpers/handlebars-helpers,micromatch,3.1.10,4.0.8,documentation,micromatch.matcher,node:18
+node-emoji-random-key-renamed-to-name-muenchhausen,javascript,lockfile,s-a/muenchhausen,node-emoji,1.10.0,2.2.0,documentation,node-emoji.random,node:18
+regexpu-core-unicodeflag-option-now-opt-in-buble,javascript,lockfile,bublejs/buble,regexpu-core,4.5.4,5.3.2,documentation,regexpu-core rewritePattern,node:14
+sitemap-toxml-callback-removed-netlify-plugin-sitemap,javascript,lockfile,netlify-labs/netlify-plugin-sitemap,sitemap,3.2.2,4.1.1,documentation,sitemap.Sitemap.toXML,node:18
+svgo-sortattrs-rollup-svg-sprite-loader,javascript,lockfile,nyanyani/rollup-plugin-svg-sprite-loader,svgo,2.8.3,3.0.2,documentation,svgo.optimize,node:16
+vinyl-fs-utf8-transcoding-by-default-fontmin,javascript,lockfile,ecomfe/fontmin,vinyl-fs,3.0.3,4.0.2,documentation,vinyl-fs.src,node:16
+yaml-linepos-shape-change-speccy,javascript,lockfile,wework/speccy,yaml,1.6.0,2.9.0,documentation,yaml.parse,node:16
+alteryx__featuretools,python,image,alteryx/featuretools,pandas,2.1.4,2.2.0,maintainer,pandas.core.groupby.DataFrameGroupBy.agg / SeriesGroupBy.aggregate called with pd.Series.nunique,ghcr.io/elendil3703/bbcbench:alteryx__featuretools
+amphibian-dev__toad,python,image,amphibian-dev/toad,pandas,2.2.3,3.0.2,maintainer,pandas.Series.loc.__setitem__,ghcr.io/elendil3703/bbcbench:amphibian-dev__toad
+BlueBrain__voxcell,python,image,BlueBrain/voxcell,h5py,2.10.0,3.6.0,maintainer,h5py.Dataset.__getitem__,ghcr.io/elendil3703/bbcbench:bluebrain__voxcell
+dakrauth__django-swingtime,python,image,dakrauth/django-swingtime,Django,4.0,5.2.4,benchmark-authors,"django.conf.settings.USE_TZ default, observed through DateTimeField values returned by a QuerySet",ghcr.io/elendil3703/bbcbench:dakrauth__django-swingtime
+DataDog__guarddog,python,image,DataDog/guarddog,packaging,21.3,26.2,maintainer,packaging.version.parse,ghcr.io/elendil3703/bbcbench:datadog__guarddog
+docker__docker-py,python,image,docker/docker-py,requests,2.31.0,2.32.2,maintainer,requests.adapters.HTTPAdapter.get_connection,ghcr.io/elendil3703/bbcbench:docker__docker-py
+feature-engine__feature_engine,python,image,feature-engine/feature_engine,pandas,1.5.3,2.0.3,maintainer,pandas.DataFrame.loc.__setitem__,ghcr.io/elendil3703/bbcbench:feature-engine__feature_engine
+flatironinstitute__inferelator,python,image,flatironinstitute/inferelator,pandas,2.0.3,2.3.1,benchmark-authors,the .A attribute of scipy.sparse spmatrix and sparray,ghcr.io/elendil3703/bbcbench:flatironinstitute__inferelator
+FrescolinoGroup__pyhdf5io,python,image,FrescolinoGroup/pyhdf5io,h5py,2.10.0,3.14.0,maintainer,h5py.Dataset.__getitem__,ghcr.io/elendil3703/bbcbench:frescolinogroup__pyhdf5io
+geopandas__geopandas,python,image,geopandas/geopandas,pandas,1.5.3,2.0.0,maintainer,the numeric_only parameter of pandas.core.groupby.DataFrameGroupBy.agg,ghcr.io/elendil3703/bbcbench:geopandas__geopandas
+getmoto__moto,python,image,getmoto/moto,werkzeug,2.1.2,2.2.2,maintainer,werkzeug.routing.BaseConverter,ghcr.io/elendil3703/bbcbench:getmoto__moto
+home-assistant-libs__pytradfri,python,image,home-assistant-libs/pytradfri,pydantic,2.3.0,2.11.7,benchmark-authors,pydantic.Field and pydantic.BaseModel field declarations,ghcr.io/elendil3703/bbcbench:home-assistant-libs__pytradfri
+kevin1024__vcrpy,python,image,kevin1024/vcrpy,urllib3,2.2.3,2.3.0,maintainer,subclassing urllib3.response.HTTPResponse; HTTPConnectionPool.urlopen reads response.version_string,ghcr.io/elendil3703/bbcbench:kevin1024__vcrpy
+Kinto__kinto,python,image,Kinto/kinto,SQLAlchemy,1.4.46,2.0.23,maintainer,sqlalchemy.engine.Connection.execute and sqlalchemy.engine.Row.__getitem__,ghcr.io/elendil3703/bbcbench:kinto__kinto
+kvesteri__sqlalchemy-utils,python,image,kvesteri/sqlalchemy-utils,SQLAlchemy,1.4.29,1.4.30,maintainer,sqlalchemy.types.TypeDecorator.process_literal_param and postgresql.UUID.literal_processor,ghcr.io/elendil3703/bbcbench:kvesteri__sqlalchemy-utils
+lawlesst__vivo-rdflib-sparqlstore,python,image,lawlesst/vivo-rdflib-sparqlstore,rdflib,4.2.2,7.1.4,benchmark-authors,rdflib.plugins.stores.sparqlstore.NSSPARQLWrapper and rdflib.Graph.serialize,ghcr.io/elendil3703/bbcbench:lawlesst__vivo-rdflib-sparqlstore
+lmfit__lmfit-py,python,image,lmfit/lmfit-py,scipy,1.2.3,1.3.0,maintainer,scipy.optimize.brute,ghcr.io/elendil3703/bbcbench:lmfit__lmfit-py
+lookandhate__Bugtracker,python,image,lookandhate/Bugtracker,SQLAlchemy,1.3.17,2.0.29,benchmark-authors,sqlalchemy.orm.relation and flask_restful.reqparse.RequestParser.add_argument,ghcr.io/elendil3703/bbcbench:lookandhate__bugtracker
+matplotlib__matplotlib,python,image,matplotlib/matplotlib,numpy,1.23.5,1.24.0,maintainer,numpy.ma.masked_invalid and numpy.ma.getmask,ghcr.io/elendil3703/bbcbench:matplotlib__matplotlib
+mirandrom__pys2,python,image,mirandrom/PyS2,pydantic,1.8.1,2.11.7,benchmark-authors,pydantic.BaseModel field declaration and instantiation,ghcr.io/elendil3703/bbcbench:mirandrom__pys2
+networkx__networkx,python,image,networkx/networkx,scipy,1.8.1,1.9.0,maintainer,scipy.optimize.linprog,ghcr.io/elendil3703/bbcbench:networkx__networkx
+NeuroTechX__moabb,python,image,NeuroTechX/moabb,h5py,2.10.0,3.14.0,maintainer,h5py.Dataset.__getitem__,ghcr.io/elendil3703/bbcbench:neurotechx__moabb
+NickWedzinga__BlekingePoGO,python,image,NickWedzinga/BlekingePoGO,pyspellchecker,0.7.2,0.8.3,benchmark-authors,spellchecker.SpellChecker.correction,ghcr.io/elendil3703/bbcbench:nickwedzinga__blekingepogo
+obspy__obspy,python,image,obspy/obspy,numpy,2.2.6,2.5.1,maintainer,numpy.linalg.eig,ghcr.io/elendil3703/bbcbench:obspy__obspy
+passaH2O__dorado,python,image,passaH2O/dorado,scipy,1.10.1,1.16.1,benchmark-authors,scipy.interpolate.NearestNDInterpolator.__call__,ghcr.io/elendil3703/bbcbench:passah2o__dorado
+postmanlabs__httpbin,python,image,postmanlabs/httpbin,werkzeug,1.0.1,2.0.1,maintainer,werkzeug.wrappers.BaseResponse.autocorrect_location_header,ghcr.io/elendil3703/bbcbench:postmanlabs__httpbin
+pydantic-subclass-fields-dropped-on-dump-komposer,python,lockfile,expobrain/komposer,pydantic,1.10.2,2.5.3,documentation,pydantic.BaseModel.model_dump,python:3.10
+pydata__xarray,python,image,pydata/xarray,numpy,1.26.4,2.0.2,maintainer,numpy.result_type,ghcr.io/elendil3703/bbcbench:pydata__xarray
+pygae__clifford,python,image,pygae/clifford,h5py,2.10.0,3.14.0,maintainer,h5py.Dataset.__getitem__,ghcr.io/elendil3703/bbcbench:pygae__clifford
+python-restx__flask-restx,python,image,python-restx/flask-restx,werkzeug,2.0.3,2.1.2,maintainer,"werkzeug.wrappers.Request.json, reached through getattr(request, location)",ghcr.io/elendil3703/bbcbench:python-restx__flask-restx
+rebuy-de__ds-pub-utils,python,image,rebuy-de/ds-pub-utils,scikit-learn,0.19.1,1.7.1,benchmark-authors,pandas.Series.value_counts,ghcr.io/elendil3703/bbcbench:rebuy-de__ds-pub-utils
+scikit-image__colorconv,python,image,scikit-image/scikit-image,numpy,1.26.4,2.0.2,maintainer,numpy.result_type,ghcr.io/elendil3703/bbcbench:scikit-image__colorconv
+scikit-image__denoise,python,image,scikit-image/scikit-image,numpy,1.26.4,2.0.2,maintainer,numpy.result_type,ghcr.io/elendil3703/bbcbench:scikit-image__denoise
+scikit-image__filters,python,image,scikit-image/scikit-image,numpy,1.26.4,2.0.2,maintainer,numpy.result_type,ghcr.io/elendil3703/bbcbench:scikit-image__filters
+scikit-image__moments,python,image,scikit-image/scikit-image,numpy,1.26.4,2.0.2,maintainer,numpy.result_type,ghcr.io/elendil3703/bbcbench:scikit-image__moments
+scikit-learn-contrib__imbalanced-learn,python,image,scikit-learn-contrib/imbalanced-learn,scipy,1.9.3,1.11.4,maintainer,scipy.stats.mode,ghcr.io/elendil3703/bbcbench:scikit-learn-contrib__imbalanced-learn
+scikit-learn__scikit-learn,python,image,scikit-learn/scikit-learn,numpy,1.23.5,1.24.4,maintainer,numpy.asarray,ghcr.io/elendil3703/bbcbench:scikit-learn__scikit-learn
+scrapedia__scrapy-httpcache,python,image,scrapedia/scrapy-httpcache,Scrapy,2.3.0,2.13.3,benchmark-authors,scrapy.utils.request.request_fingerprint,ghcr.io/elendil3703/bbcbench:scrapedia__scrapy-httpcache
+scverse__anndata,python,image,scverse/anndata,h5py,2.10.0,3.11.0,maintainer,h5py.Dataset.__getitem__ and h5py.Dataset.asstr / h5py.check_string_dtype,ghcr.io/elendil3703/bbcbench:scverse__anndata
+socialwifi__queue-messaging,python,image,socialwifi/queue-messaging,netaddr,0.7.19,1.3.0,benchmark-authors,"marshmallow.Schema.dumps / Schema.loads, and Field.fail replaced by Field.make_error",ghcr.io/elendil3703/bbcbench:socialwifi__queue-messaging
+telegraphic__hickle,python,image,telegraphic/hickle,h5py,2.10.0,3.1.0,maintainer,h5py.AttributeManager.__getitem__ and h5py.Dataset.__getitem__,ghcr.io/elendil3703/bbcbench:telegraphic__hickle

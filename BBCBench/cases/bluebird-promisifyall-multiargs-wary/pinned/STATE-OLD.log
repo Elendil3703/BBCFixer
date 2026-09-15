@@ -1,0 +1,15 @@
+
+> wary@1.1.1 test /w
+> gulp test
+
+[03:29:40] Requiring external module coffee-script/register
+[03:29:40] Using gulpfile /w/gulpfile.coffee
+[03:29:40] Starting 'test'...
+[2J[1;3H> should pass
+> first test
+> second test
+
+[92m [0m[32m 18 passing[0m[90m (221ms)[0m
+
+[03:29:41] Finished 'test' after 423 ms
+STATE-OLD rc=0

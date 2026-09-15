@@ -1,0 +1,112 @@
+
+> speccy@0.11.0 test
+> jest --coverage
+
+PASS test/lib/server.test.js
+PASS test/lib/rules.test.js
+  ● Console
+
+    console.warn lib/rules.js:19
+      WARNING: Property 'enabled' is deprecated and will be removed in 1.0.0. Use 'disabled' instead. Found in rule: negatively-enabled-rule
+
+PASS test/lib/config.test.js
+(node:138) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+(Use `node --trace-deprecation ...` to show where the warning was created)
+FAIL test/lib/loader.test.js
+  ● Loader › loadSpec() › errors when duplicate keys exist
+
+    expect(received).rejects.toBeInstanceOf(expected)
+
+    Expected constructor: ReadError
+    Received constructor: TypeError
+
+      78 |         test('errors when duplicate keys exist', async () => {
+      79 |             return expect(loader.loadSpec(samplesDir + 'duplicates.yaml'))
+    > 80 |                 .rejects.toBeInstanceOf(loader.ReadError);
+         |                          ^
+      81 |         });
+      82 | 
+      83 |         test('does not resolve references by default', async () => {
+
+      at Object.toBeInstanceOf (node_modules/expect/build/index.js:242:20)
+      at Object.toBeInstanceOf (test/lib/loader.test.js:80:26)
+
+  ● Loader › loadSpec() › throws ReadError for invalid YAML/JSON
+
+    expect(received).rejects.toBeInstanceOf(expected)
+
+    Expected constructor: ReadError
+    Received constructor: TypeError
+
+      119 |         test('throws ReadError for invalid YAML/JSON', async () => {
+      120 |             return expect(loader.loadSpec(samplesDir + 'not-openapi.txt'))
+    > 121 |                 .rejects.toBeInstanceOf(loader.ReadError);
+          |                          ^
+      122 |         });
+      123 |     });
+      124 | });
+
+      at Object.toBeInstanceOf (node_modules/expect/build/index.js:242:20)
+      at Object.toBeInstanceOf (test/lib/loader.test.js:121:26)
+
+PASS test/integration/lint.test.js
+  ● Console
+
+    console.log node_modules/jest-mock/build/index.js:860
+      [32mSpecification is valid, with 0 lint errors[0m
+    console.error node_modules/jest-mock/build/index.js:860
+      [31mSpecification schema is invalid.[0m
+    console.error node_modules/jest-mock/build/index.js:860
+      
+      [33m#/info/contact
+      [0minfo object cannot have additionalProperty: namex
+    console.error node_modules/jest-mock/build/index.js:860
+      [31mSpecification schema is invalid.[0m
+    console.error node_modules/jest-mock/build/index.js:860
+      
+      [33m#/paths/~1pet/post/requestBody/%24ref
+      [0mCannot resolve reference: #/components/requestBodies/Pet
+    console.error node_modules/jest-mock/build/index.js:860
+      [31mSpecification contains lint errors: 1[0m
+    console.warn node_modules/jest-mock/build/index.js:860
+      
+      [33m#/info [36m R: info-contact [37m D: info object should contain contact object
+      [0mexpected Object { version: '1.0.0', title: 'Swagger 2.0 Without Scheme' } to have property contact
+      
+      More information: https://speccy.io/rules/1-rulesets#info-contact
+      
+    console.error node_modules/jest-mock/build/index.js:860
+      [31mSpecification schema is invalid.[0m
+    console.error node_modules/jest-mock/build/index.js:860
+      
+      [33m#/
+      [0mexpected null to be an object
+          expected null not to be null (false negative fail)
+    console.error node_modules/jest-mock/build/index.js:860
+      [31mSpecification schema is invalid.[0m
+    console.error node_modules/jest-mock/build/index.js:860
+      
+      [33m#/info/contact
+      [0minfo object cannot have additionalProperty: namex
+    console.log node_modules/jest-mock/build/index.js:860
+      [32mSpecification is valid, with 0 lint errors[0m
+
+------------|----------|----------|----------|----------|-------------------|
+File        |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+------------|----------|----------|----------|----------|-------------------|
+All files   |    88.44 |       75 |    95.65 |    89.72 |                   |
+ w          |    90.32 |    61.54 |      100 |    90.32 |                   |
+  lint.js   |    90.32 |    61.54 |      100 |    90.32 |32,33,36,44,97,125 |
+ w/lib      |    87.73 |    78.72 |    94.59 |    89.47 |                   |
+  config.js |    91.67 |    92.86 |      100 |    91.67 |             46,55 |
+  loader.js |    82.69 |    65.31 |     91.3 |    85.57 |... 3,94,96,98,133 |
+  rules.js  |      100 |    94.12 |      100 |      100 |                30 |
+  server.js |      100 |      100 |      100 |      100 |                   |
+------------|----------|----------|----------|----------|-------------------|
+
+Test Suites: 1 failed, 4 passed, 5 total
+Tests:       2 failed, 35 passed, 37 total
+Snapshots:   0 total
+Time:        1.481s
+Ran all test suites.
+STATE-NEW rc=1

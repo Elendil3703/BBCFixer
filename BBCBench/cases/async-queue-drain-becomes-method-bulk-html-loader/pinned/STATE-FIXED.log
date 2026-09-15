@@ -1,0 +1,24 @@
+
+> bulk-html-loader@1.0.23 test
+> mocha
+
+
+
+  HtmlLoader
+    ✔ should instantiate a new BulkHtmlLoader instance
+    ✔ should instantiate a new LoaderItem instance
+    ✔ should create a loaderItem using static method BulkHtmlLoader.getLoaderItem()
+(node:19) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+(Use `node --trace-deprecation ...` to show where the warning was created)
+    ✔ should load 3 urls successfully (60ms)
+    ✔ should produce two successful and one failed load
+    ✔ should invoke onItemLoadComplete callback three times
+    ✔ should produce 3 warnings
+    ✔ should invoke callbacks for onError, onWarning and onItemLoadComplete
+    ✔ should support method chaining
+    ✔ should change events.EventEmitter.defaultMaxListeners
+
+
+  10 passing (112ms)
+
+STATE-FIXED rc=0

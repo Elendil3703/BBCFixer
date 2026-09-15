@@ -1,0 +1,5 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	svgo	44	Stack frames genuinely pass through node_modules/svgo/lib/, and svgo itself prints the type error and the plugin configuration warning; this is recorded in error_neq_fix in meta.json as the reason this case has low localisation difficulty, an inherent property of the case.

@@ -1,0 +1,51 @@
+{
+  "id": "bluebird-promisifyall-multiargs-wary",
+  "name": "bluebird-promisifyall-multiargs-wary",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "balena-io-modules/wary",
+    "url": "https://github.com/balena-io-modules/wary",
+    "commit": "17353a4daa24a22dc05f53bc30cec509b856d5ee"
+  },
+  "lib": "bluebird",
+  "v_old": "2.11.0",
+  "v_new": "3.7.2",
+  "library_repo": "https://github.com/petkaantonov/bluebird",
+  "library_tags": {
+    "old": "v2.11.0",
+    "new": "v3.7.2"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "bluebird.promisifyAll",
+  "root_symbols": [
+    "nodebackForPromise",
+    "promisify",
+    "promisifyAll",
+    "makeNodePromisifiedEval",
+    "makeNodePromisifiedClosure"
+  ],
+  "behavioral_change": "In bluebird v_new (3.0.0), `Promise.promisify` and `Promise.promisifyAll` by default resolve the promise with only the first success value passed to the node-style callback, whereas v_old (2.x) collected multiple success values into an array. The call form is unchanged and no exception is raised by the library itself; the old array behaviour is restored with the new `multiArgs: true` option.",
+  "downstream_effect": "wary's lib/temporal.coffee promisifies the `tmp` module and consumes `tmp.fileAsync().spread (temporalPath) ->`; after the upgrade the promise resolves to the path string, `.spread` iterates it character by character, `temporalPath` becomes `/`, and `fs.copySync` fails with `EISDIR` and `EACCES`. The output never mentions bluebird options, promisify or multiArgs; stack frames do name lib/temporal.coffee:54 (the `fs.copySync` call), which is the right file but a different line from the `promisifyAll` call on line 27 that must be edited.",
+  "reference_fix": "The reference fix changes one line in lib/temporal.coffee, adding `multiArgs: true` to the `Promise.promisifyAll(require('tmp'))` call on line 27.",
+  "documented_in": "bluebird's \"New in bluebird 3.0\" document (docs/docs/new-in-bluebird-3.md, tag v3.7.2), section Promisification API changes, states in prose that promisification now uses only the first callback argument and that a new boolean option `multiArgs` restores the array behaviour. The document gives only prose for this change and no code showing `Promise.promisifyAll(fn, {multiArgs: true})`.",
+  "failing_tests": [
+    "Temporal: .fromFile() given a file should create a temporal file",
+    "Temporal: .fromFile() given a file should be a copy of the file",
+    "Temporal: .fromFile() given a directory should create a temporal directory",
+    "Temporal: .fromFile() given a directory should be a copy of the directory",
+    "Unit: .run() given promised actions given a temporal file \"before each\" hook",
+    "Unit: .run() given promised actions given a temporal file \"after each\" hook",
+    "Unit: .run() given promised actions given multiple temporal files \"before each\" hook",
+    "Unit: .run() given promised actions given multiple temporal files \"after each\" hook"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:8",
+    "node_major": 8,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "balena-io-modules/wary",
+  "commit": "17353a4daa24a22dc05f53bc30cec509b856d5ee"
+}

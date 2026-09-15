@@ -1,0 +1,5 @@
+changed packages (1): async
+  OK new async@2.6.0 at grunt-browserify/node_modules/async
+  OK new async@3.2.6 at async
+  OK old async@2.6.0 at async
+TREECHECK_OK: every change is inside the allowed closure (1 allowed names)

@@ -1,0 +1,55 @@
+
+> html-to-json@0.6.0 test
+> node_modules/.bin/jshint ./lib/* ./test/*; node_modules/.bin/mocha
+
+sh: 1: node_modules/.bin/jshint: not found
+
+
+(node:2840116) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+  Parser
+    provides helper methods
+      #parse
+        ✓ runs htmlToJson.parse against the stored filter
+      #method
+        ✓ returns a wrapper method for .parse
+      #request
+        ✓ runs htmlToJson.request against the stored filter
+
+  htmlToJson.batch
+    ✓ should apply naked filters to HTML
+    ✓ should apply Parser objects to HTML generated from .createParser
+    ✓ should apply filter methods to HTML generated from .createMethod
+
+  htmlToJson.createMethod()
+    ✓ returns a method that curries the filter argument in htmlToJson.parse
+
+  htmlToJson.parse
+    ✓ takes a callback
+    ✓ returns a promise
+    function filter
+      ✓ assigns the return of the function to the result value
+      ✓ assigns the resolved value as the result value if a promise is returned
+      ✓ exposes cheerio objects to parse data from
+    constant filter
+      ✓ assigns the filter as the result value
+    object filter
+      ✓ iterates through each key and recursively uses the values as filters
+      $container modifier
+        ✓ sets the DOM context to elements matched by $container selector
+    filter context methods
+      .get(property)
+        ✓ returns a promise that is resolved whenever the given property is resolved
+      .map(selector, filter)
+        ✓ returns an array of results from applying the filter to each selected element
+    array filter
+      ✓ acts as a shorthand to applying the .map() method within a function filter
+      ✓ allows passing a 3rd argument in the array, which is applied as a filter post parsing
+
+  htmlToJson.request
+    ✓ should take request library options and a filter, then return parsed results based on the response body
+
+
+  20 passing (33ms)
+
+STATE-OLD rc=0

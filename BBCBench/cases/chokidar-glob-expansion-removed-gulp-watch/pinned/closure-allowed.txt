@@ -1,0 +1,15 @@
+anymatch
+binary-extensions
+braces
+chokidar
+fill-range
+fsevents
+glob-parent
+is-binary-path
+is-extglob
+is-glob
+is-number
+normalize-path
+picomatch
+readdirp
+to-regex-range

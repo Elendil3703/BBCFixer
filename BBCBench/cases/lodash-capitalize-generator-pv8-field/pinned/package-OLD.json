@@ -1,0 +1,32 @@
+{
+  "name": "generator-pv8-field",
+  "version": "1.3.0",
+  "description": "Yeoman generator for a PV8 field",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "mauricedb/generator-pv8-field",
+  "author": {
+    "name": "Maurice",
+    "email": "",
+    "url": "https://github.com/mauricedb"
+  },
+  "scripts": {
+    "test": "mocha",
+    "test-watch": "mocha --watch"
+  },
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "lodash": "^3.10.1",
+    "yeoman-generator": "^0.19.0",
+    "yosay": "^1.0.2"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}

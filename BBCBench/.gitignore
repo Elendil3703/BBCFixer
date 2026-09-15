@@ -1,0 +1,4 @@
+# intact source snapshots of the image cases are distributed as a release asset (see README)
+cases/*/intact/
+# work files of the harness
+.scratch/

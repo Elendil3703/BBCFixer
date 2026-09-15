@@ -1,0 +1,12 @@
+
+> resin-request@4.0.6 test /w
+> gulp test
+
+[04:11:50] Requiring external module coffee-script/register
+[04:11:50] Using gulpfile /w/gulpfile.coffee
+[04:11:50] Starting 'test'...
+[2J[1;3H
+[92m [0m[32m 58 passing[0m[90m (567ms)[0m
+
+[04:11:53] Finished 'test' after 2.33 s
+STATE-FIXED rc=0

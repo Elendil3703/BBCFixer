@@ -1,0 +1,42 @@
+{
+  "id": "bluebird-promisify-context-async-rtree",
+  "name": "bluebird-promisify-context-async-rtree",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "calvinmetcalf/async-rtree",
+    "url": "https://github.com/calvinmetcalf/async-rtree",
+    "commit": "69294a8e95f5d228cda709fb9091b058bc702c18"
+  },
+  "lib": "bluebird",
+  "v_old": "2.11.0",
+  "v_new": "3.7.2",
+  "library_repo": "https://github.com/petkaantonov/bluebird",
+  "library_tags": {
+    "old": "v2.11.0",
+    "new": "v3.7.2"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "Promise.promisify",
+  "root_symbols": [
+    "Promise.promisify",
+    "promisify",
+    "makeNodePromisified"
+  ],
+  "behavioral_change": "In bluebird v_new (3.0.0), the second argument of `Promise.promisify` changed from the `this` context of the wrapped function to an options object, so the context must be passed as `{context: ctx}`. The call form is unchanged and no exception or warning is raised; an object passed in the old position is parsed as options without a `context` field, so the `this` binding is silently lost.",
+  "downstream_effect": "async-rtree's lib/index.js wraps the store's get/put/del/batch methods with `Promise.promisify(store[key], store)` to keep `this`; after the upgrade `this` is `undefined`, `MemStore.put` in lib/memmap.js throws `Cannot set property of undefined` inside the promise chain, and tape reports ten `test exited without ending` failures preceded by one unhandled rejection. The stack top is lib/memmap.js:29 where the symptom occurs, not lib/index.js:17 where the fix goes; frames mentioning bluebird's promisify.js hint at the library but not at the changed argument meaning.",
+  "reference_fix": "The reference fix changes one line in lib/index.js, replacing the second argument of `Promise.promisify` from `store` to `{context: store}`.",
+  "documented_in": "bluebird's \"New in bluebird 3.0\" document (docs/docs/new-in-bluebird-3.md, tag v3.7.2), section Promisification API changes, announces the change and immediately shows a code block contrasting `Promise.promisify(fn, ctx)` (2.x) with `Promise.promisify(fn, {context: ctx})` (3.0); the reference fix matches this code block.",
+  "failing_tests": [
+    "test.js :: large query (tape reports 'test exited without ending' for all ten tests, numbered 1 to 10)"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:8",
+    "node_major": 8,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "calvinmetcalf/async-rtree",
+  "commit": "69294a8e95f5d228cda709fb9091b058bc702c18"
+}

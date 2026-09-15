@@ -1,0 +1,98 @@
+diff --git a/index.js b/index.js
+index ca30ab7..6cee00e 100644
+--- a/index.js
++++ b/index.js
+@@ -61,6 +61,63 @@ function watch(globs, options, cb) {
+ 
+ 	globs = globs.map(glob => resolveGlob(glob));
+ 
++	// The chokidar 4 release dropped glob expansion: a pattern handed to `chokidar.watch`
++	// is taken as a literal path, matches nothing and never emits an event. Following
++	// the chokidar v4 README ("Upgrading"), watch the non-glob base of every
++	// pattern instead and decide per file through the `ignored` predicate.
++	function watchRoots(list) {
++		const roots = [];
++
++		list.forEach(glob => {
++			if (glob[0] === '!') {
++				return;
++			}
++
++			const root = globParent(glob);
++
++			if (!roots.includes(root)) {
++				roots.push(root);
++			}
++		});
++
++		return roots;
++	}
++
++	function matchingGlob(filepath) {
++		let glob;
++		let currentFilepath = filepath;
++		while (!(glob = globs[anymatch(globs, currentFilepath, true)]) && currentFilepath !== (currentFilepath = path.dirname(currentFilepath))) {} // eslint-disable-line no-empty
++
++		return glob;
++	}
++
++	const userIgnored = options.ignored;
++
++	function isIgnored(filepath, stats) {
++		// Never prune a directory: that would hide every file below it.
++		if (!stats || !stats.isFile()) {
++			return false;
++		}
++
++		const resolved = resolveFilepath(filepath);
++
++		if (userIgnored && anymatch(userIgnored, resolved)) {
++			return true;
++		}
++
++		const negated = globs
++			.filter(glob => glob[0] === '!')
++			.map(glob => glob.slice(1));
++
++		if (negated.length > 0 && anymatch(negated, resolved)) {
++			return true;
++		}
++
++		const glob = matchingGlob(resolved);
++
++		return !glob || glob[0] === '!';
++	}
++
+ 	const baseForced = Boolean(options.base);
+ 	const outputStream = new Duplex({objectMode: true, allowHalfOpen: true});
+ 
+@@ -72,7 +129,7 @@ function watch(globs, options, cb) {
+ 
+ 	outputStream._read = function () { };
+ 
+-	const watcher = chokidar.watch(globs, options);
++	const watcher = chokidar.watch(watchRoots(globs), assign({}, options, {ignored: isIgnored}));
+ 
+ 	options.events.forEach(ev => {
+ 		watcher.on(ev, processEvent.bind(undefined, ev));
+@@ -86,8 +143,8 @@ function watch(globs, options, cb) {
+ 	outputStream.add = function (newGlobs) {
+ 		newGlobs = normalizeGlobs(newGlobs)
+ 			.map(glob => resolveGlob(glob));
+-		watcher.add(newGlobs);
+ 		globs.push(...newGlobs);
++		watcher.add(watchRoots(newGlobs));
+ 	};
+ 
+ 	outputStream.unwatch = watcher.unwatch.bind(watcher);
+@@ -100,9 +157,7 @@ function watch(globs, options, cb) {
+ 		filepath = resolveFilepath(filepath);
+ 		const fileOptions = assign({}, options);
+ 
+-		let glob;
+-		let currentFilepath = filepath;
+-		while (!(glob = globs[anymatch(globs, currentFilepath, true)]) && currentFilepath !== (currentFilepath = path.dirname(currentFilepath))) {} // eslint-disable-line no-empty
++		const glob = matchingGlob(filepath);
+ 
+ 		if (!glob) {
+ 			fancyLog.info(

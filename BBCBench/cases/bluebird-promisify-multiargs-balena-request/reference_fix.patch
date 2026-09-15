@@ -1,0 +1,13 @@
+diff --git a/lib/request.coffee b/lib/request.coffee
+index eecd76a..a3bae53 100644
+--- a/lib/request.coffee
++++ b/lib/request.coffee
+@@ -20,7 +20,7 @@ limitations under the License.
+ 
+ Promise = require('bluebird')
+ request = require('request')
+-requestAsync = Promise.promisify(request)
++requestAsync = Promise.promisify(request, multiArgs: true)
+ url = require('url')
+ _ = require('lodash')
+ rindle = require('rindle')

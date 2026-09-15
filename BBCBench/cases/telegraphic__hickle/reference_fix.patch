@@ -1,0 +1,340 @@
+diff --git hickle/helpers.py hickle/helpers.py
+index 41e50ae..38baebc 100644
+--- hickle/helpers.py
++++ hickle/helpers.py
+@@ -365,3 +365,17 @@ def not_dumpable( py_obj, h_group, name, **kwargs): # pragma: nocover
+ #     raise FileError(
+ #         "'file_obj' must be a valid path string, pahtlib.Path, h5py.File, h5py.Group, h5py.Dataset, file  or file like object'"
+ #     )
++
++if h5.version.version_tuple[0] >= 3: # pragma: nocover
++    load_str_list_attr_ascii = load_str_list_attr = h5.AttributeManager.get
++    load_str_attr_ascii = load_str_list_attr = h5.AttributeManager.get
++else: # pragma: nocover
++    def load_str_list_attr_ascii(attrs,name):
++        return [ value.decode('ascii') for value in attrs[name]]
++    def load_str_list_attr(attrs,name):
++        return [ value.decode('utf8') for value in attrs[name]]
++    def load_str_attr_ascii(attrs,name):
++        return attrs[name].decode('ascii')
++    def load_str_attr(attrs,name):
++        return attrs[name].decode('utf8')
++
+diff --git hickle/hickle.py hickle/hickle.py
+index b3ee4f9..6cf68df 100644
+--- hickle/hickle.py
++++ hickle/hickle.py
+@@ -318,7 +318,7 @@ def load(file_obj, path='/', safe=True, filename = None):
+         # Check if the proper attributes for v3 loading are available
+         if all(map(h5f.attrs.get, v3_attrs)):
+             # Check if group attribute 'CLASS' has value 'hickle
+-            if(h5f.attrs['CLASS'] != b'hickle'):  # pragma: no cover
++            if(h5f.attrs['CLASS'] not in ( b'hickle','hickle')):  # pragma: no cover
+                 # If not, raise error
+                 raise AttributeError("HDF5-file attribute 'CLASS' does not "
+                                      "have value 'hickle'!")
+diff --git hickle/legacy_v3/loaders/load_python3.py hickle/legacy_v3/loaders/load_python3.py
+index 70e87fb..9ec82bc 100644
+--- hickle/legacy_v3/loaders/load_python3.py
++++ hickle/legacy_v3/loaders/load_python3.py
+@@ -164,7 +164,11 @@ def load_python_dtype_dataset(h_node):
+         b"<class 'int'>": int,
+         b"<class 'float'>": float,
+         b"<class 'bool'>": bool,
+-        b"<class 'complex'>": complex
++        b"<class 'complex'>": complex,
++        "<class 'int'>": int,
++        "<class 'float'>": float,
++        "<class 'bool'>": bool,
++        "<class 'complex'>": complex
+     }
+ 
+     tcast = type_dict.get(subtype)
+diff --git hickle/loaders/load_astropy.py hickle/loaders/load_astropy.py
+index a924391..a3462f1 100644
+--- hickle/loaders/load_astropy.py
++++ hickle/loaders/load_astropy.py
+@@ -8,7 +8,7 @@ from astropy.units import Quantity
+ import numpy as np
+ 
+ # hickle imports
+-from hickle.helpers import no_compression
++from hickle.helpers import no_compression,load_str_list_attr_ascii,load_str_attr_ascii
+ 
+ 
+ # %% FUNCTION DEFINITIONS
+@@ -92,7 +92,7 @@ def create_astropy_time(py_obj, h_group, name, **kwargs):
+     if 'str' in py_obj.value.dtype.name:
+         d = h_group.create_dataset(
+             name,
+-            data = [item.encode('ascii') for item in py_obj.value ],
++            data = np.array([item.encode('ascii') for item in py_obj.value ]),
+             **kwargs
+         )
+     else:
+@@ -157,7 +157,7 @@ def load_astropy_quantity_dataset(h_node,base_type,py_obj_type):
+     """
+     loads astropy unit
+     """
+-    unit = h_node.attrs["unit"].decode('ascii')
++    unit = h_node.attrs["unit"]
+     return py_obj_type(h_node[()], unit)
+ 
+ 
+@@ -165,8 +165,8 @@ def load_astropy_time_dataset(h_node,base_type,py_obj_type):
+     """
+     loads astropy time
+     """
+-    fmt = h_node.attrs["format"].decode('ascii')
+-    scale = h_node.attrs["scale"].decode('ascii')
++    fmt = load_str_attr_ascii(h_node.attrs,"format")
++    scale = load_str_attr_ascii(h_node.attrs,"scale")
+     dtype = h_node.attrs.get('np_dtype','')
+     if dtype:
+         dtype = np.dtype(dtype)
+@@ -190,8 +190,8 @@ def load_astropy_skycoord_dataset(h_node,base_type,py_obj_type):
+     loads astropy SkyCoord
+     """
+     data = h_node[()]
+-    lon_unit = h_node.attrs["lon_unit"].decode('ascii')
+-    lat_unit = h_node.attrs["lat_unit"].decode('ascii')
++    lon_unit = load_str_attr_ascii(h_node.attrs,"lon_unit")
++    lat_unit = load_str_attr_ascii(h_node.attrs,"lat_unit")
+     q = py_obj_type(data[..., 0], data[..., 1], unit=(lon_unit, lat_unit))
+     return q
+ 
+@@ -219,7 +219,7 @@ def load_astropy_table(h_node,base_type,py_obj_type):
+     loads astropy table
+     """
+ 
+-    colnames = [cn.decode('ascii') for cn in h_node.attrs["colnames"]]
++    colnames = load_str_list_attr_ascii(h_node.attrs,"colnames")
+ 
+     t = py_obj_type(
+         h_node[()],
+diff --git hickle/loaders/load_numpy.py hickle/loaders/load_numpy.py
+index fb06fa0..f131dce 100644
+--- hickle/loaders/load_numpy.py
++++ hickle/loaders/load_numpy.py
+@@ -132,7 +132,7 @@ def load_np_scalar_dataset(h_node,base_type,py_obj_type):
+     restores scalar value from dataset
+     """
+ 
+-    dtype = np.dtype(h_node.attrs["np_dtype"].decode("ascii"))
++    dtype = np.dtype(h_node.attrs["np_dtype"])
+     return dtype.type(h_node[()])
+ 
+ 
+@@ -140,7 +140,7 @@ def load_ndarray_dataset(h_node,base_type,py_obj_type):
+     """
+     restores ndarray like object from dataset
+     """
+-    dtype = np.dtype(h_node.attrs['np_dtype'].decode('ascii'))
++    dtype = np.dtype(h_node.attrs['np_dtype'])
+     if "str" in dtype.name:
+         string_data = h_node[()]
+         if h_node.dtype.itemsize <= 1 or 'bytes' not in h_node.dtype.name:
+@@ -191,7 +191,7 @@ class NDArrayLikeContainer(ListLikeContainer):
+             super(NDArrayLikeContainer,self).append(name,item,h5_attrs)
+     
+     def convert(self):
+-        data = np.array(self._content,dtype = self._h5_attrs['np_dtype'].decode('ascii'))
++        data = np.array(self._content,dtype = self._h5_attrs['np_dtype'])
+         return data if data.__class__ is self.object_type or isinstance(self.object_type,types.LambdaType) else self.object_type(data)
+ 
+ class NDMaskedArrayContainer(PyContainer):
+@@ -207,7 +207,7 @@ class NDMaskedArrayContainer(PyContainer):
+         self._content[name] = item
+ 
+     def convert(self):
+-        dtype = self._h5_attrs['np_dtype'].decode('ascii')
++        dtype = self._h5_attrs['np_dtype']
+         data = np.ma.array(self._content['data'], mask=self._content['mask'], dtype=dtype)
+         return data if data.__class__ is self.object_type or isinstance(self.object_type,types.LambdaType) else self.object_type(data)
+ 
+diff --git hickle/loaders/load_builtins.py hickle/loaders/load_builtins.py
+index fc9fc73..0f505ea 100644
+--- hickle/loaders/load_builtins.py
++++ hickle/loaders/load_builtins.py
+@@ -34,6 +34,11 @@ dict_key_types_dict = {
+     b'int': int,
+     b'complex': complex,
+     b'NoneType': eval,
++    'float': float,
++    'bool': bool,
++    'int': int,
++    'complex': complex,
++    'NoneType': eval,
+ }
+ 
+ # %% FUNCTION DEFINITIONS
+@@ -273,7 +278,7 @@ def load_list_dataset(h_node,base_type,py_obj_type):
+         return py_obj_type() if isinstance(py_obj_type,tuple) else py_obj_type(())
+     str_type = h_node.attrs.get('str_type', None)
+     content = h_node[()]
+-    if str_type == b'str':
++    if str_type in (b'str','str'):
+         # decode bytes representing python string before final conversion
+         if h_node.dtype.itemsize > 1 and 'bytes' in h_node.dtype.name:
+             # string dataset 4.0.x style convert it back to python string
+@@ -283,6 +288,15 @@ def load_list_dataset(h_node,base_type,py_obj_type):
+             content = bytes(content).decode("utf8")
+     return py_obj_type(content) if content.__class__ is not py_obj_type else content
+ 
++def load_hickle_4_0_x_string(h_node,base_type,py_obj_type):
++    if not 'object' in h_node.dtype.name or h_node.attrs.get('str_type',None) is not None:
++        return load_list_dataset(h_node,base_type,py_obj_type)
++    content = h_node[()]
++    if py_obj_type is str:
++        return content if isinstance(content,str) else content.decode('utf8')
++    return py_obj_type(content) if content.__class__ is not py_obj_type else content
++        
++
+ class ListLikeContainer(PyContainer):
+     """
+     PyContainer for all list like objects excempt set
+@@ -351,20 +365,20 @@ class DictLikeContainer(PyContainer):
+ 
+     def append(self,name,item,h5_attrs):
+         key_base_type = h5_attrs.get('key_base_type',b'')
+-        if key_base_type == b'str':
++        if key_base_type in ( b'str','str'):
+             item = (
+                 name[1:-1] if name[0] == '"' else self._swap_key_slashes.sub(r'/',name)[1:-1],
+                 item
+             )
+-        elif key_base_type == b'bytes':
++        elif key_base_type in (b'bytes','bytes'):
+             item = (
+                 name[2:-1].encode("utf8") if name[:2] == 'b"' else self._swap_key_slashes.sub(r'/',name)[1:-1],
+                 item
+             )
+-        elif not key_base_type == b'key_value':
++        elif not key_base_type in (b'key_value','key_value'):
+             load_key  = dict_key_types_dict.get(key_base_type,None)
+             if load_key is None:
+-                if key_base_type not in {b'tuple'}:
++                if key_base_type not in {b'tuple','tuple'}:
+                     raise ValueError("key type '{}' not understood".format(key_base_type.decode("utf8")))
+                 load_key = eval
+             item = (
+@@ -396,6 +410,7 @@ class_register = [
+     [set, b"set", create_setlike_dataset, load_list_dataset,SetLikeContainer],
+     [bytes, b"bytes", create_listlike_dataset, load_list_dataset],
+     [str, b"str", create_listlike_dataset, load_list_dataset],
++    [str, b"str", None, load_hickle_4_0_x_string,None,True,'hickle-4.0'],
+     [int, b"int", create_scalar_dataset, load_scalar_dataset, None, False],
+     [float, b"float", create_scalar_dataset, load_scalar_dataset, None, False],
+     [complex, b"complex", create_scalar_dataset, load_scalar_dataset, None, False],
+diff --git hickle/lookup.py hickle/lookup.py
+index 05006d6..36aabfb 100644
+--- hickle/lookup.py
++++ hickle/lookup.py
+@@ -67,16 +67,16 @@ from .loaders import optional_loaders, attribute_prefix
+ 
+ # %% GLOBALS
+ # Define dict of all acceptable types
+-types_dict = {}
+-
+-# Define dict of all acceptable hickle types
+-hkl_types_dict = {}
+-
+-# Define dict of all acceptable hickle container types
+-hkl_container_dict = {}
+-
+-# Empty list (hashable) of loaded loader names
+-loaded_loaders = set()
++#rem types_dict = {}
++#rem 
++#rem # Define dict of all acceptable hickle types
++#rem hkl_types_dict = {}
++#rem 
++#rem # Define dict of all acceptable hickle container types
++#rem hkl_container_dict = {}
++#rem 
++#rem # Empty list (hashable) of loaded loader names
++#rem loaded_loaders = set()
+ 
+ # %% FUNCTION DEFINITIONS
+ 
+@@ -98,8 +98,8 @@ def dump_nothing(py_obj, h_group, name, **kwargs): # pragma: nocover
+ # h5py >= 2.10 provides already a ref_dtype where metadata is already properly
+ # set. Both ways to define ref_dtype are equivalent for h5py >= 2.10
+ # for any other mimick definiton for ref_dtype of h5py >= 2.10
+-h5_version = [int(v) for v in h5.__version__.split('.')]
+-if h5_version[0] > 2 or ( h5_version[0] == 2 and h5_version[1] >= 10 ):
++#h5_version = [int(v) for v in h5.__version__.split('.')]
++if h5.version.version_tuple[0] > 2 or ( h5.version.version_tuple[0] == 2 and h5.version.version_tuple[1] >= 10 ):
+     link_dtype = h5.ref_dtype
+ else: # pragma: nocover
+     link_dtype = np.dtype('O',metadata = {'ref':h5.Reference})
+@@ -333,7 +333,11 @@ class ReferenceManager(BaseManager,dict):
+         if isinstance(entry_ref,h5.Reference):
+             # return the grand parent of the reffered to py_obj_type dataset as it
+             # ist also the h_root_group of h_node
+-            entry = h_node.file.get(entry_ref,None)
++            try:
++                entry = h_node.file.get(entry_ref,None)
++            except ValueError: # pragma: nocover
++                # h5py >= 3 would return anonymous dataset instead
++                entry = None
+             if entry is not None:
+                 return entry.parent.parent
+         if h_node.parent == h_node.file:
+@@ -352,7 +356,7 @@ class ReferenceManager(BaseManager,dict):
+             return h_node.file
+         try:
+             entry = h_node.file.get(entry_ref,None)
+-        except ValueError:
++        except ValueError: # pragma: nocover
+             entry = None
+         if entry is None:
+             # 'type' reference seemst to be stale
+@@ -469,7 +473,9 @@ class ReferenceManager(BaseManager,dict):
+                 raise ReferenceError("inconsistent 'hickle_types_table' entryies for py_obj_type '{}': no base_type".format(py_obj_type))
+             try:
+                 base_type_entry = entry.file.get(base_type_ref,None)
+-            except ValueError:
++            except ValueError: # pragma: nocover
++                base_type_entry = None
++            if base_type_entry is None:
+                 raise ReferenceError("inconsistent 'hickle_types_table' entryies for py_obj_type '{}': stale base_type".format(py_obj_type))
+             base_type = self._base_type_link.get(base_type_entry.id,None)
+             if base_type is None:
+@@ -849,10 +855,14 @@ class LoaderManager(BaseManager):
+                 cls.__py_types__[option][myclass_type] = ( dump_function, hkl_str,memoise)
+             if load_function is not None:
+                 cls.__hkl_functions__[option][hkl_str] = load_function
++                cls.__hkl_functions__[option][hkl_str.decode('ascii')] = load_function
+             if container_class is not None:
+                 cls.__hkl_container__[option][hkl_str] = container_class
++                cls.__hkl_container__[option][hkl_str.decode('ascii')] = container_class
+         except KeyError:
+             raise LookupError("Invalid option '{}' encountered".format(option))
++        
++            
+ 
+ 
+     @classmethod
+@@ -886,6 +896,8 @@ class LoaderManager(BaseManager):
+         try:
+             cls.__hkl_functions__[option][hkl_str_to_ignore] = load_nothing
+             cls.__hkl_container__[option][hkl_str_to_ignore] = NoContainer
++            cls.__hkl_functions__[option][hkl_str_to_ignore.decode('ascii')] = load_nothing
++            cls.__hkl_container__[option][hkl_str_to_ignore.decode('ascii')] = NoContainer
+         except KeyError:
+             raise LookupError("'{}' option unknown".format(option))
+ 
+@@ -1250,8 +1262,10 @@ class ExpandReferenceContainer(PyContainer):
+         restored from file. 
+         """
+         try:
+-            referred_node = h_parent.file[h_parent[()]]
+-        except ( ValueError, KeyError ):
++            referred_node = h_parent.file.get(h_parent[()],None)
++        except ( ValueError, KeyError ): # pragma nocover
++            referred_node = None
++        if referred_node is None:
+             raise ReferenceError("node '{}' stale node reference".format(h_parent.name))
+         yield referred_node.name.rsplit('/',1)[-1], referred_node
+ 

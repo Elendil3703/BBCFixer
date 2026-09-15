@@ -1,0 +1,44 @@
+{
+  "id": "body-parser-req-body-no-longer-initialized-body-parser-xml",
+  "name": "body-parser-req-body-no-longer-initialized-body-parser-xml",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "fiznool/body-parser-xml",
+    "url": "https://github.com/fiznool/body-parser-xml",
+    "commit": "fed5c1849979d9c8695f24971c2a6f0f8dd3b885"
+  },
+  "lib": "body-parser",
+  "v_old": "1.20.2",
+  "v_new": "2.3.0",
+  "library_repo": "https://github.com/expressjs/body-parser",
+  "library_tags": {
+    "old": "1.20.2",
+    "new": "v2.3.0"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "bodyParser.text",
+  "root_symbols": [
+    "read",
+    "textParser",
+    "jsonParser",
+    "rawParser",
+    "urlencodedParser"
+  ],
+  "behavioral_change": "In body-parser v_old (1.20.2) every parser middleware executed `req.body = req.body || {}` before deciding whether to read the request body, so `req.body` was always an object even when parsing was skipped. From v_new (2.0.0) this default initialisation was removed; in 2.3.0 lib/read.js sets `req.body = undefined` when absent and calls `next()` directly when there is no body or the type does not match, leaving `req.body` undefined.",
+  "downstream_effect": "body-parser-xml's index.js runs `bodyParser.text(options)` first and passes the request on when `typeof req.body !== 'string'`; after the upgrade `req.body` is `undefined` instead of `{}` on that path, JSON serialisation drops the key, and the test fails with `expected { parsed: {} } response body, got {}`. The stack frame points only at test.js:112 and supertest internals; nothing in the output mentions index.js, req.body, undefined, or the body-parser library.",
+  "reference_fix": "The reference fix adds one line to index.js, restoring `req.body = req.body || {}` in the pass-through branch before `return next()`.",
+  "documented_in": "body-parser's HISTORY.md at https://github.com/expressjs/body-parser/blob/v2.3.0/HISTORY.md, 2.0.0 Breaking Changes, states that `req.body` is no longer always initialized to `{}` and is left `undefined` unless a body is parsed. The documentation gives only prose and no adaptation code; the reference fix's form is taken from body-parser 1.20.2's own lib/types/text.js, not from any official guidance.",
+  "failing_tests": [
+    "test.js :: XML Body Parser › should ignore non-XML"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "fiznool/body-parser-xml",
+  "commit": "fed5c1849979d9c8695f24971c2a6f0f8dd3b885"
+}

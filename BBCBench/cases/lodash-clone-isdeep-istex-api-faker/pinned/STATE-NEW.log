@@ -1,0 +1,39 @@
+
+> istex-api-faker@1.5.7 test /w
+> ./node_modules/mocha/bin/mocha
+
+
+
+  Istex API faker
+    ✓ should return a html home page
+    1) should return a JSON when /document/?q=* is requested
+    ✓ should return 404 when the requested URL is not in data/
+    2) should ignore _1424268118509 querystring parameters comming from jquery-jsonp
+
+(node:26) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+
+  2 passing (26ms)
+  2 failing
+
+  1) Istex API faker should return a JSON when /document/?q=* is requested:
+     Uncaught AssertionError: expected 404 to equal 200
+      at test/basic.spec.js:24:16
+      at Request.callback (node_modules/superagent/lib/node/index.js:748:3)
+      at Request.<anonymous> (node_modules/superagent/lib/node/index.js:135:10)
+      at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:938:12)
+      at endReadableNT (_stream_readable.js:1145:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
+
+  2) Istex API faker should ignore _1424268118509 querystring parameters comming from jquery-jsonp:
+     Uncaught AssertionError: expected 404 to equal 200
+      at test/basic.spec.js:45:16
+      at Request.callback (node_modules/superagent/lib/node/index.js:748:3)
+      at Request.<anonymous> (node_modules/superagent/lib/node/index.js:135:10)
+      at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:938:12)
+      at endReadableNT (_stream_readable.js:1145:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
+
+
+
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

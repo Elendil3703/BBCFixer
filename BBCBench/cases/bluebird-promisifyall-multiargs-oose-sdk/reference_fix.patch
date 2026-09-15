@@ -1,0 +1,13 @@
+diff --git a/helpers/api.js b/helpers/api.js
+index 2a03244..8601861 100644
+--- a/helpers/api.js
++++ b/helpers/api.js
+@@ -154,7 +154,7 @@ var extendRequest = function(req,type,options){
+   req.url = makeURL(options)
+   req.validateResponse = validateResponse
+   req.handleNetworkError = handleNetworkError
+-  P.promisifyAll(req)
++  P.promisifyAll(req,{multiArgs: true})
+   return req
+ }
+ 

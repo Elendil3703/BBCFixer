@@ -1,0 +1,131 @@
+--- s2/models.py
++++ s2/models.py
+@@ -17,9 +17,9 @@
+             Semantic Scholar URL of the topic page with format
+             https://www.semanticscholar.org/topic/topicId
+     """
+-    topic: Optional[str]
+-    topicId: Optional[str]
+-    url: Optional[str]
++    topic: Optional[str] = None
++    topicId: Optional[str] = None
++    url: Optional[str] = None
+ 
+ 
+ class S2PaperAuthor(BaseModel):
+@@ -39,8 +39,8 @@
+             but easily reconstructed as
+             https://www.semanticscholar.org/author/authorId
+     """
+-    authorId: Optional[str]
+-    name: Optional[str]
++    authorId: Optional[str] = None
++    name: Optional[str] = None
+     url: Optional[str] = None
+ 
+ 
+@@ -72,16 +72,16 @@
+         year: (:obj:`int`, optional):
+             Publication year of the paper
+     """
+-    arxivId: Optional[str]
+-    authors: Optional[List[S2PaperAuthor]]
+-    doi: Optional[str]
+-    intent: Optional[List[str]]
+-    isInfluential: Optional[bool]
+-    paperId: Optional[str]
+-    title: Optional[str]
+-    url: Optional[str]
+-    venue: Optional[str]
+-    year: Optional[int]
++    arxivId: Optional[str] = None
++    authors: Optional[List[S2PaperAuthor]] = None
++    doi: Optional[str] = None
++    intent: Optional[List[str]] = None
++    isInfluential: Optional[bool] = None
++    paperId: Optional[str] = None
++    title: Optional[str] = None
++    url: Optional[str] = None
++    venue: Optional[str] = None
++    year: Optional[int] = None
+ 
+ 
+ class S2Paper(BaseModel):
+@@ -131,25 +131,25 @@
+             UTC datetime when obtained from API (converted to and from
+             ISO 8601 by pydantic in JSON (de)serialization)
+     """
+-    abstract: Optional[str]
+-    arxivId: Optional[str]
+-    authors: Optional[List[S2PaperAuthor]]
+-    citationVelocity: Optional[int]
+-    citations: Optional[List[S2Reference]]
+-    corpusId: Optional[int]
+-    doi: Optional[str]
+-    fieldsOfStudy: Optional[List[str]]
+-    influentialCitationCount: Optional[int]
+-    is_open_access: Optional[bool]
+-    is_publisher_licensed: Optional[bool]
+-    paperId: Optional[str]
+-    references: Optional[List[S2Reference]]
+-    title: Optional[str]
+-    topics: Optional[List[S2Topic]]
+-    url: Optional[str]
+-    venue: Optional[str]
+-    year: Optional[int]
+-    obtained_utc: Optional[datetime]
++    abstract: Optional[str] = None
++    arxivId: Optional[str] = None
++    authors: Optional[List[S2PaperAuthor]] = None
++    citationVelocity: Optional[int] = None
++    citations: Optional[List[S2Reference]] = None
++    corpusId: Optional[int] = None
++    doi: Optional[str] = None
++    fieldsOfStudy: Optional[List[str]] = None
++    influentialCitationCount: Optional[int] = None
++    is_open_access: Optional[bool] = None
++    is_publisher_licensed: Optional[bool] = None
++    paperId: Optional[str] = None
++    references: Optional[List[S2Reference]] = None
++    title: Optional[str] = None
++    topics: Optional[List[S2Topic]] = None
++    url: Optional[str] = None
++    venue: Optional[str] = None
++    year: Optional[int] = None
++    obtained_utc: Optional[datetime] = None
+ 
+ 
+ class S2AuthorPaper(BaseModel):
+@@ -167,10 +167,10 @@
+             Publication year of the paper
+ 
+     """
+-    paperId: Optional[str]
+-    title: Optional[str]
+-    url: Optional[str]
+-    year: Optional[int]
++    paperId: Optional[str] = None
++    title: Optional[str] = None
++    url: Optional[str] = None
++    year: Optional[int] = None
+ 
+ 
+ class S2Author(BaseModel):
+@@ -195,10 +195,10 @@
+             UTC datetime when obtained from API (converted to and from
+             ISO 8601 by pydantic in JSON (de)serialization)
+     """
+-    aliases: Optional[List[str]]
+-    authorId: Optional[str]
+-    influentialCitationCount: Optional[int]
+-    name: Optional[str]
+-    papers: Optional[List[S2AuthorPaper]]
+-    url: Optional[str]
+-    obtained_utc: Optional[datetime]
++    aliases: Optional[List[str]] = None
++    authorId: Optional[str] = None
++    influentialCitationCount: Optional[int] = None
++    name: Optional[str] = None
++    papers: Optional[List[S2AuthorPaper]] = None
++    url: Optional[str] = None
++    obtained_utc: Optional[datetime] = None

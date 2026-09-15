@@ -1,0 +1,72 @@
+diff --git a/urls-to-fake.js b/urls-to-fake.js
+index 7a9a460..0f7f3c9 100644
+--- a/urls-to-fake.js
++++ b/urls-to-fake.js
+@@ -13,54 +13,54 @@ urlTmp = {
+   pathname: '/corpus/',
+   query: { }
+ };
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ urlTmp.query.callback = '_jqjsp';
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ 
+ // /document/?q=*
+ urlTmp = {
+   pathname: '/document/',
+   query: { q: '*' }
+ };
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ urlTmp.query.callback = '_jqjsp';
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ 
+ // /document/?q=*&output=*
+ urlTmp = {
+   pathname: '/document/',
+   query: { q: '*', output: '*' }
+ };
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ urlTmp.query.callback = '_jqjsp';
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ 
+ // /document/?q=brain&output=*&size=10&from=0&stats=1
+ urlTmp = {
+   pathname: '/document/',
+   query: { q: 'brain', output: '*', size: '10', from: '0', stats: '1' }
+ };
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ urlTmp.query.callback = '_jqjsp';
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ 
+ // /document/?q=brain&output=*&size=10&from=0&stats=1
+ urlTmp = {
+   pathname: '/document/',
+   query: { q: 'brain', output: '*', size: '10', from: '0', stats: '1' }
+ };
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ urlTmp.query.callback = '_jqjsp';
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ 
+ // /document/?q=brain&output=*&size=10&from=10&stats=1
+ urlTmp = {
+   pathname: '/document/',
+   query: { q: 'brain', output: '*', size: '10', from: '10', stats: '1' }
+ };
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ urlTmp.query.callback = '_jqjsp';
+-urls.push(_.clone(urlTmp, true));
++urls.push(_.cloneDeep(urlTmp));
+ 
+ 
+ module.exports = urls;
+\ No newline at end of file

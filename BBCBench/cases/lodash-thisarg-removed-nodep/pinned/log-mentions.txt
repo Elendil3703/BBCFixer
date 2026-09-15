@@ -1,0 +1,5 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	lodash	108	The stack frames of 18 failures genuinely pass through node_modules/lodash/lodash.js (arrayMap, arrayEach, baseForOwn and Function.map/forEach/forEachRight frames); this is output actually produced by the project under test and removing it would falsify the failure output, the same situation as the accepted case lodash-functions-in-restify-validation with 80 registered hits. The token appears only in library-internal paths of stack frames and points to no line of this repository's code.

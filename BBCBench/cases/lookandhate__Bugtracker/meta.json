@@ -1,0 +1,46 @@
+{
+  "id": "lookandhate__Bugtracker",
+  "name": "lookandhate__Bugtracker",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "lookandhate/Bugtracker",
+    "url": "https://github.com/lookandhate/Bugtracker",
+    "commit": "e2d5d5261b5549f2494e876de3fd928c60d47c42",
+    "license": "MIT"
+  },
+  "lib": "SQLAlchemy",
+  "v_old": "1.3.17",
+  "v_new": "2.0.29",
+  "library_repo": "https://github.com/sqlalchemy/sqlalchemy",
+  "library_tags": {
+    "old": "rel_1_3_17",
+    "new": "rel_2_0_29"
+  },
+  "reference_fix_source": "benchmark-authors",
+  "root_api": "sqlalchemy.orm.relation and flask_restful.reqparse.RequestParser.add_argument",
+  "root_symbols": [
+    "sqlalchemy.orm.relation",
+    "flask.Request.json",
+    "flask_restful.reqparse.Argument.source"
+  ],
+  "behavioral_change": "Flask-RESTful v_old 0.3.8 to v_new 0.3.10 is the recorded primary library (v_old is a resolved value; the annotation note suspects that the actual triggers are SQLAlchemy 2.0 and Flask/Werkzeug). The default location from which flask_restful.reqparse.RequestParser.add_argument reads request arguments changed, so arguments must be declared with location='args' explicitly; the case is mixed with a structural reorganization and the sqlalchemy.orm.relation rename.",
+  "downstream_effect": "Request-argument parsing in the downstream project fails after the upgrade; the original tests need no change (empty test_patch).",
+  "reference_fix": "The reference fix passes location='args' explicitly to the argument declarations, alongside the structural changes.",
+  "test_cmd": "bash /work/test_lookandhate__Bugtracker.sh",
+  "test_files": [
+    "test_main_app.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:lookandhate__bugtracker",
+    "python": "3.12.11"
+  },
+  "upgrade": {
+    "kind": "dated-snapshot",
+    "intact_date": "2020-05-13",
+    "broken_date": "2025-07-31",
+    "note": "TimeMachine-bench case: every dependency is resolved at the dated snapshot; the library at v_old/v_new is the one whose behavioral change breaks the tests."
+  }
+}

@@ -1,0 +1,157 @@
+
+> generator-react-reflux@1.4.3 test
+> mocha
+
+(node:2839009) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+
+  react-reflux:actions
+    when using javascript
+(node:2839009) [DEP0180] DeprecationWarning: fs.Stats constructor is deprecated.
+      ✔ creates the actions
+      1) correctly creates variable names
+    when using coffeescript
+      ✔ creates the coffee actions
+      2) correctly creates variable names
+
+  react-reflux:app
+    when using no features with gulp
+[?25h      ✔ creates files
+      ✔ doesn't create grunt config
+      ✔ writes metadata to package.json
+      ✔ writes metadata to bower.json
+      ✔ writes metadata to index.html
+      ✔ uses css syntax
+    when using no features with grunt
+[?25h      ✔ creates grunt config
+      ✔ doesn't create gulp config
+    when using modernizr
+[?25h      ✔ inserts modernizr to html
+      ✔ inserts modernizr to bower
+      ✔ inserts modernizr to home html component
+    when using CoffeeScript with gulp
+[?25h      ✔ creates coffee and cjsx files
+      ✔ doesn't create js and jsx files
+      ✔ inserts coffeescript requirements to package.json
+      ✔ doesn't insert unneeded requirements to package.json
+    when using CoffeeScript with grunt
+[?25h      ✔ creates coffee grunt config
+      ✔ doesn't create js or coffee gulp config
+    when using compass with javascript and gulp
+[?25h      ✔ creates sass files
+      ✔ doesn't create css files
+      ✔ inserts compass to gulp
+      ✔ inserts compass to package.json
+      ✔ inserts compass to home html component
+    when using compass with javascript and grunt
+[?25h      ✔ inserts compass to grunt
+      ✔ inserts compass to package.json
+    when using compass with coffeescript and gulp
+[?25h      ✔ inserts compass to gulp
+    when using compass with coffeescript and grunt
+[?25h      ✔ inserts compass to gulp
+    when using jest with javascript
+[?25h      ✔ creates test file
+      ✔ creates test preprocessor
+      ✔ contains javascript preprocessor
+      ✔ inserts jest to package.json
+      ✔ inserts react-tools to package.json
+      ✔ inserts test script to package.json
+      ✔ inserts jest config to package.json
+    when using jest with coffeescript
+[?25h      ✔ creates test file
+      ✔ creates test preprocessor
+      ✔ contains javascript preprocessor
+      ✔ inserts jest to package.json
+      ✔ inserts coffee-react to package.json
+      ✔ inserts test script to package.json
+      ✔ inserts jest config to package.json
+
+  react-reflux:component
+    when using javascript
+      ✔ creates the component
+      ✔ correctly creates variable names
+    when using coffeescript
+      ✔ creates the coffee component
+      ✔ correctly creates variable names
+
+  react-reflux:store
+    when using javascript
+      ✔ creates the store
+      3) correctly creates variable names
+    when using coffeescript
+      ✔ creates the coffee store
+      4) correctly creates variable names
+
+
+  48 passing (222ms)
+  4 failing
+
+  1) react-reflux:actions
+       when using javascript
+         correctly creates variable names:
+
+      AssertionError [ERR_ASSERTION]: app/scripts/actions/UserActions.js did not match '/var UserActions /'.
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-9b679309dc1f/src/node_modules/yeoman-assert/index.js:156:14
+      at Array.forEach (<anonymous>)
+      at assert.fileContent (node_modules/yeoman-assert/index.js:148:9)
+      at Context.<anonymous> (test/test-actions.js:25:14)
+      at process.processImmediate (node:internal/timers:491:21)
+
+  2) react-reflux:actions
+       when using coffeescript
+         correctly creates variable names:
+
+      AssertionError [ERR_ASSERTION]: app/scripts/actions/UserActions.coffee did not match '/UserActions /'.
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-9b679309dc1f/src/node_modules/yeoman-assert/index.js:156:14
+      at Array.forEach (<anonymous>)
+      at assert.fileContent (node_modules/yeoman-assert/index.js:148:9)
+      at Context.<anonymous> (test/test-actions.js:45:14)
+      at process.processImmediate (node:internal/timers:491:21)
+
+  3) react-reflux:store
+       when using javascript
+         correctly creates variable names:
+
+      AssertionError [ERR_ASSERTION]: app/scripts/stores/UserStore.js did not match '/var UserStore /'.
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-9b679309dc1f/src/node_modules/yeoman-assert/index.js:156:14
+      at Array.forEach (<anonymous>)
+      at assert.fileContent (node_modules/yeoman-assert/index.js:148:9)
+      at Context.<anonymous> (test/test-store.js:25:14)
+      at process.processImmediate (node:internal/timers:491:21)
+
+  4) react-reflux:store
+       when using coffeescript
+         correctly creates variable names:
+
+      AssertionError [ERR_ASSERTION]: app/scripts/stores/UserStore.coffee did not match '/UserStore /'.
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-9b679309dc1f/src/node_modules/yeoman-assert/index.js:156:14
+      at Array.forEach (<anonymous>)
+      at assert.fileContent (node_modules/yeoman-assert/index.js:148:9)
+      at Context.<anonymous> (test/test-store.js:45:14)
+      at process.processImmediate (node:internal/timers:491:21)
+
+
+
+STATE-NEW rc=4

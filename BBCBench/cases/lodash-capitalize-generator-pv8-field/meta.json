@@ -1,0 +1,44 @@
+{
+  "id": "lodash-capitalize-generator-pv8-field",
+  "name": "lodash-capitalize-generator-pv8-field",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "mauricedb/generator-pv8-field",
+    "url": "https://github.com/mauricedb/generator-pv8-field",
+    "commit": "6f21089ae05a4e60d1ece5ba2481e565e0867e85"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.capitalize",
+  "root_symbols": [
+    "capitalize",
+    "upperFirst"
+  ],
+  "behavioral_change": "lodash 4.0.0 changed the semantics of `_.capitalize`: v_old uppercased the first character and left the rest unchanged, while v_new uppercases the first character and lowercases the rest. The function name and call form are unchanged, and the output differs only when the input contains uppercase letters after the first character.",
+  "downstream_effect": "The downstream project (generator-pv8-field) builds a component name with `lodash.capitalize(lodash.camelCase(props.componentName))`; after the upgrade `FieldName` becomes `Fieldname` in the generated files. The four failures are yeoman-assert messages such as `did not match '/export default FieldName/'` with frames in `node_modules/yeoman-assert` and `test/test-app.js`; the output never mentions lodash, `capitalize` or `generators/app/index.js`.",
+  "reference_fix": "The reference fix changes one line in `generators/app/index.js` (line 25), replacing `lodash.capitalize(...)` with `lodash.upperFirst(...)`.",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), section Compatibility Warnings, states that `_.capitalize` now uppercases the first character and lowercases the rest, with an inline link to `_.upperFirst` (https://lodash.com/docs#upperFirst). Tier 2: the replacement is named but no code is shown; the call form is derived from the `_.upperFirst` documentation.",
+  "failing_tests": [
+    "test/test-app.js :: asserts that ./scripts/editor/components/fields/fieldName/index.js contains export default FieldName",
+    "test/test-app.js :: asserts that fieldNameAdapter.jsx contains export default FieldNameAdapter",
+    "test/test-app.js :: asserts that fieldNameModel.ts contains export default FieldNameModel",
+    "test/test-app.js :: asserts that fieldNameView.jsx contains export default FieldNameView"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "mauricedb/generator-pv8-field",
+  "commit": "6f21089ae05a4e60d1ece5ba2481e565e0867e85"
+}

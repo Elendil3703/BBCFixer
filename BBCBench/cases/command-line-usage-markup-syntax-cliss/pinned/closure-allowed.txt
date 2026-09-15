@@ -1,0 +1,16 @@
+ansi-escape-sequences
+ansi-styles
+array-back
+chalk
+color-convert
+color-name
+command-line-usage
+deep-extend
+escape-string-regexp
+has-flag
+lodash.padend
+reduce-flatten
+supports-color
+table-layout
+typical
+wordwrapjs

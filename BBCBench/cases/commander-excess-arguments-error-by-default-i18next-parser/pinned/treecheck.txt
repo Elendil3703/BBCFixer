@@ -1,0 +1,5 @@
+changed packages (1): commander
+  OK new commander@12.1.0 at lint-staged/node_modules/commander
+  OK new commander@13.1.0 at commander
+  OK old commander@12.1.0 at commander
+TREECHECK_OK: every change is inside the allowed closure (1 allowed names)

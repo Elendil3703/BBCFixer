@@ -1,0 +1,12 @@
+diff --git a/make_sitemap.js b/make_sitemap.js
+index 3b1be84..8f7d3a3 100644
+--- a/make_sitemap.js
++++ b/make_sitemap.js
+@@ -72,7 +72,6 @@ const createSitemapInfo = async function ({ homepage, urls, failBuild }) {
+   try {
+     const hostname = ensureTrailingSlash(homepage)
+     const sitemap = createSitemap({ hostname, cacheTime: DEFAULT_CACHE_TIME, urls })
+-    await util.promisify(sitemap.toXML.bind(sitemap))()
+     const xml = sitemap.toString()
+     return { sitemap, xml }
+   } catch (error) {

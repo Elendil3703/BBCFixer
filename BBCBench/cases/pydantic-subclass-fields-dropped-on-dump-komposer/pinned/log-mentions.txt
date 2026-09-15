@@ -1,0 +1,8 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-FIXED.log	dump	3	genuine upstream output: the word occurs only inside the deprecation text of the library itself, 'use `model_dump_json` instead', which names a different API from the one gold.patch uses (SerializeAsAny) and points at the serialisation call site rather than at the modification point
+STATE-FIXED.log	pydantic	46	genuine upstream output: the new version emits its own deprecation warnings from site-packages for the V1 class-based config and for the V1 .json() method that the production code still calls; the token is only the library name, never the remedy
+STATE-NEW.log	dump	3	genuine upstream output: the word occurs only inside the deprecation text of the library itself, 'use `model_dump_json` instead', which names a different API from the one gold.patch uses (SerializeAsAny) and points at the serialisation call site rather than at the modification point
+STATE-NEW.log	pydantic	46	genuine upstream output: the new version emits its own deprecation warnings from site-packages for the V1 class-based config and for the V1 .json() method that the production code still calls; the token is only the library name, never the remedy

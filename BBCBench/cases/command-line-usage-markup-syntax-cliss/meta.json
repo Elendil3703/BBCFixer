@@ -1,0 +1,44 @@
+{
+  "id": "command-line-usage-markup-syntax-cliss",
+  "name": "command-line-usage-markup-syntax-cliss",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "DiegoZoracKy/cliss",
+    "url": "https://github.com/DiegoZoracKy/cliss",
+    "commit": "0dc0eaf4e6320d6228450d0a3bafc1910ecaf3a7"
+  },
+  "lib": "command-line-usage",
+  "v_old": "4.1.0",
+  "v_new": "5.0.5",
+  "library_repo": "https://github.com/75lb/command-line-usage",
+  "library_tags": {
+    "old": "v4.1.0",
+    "new": "v5.0.5"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "commandLineUsage",
+  "root_symbols": [
+    "chalkFormat",
+    "OptionList.getOptionNames",
+    "Content.lines",
+    "ContentSection"
+  ],
+  "behavioral_change": "In command-line-usage v_new (5.0.0), inline ansi formatting inside section content switched from the ansi-escape-sequences markup `[style]{text}` to chalk template literal syntax `{style text}`. The function signatures and exports are unchanged; only the interpretation of the string content changed, so an old-style string such as `[red]{Required}` now makes chalk throw `Found extraneous } in Chalk template literal`.",
+  "downstream_effect": "cliss builds `[red]{Required}` and `[underline]{<type>}` strings in `prepareOptions` in lib/cli-help.js, so every help-rendering path in the child-process CLI throws after the upgrade and the mocha tests see `Command failed` with the child's stderr. All stack frames fall inside node_modules (chalk and command-line-usage internals); lib/cli-help.js is never named, and the error text does not say which downstream string is at fault or that the markup syntax changed.",
+  "reference_fix": "The reference fix changes two lines in `prepareOptions` in lib/cli-help.js, replacing `[red]{Required}` with `{red Required}` and `[underline]{${option.type}}` with `{underline ${option.type}}`.",
+  "documented_in": "The command-line-usage v5.0.0 release notes announce that all inline ansi formatting is now handled by chalk template literal syntax and, in the Upgrading section, show the code form `{underline some text}` (mis-recording the old form as `[underline](some text)`). The README examples for `typeLabel` also change from `'[underline]{file}'` in 4.1.0 to `'{underline file}'` in 5.0.5, showing the new code form.",
+  "failing_tests": [
+    "test/main.test.js :: cliss-options > options.validateRequiredParameters = true",
+    "test/main.test.js :: complex-cases > Nested command help"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "DiegoZoracKy/cliss",
+  "commit": "0dc0eaf4e6320d6228450d0a3bafc1910ecaf3a7"
+}

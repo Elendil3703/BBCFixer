@@ -1,0 +1,88 @@
+
+> entwine@0.1.0 test /w
+> mocha
+
+
+
+  system
+    ✓ should detect unknown components and throw an error
+    ✓ should detect cyclical dependencies and throw an error
+    1) should start and stop components in dependency order
+    2) should allow mapping dependencies with different names
+
+
+  2 passing (11ms)
+  2 failing
+
+  1) system should start and stop components in dependency order:
+
+      AssertionError [ERR_ASSERTION]: [ 'ComponentA', 'ComponentB', 'ComponentC' ] deepEqual [ 'ComponentB', 'ComponentA', 'ComponentC' ]
+      + expected - actual
+
+       [
+      +  "ComponentB"
+         "ComponentA"
+      -  "ComponentB"
+         "ComponentC"
+       ]
+      
+      at entwine.system.start.then.then.s (test/index.js:71:16)
+      at tryCatcher (node_modules/bluebird/js/release/util.js:11:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/release/promise.js:489:31)
+      at Promise._settlePromise (node_modules/bluebird/js/release/promise.js:546:18)
+      at Promise._settlePromise0 (node_modules/bluebird/js/release/promise.js:591:10)
+      at Promise._settlePromises (node_modules/bluebird/js/release/promise.js:674:18)
+      at Promise._fulfill (node_modules/bluebird/js/release/promise.js:615:18)
+      at Promise._resolveCallback (node_modules/bluebird/js/release/promise.js:416:57)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/release/promise.js:502:17)
+      at Promise._settlePromise (node_modules/bluebird/js/release/promise.js:546:18)
+      at Promise._settlePromise0 (node_modules/bluebird/js/release/promise.js:591:10)
+      at Promise._settlePromises (node_modules/bluebird/js/release/promise.js:674:18)
+      at Promise._fulfill (node_modules/bluebird/js/release/promise.js:615:18)
+      at PropertiesPromiseArray.PromiseArray._resolve (node_modules/bluebird/js/release/promise_array.js:125:19)
+      at PropertiesPromiseArray._promiseFulfilled (node_modules/bluebird/js/release/props.js:78:14)
+      at Promise._settlePromise (node_modules/bluebird/js/release/promise.js:551:26)
+      at Promise._settlePromise0 (node_modules/bluebird/js/release/promise.js:591:10)
+      at Promise._settlePromises (node_modules/bluebird/js/release/promise.js:674:18)
+      at Async._drainQueue (node_modules/bluebird/js/release/async.js:129:16)
+      at Async._drainQueues (node_modules/bluebird/js/release/async.js:139:10)
+      at Immediate.Async.drainQueues (node_modules/bluebird/js/release/async.js:16:14)
+
+  2) system should allow mapping dependencies with different names:
+
+      AssertionError [ERR_ASSERTION]: [ 'ComponentA', 'ComponentB', 'ComponentC' ] deepEqual [ 'ComponentB', 'ComponentA', 'ComponentC' ]
+      + expected - actual
+
+       [
+      +  "ComponentB"
+         "ComponentA"
+      -  "ComponentB"
+         "ComponentC"
+       ]
+      
+      at entwine.system.start.then.then.s (test/index.js:109:16)
+      at tryCatcher (node_modules/bluebird/js/release/util.js:11:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/release/promise.js:489:31)
+      at Promise._settlePromise (node_modules/bluebird/js/release/promise.js:546:18)
+      at Promise._settlePromise0 (node_modules/bluebird/js/release/promise.js:591:10)
+      at Promise._settlePromises (node_modules/bluebird/js/release/promise.js:674:18)
+      at Promise._fulfill (node_modules/bluebird/js/release/promise.js:615:18)
+      at Promise._resolveCallback (node_modules/bluebird/js/release/promise.js:416:57)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/release/promise.js:502:17)
+      at Promise._settlePromise (node_modules/bluebird/js/release/promise.js:546:18)
+      at Promise._settlePromise0 (node_modules/bluebird/js/release/promise.js:591:10)
+      at Promise._settlePromises (node_modules/bluebird/js/release/promise.js:674:18)
+      at Promise._fulfill (node_modules/bluebird/js/release/promise.js:615:18)
+      at PropertiesPromiseArray.PromiseArray._resolve (node_modules/bluebird/js/release/promise_array.js:125:19)
+      at PropertiesPromiseArray._promiseFulfilled (node_modules/bluebird/js/release/props.js:78:14)
+      at Promise._settlePromise (node_modules/bluebird/js/release/promise.js:551:26)
+      at Promise._settlePromise0 (node_modules/bluebird/js/release/promise.js:591:10)
+      at Promise._settlePromises (node_modules/bluebird/js/release/promise.js:674:18)
+      at Async._drainQueue (node_modules/bluebird/js/release/async.js:129:16)
+      at Async._drainQueues (node_modules/bluebird/js/release/async.js:139:10)
+      at Immediate.Async.drainQueues (node_modules/bluebird/js/release/async.js:16:14)
+
+
+
+npm ERR! Test failed.  See above for more details.
+EXITCODE=1

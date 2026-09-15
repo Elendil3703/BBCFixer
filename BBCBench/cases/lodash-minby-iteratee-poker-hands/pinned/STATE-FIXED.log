@@ -1,0 +1,24 @@
+
+> poker-hands@1.0.2 test
+> mocha
+
+
+
+  poker
+    ✓ .highestCard(hand) should return the cards sorted
+    ✓ .hasPair(hand) should detect a pair
+    ✓ .hasTwoPair(hand) should detect two pairs
+    ✓ .hasThreeOfAKind(hand) should detect a three of a kind
+    ✓ .hasStraight(hand) should detect a straight
+    ✓ .hasFlush(hand) should detect a flush
+    ✓ .hasFullHouse(hand) should detect a full house
+    ✓ .hasFourOfAKind(hand) should detect a four of a kind
+    ✓ .hasStraightFlush(hand) should detect a straight flush
+    ✓ .hasRoyalFlush(hand) should detect a Royal flush
+    ✓ .getHandStrength(hand) should return the lowest matching bestHands index
+    ✓ .judgeWinner(hands) should return the index of the winning hand
+
+
+  12 passing (12ms)
+
+STATE-FIXED rc=0

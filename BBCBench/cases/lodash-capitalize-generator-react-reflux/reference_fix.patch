@@ -1,0 +1,150 @@
+diff --git a/actions/index.js b/actions/index.js
+index 28d3eb5..08a50c8 100644
+--- a/actions/index.js
++++ b/actions/index.js
+@@ -25,7 +25,7 @@ var ActionsGenerator = yeoman.generators.Base.extend({
+       if (this.options['coffee-script']) {
+         this.fs.copyTpl(
+           this.templatePath('actions.coffee'),
+-          this.destinationPath('app/scripts/actions/' + path.dirname(this.actionsName) + '/' + _.capitalize(path.basename(this.actionsName)) + 'Actions.coffee'),
++          this.destinationPath('app/scripts/actions/' + path.dirname(this.actionsName) + '/' + _.upperFirst(path.basename(this.actionsName)) + 'Actions.coffee'),
+           this
+         );
+       }
+@@ -35,7 +35,7 @@ var ActionsGenerator = yeoman.generators.Base.extend({
+       if (!this.options['coffee-script']) {
+         this.fs.copyTpl(
+           this.templatePath('actions.js'),
+-          this.destinationPath('app/scripts/actions/' + path.dirname(this.actionsName) + '/' + _.capitalize(path.basename(this.actionsName)) + 'Actions.js'),
++          this.destinationPath('app/scripts/actions/' + path.dirname(this.actionsName) + '/' + _.upperFirst(path.basename(this.actionsName)) + 'Actions.js'),
+           this
+         );
+       }
+diff --git a/actions/templates/actions.coffee b/actions/templates/actions.coffee
+index d32e0c5..5230de9 100644
+--- a/actions/templates/actions.coffee
++++ b/actions/templates/actions.coffee
+@@ -1,8 +1,8 @@
+ Reflux = require 'reflux'
+ 
+-<%= lodash.capitalize(path.basename(actionsName) + 'Actions') %> = Reflux.createActions [
++<%= lodash.upperFirst(path.basename(actionsName) + 'Actions') %> = Reflux.createActions [
+   'queryAll'
+   # Here you can list your actions
+ ]
+ 
+-module.exports = <%= lodash.capitalize(path.basename(actionsName) + 'Actions') %>
++module.exports = <%= lodash.upperFirst(path.basename(actionsName) + 'Actions') %>
+diff --git a/actions/templates/actions.js b/actions/templates/actions.js
+index b3be937..8630185 100644
+--- a/actions/templates/actions.js
++++ b/actions/templates/actions.js
+@@ -1,8 +1,8 @@
+ var Reflux = require('reflux');
+ 
+-var <%= lodash.capitalize(path.basename(actionsName) + 'Actions') %> = Reflux.createActions([
++var <%= lodash.upperFirst(path.basename(actionsName) + 'Actions') %> = Reflux.createActions([
+   'queryAll'
+   // Here you can list your actions
+ ]);
+ 
+-module.exports = <%= lodash.capitalize(path.basename(actionsName) + 'Actions') %>;
++module.exports = <%= lodash.upperFirst(path.basename(actionsName) + 'Actions') %>;
+diff --git a/component/templates/component.cjsx b/component/templates/component.cjsx
+index 348fdb8..b52ed56 100644
+--- a/component/templates/component.cjsx
++++ b/component/templates/component.cjsx
+@@ -1,6 +1,6 @@
+ React = require 'react'
+ 
+-<%= lodash.capitalize(path.basename(componentName)) %> = React.createClass
++<%= lodash.upperFirst(path.basename(componentName)) %> = React.createClass
+ 
+   render: ->
+ 
+@@ -10,4 +10,4 @@ React = require 'react'
+       </div>
+     )
+ 
+-module.exports = <%= lodash.capitalize(path.basename(componentName)) %>
++module.exports = <%= lodash.upperFirst(path.basename(componentName)) %>
+diff --git a/component/templates/component.jsx b/component/templates/component.jsx
+index fc04186..5852571 100644
+--- a/component/templates/component.jsx
++++ b/component/templates/component.jsx
+@@ -1,6 +1,6 @@
+ var React = require('react');
+ 
+-var <%= lodash.capitalize(path.basename(componentName)) %> = React.createClass({
++var <%= lodash.upperFirst(path.basename(componentName)) %> = React.createClass({
+ 
+   render: function() {
+ 
+@@ -12,4 +12,4 @@ var <%= lodash.capitalize(path.basename(componentName)) %> = React.createClass({
+   }
+ });
+ 
+-module.exports = <%= lodash.capitalize(path.basename(componentName)) %>;
++module.exports = <%= lodash.upperFirst(path.basename(componentName)) %>;
+diff --git a/store/index.js b/store/index.js
+index 830fc80..908eb3b 100644
+--- a/store/index.js
++++ b/store/index.js
+@@ -25,7 +25,7 @@ var StoreGenerator = yeoman.generators.Base.extend({
+       if (this.options['coffee-script']) {
+         this.fs.copyTpl(
+           this.templatePath('store.coffee'),
+-          this.destinationPath('app/scripts/stores/' + path.dirname(this.storeName) + '/' + _.capitalize(path.basename(this.storeName)) + 'Store.coffee'),
++          this.destinationPath('app/scripts/stores/' + path.dirname(this.storeName) + '/' + _.upperFirst(path.basename(this.storeName)) + 'Store.coffee'),
+           this
+         );
+       }
+@@ -35,7 +35,7 @@ var StoreGenerator = yeoman.generators.Base.extend({
+       if (!this.options['coffee-script']) {
+         this.fs.copyTpl(
+           this.templatePath('store.js'),
+-          this.destinationPath('app/scripts/stores/' + path.dirname(this.storeName) + '/' + _.capitalize(path.basename(this.storeName)) + 'Store.js'),
++          this.destinationPath('app/scripts/stores/' + path.dirname(this.storeName) + '/' + _.upperFirst(path.basename(this.storeName)) + 'Store.js'),
+           this
+         );
+       }
+diff --git a/store/templates/store.coffee b/store/templates/store.coffee
+index c2df2c9..874036e 100644
+--- a/store/templates/store.coffee
++++ b/store/templates/store.coffee
+@@ -2,11 +2,11 @@ Reflux = require 'reflux'
+ 
+ data = []
+ 
+-<%= lodash.capitalize(path.basename(storeName) + 'Store') %> = Reflux.createStore
++<%= lodash.upperFirst(path.basename(storeName) + 'Store') %> = Reflux.createStore
+ 
+   init: ->
+-    console.log '<%= lodash.capitalize(path.basename(storeName) + "Store") %> initialized'
++    console.log '<%= lodash.upperFirst(path.basename(storeName) + "Store") %> initialized'
+     # This funciton will be called when the store will be first initialized
+ 
+ 
+-module.exports = <%= lodash.capitalize(path.basename(storeName) + 'Store') %>
++module.exports = <%= lodash.upperFirst(path.basename(storeName) + 'Store') %>
+diff --git a/store/templates/store.js b/store/templates/store.js
+index 1a864f4..e1c3e33 100644
+--- a/store/templates/store.js
++++ b/store/templates/store.js
+@@ -2,13 +2,13 @@ var Reflux = require('reflux');
+ 
+ var data = [];
+ 
+-var <%= lodash.capitalize(path.basename(storeName) + 'Store') %> = Reflux.createStore({
++var <%= lodash.upperFirst(path.basename(storeName) + 'Store') %> = Reflux.createStore({
+ 
+   init: function() {
+-    console.log('<%= lodash.capitalize(path.basename(storeName) + "Store") %> initialized');
++    console.log('<%= lodash.upperFirst(path.basename(storeName) + "Store") %> initialized');
+     // This funciton will be called when the store will be first initialized
+   }
+ 
+ });
+ 
+-module.exports = <%= lodash.capitalize(path.basename(storeName) + 'Store') %>;
++module.exports = <%= lodash.upperFirst(path.basename(storeName) + 'Store') %>;

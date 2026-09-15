@@ -1,0 +1,59 @@
+{
+  "id": "chokidar-glob-expansion-removed-glob-watcher",
+  "name": "chokidar-glob-expansion-removed-glob-watcher",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "gulpjs/glob-watcher",
+    "url": "https://github.com/gulpjs/glob-watcher",
+    "commit": "b593a04512ecd7726050072d9193774d20455be9"
+  },
+  "lib": "chokidar",
+  "v_old": "3.6.0",
+  "v_new": "4.0.3",
+  "library_repo": "https://github.com/paulmillr/chokidar",
+  "library_tags": {
+    "old": "3.6.0",
+    "new": "4.0.3"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "chokidar.watch",
+  "root_symbols": [
+    "WatchHelper",
+    "FSWatcher._getWatchHelpers",
+    "FSWatcher.add"
+  ],
+  "behavioral_change": "In chokidar v_new (4.0.0), glob expansion was removed: v_old (3.x) let `chokidar.watch` accept glob strings, deriving the directory to traverse with glob-parent and matching files with anymatch, whereas v4 treats the first argument of `watch` as a literal path. The call form is unchanged and no exception is raised; a pattern such as `fixtures/**/*.js` is treated as a non-existent path, so the watcher emits no add, change or unlink events.",
+  "downstream_effect": "glob-watcher's `watchProc` passes the caller's glob array directly to `chokidar.watch`, so after the upgrade the watcher and its ready event still appear but no file change ever triggers the callback, and 15 mocha tests time out. The failures give only the test file path and node-internal timer frames; no production file, `watchProc`, or the `chokidar.watch` statement appears, and the only mention of chokidar is a pre-existing test title.",
+  "reference_fix": "The reference fix rewrites the single `chokidar.watch(globs, options)` call in index.js to watch each pattern's non-glob parent directory and filter files through an `ignored` predicate that never prunes directories, adding `resolveGlobs` and `toMatcher` helpers backed by picomatch.",
+  "documented_in": "The chokidar v4 README at https://github.com/paulmillr/chokidar#upgrading contrasts v3 `chok.watch('**/*.js')` with v4 `chok.watch('.', { ignored: (path, stats) => stats?.isFile() && !path.endsWith('.js') })`, and its Changelog section announces `v4 (Sep 2024): remove glob support and bundled fsevents`. The README shows a hard-coded example of the strategy but not the general form used by the reference fix, and the 4.0.0 GitHub release notes say only `Remove glob support` with no code.",
+  "failing_tests": [
+    "test/index.js :: glob-watcher :: only requires a glob and returns watcher",
+    "test/index.js :: glob-watcher :: picks up added files",
+    "test/index.js :: glob-watcher :: works with OS-specific cwd",
+    "test/index.js :: glob-watcher :: accepts a callback & calls when file is changed",
+    "test/index.js :: glob-watcher :: accepts a callback & calls when file is added",
+    "test/index.js :: glob-watcher :: waits for completion is signaled before running again",
+    "test/index.js :: glob-watcher :: can signal completion with a stream",
+    "test/index.js :: glob-watcher :: emits an error if one occurs in the callback and handler attached",
+    "test/index.js :: glob-watcher :: does not emit an error (and crash) when no handlers attached",
+    "test/index.js :: glob-watcher :: allows the user to disable queueing",
+    "test/index.js :: glob-watcher :: allows the user to adjust delay",
+    "test/index.js :: glob-watcher :: passes options to chokidar",
+    "test/index.js :: glob-watcher :: does not override default values with null values",
+    "test/index.js :: glob-watcher :: watches exactly the given event",
+    "test/index.js :: glob-watcher :: accepts multiple events to watch"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "gulpjs/glob-watcher",
+  "commit": "b593a04512ecd7726050072d9193774d20455be9",
+  "runtime_deps": [
+    "picomatch@2.3.2"
+  ]
+}

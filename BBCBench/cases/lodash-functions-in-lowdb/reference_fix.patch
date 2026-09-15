@@ -1,0 +1,13 @@
+diff --git a/src/index.js b/src/index.js
+index 5732219..1f1e517 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -14,7 +14,7 @@ const isPromise = require('is-promise')
+ function lowChain (_, array, save) {
+   const chain = _.chain(array)
+ 
+-  _.functions(chain)
++  _.functionsIn(chain)
+     .forEach((method) => {
+       chain[method] = _.flow(chain[method], (arg) => {
+         const v = arg.value ? arg.value() : arg

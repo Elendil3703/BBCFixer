@@ -1,0 +1,13 @@
+diff --git a/lib/rules/require-dictionary-words.js b/lib/rules/require-dictionary-words.js
+index 3f7dfad..196d42a 100644
+--- a/lib/rules/require-dictionary-words.js
++++ b/lib/rules/require-dictionary-words.js
+@@ -159,7 +159,7 @@ var reWords = (function() {
+ }());
+ 
+ function hasWord(dictionary, word) {
+-    return _.indexOf(dictionary, word, true) > -1;
++    return _.sortedIndexOf(dictionary, word) > -1;
+ }
+ 
+ function dictionariesHaveWord(dictionaries, word) {

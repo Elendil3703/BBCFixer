@@ -1,0 +1,44 @@
+{
+  "id": "vinyl-fs-utf8-transcoding-by-default-fontmin",
+  "name": "vinyl-fs-utf8-transcoding-by-default-fontmin",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "ecomfe/fontmin",
+    "url": "https://github.com/ecomfe/fontmin",
+    "commit": "8550852c02f56c6e8e037bd86bbf1427c27d7369"
+  },
+  "lib": "vinyl-fs",
+  "v_old": "3.0.3",
+  "v_new": "4.0.2",
+  "library_repo": "https://github.com/gulpjs/vinyl-fs",
+  "library_tags": {
+    "old": "v3.0.3",
+    "new": "v4.0.2"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "vinyl-fs.src",
+  "root_symbols": [
+    "src",
+    "readBuffer",
+    "readStream",
+    "getCodec",
+    "DEFAULT_ENCODING"
+  ],
+  "behavioral_change": "vinyl-fs v4.0.0 added an `encoding` option to `src()` and `dest()` with default 'utf8', so file contents are decoded and re-encoded through iconv-lite; v_old passed raw bytes through unchanged, and under v_new any byte sequence that is not valid utf8 is replaced with U+FFFD while `file.contents` remains a Buffer. The same release switched the stream implementation to streamx, so an error for an unmatched singular glob (unchanged text from glob-stream) now additionally raises an uncaught `TypeError: this.to.destroy is not a function` instead of being tolerated.",
+  "downstream_effect": "The downstream font tool reads .ttf and .otf files through `vfs.src.apply(vfs, this.src())` in index.js; corrupted binaries fail every plugin's format sniff, so no ttf, eot, woff, svg or css output is produced, and the test hooks' `src(destPath)` calls on non-existent directories kill the whole suite. The delivered output shows only a \"before all\" hook failure with streamx-internal frames (or, in the harness path, 25 failures with frames only in tests and concat-stream, through2, duplexer and fonteditor-core), never naming vinyl-fs, glob-stream, encoding or allowEmpty.",
+  "reference_fix": "The reference fix edits one hunk in `Fontmin.prototype.getFiles` in index.js, copying the saved options object and adding `encoding: false` and `allowEmpty: true` before forwarding it to `vfs.src`.",
+  "documented_in": "The vinyl-fs CHANGELOG 4.0.0 section (https://github.com/gulpjs/vinyl-fs/blob/master/CHANGELOG.md) lists \"Default to `utf8` decoding and encoding. Add `encoding` option to change (#287)\" and \"Switch stream implementation to streamx (#333)\" under BREAKING CHANGES, and the vinyl-fs 4.0.2 README documents `options.encoding` (settable to `false`) as a parameter entry without a code example; `options.allowEmpty` is documented only as a parameter entry in the glob-stream 8.0.3 README, to which vinyl-fs forwards glob options, and the streamx crash is not announced as a change anywhere.",
+  "failing_tests": [
+    "\"before all\" hook"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "ecomfe/fontmin",
+  "commit": "8550852c02f56c6e8e037bd86bbf1427c27d7369"
+}

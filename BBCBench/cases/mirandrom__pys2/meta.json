@@ -1,0 +1,54 @@
+{
+  "id": "mirandrom__pys2",
+  "name": "mirandrom__pys2",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "mirandrom/PyS2",
+    "url": "https://github.com/mirandrom/PyS2",
+    "commit": "9bf44f0ad16d9ccdeadd4cff719eda2a8e42cc84",
+    "license": "MIT"
+  },
+  "lib": "pydantic",
+  "v_old": "1.8.1",
+  "v_new": "2.11.7",
+  "library_repo": "https://github.com/pydantic/pydantic",
+  "library_tags": {
+    "old": "v1.8.1",
+    "new": "v2.11.7"
+  },
+  "reference_fix_source": "benchmark-authors",
+  "root_api": "pydantic.BaseModel field declaration and instantiation",
+  "root_symbols": [
+    "ModelField._type_analysis",
+    "FieldInfo.is_required"
+  ],
+  "behavioral_change": "pydantic v_old 1.8.1 to v_new 2.11.7 (v_old is a resolved value for this TimeMachine-bench snapshot). In pydantic v2, an Optional[X] field declared on a BaseModel without an explicit default is no longer implicitly defaulted to None; it is treated as a required field (root API: pydantic.BaseModel field declaration and instantiation, root symbols ModelField._type_analysis and FieldInfo.is_required).",
+  "downstream_effect": "Instantiating the downstream project's models fails at runtime because fields that previously defaulted to None are now required; the field declarations themselves still import and load without error.",
+  "reference_fix": "The reference fix adds an explicit = None default to about 90 Optional[X] field declarations.",
+  "test_cmd": "bash /work/test_mirandrom__pys2.sh",
+  "test_files": [
+    "tests/__init__.py",
+    "tests/context.py",
+    "tests/db/__init__.py",
+    "tests/db/test_json.py",
+    "tests/graph/__init__.py",
+    "tests/graph/test_builder.py",
+    "tests/graph/test_hopper.py",
+    "tests/store/__init__.py",
+    "tests/store/test_json.py",
+    "tests/test_api.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:mirandrom__pys2",
+    "python": "3.12.11"
+  },
+  "upgrade": {
+    "kind": "dated-snapshot",
+    "intact_date": "2021-04-07",
+    "broken_date": "2025-07-31",
+    "note": "TimeMachine-bench case: every dependency is resolved at the dated snapshot; the library at v_old/v_new is the one whose behavioral change breaks the tests."
+  }
+}

@@ -1,0 +1,29 @@
+
+> opt-merger@1.1.1 test /w/wk-85d09ff6ba83/src
+> mocha --recursive test
+
+(node:142) [DEP0006] DeprecationWarning: child_process: options.customFds option is deprecated. Use options.stdio instead.
+
+[0m[0m
+[0m  Merging opts[0m
+  [32m  ✓[0m[90m can merge certain options with a callback [0m
+  [32m  ✓[0m[90m can merge certain options from command-line [0m
+  [32m  ✓[0m[90m can merge multiple options from command-line [0m
+  [32m  ✓[0m[90m can merge simple option from command-line [0m
+  [32m  ✓[0m[90m can merge options from command-line + Config together [0m
+  [32m  ✓[0m[90m can merge options from command-line + Config together with command-line taking precedence [0m
+  [32m  ✓[0m[90m can merge options from command-line + Config together with command-line taking precedence (2) [0m
+  [32m  ✓[0m[90m can merge options from command-line when it relies on other args [0m
+  [32m  ✓[0m[90m can merge options from config when it relies on other config args [0m
+  [32m  ✓[0m[90m can ignore cli options [0m
+  [32m  ✓[0m[90m can give correct info [0m
+
+[0m  Merging opts[0m
+  [32m  ✓[0m[90m should merge simple [0m
+  [32m  ✓[0m[90m should merge simple [0m
+  [32m  ✓[0m[90m should merge simple with functions [0m
+
+
+[92m [0m[32m 14 passing[0m[90m (5ms)[0m
+
+STATE-OLD rc=0

@@ -1,0 +1,43 @@
+{
+  "id": "bluebird-promisifyall-multiargs-oose-sdk",
+  "name": "bluebird-promisifyall-multiargs-oose-sdk",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "nullivex/oose-sdk",
+    "url": "https://github.com/nullivex/oose-sdk",
+    "commit": "336c0bd1faeafb78bb848132373ea86c0c8a4036"
+  },
+  "lib": "bluebird",
+  "v_old": "2.11.0",
+  "v_new": "3.7.2",
+  "library_repo": "https://github.com/petkaantonov/bluebird",
+  "library_tags": {
+    "old": "v2.11.0",
+    "new": "v3.7.2"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "bluebird.promisifyAll",
+  "root_symbols": [
+    "nodebackForPromise",
+    "promisifyAll",
+    "Promise.promisifyAll",
+    "promisify"
+  ],
+  "behavioral_change": "In bluebird v_new (3.0.0), `Promise.promisify` and `Promise.promisifyAll` by default resolve the promise with only the first success value passed to the node-style callback, whereas v_old (2.x) collected multiple success values into an array. The call form is unchanged and no exception is raised by the library itself; the old array behaviour is restored with the new `multiArgs: true` option.",
+  "downstream_effect": "oose-sdk's `extendRequest` in helpers/api.js promisifies a `request` instance with `P.promisifyAll(req)` and callers consume `postAsync` results with `.spread(res, body)`; after the upgrade the promise resolves to the bare response and 15 tests fail with `TypeError: expecting an array or an iterable object`. Stack frames name helpers/Prism.js and bluebird and request internals, but never helpers/api.js line 157 where the fix goes, and promisify or spread never appear in the output.",
+  "reference_fix": "The reference fix changes one line in helpers/api.js, adding `{multiArgs: true}` to the `P.promisifyAll(req)` call in `extendRequest`.",
+  "documented_in": "bluebird's \"New in bluebird 3.0\" document (docs/docs/new-in-bluebird-3.md, tag v3.7.2), section Promisification API changes, states in prose that promisification now uses only the first callback argument and that a new boolean option `multiArgs` restores the array behaviour. The document gives only prose for this change and no code for the `multiArgs` form; the downstream maintainer's later commit 2d8b31e applied the same fix.",
+  "failing_tests": [
+    "15 failing tests, listed in pinned/STATE-NEW.log; for example: mock should log out"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:8",
+    "node_major": 8,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "nullivex/oose-sdk",
+  "commit": "336c0bd1faeafb78bb848132373ea86c0c8a4036"
+}

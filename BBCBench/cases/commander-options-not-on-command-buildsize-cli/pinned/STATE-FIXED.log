@@ -1,0 +1,120 @@
+
+> buildsize-cli@1.4.1 test
+> npm run test:unit && npm run check:valid && npm run check:invalid
+
+
+> buildsize-cli@1.4.1 test:unit
+> jest --coverage
+
+PASS src/__tests__/sizes.spec.ts
+PASS src/__tests__/message.spec.ts
+------------|---------|----------|---------|---------|-------------------
+File        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+------------|---------|----------|---------|---------|-------------------
+All files   |     100 |      100 |     100 |     100 |                   
+ message.ts |     100 |      100 |     100 |     100 |                   
+ sizes.ts   |     100 |      100 |     100 |     100 |                   
+------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 2 passed, 2 total
+Tests:       8 passed, 8 total
+Snapshots:   5 passed, 5 total
+Time:        1.78 s
+Ran all test suites.
+
+> buildsize-cli@1.4.1 check:valid
+> tsc && ts-node __mocks__/scripts.ts -- valid
+
+
+🟢 [32msuccess [0m [32m__mocks__/100b.gzip.mock.ts[0m 
+  · 101B < maxSize 200B (gzip)
+  · 49.50% decrease
+
+🟢 [32msuccess [0m [32m__mocks__/5kb.gzip.mock.ts[0m 
+  · minSize 2KB < 2KB < maxSize 2.5KB (gzip)
+  · 19.80% decrease
+
+🟢 [32msuccess [0m [32m__mocks__/100b.gzip.mock.ts[0m 
+  · 101B < maxSize 105B (gzip)
+
+🟢 [32msuccess [0m [32m__mocks__/100b.raw.mock.ts[0m 
+  · 100B < maxSize 105B (raw)
+
+🟢 [32msuccess [0m [32m__mocks__/100b.brotli.mock.ts[0m 
+  · 100B < maxSize 100B (brotli)
+
+🟡 [33mwarning [0m [33mThere is no matching file for __mocks__/missing_file_test.ts in /w[0m undefined
+
+
+🚀 Build size checks have passed, please continue on.
+
+
+
+ - code: 0
+ - validMsgCount: 6
+ - warnMsgCount: 2, 
+
+🟢 [32msuccess [0m [32m__mocks__/100b.gzip.mock.ts[0m 
+  · 101B < maxSize 200B (gzip)
+  · 49.50% decrease
+
+🟢 [32msuccess [0m [32m__mocks__/5kb.gzip.mock.ts[0m 
+  · minSize 2KB < 2KB < maxSize 2.5KB (gzip)
+  · 19.80% decrease
+
+🟢 [32msuccess [0m [32m__mocks__/100b.gzip.mock.ts[0m 
+  · 101B < maxSize 105B (gzip)
+
+🟢 [32msuccess [0m [32m__mocks__/100b.raw.mock.ts[0m 
+  · 100B < maxSize 105B (raw)
+
+🟢 [32msuccess [0m [32m__mocks__/100b.brotli.mock.ts[0m 
+  · 100B < maxSize 100B (brotli)
+
+🟡 [33mwarning [0m [33mThere is no matching file for __mocks__/missing_file_test.ts in /w[0m undefined
+
+
+🚀 Build size checks have passed, please continue on.
+
+
+
+> buildsize-cli@1.4.1 check:invalid
+> tsc && ts-node __mocks__/scripts.ts -- invalid
+
+code: 1
+ - invalidMsgCount: 6
+ - warnMsgCount: 2, 
+
+🔴 [31mfailure [0m [31m__mocks__/5kb.gzip.mock.ts[0m 
+  · 5KB < maxSize 4.99KB (gzip)
+  · 0.31% increase
+
+🔴 [31mfailure [0m [31m__mocks__/100b.gzip.mock.ts[0m 
+  · 101B < maxSize 80B (gzip)
+  · 26.25% increase
+
+🟡 [33mwarning [0m [33m__mocks__/100b.gzip.mock.ts[0m 
+  · 101B < maxSize 50B (gzip)
+  · 102% increase
+
+🔴 [31mfailure [0m [31m__mocks__/5kb.gzip.mock.ts[0m 
+  · minSize 6KB < 5KB < maxSize null (gzip)
+  · NaN% decrease
+
+🔴 [31mfailure [0m [31m__mocks__/100b.raw.mock.ts[0m 
+  · 100B < maxSize 88B (raw)
+  · 13.64% increase
+
+🔴 [31mfailure [0m [31mThere is no matching file for __mocks__/missing_file_test.ts in /w[0m 
+
+
+💩 Build size check has failed in 5 files
+Please fix, split, or set to warn.
+
+
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 12.0.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+npm notice To update run: npm install -g npm@12.0.2
+npm notice
+EXITCODE=0

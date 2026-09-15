@@ -1,0 +1,170 @@
+
+> statsd-newrelic-backend@1.2.3 test /w
+> gulp mocha
+
+[10:29:27] Using gulpfile /w/gulpfile.js
+[10:29:27] Starting 'mocha'...
+ 0
+ 0
+ 0
+
+[4A[5C-
+[5C-
+[5C-
+[5C-
+[4A[6C_,------,
+[6C_|   /\_/\ 
+[6C^|__( - .-) 
+[6C  ""  "" 
+[4A 1
+ 0
+ 0
+
+[4A[5C-_
+[5C-_
+[5C-_
+[5C-_
+[4A[7C_,------,
+[7C_|  /\_/\ 
+[7C~|_( ^ .^) 
+[7C ""  "" 
+[4A 2
+ 0
+ 0
+
+[4A[5C-_-
+[5C-_-
+[5C-_-
+[5C-_-
+[4A[8C_,------,
+[8C_|   /\_/\ 
+[8C^|__( ^ .^) 
+[8C  ""  "" 
+[4A 3
+ 0
+ 0
+
+[4A[5C-_-_
+[5C-_-_
+[5C-_-_
+[5C-_-_
+[4A[9C_,------,
+[9C_|  /\_/\ 
+[9C~|_( ^ .^) 
+[9C ""  "" 
+[4A 4
+ 0
+ 0
+
+[4A[5C-_-_-
+[5C-_-_-
+[5C-_-_-
+[5C-_-_-
+[4A[10C_,------,
+[10C_|   /\_/\ 
+[10C^|__( ^ .^) 
+[10C  ""  "" 
+[4A 5
+ 0
+ 0
+
+[4A[5C-_-_-_
+[5C-_-_-_
+[5C-_-_-_
+[5C-_-_-_
+[4A[11C_,------,
+[11C_|  /\_/\ 
+[11C~|_( ^ .^) 
+[11C ""  "" 
+[4A 5
+ 1
+ 0
+
+[4A[5C-_-_-_-
+[5C-_-_-_-
+[5C-_-_-_-
+[5C-_-_-_-
+[4A[12C_,------,
+[12C_|   /\_/\ 
+[12C^|__( x .x) 
+[12C  ""  "" 
+[4A 6
+ 1
+ 0
+
+[4A[5C-_-_-_-_
+[5C-_-_-_-_
+[5C-_-_-_-_
+[5C-_-_-_-_
+[4A[13C_,------,
+[13C_|  /\_/\ 
+[13C~|_( x .x) 
+[13C ""  "" 
+[4A 6
+ 2
+ 0
+
+[4A[5C-_-_-_-_-
+[5C-_-_-_-_-
+[5C-_-_-_-_-
+[5C-_-_-_-_-
+[4A[14C_,------,
+[14C_|   /\_/\ 
+[14C^|__( x .x) 
+[14C  ""  "" 
+[4A 7
+ 2
+ 0
+
+[4A[5C-_-_-_-_-_
+[5C-_-_-_-_-_
+[5C-_-_-_-_-_
+[5C-_-_-_-_-_
+[4A[15C_,------,
+[15C_|  /\_/\ 
+[15C~|_( x .x) 
+[15C ""  "" 
+[4A 7
+ 3
+ 0
+
+[4A[5C-_-_-_-_-_-
+[5C-_-_-_-_-_-
+[5C-_-_-_-_-_-
+[5C-_-_-_-_-_-
+[4A[16C_,------,
+[16C_|   /\_/\ 
+[16C^|__( x .x) 
+[16C  ""  "" 
+[4A
+
+
+
+
+  7 passing (19ms)
+  3 failing
+
+  1) simple metric transformer test when transforming timers should have the correct timer value transformed:
+     AssertionError: transformed custom metric timer value must contain a sumOfSquares value of 911: expected 21 to equal 91
+      at Context.<anonymous> (test/metric-transformer.test.js:52:20)
+
+  2) custom event dispatcher test when dispatching a timer custom event should call successfully new relic recordCustomEvent api:
+     AssertionError: recordCustomEvent must be called
+      at Context.<anonymous> (test/dispatcher/custom-event.test.js:40:13)
+
+  3) custom metric dispatcher test when dispatching a timer custom metric should call successfully new relic recordMetric api:
+     AssertionError: recordMetric must be called
+      at Context.<anonymous> (test/dispatcher/custom-metric.test.js:40:13)
+
+
+
+ERROR: 3 tests failed.
+Stack: undefined
+[10:29:27] 'mocha' errored after 61 ms
+[10:29:27] Error in plugin 'gulp-mocha'
+Message:
+    3 tests failed.
+Mocha encountered an error, exiting with status 1
+Error: 3 tests failed.
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

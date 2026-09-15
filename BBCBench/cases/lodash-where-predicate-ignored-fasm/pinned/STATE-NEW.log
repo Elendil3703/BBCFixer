@@ -1,0 +1,56 @@
+
+> fasm@0.0.1 test /w
+> nodeunit test.js
+
+
+[1mtest.js[22m
+[1m[37madd asset[39m[22m 	 Test item
+[1m[37mwrite file[39m[22m 	 /tmp/test-fasm.json
+[1m[35mreplace[39m[22m 	 Test item
+[1m[37mremove asset[39m[22m 	 /unique-test-item
+[1m[37mwrite file[39m[22m 	 /tmp/test-fasm.json
+[1m[37mwrite file[39m[22m 	 /tmp/test-fasm.json
+[1m[37mremove asset[39m[22m 	 /unique-test-item
+[1m[37mwrite file[39m[22m 	 /tmp/test-fasm.json
+[31m✖ assets file methods[39m
+
+AssertionError: 2 === 1
+    at Object.strictEqual (/w/node_modules/nodeunit/lib/types.js:83:39)
+    at Object.exports.assets file methods (/w/test.js:92:10)
+    at /w/node_modules/nodeunit/lib/core.js:232:20
+    at /w/node_modules/nodeunit/deps/async.js:168:13
+    at /w/node_modules/nodeunit/deps/async.js:131:25
+    at /w/node_modules/nodeunit/deps/async.js:165:17
+    at /w/node_modules/nodeunit/deps/async.js:463:34
+    at Object.exports.setUp (/w/test.js:31:5)
+    at /w/node_modules/nodeunit/lib/core.js:260:35
+    at /w/node_modules/nodeunit/deps/async.js:458:21
+    at /w/node_modules/nodeunit/deps/async.js:163:13
+    at iterate (/w/node_modules/nodeunit/deps/async.js:123:13)
+    at async.forEachSeries (/w/node_modules/nodeunit/deps/async.js:139:9)
+    at _asyncMap (/w/node_modules/nodeunit/deps/async.js:162:9)
+    at Object.mapSeries (/w/node_modules/nodeunit/deps/async.js:152:23)
+    at Object.async.series (/w/node_modules/nodeunit/deps/async.js:456:19)
+
+AssertionError: 2 === 0
+    at Object.strictEqual (/w/node_modules/nodeunit/lib/types.js:83:39)
+    at Object.exports.assets file methods (/w/test.js:102:10)
+    at /w/node_modules/nodeunit/lib/core.js:232:20
+    at /w/node_modules/nodeunit/deps/async.js:168:13
+    at /w/node_modules/nodeunit/deps/async.js:131:25
+    at /w/node_modules/nodeunit/deps/async.js:165:17
+    at /w/node_modules/nodeunit/deps/async.js:463:34
+    at Object.exports.setUp (/w/test.js:31:5)
+    at /w/node_modules/nodeunit/lib/core.js:260:35
+    at /w/node_modules/nodeunit/deps/async.js:458:21
+    at /w/node_modules/nodeunit/deps/async.js:163:13
+    at iterate (/w/node_modules/nodeunit/deps/async.js:123:13)
+    at async.forEachSeries (/w/node_modules/nodeunit/deps/async.js:139:9)
+    at _asyncMap (/w/node_modules/nodeunit/deps/async.js:162:9)
+    at Object.mapSeries (/w/node_modules/nodeunit/deps/async.js:152:23)
+    at Object.async.series (/w/node_modules/nodeunit/deps/async.js:456:19)
+
+
+[1m[31mFAILURES: [39m[22m2/14 assertions failed (137ms)
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

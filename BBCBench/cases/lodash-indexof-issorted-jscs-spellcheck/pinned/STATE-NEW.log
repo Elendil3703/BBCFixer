@@ -1,0 +1,85 @@
+
+> jscs-spellcheck@1.0.0 test /w
+> npm run lint && mocha --color
+
+
+> jscs-spellcheck@1.0.0 lint /w
+> jshint . && jscs lib test
+
+No code style errors found.
+
+
+  [90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[31m․[0m[90m․[0m[31m․[0m[90m․[0m[31m․[0m[90m․[0m[90m․[0m[90m․[0m[31m․[0m[90m․[0m[90m․[0m[31m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m
+
+[92m [0m[32m 26 passing[0m[90m (252ms)[0m
+[31m  5 failing[0m
+
+[0m  1) rules/require-dictionary-words allowWords should not report allowed words:
+
+      [31mAssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(checker.checkString('asdf = 1;').isEmpty())
+[0m
+      [32m+ expected[0m [31m- actual[0m
+
+      [31m-false[0m
+      [32m+true[0m
+      [0m[90m
+      at Context.<anonymous> (test/specs/rules/require-dictionary-words.js:113:13)
+[0m
+[0m  2) rules/require-dictionary-words allowNames should not report allowed names:
+
+      [31mAssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(checker.checkString('asdf = 1;').isEmpty())
+[0m
+      [32m+ expected[0m [31m- actual[0m
+
+      [31m-false[0m
+      [32m+true[0m
+      [0m[90m
+      at Context.<anonymous> (test/specs/rules/require-dictionary-words.js:135:13)
+[0m
+[0m  3) rules/require-dictionary-words allowWordsInIdentifiers should not report allowed words in identifiers:
+
+      [31mAssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(checker.checkString('asdf = 1;').isEmpty())
+[0m
+      [32m+ expected[0m [31m- actual[0m
+
+      [31m-false[0m
+      [32m+true[0m
+      [0m[90m
+      at Context.<anonymous> (test/specs/rules/require-dictionary-words.js:155:13)
+[0m
+[0m  4) rules/require-dictionary-words allowNamesAsIdentifiers should not report allowed names as identifiers:
+
+      [31mAssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(checker.checkString('asdf = 1;').isEmpty())
+[0m
+      [32m+ expected[0m [31m- actual[0m
+
+      [31m-false[0m
+      [32m+true[0m
+      [0m[90m
+      at Context.<anonymous> (test/specs/rules/require-dictionary-words.js:196:13)
+[0m
+[0m  5) rules/require-dictionary-words excludeWords should report excluded words:
+
+      [31mAssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(checker.checkString('good = 1;').getErrorCount() === 1)
+[0m
+      [32m+ expected[0m [31m- actual[0m
+
+      [31m-false[0m
+      [32m+true[0m
+      [0m[90m
+      at Context.<anonymous> (test/specs/rules/require-dictionary-words.js:230:13)
+[0m
+
+
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

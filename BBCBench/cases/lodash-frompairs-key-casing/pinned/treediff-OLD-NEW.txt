@@ -1,0 +1,6 @@
+106c106
+< lodash	lodash@3.10.1
+---
+> lodash	lodash@4.17.21
+167a168
+> tap-spec/node_modules/lodash	lodash@3.10.1

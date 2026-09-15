@@ -1,0 +1,403 @@
+
+> waterline@0.15.2 test
+> nodever=`node -e "console.log('\`node -v\`'[1]);"` && if [ $nodever != "0" ]; then npm run lint; fi && npm run custom-tests
+
+
+> waterline@0.15.2 lint
+> node ./node_modules/eslint/bin/eslint . --max-warnings=0 --ignore-pattern 'test/'
+
+
+> waterline@0.15.2 custom-tests
+> node ./node_modules/mocha/bin/mocha test --recursive
+
+
+
+  Alter Mode Recovery with buffer attributes
+    - should recover data
+
+  Alter Mode Recovery with an enforced schema
+    - should keep data already in the data store
+    - should include the attributes in the schema
+    - should not include the attributes NOT in the schema
+
+  Alter Mode Recovery with schemaless data
+    - should keep data already in the data store
+    - should include the attributes in the schema
+    - should include the attributes NOT in the schema
+
+  After Create Lifecycle Callback ::
+    Create ::
+      ✓ should run afterCreate and mutate values
+
+  After Create Lifecycle Callback ::
+    .createEach ::
+      ✓ should run afterCreate and mutate values
+
+  .afterCreate()
+    basic function
+      .findOrCreate()
+        without a record
+          ✓ should run afterCreate and mutate values on create
+        with a record
+          ✓ should not run afterCreate and mutate values on find
+
+  After Destroy Lifecycle Callback ::
+    Destroy ::
+      ✓ should run afterDestroy
+
+  Before Create Lifecycle Callback ::
+    Create ::
+      ✓ should run beforeCreate and mutate values
+
+  Before Create Lifecycle Callback ::
+    .createEach() ::
+      ✓ should run beforeCreate and mutate values
+
+  .beforeCreate()
+    basic function
+      .findOrCreate()
+        without a record
+          ✓ should run beforeCreate and mutate values on create
+        without a record
+          ✓ should not run beforeCreate and mutate values on find
+
+  Before Destroy Lifecycle Callback ::
+    Destroy ::
+
+Warning: Unexpected behavior in database adapter:
+Since `fetch` is NOT enabled, this adapter (for datastore `foo`)
+should NOT have sent back anything as the 2nd argument when triggering the callback
+from its `destroy` method.  But it did!
+
+(Displaying this warning to help avoid confusion and draw attention to the bug.
+Specifically, got:
+{
+  method: 'destroy',
+  using: 'user',
+  criteria: {
+    where: { name: 'test' },
+    limit: 9007199254740991,
+    skip: 0,
+    sort: []
+  },
+  meta: undefined
+}
+(Ignoring it and proceeding anyway...)
+
+      ✓ should run beforeDestroy
+
+  Collection Transformations ::
+    Initialize ::
+      with string columnName
+        ✓ should set a username transformation
+      with function columnName
+        ✓ should NOT set a username transformation
+
+  Collection Transformations ::
+    Serialize ::
+      with normal key/value pairs
+        ✓ should change username key to login
+        ✓ should work recursively
+        ✓ should work on SELECT queries
+      with associations
+        ✓ should change customer key to customer_uuid
+        ✓ should work recursively
+
+  Collection Transformations ::
+    Unserialize ::
+      with normal key/value pairs
+        ✓ should change login key to username
+      with columnNames that conflict with other attribute names
+        ✓ should change unserialize both attributes correctly
+
+  Type Casting ::
+    with `type: 'boolean'` ::
+      - should act as no-op when given a boolean
+      - should cast string "true" to a boolean
+      - should cast string "false" to a boolean
+      - should cast number 0 to a boolean
+      - should cast number 1 to a boolean
+      - should throw E_VALIDATION error when a value can't be cast
+
+  Type Casting ::
+    with `type: 'json'` ::
+      - should leave the null literal as-is
+      - should leave numbers as-is
+      - should leave booleans as-is
+      - should decycle circular nonsense
+      - should reject Readable streams
+      given a string imposter (i.e. looks like another type)
+        - should leave "null" imposter string as-is
+        - should leave number imposter strings as-is
+        - should leave boolean imposter strings as-is
+        - should leave dictionary imposter strings as-is
+
+  Type Casting ::
+    with `type: 'number'` ::
+      - should cast strings to numbers when integers
+      - should cast strings to numbers when floats
+      - should throw when a number can't be cast
+      - should not try and do anything fancy with mongo ID's, even when it's really tempting
+
+  Type Casting ::
+    with `type: 'ref'` ::
+      - should not modify ref types (and should return the original reference)
+      - should accept EVEN the wildest nonsense, just like it is, and not change it, not even one little bit
+
+  Type Casting ::
+    with `type: 'string'` ::
+      - should cast numbers to strings
+      - should throw E_VALIDATION error when a value can't be cast
+
+  Collection Validator ::
+    .validate()
+      ✓ should not return any errors when no validation rules are violated
+      ✓ should return an Error with name `UsageError` when a required field is not present in a `create`
+      ✓ should return an Error with name `UsageError` when a required string field is set to empty string in a `create`
+      ✓ should return an Error with name `UsageError` when a field is set to the wrong type in a `create`
+      ✓ should return an Error with name `UsageError` when a field fails a validation rule in a `create`
+      ✓ should not return an Error when a required field is not present in an `update`
+      ✓ should return an Error with name `UsageError` when a required string field is set to empty string in a `update`
+      ✓ should return an Error with name `UsageError` when a field is set to the wrong type in a `update`
+      ✓ should return an Error with name `UsageError` when a field fails a validation rule in a `update`
+      ✓ should not return any errors when a primary key does not violate any validations.
+      ✓ should return an Error with name `UsageError` when a primary key fails a validation rule in a `create`
+
+  Collection Query ::
+    belongs to association
+      ✓ should build a join query
+
+  Collection Query ::
+    has many association
+      ✓ should build a join query
+
+  Collection Query ::
+    many to many association
+      ✓ should build a join query
+
+  Collection Query ::
+    specific populated associations ::
+      ✓ should populate all related collections
+
+  Collection Query ::
+    populated associations ::
+      ✓ should transform populated values
+
+  Collection Query ::
+    .create()
+      with autoCreatedAt
+        ✓ should use correct types for autoCreatedAt fields based on the attribute `type`
+
+  Collection Query ::
+    .update()
+      with autoUpdatedAt
+        ✓ should use correct types for autoUpdatedAt fields based on the attribute `type`
+
+  Collection Query ::
+    .avg()
+      ✓ should return criteria with average set
+      ✓ should NOT accept an array
+
+  Collection Query ::
+    .count()
+      ✓ should return a number representing the number of things
+      ✓ should allow a query to be built using deferreds
+
+  Collection Query ::
+    .count()
+      with transformed values
+        ✓ should transform values before sending to adapter
+
+  Collection Query ::
+    .create()
+      with Auto values
+        ✓ should set default values
+        ✓ should set default values when the value is undefined
+        ✓ should add timestamps
+        ✓ should set values
+        ✓ should strip values that don't belong to the schema
+        ✓ should allow a query to be built using deferreds
+      override and disable auto values
+        ✓ should NOT add timestamps
+      override auto values with custom names
+        ✓ should add timestamps with a custom name
+      cast proper values
+        ✓ should cast values before sending to adapter
+      with schema set to false
+        ✓ should allow arbitratry values to be set
+        ✓ should not be detructive to passed-in arrays
+
+  Collection Query ::
+    .create()
+      with ref values
+        ✓ should maintain object references for `ref` type attributes
+
+  Collection Query ::
+    .create()
+      with transformed values
+        ✓ should transform values before sending to adapter
+        ✓ should transform values after receiving from adapter
+
+  Collection Query ::
+    .createEach()
+      with proper values
+        ✓ should require an array of values
+        ✓ should require a valid set of records
+        ✓ should add default values to each record
+        ✓ should clone default values for each record
+        ✓ should strip values that don't belong to the schema
+        ✓ should add timestamp values to each record
+        ✓ should allow a query to be built using deferreds
+      casting values
+        ✓ should cast values before sending to adapter
+        ✓ should not be detructive to passed-in arrays
+
+  Collection Query ::
+    .createEach()
+      ✓ should transform values before sending to adapter
+      ✓ should transform values after receiving from adapter
+
+  Collection Query ::
+    .destroy()
+      with Auto PK
+        ✓ should not return an error
+        ✓ should allow a query to be built using deferreds
+      with custom columnName set
+
+Warning: Unexpected behavior in database adapter:
+Since `fetch` is NOT enabled, this adapter (for datastore `foo`)
+should NOT have sent back anything as the 2nd argument when triggering the callback
+from its `destroy` method.  But it did!
+
+(Displaying this warning to help avoid confusion and draw attention to the bug.
+Specifically, got:
+{ where: { pkColumn: 1 }, limit: 9007199254740991, skip: 0, sort: [] }
+(Ignoring it and proceeding anyway...)
+
+        ✓ should use the custom primary key when a single value is passed in
+
+  Collection Query ::
+    .destroy()
+      with transformed values
+        ✓ should transform values before sending to adapter
+
+  Collection Query ::
+    .exec()
+      ✓ should work the same with .exec() as it does with a callback
+      when passed a switchback (object with multiple handlers)
+        - should not fail, and should work the same as it does w/ a callback
+
+  Collection Query ::
+    .find()
+      ✓ should allow options to be optional
+      ✓ should return an array
+      ✓ should allow a query to be built using deferreds
+      .paginate()
+        ✓ should skip to 0 and limit to 30 by default
+        ✓ should set skip to 0 from page 0
+        ✓ should set skip to 0 from page 1
+        ✓ should set skip to 30
+        ✓ should set limit to 1
+        ✓ should set skip to 20 and limit to 10
+        ✓ should set skip to 30 and limit to 10
+
+  Collection Query ::
+    .find()
+      with transformed values
+        ✓ should transform criteria before sending to adapter
+        ✓ should transform values after receiving from adapter
+        ✓ should include base value for no-op populates
+
+  Collection Query ::
+    .findOne()
+      with autoPK
+        ✓ should allow an integer to be passed in as criteria
+        ✓ should allow a query to be built using deferreds
+      with custom PK
+        with no columnName set
+          ✓ should use the custom primary key when a single value is passed in
+        with custom columnName set
+          ✓ should use the custom primary key when a single value is passed in
+
+  Collection Query ::
+    .findOne()
+      with transformed values
+        ✓ should transform criteria before sending to adapter
+        ✓ should transform values after receiving from adapter
+
+  Collection Query ::
+    .findOrCreate()
+      with proper values
+        ✓ should set default values
+        ✓ should set default values with exec
+        ✓ should set values
+        ✓ should strip values that don't belong to the schema
+      casting values
+        ✓ should cast values before sending to adapter
+
+  Collection Query ::
+    .findOrCreate()
+      with transformed values
+        ✓ should transform criteria before sending to adapter
+        ✓ should transform values before sending to adapter
+        ✓ should transform values after receiving from adapter
+
+  Collection Promise ::
+    .then()
+      ✓ should return a promise object
+      ✓ should reject the promise if the then handler fails
+      ✓ should only resolve once
+
+  Collection Query ::
+    .stream()
+      1) should allow streaming a single record at a time
+      2) should allow streaming a batch of records at a time
+      3) should work correctly with `.skip()` and `.limit()`
+
+  Collection Query ::
+    .sum()
+      ✓ should return criteria with sum set
+      ✓ should NOT accept an array
+
+  Collection Query ::
+    .update()
+      with proper values
+        ✓ should change the updatedAt timestamp
+        ✓ should set values
+        ✓ should strip values that don't belong to the schema
+        ✓ should allow a query to be built using deferreds
+      casting values
+        ✓ should cast values before sending to adapter
+      with custom columnName set
+        ✓ should use the custom primary key when a single value is passed in
+
+  Collection Query ::
+    .update()
+      with transformed values
+        ✓ should transform criteria before sending to adapter
+        ✓ should transform values before sending to adapter
+        ✓ should transform values after receiving from adapter
+
+
+  113 passing (6s)
+  31 pending
+  3 failing
+
+  1) Collection Query :: .stream() should allow streaming a single record at a time:
+     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  2) Collection Query :: .stream() should allow streaming a batch of records at a time:
+     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  3) Collection Query :: .stream() should work correctly with `.skip()` and `.limit()`:
+     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+
+
+STATE-NEW rc=3

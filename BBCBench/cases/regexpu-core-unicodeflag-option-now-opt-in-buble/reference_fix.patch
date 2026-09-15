@@ -1,0 +1,13 @@
+diff --git a/src/program/types/Literal.js b/src/program/types/Literal.js
+index 8103f67..a828db9 100644
+--- a/src/program/types/Literal.js
++++ b/src/program/types/Literal.js
+@@ -30,7 +30,7 @@ export default class Literal extends Node {
+ 				code.overwrite(
+ 					this.start,
+ 					this.end,
+-					`/${rewritePattern(pattern, flags)}/${flags.replace('u', '')}`,
++					`/${rewritePattern(pattern, flags, { unicodeFlag: 'transform' })}/${flags.replace('u', '')}`,
+ 					{
+ 						contentOnly: true
+ 					}

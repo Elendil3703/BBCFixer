@@ -1,0 +1,51 @@
+{
+  "name": "azul-transaction",
+  "version": "0.1.0",
+  "description": "Transaction Middleware for Azul.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jshint --exclude-path=.gitignore . && ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report $(if [ \"$TRAVIS\" ]; then echo lcovonly; else echo html; fi) -- --recursive && if [ \"$TRAVIS\" ]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wbyoung/azul-transaction.git"
+  },
+  "keywords": [
+    "postgres",
+    "mysql",
+    "sqlite",
+    "pg",
+    "orm",
+    "database",
+    "sql",
+    "transaction"
+  ],
+  "author": "Whitney Young",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wbyoung/azul-transaction/issues"
+  },
+  "homepage": "https://github.com/wbyoung/azul-transaction",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "index.js"
+  ],
+  "dependencies": {
+    "bluebird": "^2.9.26",
+    "lodash": "^3.6.0"
+  },
+  "peerDependencies": {
+    "azul": "^0.0.1-alpha.14"
+  },
+  "devDependencies": {
+    "azul": "^0.0.1-alpha.14",
+    "chai": "^2.3.0",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.13",
+    "jshint": "^2.7.0",
+    "mocha": "^2.2.4",
+    "sinon": "^1.14.1",
+    "sinon-chai": "^2.7.0"
+  }
+}

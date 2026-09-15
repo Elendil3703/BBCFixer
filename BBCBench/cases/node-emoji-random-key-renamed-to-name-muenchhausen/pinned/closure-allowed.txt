@@ -1,0 +1,7 @@
+char-regex
+emojilib
+lodash.toarray
+node-emoji
+@sindresorhus/is
+skin-tone
+unicode-emoji-modifier-base

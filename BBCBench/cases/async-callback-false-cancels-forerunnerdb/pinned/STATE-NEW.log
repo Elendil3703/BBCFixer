@@ -1,0 +1,96 @@
+[4mRunning "testbear" task[24m
+[36m[1mCore -[22m[39m [32m[1mInstantiate ForerunnerDB[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mForerunnerDB instance is instantiated[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 1 assertions and took [35m[1m0 ms[22m[39m
+
+[36m[1mCore -[22m[39m [32m[1mInstantiate a Database Instance[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mForerunnerDB database instance is instantiated[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 1 assertions and took [35m[1m0 ms[22m[39m
+
+[36m[1mCollection -[22m[39m [32m[1mInstantiate a Collection Instance[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mForerunnerDB instance is instantiated[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 1 assertions and took [35m[1m0 ms[22m[39m
+
+[36m[1mCollection -[22m[39m [32m[1mUpsert with array in update correctly removes maintain references[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData length is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData id 1 is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData id 2 is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData id 1 arr 1 is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData id 2 arr 1 is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData 1 length is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData 1 length is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData arrays in find result have been decoupled[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData arrays in underlying data have been decoupled[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 9 assertions and took [35m[1m2 ms[22m[39m
+
+[36m[1mCollection -[22m[39m [32m[1mindex() :: Test 2d index search on large data set[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1m499[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1m499[22m[39m
+Collection record count: 499
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1mCheck index is available: cityLatLngIndex[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1mCheck index is correct name: cityLatLngIndex[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mNumber of doc in 100 miles is more than docs in 50 miles[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult1 count correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult2 count correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 1 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 2 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 3 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 4 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 5 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 6 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 7 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 8 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 9 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 1 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 2 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 3 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 4 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 5 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 6 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 7 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 8 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 9 correct[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 25 assertions and took [35m[1m116 ms[22m[39m
+
+[36m[1mCollection -[22m[39m [32m[1mCheck aggregation[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1mThe return data length is correct[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 1 assertions and took [35m[1m1 ms[22m[39m
+
+[36m[1mPersist -[22m[39m [32m[1mSave Collection Data and Load it Back From File-Based Persistent Storage[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+
+/w/node_modules/testbear/index.js:132
+					throw('TIMEOUT\t Test timed out!');
+					^
+TIMEOUT	 Test timed out!
+(Use `node --trace-uncaught ...` to show where the exception was thrown)
+[33mWarning: Test Bear reported errors in tests! Use --force to continue.[39m
+
+[31mAborted due to warnings.[39m
+STATE-NEW rc=3

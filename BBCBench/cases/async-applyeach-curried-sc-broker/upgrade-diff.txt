@@ -1,0 +1,21 @@
+diff --git a/package.json b/package.json
+index 5bce0a8..5d9e578 100644
+--- a/package.json
++++ b/package.json
+@@ -16,7 +16,7 @@
+     }
+   ],
+   "dependencies": {
+-    "async": "^2.6.1",
++    "async": "3.2.6",
+     "expirymanager": "^0.9.3",
+     "fleximap": "^1.0.0",
+     "ncom": "^1.0.2",
+@@ -48,6 +48,5 @@
+     "cover": "istanbul cover _mocha -- --reporter spec --timeout 10000 --slow 10000",
+     "test": "mocha --reporter spec --timeout 10000 --slow 10000",
+     "test:es6": "TEST_TYPE=es6 node --experimental-modules node_modules/mocha/bin/_mocha --reporter spec --timeout 10000 --slow 10000"
+-  },
+-  "optionalDependencies": {}
++  }
+ }

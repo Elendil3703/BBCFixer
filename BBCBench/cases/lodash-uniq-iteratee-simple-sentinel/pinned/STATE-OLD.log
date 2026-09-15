@@ -1,0 +1,156 @@
+
+> simple-sentinel@0.2.0 test /w
+> mocha -R spec --check-leaks tests/*_test.js
+
+
+
+(node:26) [DEP0022] DeprecationWarning: os.tmpDir() is deprecated. Use os.tmpdir() instead.
+  RedisConfigFetcher
+    during initialization
+      ✓ emits 'error' on connection error
+      ✓ emits 'error' on client close
+      ✓ emits 'error' on command timeouts (51ms)
+      ✓ emits 'error' with non-sentinel
+      ✓ emits 'connected' with sentinel
+    when using isInfoResponseValid
+      ✓ detects null as non-sentinel
+      ✓ detects a normal info as non-sentinel
+      ✓ detects a sentinel info as such
+    when parsing a server list
+      ✓ rejects bad types
+      ✓ rejects odd number of items in list
+      ✓ rejects dupe properties
+      ✓ rejects non-numeric ports
+      ✓ rejects missing name
+      ✓ parses ports as numbers
+      ✓ parses flags as array
+      ✓ parses multiple rows
+    when building a lookup
+      ✓ passes nulls along without logging
+      ✓ fails on non-arrays
+      ✓ fails when something lacks a name
+      ✓ fails with duplicate names
+      ✓ works when everything is ok
+    when updating configs
+      ✓ emits 'error' when timeout from masters command (50ms)
+      ✓ emits 'error' when timeout from slaves command (50ms)
+      ✓ emits 'error' when bad results from masters command
+      ✓ emits 'error' when bad results from slaves command
+      ✓ emits 'config' with correct values
+      ✓ only emits 'config's for replicas that exist
+      ✓ runs one update at a time
+
+  RedisReplica
+    when checking isDown
+      ✓ handles null values
+      ✓ handles config without flags
+      ✓ detects an up slave
+      ✓ detects a down slave
+      ✓ detects an up master
+      ✓ detects a down master
+    when loading a master config
+      ✓ detects no change from null to null
+      ✓ detects change from null to config
+      ✓ detects change from config to null
+      ✓ rejects loading a config from the wrong name
+      ✓ detects no change from config to config
+      ✓ detects changes in ip
+      ✓ detects changes in port
+      ✓ detects changes in up/down
+      ✓ detects s_down's for master
+    when loading slave configs
+      ✓ detects no change from null to null
+      ✓ detects change from null to list
+      ✓ detects change from list to null
+      ✓ detects no change from list to same list
+      ✓ detects change when lists are different length
+      ✓ detects change when new ip is introduced
+      ✓ detects change when new port is introduced
+      ✓ detects change when server changes up/down state
+    when creating user clients
+      for a master
+        ✓ returns null when no config
+        ✓ returns null when master is down
+        ✓ returns a client when master is up
+      for a random slave
+        ✓ returns null when no slaves
+        ✓ returns null when all slaves are down
+        ✓ returns a random slave when at least one is up
+      for all slaves
+        ✓ returns an empty array when no slaves
+        ✓ returns an empty array when all slaves are down
+        ✓ returns all live slaves in an array
+    when getting connection info
+      for a master
+        ✓ returns null when no config
+        ✓ returns null when master is down
+        ✓ returns a client when master is up
+      for a random slave
+        ✓ returns null when no slaves
+        ✓ returns null when all slaves are down
+        ✓ returns a random slave when at least one is up
+      for all slaves
+        ✓ returns an empty array when no slaves
+        ✓ returns an empty array when all slaves are down
+        ✓ returns all live slaves in an array
+    when shown as a string
+      ✓ works when empty
+      ✓ works with a master
+      ✓ works with slaves
+
+  RedisSentinel
+    when validating a sentinel array
+      ✓ fails when array is falsy
+      ✓ fails when array is not an array
+      ✓ fails when array is empty
+      ✓ fails when item in array is falsy
+      ✓ fails when item in array is not an object
+      ✓ fails when item in array omits host
+      ✓ succeeds when everything is ok
+    when constructing
+      ✓ rejects a bad sentinel list
+      ✓ will allow overrides to options
+      ✓ will allow a client redis lib to be injected
+      ✓ will dedupe the list of sentinels
+      ✓ works as both a constructor and a function call
+    when connecting
+      ✓ can connect to a sentinel and pull a configuration
+      ✓ will dodge bad connections
+      ✓ will dodge timeouts (253ms)
+      ✓ will dodge non-sentinels
+      ✓ will retry if so configured (103ms)
+      ✓ will error if so configured
+      ✓ will find a sentinel server when in random mode
+      ✓ will detect and emit when changes happen (102ms)
+      ✓ will emit events (103ms)
+      ✓ will reconnect on errors (307ms)
+
+  RedisWatcher
+    ✓ emits 'refresh' on startup
+    ✓ emits 'refresh' after period of no changes (151ms)
+    ✓ emits 'refresh' after change
+    ✓ emits 'event' after events
+    ✓ emits 'error' on error
+    ✓ emits 'error' on hangup
+    ✓ is useless after kill
+
+  Util
+    ✓ extends the Node.js util lib
+    when require()-ing from a parent
+      ✓ gets the right module
+      ✓ gets null on not found
+    when making a logger
+      ✓ will create a muted log
+      ✓ can unmute a log
+      ✓ will accept formatting stuff
+      with errors
+        ✓ will show stack traces if available
+        ✓ will stringify an error if no stack trace
+    when shuffling an array
+      ✓ both edits in place and returns the shuffled array
+      ✓ gives an ok distribution
+
+
+  111 passing (1s)
+
+STATE-OLD rc=0

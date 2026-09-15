@@ -1,0 +1,44 @@
+{
+  "id": "lodash-merge-customizer-rest-emulator",
+  "name": "lodash-merge-customizer-rest-emulator",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "temrdm/rest-emulator",
+    "url": "https://github.com/temrdm/rest-emulator",
+    "commit": "1d9cfc26e93ce735b0afcef4b6f184dc00b4a1b2"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.merge",
+  "root_symbols": [
+    "merge",
+    "mergeWith",
+    "createAssigner",
+    "baseMerge"
+  ],
+  "behavioral_change": "lodash v4.0.0 moved the customizer capability of `_.merge` into `_.mergeWith`. Under v_new a function passed as the third argument to `_.merge` is treated as another source object rather than a customizer, so it has no effect on the merge.",
+  "downstream_effect": "The downstream project calls `_.merge(global, local, customizer)` in lib/merge.js:6 to keep global presets and warn on conflicts; after the upgrade conflict detection is disabled and local presets unconditionally overwrite global ones. The two failures are jasmine assertion texts with no file name or line number, and the output never mentions lodash, mergeWith or customizer.",
+  "reference_fix": "The reference fix replaces `_.merge(global, local, customizer)` with `_.mergeWith(global, local, customizer)` in lib/merge.js:6; an untested `_.contains` call in lib/rest-emulator.js is deliberately left out of the reference fix.",
+  "documented_in": "The lodash Changelog for v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), Compatibility Warnings section, \"Split out methods\" list, states \"Split `_.merge` into `_.mergeWith`\" with no accompanying code; the new call form must be derived from the `_.mergeWith` API reference (https://lodash.com/docs/4.17.21#mergeWith).",
+  "failing_tests": [
+    "tests/merge-spec.js :: Merge module. Merge config. One url. Merge clashes presets.",
+    "tests/merge-spec.js :: Merge module. Merge config. Many urls. Merge correct and incorrect presets."
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:10",
+    "node_major": 10,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "temrdm/rest-emulator",
+  "commit": "1d9cfc26e93ce735b0afcef4b6f184dc00b4a1b2"
+}

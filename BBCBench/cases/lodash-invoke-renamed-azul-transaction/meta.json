@@ -1,0 +1,58 @@
+{
+  "id": "lodash-invoke-renamed-azul-transaction",
+  "name": "lodash-invoke-renamed-azul-transaction",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "wbyoung/azul-transaction",
+    "url": "https://github.com/wbyoung/azul-transaction",
+    "commit": "b1929332a1c9c7645ef9849be3a4fe3d2a5a1b12"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.invoke",
+  "root_symbols": [
+    "invoke",
+    "invokeMap",
+    "baseInvoke"
+  ],
+  "behavioral_change": "lodash v4.0.0 renamed `_.invoke` to `_.invokeMap` and reassigned the name `_.invoke` to a different function. In v_old, `_.invoke(collection, methodName)` called the named method on every element and returned an array of results; in v_new, `_.invoke(object, path, args)` calls the method at one path of an object and returns a single result.",
+  "downstream_effect": "The downstream project calls `_.invoke(match[1].split(','), 'trim')` in index.js:223 to trim parsed parameter names; under v_new the call looks for a `trim` method on the whole array, silently returns undefined, and a later read of `params.length` throws `TypeError: Cannot read property 'length' of undefined`. The 17 failures never mention `invoke` or `invokeMap`; the stack frames name index.js and the function `route` but with istanbul-instrumented column numbers, and the throw site (index.js:236) is a different statement from the one that must be edited (index.js:223).",
+  "reference_fix": "The reference fix replaces `_.invoke(match[1].split(','), 'trim')` with `_.invokeMap(match[1].split(','), 'trim')` in index.js:223.",
+  "documented_in": "The lodash Changelog for v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), Compatibility Warnings section, \"Method renames\" list, states \"Renamed `_.invoke` to `_.invokeMap`\"; the entry has no accompanying code block, and the API reference for `_.invokeMap` (https://lodash.com/docs/4.17.21#invokeMap) describes the v_old semantics.",
+  "failing_tests": [
+    "azul-transaction wrapped route recognizes a next parameter",
+    "azul-transaction wrapped route recognizes an error parameter",
+    "azul-transaction wrapped route recognizes an error parameter with function body",
+    "azul-transaction wrapped route accepts unknown parameter configurations as standard express params",
+    "azul-transaction wrapped route throws for unkown params following azul params",
+    "azul-transaction wrapped route works with middleware installed",
+    "azul-transaction wrapped route works without middleware installed",
+    "azul-transaction wrapped route works for defining error middleware",
+    "azul-transaction wrapped route performs rollback if next is called with error",
+    "azul-transaction wrapped route performs only performs one rollback if rolled back manually & through error",
+    "azul-transaction wrapped route commits if next is called without arguments",
+    "azul-transaction wrapped route throws if next is called with non-error",
+    "azul-transaction wrapped route works with relationships",
+    "azul-transaction wrapped route with azul params \"before each\" hook for \"generates a standard express route\"",
+    "azul-transaction wrapped route when begin transaction fails calls next with error",
+    "azul-transaction wrapped route when commit transaction fails calls next with error",
+    "azul-transaction wrapped route when rollback transaction fails calls next with error"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:10",
+    "node_major": 10,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "wbyoung/azul-transaction",
+  "commit": "b1929332a1c9c7645ef9849be3a4fe3d2a5a1b12"
+}

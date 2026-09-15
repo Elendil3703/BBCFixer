@@ -1,0 +1,11 @@
+@babel/regjsgen
+jsesc
+regenerate
+regenerate-unicode-properties
+regexpu-core
+regjsgen
+regjsparser
+unicode-canonical-property-names-ecmascript
+unicode-match-property-ecmascript
+unicode-match-property-value-ecmascript
+unicode-property-aliases-ecmascript

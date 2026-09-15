@@ -1,0 +1,46 @@
+
+> async-rtree@1.2.2 test /w
+> node test.js
+
+TAP version 13
+# large query
+ok 1 should be equal
+# small query
+ok 2 should be equal
+# small query stream
+ok 3 should be equal
+# remove
+ok 4 should be equal
+ok 5 should be equal
+ok 6 should be equal
+ok 7 should be equal
+# append
+ok 8 should be equal
+ok 9 should be equal
+ok 10 should be equal
+ok 11 should be equal
+# remove no bbox
+ok 12 should be equal
+ok 13 should be equal
+ok 14 should be equal
+ok 15 should be equal
+# bulk loaded large query
+ok 16 should be equal
+ok 17 should be equal
+# bulk loaded large query data already in
+ok 18 should be equal
+ok 19 should be equal
+# bulk loaded then put some in
+ok 20 should be equal
+ok 21 should be equal
+# bulk loaded then smaller bulk load
+ok 22 should be equal
+ok 23 should be equal
+
+1..23
+# tests 23
+# pass  23
+
+# ok
+
+STATE-OLD rc=0

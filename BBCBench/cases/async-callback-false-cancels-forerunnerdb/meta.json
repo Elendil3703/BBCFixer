@@ -1,0 +1,44 @@
+{
+  "id": "async-callback-false-cancels-forerunnerdb",
+  "name": "async-callback-false-cancels-forerunnerdb",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "Irrelon/ForerunnerDB",
+    "url": "https://github.com/Irrelon/ForerunnerDB",
+    "commit": "bdeea1b2cc677af15578e0fb84967612d09a595b"
+  },
+  "lib": "async",
+  "v_old": "2.6.0",
+  "v_new": "3.2.6",
+  "library_repo": "https://github.com/caolan/async",
+  "library_tags": {
+    "old": "v2.6.0",
+    "new": "v3.2.6"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "async.waterfall",
+  "root_symbols": [
+    "waterfall",
+    "waterfall.next"
+  ],
+  "behavioral_change": "In async v_new (3.0.0), calling a task callback with `false` as the error argument cancels the whole async flow: further tasks are skipped and the final callback is never called. In v_old (2.x) `false` was an ordinary falsy error value and the flow continued. Function names and signatures are unchanged and no exception is raised.",
+  "downstream_effect": "ForerunnerDB's js/lib/NodePersist.js uses `async.waterfall` for its persistence encode/decode pipeline and signals success with `callback(false, val, {})` and `finished(false, data, meta)`, so after the upgrade the final callbacks never fire and the persistence test times out. The only failure output is a `TIMEOUT` thrown from the testbear framework itself, with no production file, line number, or mention of async or waterfall.",
+  "reference_fix": "The reference fix changes five lines in js/lib/NodePersist.js, replacing the `false` that meant \"no error\" in `callback(false, ...)` and `finished(false, ...)` with `null`.",
+  "documented_in": "The async 3.2.6 CHANGELOG.md, v3.0.0 Breaking Changes section, states that calling `callback(false)` cancels an async method. That entry contains no code; the `callback(null, ...)` form appears in the jsdoc example of waterfall.js in the same release package.",
+  "failing_tests": [
+    "Persist - Save Collection Data and Load it Back From File-Based Persistent Storage (testbear, timeout)"
+  ],
+  "test_cmd": "./node_modules/.bin/grunt testbear",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "Irrelon/ForerunnerDB",
+  "commit": "bdeea1b2cc677af15578e0fb84967612d09a595b",
+  "no_summary_states": {
+    "STATE-NEW": "In STATE-NEW the first test of the Persist group times out and testbear throws from node_modules/testbear/index.js:132; the process dies on the uncaught exception before the summary table is printed. STATE-OLD and STATE-FIXED both print the summary row | 10 | 10 | 0 |, so the empty-pass gate still applies to the two passing states. The failure of STATE-NEW is evidenced by exit code 3 and the TIMEOUT text in the log."
+  }
+}

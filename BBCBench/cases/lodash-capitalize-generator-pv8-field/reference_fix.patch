@@ -1,0 +1,13 @@
+diff --git a/generators/app/index.js b/generators/app/index.js
+index 487ce3c..0c93a98 100644
+--- a/generators/app/index.js
++++ b/generators/app/index.js
+@@ -22,7 +22,7 @@ module.exports = yeoman.generators.Base.extend({
+ 
+     this.prompt(prompts, function (props) {
+       this.componentName = props.componentName;
+-      this.componentNamePC = lodash.capitalize(lodash.camelCase(props.componentName));
++      this.componentNamePC = lodash.upperFirst(lodash.camelCase(props.componentName));
+       this.componentNameCC = lodash.camelCase(props.componentName);
+ 
+       done();

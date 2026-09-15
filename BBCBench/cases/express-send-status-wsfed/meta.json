@@ -1,0 +1,43 @@
+{
+  "id": "express-send-status-wsfed",
+  "name": "express-send-status-wsfed",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "auth0/node-wsfed",
+    "url": "https://github.com/auth0/node-wsfed",
+    "commit": "4b479e0506696dd8fcf79cf9463a2c8225b99c09"
+  },
+  "lib": "express",
+  "v_old": "4.17.3",
+  "v_new": "5.1.0",
+  "library_repo": "https://github.com/expressjs/express",
+  "library_tags": {
+    "old": "4.17.3",
+    "new": "v5.1.0"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "res.send",
+  "root_symbols": [
+    "res.send",
+    "res.json",
+    "res.jsonp"
+  ],
+  "behavioral_change": "express 5.0.0 removed the special interpretation of a numeric first argument to `res.send` and the two-argument form `res.send(status, body)`. In v_old, `res.send(400, 'postUrl is required')` sent status 400 with that text; in v_new the first argument is serialized as the response body by `res.json`, the second is ignored, and the response silently becomes status 200 with body `400`.",
+  "downstream_effect": "In the downstream project (wsfed), requests that should be rejected are answered as successes; the two failing tests report only `expected 200 to equal 400` with no stack frames, file names or line numbers. The edit site is `lib/wsfed.js:149` inside an anonymous middleware closure, reachable only by tracing through `test/fixture/server.js`.",
+  "reference_fix": "The reference fix edits only `lib/wsfed.js`, changing `res.send(400, 'postUrl is required')` at line 149 to `res.status(400).send('postUrl is required')` and `res.send(401)` at line 89 to `res.sendStatus(401)`.",
+  "documented_in": "The express 5 migration guide (https://expressjs.com/en/guide/migrating-5.html), section Removed, has entries for `res.send(status)` and `res.send(body, status)`, each with a How to update example showing `res.sendStatus(200)` and `res.status(200).send({ name: 'Ruben' })`. Tier 1: the documentation shows the new code form.",
+  "failing_tests": [
+    "test/wsfed.tests.js :: wsfed > when using an invalid callback url > should return error",
+    "test/wsfed.custom_form.tests.js :: wsfed > when using an invalid callback url > should return error"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:20",
+    "node_major": 20,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "auth0/node-wsfed",
+  "commit": "4b479e0506696dd8fcf79cf9463a2c8225b99c09"
+}

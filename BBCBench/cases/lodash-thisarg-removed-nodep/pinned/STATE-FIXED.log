@@ -1,0 +1,115 @@
+
+> nodep@0.2.3 test /w
+> gulp test
+
+[03:08:22] Using gulpfile /w/gulpfile.js
+[03:08:22] Starting 'jshint'...
+[03:08:23] Finished 'jshint' after 65 ms
+[03:08:23] Starting 'spec'...
+[03:08:23] Finished 'spec' after 148 ms
+[03:08:23] Starting 'test'...
+[03:08:23] Finished 'test' after 14 μs
+
+nodep.js
+  line 373  col 37  Misleading line break before '||'; readers may interpret this as an expression boundary.
+  line 374  col 37  Misleading line break before '||'; readers may interpret this as an expression boundary.
+  line 375  col 33  Misleading line break before '?'; readers may interpret this as an expression boundary.
+
+  ⚠  3 warnings
+
+
+
+  $p
+    ✓ should register itself
+
+  $p.name
+    ✓ should camelcase paths
+
+  $p.args
+    ✓ should find no arguments
+    ✓ should find no arguments from commented function
+    ✓ should find one argument
+    ✓ should find one argument from commented function
+    ✓ should find arguments
+    ✓ should find arguments from commented function
+
+  $p.decorator
+    ✓ should create and apply dependency
+    ✓ should create and not apply dependency
+    ✓ should create dependency string
+    ✓ should create dependency object
+    ✓ should create dependency number
+    ✓ should overwrite dependency
+    ✓ should overwrite and inject dependency
+    ✓ should overwrite and inject old dependency
+
+  $p.easyRegister
+    ✓ should reject a non-string type
+    ✓ should find a dependency
+    ✓ should register npm dependency
+    ✓ should not register path
+
+  $p.register
+    ✓ should register npm module
+    ✓ should register string
+    ✓ should register number
+    ✓ should register object
+    ✓ should throw error for undefined
+    ✓ should throw error for non-existent dependency
+    ✓ should throw error for non-existent npm module
+    ✓ should not overwrite existing dependency
+    ✓ should find new npm module
+    ✓ should inject dependency
+    ✓ should inject dependencies
+    ✓ should inject dependency array
+    ✓ should inject dependencies in reverse
+    ✓ should detect circular dependency
+
+  $p.resolveFiles
+    ✓ should resolve file names from directory
+    ✓ should resolve absolute file names from directory
+
+  $p.init
+    ✓ should register dependency
+    ✓ should register dependency array
+    ✓ should register dependency object
+    ✓ should not overwrite dependency from array
+    ✓ should not overwrite dependency from object
+    ✓ should register undefined return dependency as function
+    ✓ should return $p
+    ✓ should call resolve files
+
+  $p.provider
+    ✓ should register other provider object
+    ✓ should register other provider function
+    ✓ should register other provider array
+    ✓ should register other provider string function
+    ✓ should register other provider string object
+    ✓ should error on invalid provider
+    ✓ should return $p
+
+  $p.inject
+    ✓ should return a reference to $p
+    ✓ should return a reference to dependency
+    ✓ should return an undefined reference
+
+
+  54 passing (97ms)
+
+-----------|----------|----------|----------|----------|----------------|
+File       |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+-----------|----------|----------|----------|----------|----------------|
+ w/        |      100 |    98.63 |      100 |      100 |                |
+  nodep.js |      100 |    98.63 |      100 |      100 |                |
+-----------|----------|----------|----------|----------|----------------|
+All files  |      100 |    98.63 |      100 |      100 |                |
+-----------|----------|----------|----------|----------|----------------|
+
+
+=============================== Coverage summary ===============================
+Statements   : 100% ( 113/113 )
+Branches     : 98.63% ( 72/73 )
+Functions    : 100% ( 24/24 )
+Lines        : 100% ( 113/113 )
+================================================================================
+STATE-FIXED rc=0

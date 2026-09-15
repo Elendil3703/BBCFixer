@@ -1,0 +1,44 @@
+{
+  "id": "async-whilst-sync-test-waterline",
+  "name": "async-whilst-sync-test-waterline",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "balderdashy/waterline",
+    "url": "https://github.com/balderdashy/waterline",
+    "commit": "2bbd0375da54121f78ef2e678c300c08e755a506"
+  },
+  "lib": "async",
+  "v_old": "2.6.4",
+  "v_new": "3.2.6",
+  "library_repo": "https://github.com/caolan/async",
+  "library_tags": {
+    "old": "v2.6.4",
+    "new": "v3.2.6"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "async.whilst",
+  "root_symbols": [
+    "whilst",
+    "wrapAsync",
+    "awaitify"
+  ],
+  "behavioral_change": "In async v_new (3.0.0), the `test` function of `whilst`, `doWhilst`, `until` and `doUntil` changed from a synchronous function returning a boolean to an error-first callback style (`test(cb)` calling `cb(null, condition)`). Function names and argument counts are unchanged and no exception is raised; an old synchronous test ignores the callback it is given, so the loop never enters the iteratee or the final callback and stalls silently.",
+  "downstream_effect": "waterline's `.stream()` in lib/waterline/methods/stream.js fetches records in batches with `async.whilst`; after the upgrade its exec callback never fires and three mocha tests time out. The failures contain only mocha's timeout message and node-internal timer frames, with no production file or line number, so the `whilst` call must be found from the test name alone.",
+  "reference_fix": "The reference fix changes the test function `_checkHasntReachedLastBatchYet` in lib/waterline/methods/stream.js so that it accepts a `nextTest` callback and reports its result with `nextTest(undefined, <bool>)` instead of returning a boolean.",
+  "documented_in": "The async 3.0.0 CHANGELOG (Breaking Changes) announces that `whilst`, `doWhilst`, `until` and `doUntil` now take asynchronous `test` functions, and the API reference at https://caolan.github.io/async/v3/docs.html#whilst shows the new form `function test(cb) { cb(null, count < 5); }` next to the v2 form `function() { return count < 5; }`. The changelog entry itself contains no code; the code form comes from the API reference of the same version.",
+  "failing_tests": [
+    "test/unit/query/query.stream.js :: Collection Query :: .stream() > should allow streaming a single record at a time",
+    "test/unit/query/query.stream.js :: Collection Query :: .stream() > should allow streaming a batch of records at a time",
+    "test/unit/query/query.stream.js :: Collection Query :: .stream() > should work correctly with `.skip()` and `.limit()`"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "balderdashy/waterline",
+  "commit": "2bbd0375da54121f78ef2e678c300c08e755a506"
+}

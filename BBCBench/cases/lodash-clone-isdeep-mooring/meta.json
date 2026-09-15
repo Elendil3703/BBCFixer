@@ -1,0 +1,45 @@
+{
+  "id": "lodash-clone-isdeep-mooring",
+  "name": "lodash-clone-isdeep-mooring",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "appersonlabs/mooring",
+    "url": "https://github.com/appersonlabs/mooring",
+    "commit": "32176d3a1057d219079dbaa95b2a6fc52e27e1ab"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.clone",
+  "root_symbols": [
+    "clone",
+    "cloneDeep",
+    "baseClone"
+  ],
+  "behavioral_change": "lodash 4.0.0 removed the `isDeep` parameter of `_.clone`, so `_.clone(args, true)` performs only a shallow clone in v_new; deep cloning moved to `_.cloneDeep`. The function name and call form are unchanged.",
+  "downstream_effect": "The downstream project (mooring) implements its `immutable` option by deep cloning the argument array at three sites in `index.js`; after the upgrade nested objects are shared, middleware writes leak back to the caller, and four assertions fail (for example `expected 'A' to equal 'burger'`). The production frames point at `index.js` lines 20, 98 and 118 (callback forwarding), not at the clone sites on lines 38, 46 and 68, and lodash, `clone` and `isDeep` never appear in the output.",
+  "reference_fix": "The reference fix changes the three `_.clone(args, true)` calls in `index.js` (lines 38, 46 and 68) to `_.cloneDeep(args)`, leaving the intentional shallow `_.clone(args)` on line 75 untouched.",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), section Compatibility Warnings, states that the `isDeep` params were removed from `_.clone` and `_.flatten`. Tier 2: prose only; the `_.cloneDeep(x)` form is derived by comparing the v3 `_.clone` and v4 `_.cloneDeep` jsdoc.",
+  "failing_tests": [
+    "test/immutable.test.js :: Immutablity tests should not allow non-passed changed to be passed to the hooked method",
+    "test/immutable.test.js :: Immutablity tests should not allow non-passed changed to be passed from the hooked method",
+    "test/immutable.test.js :: Immutablity tests should not mutate the orig request",
+    "test/hooks.test.js :: createHook() wraps a callable function in hooks"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:10",
+    "node_major": 10,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "appersonlabs/mooring",
+  "commit": "32176d3a1057d219079dbaa95b2a6fc52e27e1ab"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "async-applyeach-curried-sc-broker",
+  "name": "async-applyeach-curried-sc-broker",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "SocketCluster/sc-broker",
+    "url": "https://github.com/SocketCluster/sc-broker",
+    "commit": "3b07a171f70e6bdb63475e85c7169f3696ec59ce"
+  },
+  "lib": "async",
+  "v_old": "2.6.1",
+  "v_new": "3.2.6",
+  "library_repo": "https://github.com/caolan/async",
+  "library_tags": {
+    "old": "v2.6.1",
+    "new": "v3.2.6"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "async.applyEachSeries",
+  "root_symbols": [
+    "internal/applyEach",
+    "applyEach",
+    "applyEachSeries"
+  ],
+  "behavioral_change": "In async v_new (3.0.0), `applyEach` and `applyEachSeries` became curried: instead of executing the functions immediately and calling the last argument as the completion callback, they always return a function that must be invoked with the completion callback. The function name and argument count are unchanged and no exception is raised; under the old calling form the completion callback is treated as an ordinary argument and the returned function is discarded, so no function runs and the callback never fires.",
+  "downstream_effect": "In sc-broker, `_passThroughMiddleware` uses `applyEachSeries` to chain subscribe and publish middleware; after the upgrade the broker neither runs the middleware nor calls back, so every subscribe and publish stalls and the client-side tests fail with timeouts and `AssertionError [ERR_ASSERTION]: false == true`. The stack frames point only at test/main.js and the client index.js, while the code to edit is scbroker.js:235 in a separate broker process; neither scbroker.js nor `applyEach` appears in the output.",
+  "reference_fix": "The reference fix changes one line in scbroker.js, replacing `async.applyEachSeries(self._middleware[type], req, function (err) {...})` with `async.applyEachSeries(self._middleware[type], req)(function (err) {...})`.",
+  "documented_in": "The async 3.0.0 CHANGELOG (Breaking Changes) announces the simpler interface of `applyEach`/`applyEachSeries`, and the API reference at https://caolan.github.io/async/v3/docs.html#applyEach shows the new code form (`const appliedFn = async.applyEach(...)` followed by `appliedFn((err, results) => {`). The changelog entry itself contains no code; the code form comes from the API reference of the same version.",
+  "failing_tests": [
+    "test/main.js :: sc-broker failure handling and recovery > should be able to handle failure and gracefully recover from it",
+    "test/main.js :: sc-broker client > client#subscriptions > should return no error",
+    "test/main.js :: sc-broker client > client#subscriptions > should subscribe channel foo",
+    "test/main.js :: sc-broker client > client#subscriptions > can be blocked by middleware",
+    "test/main.js :: sc-broker client > client#publish > should return no error (returns null)",
+    "test/main.js :: sc-broker client > client#publish > can be blocked by middleware",
+    "test/main.js :: sc-broker client > client#publish > can be transformed by middleware"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "SocketCluster/sc-broker",
+  "commit": "3b07a171f70e6bdb63475e85c7169f3696ec59ce"
+}

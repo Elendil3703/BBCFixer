@@ -1,0 +1,24 @@
+120c120
+< @types/http-proxy	@types/http-proxy@1.17.9
+---
+> @types/http-proxy	@types/http-proxy@1.17.17
+167c167
+< braces	braces@3.0.2
+---
+> braces	braces@3.0.3
+272c272
+< fill-range	fill-range@7.0.1
+---
+> fill-range	fill-range@7.1.1
+321c321,323
+< http-proxy-middleware	http-proxy-middleware@2.0.6
+---
+> http-proxy-middleware	http-proxy-middleware@3.0.5
+> http-proxy-middleware/node_modules/debug	debug@4.4.3
+> http-proxy-middleware/node_modules/ms	ms@2.1.3
+352d353
+< is-plain-obj	is-plain-obj@3.0.0
+416c417
+< micromatch	micromatch@4.0.5
+---
+> micromatch	micromatch@4.0.8

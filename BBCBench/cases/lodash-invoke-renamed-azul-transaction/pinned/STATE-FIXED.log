@@ -1,0 +1,58 @@
+
+> azul-transaction@0.1.0 test /w/wk-96a83320939a/src
+> jshint --exclude-path=.gitignore . && ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report $(if [ "$TRAVIS" ]; then echo lcovonly; else echo html; fi) -- --recursive && if [ "$TRAVIS" ]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi
+
+
+
+  azul-transaction
+    middleware
+      when begun
+        ✓ starts the transaction
+        ✓ commits on `end`
+        ✓ calls original `end` with proper args
+        ✓ commits on `write`
+        ✓ calls original `write` with proper args
+        ✓ commits on `writeHead`
+        ✓ calls original `writeHead` with proper args
+    error middleware
+      ✓ performs rollback
+    wrapped route
+      ✓ recognizes a next parameter
+      ✓ recognizes an error parameter
+      ✓ recognizes an error parameter with function body
+      ✓ accepts unknown parameter configurations as standard express params
+      ✓ throws for unkown params following azul params
+      ✓ works with middleware installed
+      ✓ works without middleware installed
+      ✓ works for defining error middleware
+      ✓ performs rollback if next is called with error
+      ✓ performs only performs one rollback if rolled back manually & through error
+      ✓ commits if next is called without arguments
+      ✓ throws if next is called with non-error
+      ✓ works with relationships
+      with azul params
+        ✓ generates a standard express route
+      when begin transaction fails
+        ✓ calls next with error
+      when commit transaction fails
+        ✓ calls next with error
+      when rollback transaction fails
+        ✓ calls next with error
+    test setup
+      ✓ uses multiple clients
+
+
+  26 passing (156ms)
+
+=============================================================================
+Writing coverage object [/w/wk-96a83320939a/src/coverage/coverage.json]
+Writing coverage reports at [/w/wk-96a83320939a/src/coverage]
+=============================================================================
+
+=============================== Coverage summary ===============================
+[92mStatements   : 100% ( 118/118 )[0m
+[92mBranches     : 100% ( 34/34 )[0m
+[92mFunctions    : 100% ( 28/28 )[0m
+[92mLines        : 100% ( 113/113 )[0m
+================================================================================
+STATE-FIXED rc=0

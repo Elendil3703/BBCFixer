@@ -1,0 +1,44 @@
+{
+  "id": "lodash-sumby-iteratee-statsd-newrelic",
+  "name": "lodash-sumby-iteratee-statsd-newrelic",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "mpayetta/statsd-newrelic-backend",
+    "url": "https://github.com/mpayetta/statsd-newrelic-backend",
+    "commit": "33fc311218b1d86fd2921be6e265ac2ac8612379"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.sum",
+  "root_symbols": [
+    "sum",
+    "sumBy",
+    "baseSum"
+  ],
+  "behavioral_change": "lodash v4.0.0 moved the iteratee capability of `_.sum` into the new `_.sumBy`; `_.sum` now accepts only an array and silently ignores a second argument. The name, signature and call form are unchanged and no exception is thrown.",
+  "downstream_effect": "The downstream project calls `lodash.sum(timerValue, function (val) { return Math.pow(val, 2); })` in lib/dispatcher/metric-transformer.js to compute a sum of squares; after the upgrade it degrades to a plain sum, so the `sumOfSquares` field sent to New Relic is wrong. The three chai failures (\"expected 21 to equal 91\" and two unmet spy expectations) point only at test files, with no frame in production code and no mention of lodash or sumBy.",
+  "reference_fix": "The reference fix changes one line in lib/dispatcher/metric-transformer.js:10 from `lodash.sum(timerValue, fn)` to `lodash.sumBy(timerValue, fn)`.",
+  "documented_in": "The lodash Changelog for v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog#v400), Compatibility Warnings section, \"Split out methods\" list, states \"Split `_.sum` into `_.sumBy`\", with `_.sumBy` listed under \"Added 80 methods\" (https://lodash.com/docs#sumBy) and a related Low Risk Compatibility Warnings entry \"Made `_.max`, `_.min`, & `_.sum` support arrays only\"; the entry has no code block, and the new form must be derived from the `_.sumBy` jsdoc.",
+  "failing_tests": [
+    "test/metric-transformer.test.js :: simple metric transformer test when transforming timers should have the correct timer value transformed",
+    "test/dispatcher/custom-event.test.js :: custom event dispatcher test when dispatching a timer custom event should call successfully new relic recordCustomEvent api",
+    "test/dispatcher/custom-metric.test.js :: custom metric dispatcher test when dispatching a timer custom metric should call successfully new relic recordMetric api"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:10",
+    "node_major": 10,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "mpayetta/statsd-newrelic-backend",
+  "commit": "33fc311218b1d86fd2921be6e265ac2ac8612379"
+}

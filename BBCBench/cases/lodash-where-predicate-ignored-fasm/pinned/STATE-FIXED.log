@@ -1,0 +1,18 @@
+
+> fasm@0.0.1 test /w
+> nodeunit test.js
+
+
+[1mtest.js[22m
+[1m[37madd asset[39m[22m 	 Test item
+[1m[37mwrite file[39m[22m 	 /tmp/test-fasm.json
+[1m[35mreplace[39m[22m 	 Test item
+[1m[37mremove asset[39m[22m 	 /unique-test-item
+[1m[37mwrite file[39m[22m 	 /tmp/test-fasm.json
+[1m[37mwrite file[39m[22m 	 /tmp/test-fasm.json
+[1m[37mremove asset[39m[22m 	 /unique-test-item
+[1m[37mwrite file[39m[22m 	 /tmp/test-fasm.json
+✔ assets file methods
+
+[1m[32mOK: [39m[22m14 assertions (147ms)
+STATE-FIXED rc=0

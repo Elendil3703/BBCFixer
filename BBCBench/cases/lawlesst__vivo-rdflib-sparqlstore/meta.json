@@ -1,0 +1,47 @@
+{
+  "id": "lawlesst__vivo-rdflib-sparqlstore",
+  "name": "lawlesst__vivo-rdflib-sparqlstore",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "lawlesst/vivo-rdflib-sparqlstore",
+    "url": "https://github.com/lawlesst/vivo-rdflib-sparqlstore",
+    "commit": "9e3a3d8efb8ab3a247c49cb64af639e2bdc2425b",
+    "license": "MIT"
+  },
+  "lib": "rdflib",
+  "v_old": "4.2.2",
+  "v_new": "7.1.4",
+  "library_repo": "https://github.com/RDFLib/rdflib",
+  "library_tags": {
+    "old": "4.2.2",
+    "new": "7.1.4"
+  },
+  "reference_fix_source": "benchmark-authors",
+  "root_api": "rdflib.plugins.stores.sparqlstore.NSSPARQLWrapper and rdflib.Graph.serialize",
+  "root_symbols": [
+    "NSSPARQLWrapper",
+    "SPARQLConnector",
+    "Graph.serialize"
+  ],
+  "behavioral_change": "rdflib v_old 4.2.2 to v_new 7.1.4 (resolved value). rdflib.Graph.serialize returns str instead of bytes; the case is mixed with the rename of the base class (NSSPARQLWrapper to SPARQLConnector).",
+  "downstream_effect": "Downstream code that treats the serialization result as bytes fails at runtime; the original tests need no change (empty test_patch).",
+  "reference_fix": "The reference fix adapts the downstream code to the str return value and to the renamed base class.",
+  "test_cmd": "bash /work/test_lawlesst__vivo-rdflib-sparqlstore.sh",
+  "test_files": [
+    "tests/__init__.py",
+    "tests/test_graph_utils.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:lawlesst__vivo-rdflib-sparqlstore",
+    "python": "3.12.11"
+  },
+  "upgrade": {
+    "kind": "dated-snapshot",
+    "intact_date": "2018-09-02",
+    "broken_date": "2025-07-31",
+    "note": "TimeMachine-bench case: every dependency is resolved at the dated snapshot; the library at v_old/v_new is the one whose behavioral change breaks the tests."
+  }
+}

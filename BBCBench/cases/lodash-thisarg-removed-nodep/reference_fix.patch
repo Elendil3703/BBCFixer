@@ -1,0 +1,124 @@
+diff --git a/nodep.js b/nodep.js
+index 551f9f9..ae0521d 100644
+--- a/nodep.js
++++ b/nodep.js
+@@ -180,14 +180,14 @@ module.exports = function() {
+          */
+         applyArgs: function(name, dependency, args, overwrite) {
+             if(overwrite || !this.dependencies[name]) {
+-                this.dependencies[name] = dependency.apply(undefined, _.map(args, function(arg) {
++                this.dependencies[name] = dependency.apply(undefined, _.map(args, _.bind(function(arg) {
+                     var dep = this.dependencies[arg];
+                     if(_.isUndefined(dep)) {
+                         dep = module.parent.require(arg);
+                         this.dependencies[arg] = dep;
+                     }
+                     return dep;
+-                }, this));
++                }, this)));
+                 if(this.dependencies[name] === undefined) {
+                     this.dependencies[name] = dependency;
+                 }
+@@ -281,7 +281,7 @@ module.exports = function() {
+         register: function(paths) {
+             if(_.isArray(paths)) {
+                 var index = {};
+-                _.forEach(paths, function(path) {
++                _.forEach(paths, _.bind(function(path) {
+                     if(this.easyRegister(path)) {
+                         return;
+                     }
+@@ -298,7 +298,7 @@ module.exports = function() {
+                     }
+                     index[name] = module.parent.require(path);
+                     index[name].args = args;
+-                }, this);
++                }, this));
+                 // TODO continue here
+                 var checkDep = function(name, stack) {
+                     if(!_.isUndefined(this.dependencies[name])) {
+@@ -307,21 +307,21 @@ module.exports = function() {
+                     if(_.includes(stack, name)) {
+                         throw new Error(CIRCULAR_DEPENDENCY_ERROR_MESSAGE);
+                     }
+-                    if(_.every(_.map(index[name].args, function(arg) {
++                    if(_.every(_.map(index[name].args, _.bind(function(arg) {
+                         return !!this.dependencies[arg];
+-                    }, this))) {
++                    }, this)))) {
+                         this.applyArgs(name, index[name], index[name].args);
+                     }
+                     var childStack = _.cloneDeep(stack);
+                     childStack.push(name);
+-                    _.forEach(index[name].args, function(arg) {
++                    _.forEach(index[name].args, _.bind(function(arg) {
+                         checkDep.apply(this, [arg, _.cloneDeep(childStack)]);
+-                    }, this);
++                    }, this));
+                     this.applyArgs(name, index[name], index[name].args);
+                 };
+-                _.forEach(index, function(dep, name) {
++                _.forEach(index, _.bind(function(dep, name) {
+                     checkDep.apply(this, [name, []]);
+-                }, this);
++                }, this));
+                 return;
+             }
+             var name = this.name(paths);
+@@ -357,28 +357,28 @@ module.exports = function() {
+          * @returns {Array<String>} an array with globbed paths normalized and merged with regular paths
+          */
+         resolveFiles: function(paths) {
+-            return _.flattenDeep(_.map(paths, function(path) {
++            return _.flattenDeep(_.map(paths, _.bind(function(path) {
+                 if(_.isString(path) && glob.hasMagic(path)) {
+                     return _.map(
+                         _.filter(
+                            glob.sync(path, {
+                                 nodir: true,
+                                 cwd: module.parent.paths[0].substring(0, module.parent.paths[0].lastIndexOf('/'))
+-                            }), function(file) {
++                            }), _.bind(function(file) {
+                                 return file.indexOf('.js') === file.length - 3;
+                             },
+                             this
+-                        ), function(file) {
++                        )), _.bind(function(file) {
+                             return file.indexOf('/') === 0
+                                     || file.indexOf('./') === 0
+                                     || file.indexOf('../') === 0
+                                 ? file
+                                 : './' + file;
+                         }, this
+-                    );
++                    ));
+                 }
+                 return path;
+-            }, this));
++            }, this)));
+         },
+ 
+         /**
+@@ -436,11 +436,11 @@ module.exports = function() {
+             if(_.isArray(paths)) {
+                 this.register(this.resolveFiles(paths));
+             } else if(_.isObject(paths)) {
+-                _.forEach(paths, function(path, name) {
++                _.forEach(paths, _.bind(function(path, name) {
+                     if(_.isUndefined(this.dependencies[name])) {
+                         this.dependencies[name] = path;
+                     }
+-                }, this);
++                }, this));
+             } else if(_.isString(paths) && glob.hasMagic(paths)) {
+                     this.init([paths]);
+             } else {
+@@ -498,7 +498,7 @@ module.exports = function() {
+                     this.init(instance.dependencies);
+             };
+             if(_.isArray(instances)) {
+-                _.forEach(instances, provide, this);
++                _.forEach(instances, _.bind(provide, this));
+             } else {
+                 provide.apply(this, [instances]);
+             }

@@ -1,0 +1,30 @@
+
+> html-to-json@0.6.0 test
+> node_modules/.bin/jshint ./lib/* ./test/*; node_modules/.bin/mocha
+
+sh: 1: node_modules/.bin/jshint: not found
+
+
+(node:2840200) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+  Parser
+    provides helper methods
+      #parse
+        1) runs htmlToJson.parse against the stored filter
+      #method
+        ✓ returns a wrapper method for .parse
+      #request
+Fatal AssertionError: expected Function { name: 'foo' } to be 'bar'
+    at Assertion.fail (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/node_modules/should/lib/assertion.js:180:17)
+    at prop.value (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/node_modules/should/lib/assertion.js:65:17)
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/test/Parser-test.js:61:31
+    at tryCatcher (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/node_modules/bluebird/js/release/promise.js:547:31)
+    at Promise._settlePromise (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromiseCtx (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/node_modules/bluebird/js/release/promise.js:641:10)
+    at _drainQueueStep (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/node_modules/bluebird/js/release/async.js:97:12)
+    at _drainQueue (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/node_modules/bluebird/js/release/async.js:86:9)
+    at Async._drainQueues (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/node_modules/bluebird/js/release/async.js:102:5)
+    at Async.drainQueues [as _onImmediate] (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-46c85ed2a77f/src/node_modules/bluebird/js/release/async.js:15:14)
+    at process.processImmediate (node:internal/timers:491:21)
+STATE-NEW rc=2

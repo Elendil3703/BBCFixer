@@ -1,0 +1,22 @@
+diff --git a/lib/wsfed.js b/lib/wsfed.js
+index f246226..4a74f77 100644
+--- a/lib/wsfed.js
++++ b/lib/wsfed.js
+@@ -86,7 +86,7 @@ module.exports = function(options) {
+     audience = asResource(audience);
+ 
+     var user = options.getUserFromRequest(req);
+-    if(!user) return res.send(401);
++    if(!user) return res.sendStatus(401);
+ 
+     var ctx = options.wctx || req.query.wctx;
+     if (!options.jwt) {
+@@ -146,7 +146,7 @@ module.exports = function(options) {
+   return function (req, res, next) {
+     options.getPostURL(req.query.wtrealm, req.query.wreply, req, function (err, postUrl) {
+       if (err) return next(err);
+-      if (!postUrl) return res.send(400, 'postUrl is required');
++      if (!postUrl) return res.status(400).send('postUrl is required');
+       execute(postUrl, req, res, next);
+     });
+   };

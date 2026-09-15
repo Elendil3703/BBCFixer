@@ -1,0 +1,82 @@
+{
+  "id": "geopandas__geopandas",
+  "name": "geopandas__geopandas",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "geopandas/geopandas",
+    "url": "https://github.com/geopandas/geopandas",
+    "commit": "5cf908f7ac794b3d428e9dda0924da55529628d4",
+    "fix_commit": "14173158b7e0db5b717bdb29dc21833d2499385c"
+  },
+  "lib": "pandas",
+  "v_old": "1.5.3",
+  "v_new": "2.0.0",
+  "library_repo": "https://github.com/pandas-dev/pandas",
+  "library_tags": {
+    "old": "v1.5.3",
+    "new": "v2.0.0"
+  },
+  "reference_fix_source": "maintainer",
+  "root_api": "the numeric_only parameter of pandas.core.groupby.DataFrameGroupBy.agg",
+  "root_symbols": [
+    "resolve_numeric_only",
+    "GroupBy._agg_general",
+    "GroupBy._cython_agg_general",
+    "DataFrame._reduce"
+  ],
+  "behavioral_change": "pandas v_old 1.5.3 to v_new 2.0.0. The numeric_only default of DataFrameGroupBy.agg (resolve_numeric_only, GroupBy._agg_general) flipped, so aggregating with mean over string columns now raises instead of silently dropping them.",
+  "downstream_effect": "The original tests crash when the aggregation computes a mean over a string column; the case is mixed and scored under the frozen test_patch because the aggfunc=np.mean path cannot be repaired by production code alone.",
+  "reference_fix": "The reference fix spans production and test code, adapting the aggregation call so that string columns are handled under the new numeric_only default.",
+  "test_cmd": "bash /work/test_geopandas__geopandas.sh",
+  "test_files": [
+    "geopandas/conftest.py",
+    "geopandas/io/tests/__init__.py",
+    "geopandas/io/tests/generate_legacy_storage_files.py",
+    "geopandas/io/tests/test_arrow.py",
+    "geopandas/io/tests/test_file.py",
+    "geopandas/io/tests/test_file_geom_types_drivers.py",
+    "geopandas/io/tests/test_infer_schema.py",
+    "geopandas/io/tests/test_pickle.py",
+    "geopandas/io/tests/test_sql.py",
+    "geopandas/tests/__init__.py",
+    "geopandas/tests/test_api.py",
+    "geopandas/tests/test_array.py",
+    "geopandas/tests/test_compat.py",
+    "geopandas/tests/test_config.py",
+    "geopandas/tests/test_crs.py",
+    "geopandas/tests/test_datasets.py",
+    "geopandas/tests/test_decorator.py",
+    "geopandas/tests/test_dissolve.py",
+    "geopandas/tests/test_explore.py",
+    "geopandas/tests/test_extension_array.py",
+    "geopandas/tests/test_geocode.py",
+    "geopandas/tests/test_geodataframe.py",
+    "geopandas/tests/test_geom_methods.py",
+    "geopandas/tests/test_geoseries.py",
+    "geopandas/tests/test_merge.py",
+    "geopandas/tests/test_op_output_types.py",
+    "geopandas/tests/test_overlay.py",
+    "geopandas/tests/test_pandas_methods.py",
+    "geopandas/tests/test_plotting.py",
+    "geopandas/tests/test_show_versions.py",
+    "geopandas/tests/test_sindex.py",
+    "geopandas/tests/test_testing.py",
+    "geopandas/tests/test_types.py",
+    "geopandas/tests/util.py",
+    "geopandas/tools/tests/__init__.py",
+    "geopandas/tools/tests/test_clip.py",
+    "geopandas/tools/tests/test_sjoin.py",
+    "geopandas/tools/tests/test_tools.py"
+  ],
+  "reference_fix_tests": true,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:geopandas__geopandas",
+    "python": "3.10.20"
+  },
+  "upgrade": {
+    "kind": "single-package",
+    "intact_pip": "pandas==1.5.3"
+  }
+}

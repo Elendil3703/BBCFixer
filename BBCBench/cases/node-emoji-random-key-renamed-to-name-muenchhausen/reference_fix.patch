@@ -1,0 +1,13 @@
+diff --git a/lib/fake/emoji/index.js b/lib/fake/emoji/index.js
+index 811b3e6..52deadc 100644
+--- a/lib/fake/emoji/index.js
++++ b/lib/fake/emoji/index.js
+@@ -16,7 +16,7 @@ Emoji.prototype.random = function random() {
+   var emoji = require("node-emoji");
+   var res = emoji.random();
+   var result = {
+-    value : res.key,
++    value : res.name,
+     text : function(){ return res.emoji; }
+   };
+   return result;

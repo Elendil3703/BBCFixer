@@ -1,0 +1,32 @@
+--- vstore/graph_utils.py
++++ vstore/graph_utils.py
+@@ -52,10 +52,10 @@
+             for set_size, nt in self.nt_yielder(graph, size):
+                 if is_add is True:
+                     logger.info("Adding {} statements to <{}>.".format(set_size, named_graph))
+-                    self.update(u'INSERT DATA { GRAPH %s { %s } }' % (context.n3(), nt.decode('utf-8')))
++                    self.update(u'INSERT DATA { GRAPH %s { %s } }' % (context.n3(), nt))
+                 else:
+                     logger.info("Removing {} statements from <{}>.".format(set_size, named_graph))
+-                    self.update(u'DELETE DATA { GRAPH %s { %s } }' % (context.n3(), nt.decode('utf-8')))
++                    self.update(u'DELETE DATA { GRAPH %s { %s } }' % (context.n3(), nt))
+         return total
+ 
+     def bulk_add(self, named_graph, add, size=DEFAULT_CHUNK_SIZE):
+--- vstore/vstore.py
++++ vstore/vstore.py
+@@ -8,12 +8,12 @@
+ from rdflib.plugins.stores.sparqlstore import (
+     SPARQLStore,
+     SPARQLUpdateStore,
+-    NSSPARQLWrapper,
++    SPARQLConnector
+ )
+ 
+ from .graph_utils import VIVOUtilsGraph
+ 
+-class VIVOWrapper(NSSPARQLWrapper):
++class VIVOWrapper(SPARQLConnector):
+     def setQuery(self, query):
+         """
+         Set the SPARQL query text and set the VIVO custom

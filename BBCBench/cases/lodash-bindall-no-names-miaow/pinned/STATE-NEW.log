@@ -1,0 +1,52 @@
+
+> miaow@5.6.2 test /w
+> mocha
+
+
+
+  喵呜
+[03:03:39] 使用配置：/w/test/fixtures/miaow.config.js
+[03:03:39] 开始编译
+    1) "before all" hook
+
+
+  0 passing (9ms)
+  1 failing
+
+  1) 喵呜 "before all" hook:
+     Uncaught TypeError: Cannot read property 'concat' of undefined
+      at Compilation.getFiles (lib/Compilation.js:29:26)
+      at fn (node_modules/async/lib/async.js:717:34)
+      at node_modules/async/lib/async.js:1170:16
+      at node_modules/async/lib/async.js:172:37
+      at node_modules/async/lib/async.js:677:43
+      at node_modules/async/lib/async.js:173:37
+      at Object.async.waterfall (node_modules/async/lib/async.js:681:44)
+      at Compilation.seal (lib/Compilation.js:161:9)
+      at lib/Compiler.js:59:17
+      at Compiler.next (node_modules/tapable/lib/Tapable.js:67:11)
+      at Compiler.<anonymous> (lib/plugins/Cache.js:52:5)
+      at Compiler.applyPluginsAsync (node_modules/tapable/lib/Tapable.js:71:13)
+      at Compiler.compile (lib/Compiler.js:54:8)
+      at Compiler.<anonymous> (lib/Compiler.js:32:10)
+      at Compiler.next (node_modules/tapable/lib/Tapable.js:67:11)
+      at node_modules/async/lib/async.js:52:16
+      at node_modules/async/lib/async.js:1166:30
+      at node_modules/async/lib/async.js:697:13
+      at node_modules/async/lib/async.js:52:16
+      at done (node_modules/async/lib/async.js:248:21)
+      at node_modules/async/lib/async.js:44:16
+      at node_modules/async/lib/async.js:694:17
+      at node_modules/async/lib/async.js:173:37
+      at lib/plugins/Cache.js:115:11
+      at node_modules/async/lib/async.js:52:16
+      at done (node_modules/async/lib/async.js:248:21)
+      at node_modules/async/lib/async.js:44:16
+      at lib/plugins/Cache.js:106:15
+      at node_modules/graceful-fs/graceful-fs.js:78:16
+      at FSReqWrap.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:53:3)
+
+
+
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

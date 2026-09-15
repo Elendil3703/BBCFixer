@@ -1,0 +1,24 @@
+diff --git a/src/index.ts b/src/index.ts
+index 4005aa6..497dced 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -1,4 +1,7 @@
+-import svgo, { OptimizeOptions, Plugin as SvgoPlugin } from "svgo"
++import svgo, { Config } from "svgo"
++
++type OptimizeOptions = Config
++type SvgoPlugin = NonNullable<Config["plugins"]>[number]
+ import { promises as fsp } from "fs"
+ import path from "path"
+ 
+@@ -17,8 +20,9 @@ const svgoOptions: OptimizeOptions = {
+       name: "preset-default",
+       params: {
+         overrides: {
+-          cleanupIDs: false,
++          cleanupIds: false,
+           removeViewBox: false,
++          sortAttrs: false,
+         },
+       },
+     },

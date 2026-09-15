@@ -1,0 +1,174 @@
+0a1
+> @gulpjs/to-absolute-glob	@gulpjs/to-absolute-glob@4.0.0
+5c6
+< append-buffer	append-buffer@1.0.2
+---
+> anymatch	anymatch@3.1.3
+10a12
+> b4a	b4a@1.8.1
+11a14,17
+> bare-events	bare-events@2.9.1
+> base64-js	base64-js@1.5.1
+> bl	bl@5.1.0
+> bl/node_modules/readable-stream	readable-stream@3.6.2
+14c20
+< buffer-equal	buffer-equal@1.0.1
+---
+> buffer	buffer@6.0.3
+17,19d22
+< call-bind	call-bind@1.0.9
+< call-bind-apply-helpers	call-bind-apply-helpers@1.0.2
+< call-bound	call-bound@1.0.4
+25d27
+< clone-buffer	clone-buffer@1.0.0
+27d28
+< cloneable-readable	cloneable-readable@1.1.3
+31c32
+< convert-source-map	convert-source-map@1.9.0
+---
+> convert-source-map	convert-source-map@2.0.0
+41,42d41
+< define-data-property	define-data-property@1.1.4
+< define-properties	define-properties@1.2.1
+44d42
+< dunder-proto	dunder-proto@1.0.1
+50,51d47
+< duplexify	duplexify@3.7.1
+< end-of-stream	end-of-stream@1.4.5
+53d48
+< es-define-property	es-define-property@1.0.1
+55d49
+< es-object-atoms	es-object-atoms@1.1.2
+61c55,56
+< extend	extend@3.0.2
+---
+> events-universal	events-universal@1.0.1
+> fast-fifo	fast-fifo@1.3.2
+62a58
+> fastq	fastq@1.20.1
+65d60
+< flush-write-stream	flush-write-stream@1.1.1
+67,68c62
+< fs-mkdirp-stream	fs-mkdirp-stream@1.0.0
+< fs-mkdirp-stream/node_modules/through2	through2@2.0.5
+---
+> fs-mkdirp-stream	fs-mkdirp-stream@2.0.1
+71,72d64
+< get-intrinsic	get-intrinsic@1.3.0
+< get-proto	get-proto@1.0.1
+75,78c67,68
+< glob-parent	glob-parent@3.1.0
+< glob-stream	glob-stream@6.1.0
+< glob-stream/node_modules/glob	glob@7.2.3
+< gopd	gopd@1.2.0
+---
+> glob-parent	glob-parent@6.0.2
+> glob-stream	glob-stream@8.0.3
+101,102d90
+< has-property-descriptors	has-property-descriptors@1.0.2
+< has-symbols	has-symbols@1.1.0
+105a94,95
+> iconv-lite	iconv-lite@0.6.3
+> ieee754	ieee754@1.2.1
+109d98
+< is-absolute	is-absolute@1.0.0
+111d99
+< is-buffer	is-buffer@1.1.6
+116c104
+< is-glob	is-glob@3.1.0
+---
+> is-glob	is-glob@4.0.3
+119d106
+< is-relative	is-relative@1.0.0
+122d108
+< is-unc-path	is-unc-path@1.0.0
+125d110
+< is-windows	is-windows@1.0.2
+133d117
+< json-stable-stringify-without-jsonify	json-stable-stringify-without-jsonify@1.0.1
+135,136c119
+< lazystream	lazystream@1.0.1
+< lead	lead@1.0.0
+---
+> lead	lead@4.0.0
+166d148
+< math-intrinsics	math-intrinsics@1.1.0
+184,185c166,167
+< normalize-path	normalize-path@2.1.1
+< now-and-later	now-and-later@2.0.1
+---
+> normalize-path	normalize-path@3.0.0
+> now-and-later	now-and-later@3.0.0
+187,188d168
+< object-keys	object-keys@1.1.1
+< object.assign	object.assign@4.1.7
+191d170
+< ordered-read-streams	ordered-read-streams@1.0.1
+194d172
+< path-dirname	path-dirname@1.0.2
+198a177
+> picomatch	picomatch@2.3.2
+204,205d182
+< pump	pump@2.0.1
+< pumpify	pumpify@1.5.1
+210,212d186
+< remove-bom-buffer	remove-bom-buffer@3.0.0
+< remove-bom-stream	remove-bom-stream@1.2.0
+< remove-bom-stream/node_modules/through2	through2@2.0.5
+217c191
+< resolve-options	resolve-options@1.1.0
+---
+> resolve-options	resolve-options@2.0.0
+220a195
+> reusify	reusify@1.1.0
+223a199
+> safer-buffer	safer-buffer@2.1.2
+225d200
+< set-function-length	set-function-length@1.2.2
+234c209,210
+< stream-shift	stream-shift@1.0.3
+---
+> stream-composer	stream-composer@1.0.2
+> streamx	streamx@2.28.0
+241a218,219
+> teex	teex@1.0.1
+> text-decoder	text-decoder@1.2.7
+244d221
+< through2-filter	through2-filter@3.0.0
+248,250c225
+< to-absolute-glob	to-absolute-glob@2.0.2
+< to-through	to-through@2.0.0
+< to-through/node_modules/through2	through2@2.0.5
+---
+> to-through	to-through@3.0.0
+256,257d230
+< unc-path-regex	unc-path-regex@0.1.2
+< unique-stream	unique-stream@2.4.0
+261c234
+< value-or-function	value-or-function@3.0.0
+---
+> value-or-function	value-or-function@4.0.0
+263c236,240
+< vinyl-fs	vinyl-fs@3.0.3
+---
+> vinyl-contents	vinyl-contents@2.0.0
+> vinyl-contents/node_modules/clone	clone@2.1.2
+> vinyl-contents/node_modules/replace-ext	replace-ext@2.0.0
+> vinyl-contents/node_modules/vinyl	vinyl@3.0.1
+> vinyl-fs	vinyl-fs@4.0.2
+265,268c242,244
+< vinyl-fs/node_modules/clone-stats	clone-stats@1.0.0
+< vinyl-fs/node_modules/replace-ext	replace-ext@1.0.1
+< vinyl-fs/node_modules/vinyl	vinyl@2.2.1
+< vinyl-sourcemap	vinyl-sourcemap@1.1.0
+---
+> vinyl-fs/node_modules/replace-ext	replace-ext@2.0.0
+> vinyl-fs/node_modules/vinyl	vinyl@3.0.1
+> vinyl-sourcemap	vinyl-sourcemap@2.0.0
+270,272c246,247
+< vinyl-sourcemap/node_modules/clone-stats	clone-stats@1.0.0
+< vinyl-sourcemap/node_modules/replace-ext	replace-ext@1.0.1
+< vinyl-sourcemap/node_modules/vinyl	vinyl@2.2.1
+---
+> vinyl-sourcemap/node_modules/replace-ext	replace-ext@2.0.0
+> vinyl-sourcemap/node_modules/vinyl	vinyl@3.0.1

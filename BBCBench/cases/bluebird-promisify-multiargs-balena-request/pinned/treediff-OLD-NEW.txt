@@ -1,0 +1,6 @@
+50c50
+< bluebird	bluebird@2.11.0
+---
+> bluebird	bluebird@3.7.2
+447a448
+> resin-token/node_modules/bluebird	bluebird@2.11.0

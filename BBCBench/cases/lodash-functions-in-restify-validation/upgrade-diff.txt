@@ -1,0 +1,28 @@
+--- package.json (STATE-OLD)
++++ package.json (STATE-NEW)
+@@ -29,15 +29,15 @@
+   "main": "lib/index",
+   "readmeFilename": "README.md",
+   "dependencies": {
+-    "lodash": "3.10.x",
++    "lodash": "4.17.21",
+     "validator": "3.22.x"
+   },
+   "devDependencies": {
+-    "restify": ">=2.8.1 <5.0.0",
++    "coveralls": "2.12.x",
+     "mocha": "3.1.x",
+-    "sinon": "1.11.x",
++    "restify": ">=2.8.1 <5.0.0",
+     "should": "11.1.x",
+-    "supertest": "2.0.x",
+-    "coveralls": "2.12.x"
++    "sinon": "1.11.x",
++    "supertest": "2.0.x"
+   }
+ }
+
+109c109
+< lodash	lodash@3.10.1
+---
+> lodash	lodash@4.17.21

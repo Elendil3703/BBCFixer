@@ -1,0 +1,62 @@
+{
+  "id": "pygae__clifford",
+  "name": "pygae__clifford",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "pygae/clifford",
+    "url": "https://github.com/pygae/clifford",
+    "commit": "35bf49aaf85ff2cadf3b921e46d225e4d5ceb1bc"
+  },
+  "lib": "h5py",
+  "v_old": "2.10.0",
+  "v_new": "3.14.0",
+  "library_repo": "https://github.com/h5py/h5py",
+  "library_tags": {
+    "old": "2.10.0",
+    "new": "3.14.0"
+  },
+  "reference_fix_source": "maintainer",
+  "root_api": "h5py.Dataset.__getitem__",
+  "root_symbols": [
+    "conv_vlen2str",
+    "Dataset.asstr"
+  ],
+  "behavioral_change": "h5py v_old 2.10.0 to v_new 3.14.0. h5py.Dataset.__getitem__ returns bytes instead of str for variable-length string data (conv_vlen2str, Dataset.asstr).",
+  "downstream_effect": "After a write and read round trip the value type silently changes; the failing assertion is in a different test file and no exception is raised.",
+  "reference_fix": "In `read_ga_file` in `clifford/io.py`, reads `basis_names` via `f['basis_names'].asstr()[:]` when `h5py.Dataset` has an `asstr` attribute, and keeps `f['basis_names'][:]` as the fallback otherwise.",
+  "test_cmd": "bash /work/test_pygae__clifford.sh",
+  "test_files": [
+    "clifford/test/__init__.py",
+    "clifford/test/test_algebra_initialisation.py",
+    "clifford/test/test_aliases.py",
+    "clifford/test/test_bit_helpers.py",
+    "clifford/test/test_cga.py",
+    "clifford/test/test_clifford.py",
+    "clifford/test/test_complex.py",
+    "clifford/test/test_degenerate.py",
+    "clifford/test/test_dg3c.py",
+    "clifford/test/test_dpga.py",
+    "clifford/test/test_g3c_CUDA.py",
+    "clifford/test/test_g3c_tools.py",
+    "clifford/test/test_io.py",
+    "clifford/test/test_layout.py",
+    "clifford/test/test_layout_helpers.py",
+    "clifford/test/test_multivector_inverse.py",
+    "clifford/test/test_numba_extensions.py",
+    "clifford/test/test_parser.py",
+    "clifford/test/test_tools.py",
+    "clifford/test/test_tools_classify.py",
+    "clifford/test/test_transformations.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:pygae__clifford",
+    "python": "3.9.25"
+  },
+  "upgrade": {
+    "kind": "single-package",
+    "intact_pip": "h5py==2.10.0"
+  }
+}

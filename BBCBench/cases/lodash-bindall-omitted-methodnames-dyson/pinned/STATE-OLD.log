@@ -1,0 +1,66 @@
+
+> dyson@0.10.0 test /w/wk-4cdec0981497/src
+> make test
+
+
+
+  dyson.config.defaults
+    .assign
+      ✓ should apply defaults (and not overwrite existing values)
+      ✓ should bind config methods to the config
+
+  dyson.https
+    request
+(node:152) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+(Use `node --trace-deprecation ...` to show where the warning was created)
+      ✓ should respond with correct body
+
+  dyson
+    .registerServices [integration]
+      ✓ should respond with a cached response
+      ✓ should respond with a non-cached response
+      ✓ should respond with a collection
+      ✓ should respond with a collection (function)
+      ✓ should respond with a collection (function, negative)
+      ✓ should respond with a collection where size is a function
+      ✓ should respond with a collection (combined request)
+      ✓ should respond with a 204 for an OPTIONS request
+      ✓ should respond with 400 bad request if required parameter not found
+
+  dyson.config.loader
+    .load
+      ✓ should return configuration for each method found
+      ✓ should return configurations from nested directories
+
+  dyson.response
+    .setValues
+      ✓ should return a promise
+      ✓ should render data based on template
+      ✓ should return an array
+      ✓ should parse template objects iteratively
+      ✓ should replace a promise with its resolved value
+    .generate
+      with option exposeRequest
+        set to true
+          ✓ should expose request to template
+          ✓ should expose request to container
+        globally falsy
+          ✓ should expose request to templates if local option is truthy
+          ✓ should not expose request to templates if local option is falsy
+        globally truthy
+          ✓ should expose request to templates if local option is truthy
+          ✓ should expose request to templates if local option is undefined
+          ✓ should not expose request to templates if local option is false
+
+  dyson
+    .registerServices
+      ✓ should add GET route to Express
+      ✓ should add POST route to Express
+    routes
+      ✓ should respond with body based on template and custom callback
+      ✓ should respond with body based on callback
+
+
+  30 passing (49ms)
+
+STATE-OLD rc=0

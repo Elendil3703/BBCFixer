@@ -1,0 +1,45 @@
+{
+  "id": "async-whilst-sync-test-serverless-gcf",
+  "name": "async-whilst-sync-test-serverless-gcf",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "serverless/serverless-google-cloudfunctions",
+    "url": "https://github.com/serverless/serverless-google-cloudfunctions",
+    "commit": "b1cdaf25c1cb782b906ea4bfbf0adbd4b4efa4fd"
+  },
+  "lib": "async",
+  "v_old": "2.6.4",
+  "v_new": "3.2.6",
+  "library_repo": "https://github.com/caolan/async",
+  "library_tags": {
+    "old": "v2.6.4",
+    "new": "v3.2.6"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "async.whilst",
+  "root_symbols": [
+    "whilst",
+    "whilst.check",
+    "whilst._test"
+  ],
+  "behavioral_change": "In async v_new (3.0.0), the `test` function of `whilst`, `doWhilst`, `until` and `doUntil` changed from a synchronous function returning a boolean to an error-first callback style (`test(cb)` calling `cb(null, condition)`). Function names and argument counts are unchanged and no exception is raised; an old synchronous test ignores the callback it is given, so the loop never enters the iteratee or the final callback and stalls silently.",
+  "downstream_effect": "serverless-google-cloudfunctions' `monitorDeployment` in shared/monitorDeployment.js polls deployment status with `async.whilst` and resolves a promise from the final callback; after the upgrade the promise never resolves and four jest tests time out. The failure locations all point at the test file shared/monitorDeployment.test.js and jest internals, not at the `async.whilst` call on line 18 that must be edited.",
+  "reference_fix": "The reference fix changes one line in shared/monitorDeployment.js, replacing the test `() => validStatuses.indexOf(deploymentStatus) === -1` with `(nextTest) => nextTest(null, validStatuses.indexOf(deploymentStatus) === -1)`.",
+  "documented_in": "The async 3.0.0 CHANGELOG (Breaking Changes) announces that `whilst`, `doWhilst`, `until` and `doUntil` now take asynchronous `test` functions, and the API reference at https://caolan.github.io/async/v3/docs.html#whilst shows the new form `function test(cb) { cb(null, count < 5); }` next to the v2 form `function() { return count < 5; }`. The changelog entry itself contains no code; the code form comes from the API reference of the same version.",
+  "failing_tests": [
+    "shared/monitorDeployment.test.js :: MonitorDeployment > #monitorDeployment() > when monitoring creations or updates > should keep monitoring until \"DONE\" status is reached",
+    "shared/monitorDeployment.test.js :: MonitorDeployment > #monitorDeployment() > when monitoring creations or updates > should throw an error if deployment errors out",
+    "shared/monitorDeployment.test.js :: MonitorDeployment > #monitorDeployment() > when monitoring removals > should stop if there are no deployments and the action is \"remove\"",
+    "shared/monitorDeployment.test.js :: MonitorDeployment > #monitorDeployment() > when monitoring removals > should stop if the deployment is unavailable and the action is \"remove\""
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "serverless/serverless-google-cloudfunctions",
+  "commit": "b1cdaf25c1cb782b906ea4bfbf0adbd4b4efa4fd"
+}

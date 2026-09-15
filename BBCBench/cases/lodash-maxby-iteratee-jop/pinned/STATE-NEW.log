@@ -1,0 +1,65 @@
+
+> jop@1.0.6 test
+> nodeunit test
+
+
+[1mintegration[22m
+✔ Available operations VS Available CLI options
+
+[1mprocessor[22m
+(node:2844094) [DEP0048] DeprecationWarning: The `util.isError` API is deprecated. Please use `ObjectPrototypeToString(e) === "[object Error]" || e instanceof Error` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ Count
+✔ Complex pipeline: filter, map, filter
+✔ Filter items
+[31m✖ Max age[39m
+
+AssertionError: { name: 'Beatrice', age: 21 } deepEqual { name: 'Andrea', age: 19 }
+    at Object.deepEqual (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/types.js:83:39)
+    at exports.Max age (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/test/processor.js:55:10)
+    at Object.<anonymous> (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/core.js:236:16)
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/core.js:236:16
+    at exports.runTest (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/core.js:70:9)
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/core.js:118:25
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/deps/async.js:513:13
+    at iterate (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/deps/async.js:123:13)
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/deps/async.js:134:25
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/deps/async.js:515:17
+    at Immediate.<anonymous> (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/types.js:146:17)
+    at process.processImmediate (node:internal/timers:491:21)
+
+[31m✖ Min age[39m
+
+AssertionError: { name: 'Carlo', age: 16 } deepEqual { name: 'Andrea', age: 19 }
+    at Object.deepEqual (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/types.js:83:39)
+    at exports.Min age (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/test/processor.js:62:10)
+    at Object.<anonymous> (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/core.js:236:16)
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/core.js:236:16
+    at exports.runTest (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/core.js:70:9)
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/core.js:118:25
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/deps/async.js:513:13
+    at iterate (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/deps/async.js:123:13)
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/deps/async.js:134:25
+    at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/deps/async.js:515:17
+    at Immediate.<anonymous> (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-a86942fbe82d/src/node_modules/nodeunit/lib/types.js:146:17)
+    at process.processImmediate (node:internal/timers:491:21)
+
+✔ Count people by age
+✔ Find first person containing "a" in name
+✔ Group people by being over 18 years old
+✔ Index of 19 years old person
+✔ Index of the last 19 years old person
+✔ Collect people age
+✔ Sort people by age
+✔ Replace age with DOB (transform)
+✔ Add DOB property (transform)
+✔ Get first person (head)
+✔ Get last person (tail)
+✔ Sample random person
+✔ Get metadata from jsonAsJSON (prop)
+✔ Collect keys from jsonAsJSON
+✔ Collect values from jsonAsJSON
+✔ Invalid operation
+
+[1m[31mFAILURES: [39m[22m2/24 assertions failed (30ms)
+STATE-NEW rc=1

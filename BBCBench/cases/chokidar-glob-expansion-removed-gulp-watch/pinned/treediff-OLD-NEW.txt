@@ -1,0 +1,16 @@
+129c129
+< binary-extensions	binary-extensions@2.1.0
+---
+> binary-extensions	binary-extensions@2.3.0
+168c168
+< chokidar	chokidar@3.4.2
+---
+> chokidar	chokidar@4.0.3
+586a587
+> mocha/node_modules/chokidar	chokidar@3.4.2
+589a591
+> mocha/node_modules/readdirp	readdirp@3.4.0
+700c702
+< readdirp	readdirp@3.4.0
+---
+> readdirp	readdirp@4.1.2

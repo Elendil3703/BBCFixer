@@ -1,0 +1,26 @@
+
+> fontmin@0.9.6 test
+> mocha
+
+
+
+  1) "before all" hook
+
+  0 passing (14ms)
+  1 failing
+
+  1)  "before all" hook:
+     Uncaught TypeError: this.to.destroy is not a function
+      at Pipeline.done (node_modules/streamx/index.js:529:19)
+      at ReadableState.afterDestroy (node_modules/streamx/index.js:581:17)
+      at Transform._destroy (node_modules/streamx/index.js:725:5)
+      at ReadableState.updateNonPrimary (node_modules/streamx/index.js:451:16)
+      at ReadableState.update (node_modules/streamx/index.js:425:14)
+      at ReadableState.updateReadNT (node_modules/streamx/index.js:628:10)
+      at node:internal/process/task_queues:141:7
+      at AsyncResource.runInAsyncScope (node:async_hooks:203:9)
+      at AsyncResource.runMicrotask (node:internal/process/task_queues:138:8)
+
+
+
+STATE-NEW rc=1

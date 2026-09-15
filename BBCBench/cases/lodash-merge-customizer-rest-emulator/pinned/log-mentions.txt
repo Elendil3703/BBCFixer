@@ -1,0 +1,5 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	merge	6	Genuine output of the project under test, not introduced by the harness: all 6 hits come from the titles of the two failing specs, 3 per title, 1) Merge module. Merge config. One url. Merge clashes presets. and 2) Merge module. Merge config. Many urls. Merge correct and incorrect presets.. The repository implements config merging in its own lib/merge.js with a matching tests/merge-spec.js, so merge is its own module name and domain vocabulary; jasmine prints spec titles only in the failure list, hence 0 hits in STATE-OLD and STATE-FIXED. Removing them would falsify the project's output; the token gives no file name or line, but it does draw attention to the merge operation, which is disclosed in difficulty_note in meta.json.

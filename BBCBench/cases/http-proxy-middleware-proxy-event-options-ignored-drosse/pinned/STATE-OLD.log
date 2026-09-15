@@ -1,0 +1,202 @@
+
+> @jota-one/drosse@3.6.3 test
+> vitest run
+
+
+ RUN  v0.23.4 /w
+
+ ✓ test/helpers.test.js  (8 tests | 2 skipped) 5ms
+ ✓ test/app.test.js  (4 tests | 3 skipped) 4ms
+stdout | unknown test
+[90m11:48:47 PM[39m [32mloaded cities.json into collection cities[39m
+
+stdout | unknown test
+[90m11:48:47 PM[39m [32mloaded amphibia.json into collection superpowers[39m
+[90m11:48:47 PM[39m [32mloaded bulletproof.json into collection superpowers[39m
+[90m11:48:47 PM[39m [32mloaded fly.json into collection superpowers[39m
+[90m11:48:47 PM[39m [32mloaded guitar.json into collection superpowers[39m
+[90m11:48:47 PM[39m [32mloaded laser.json into collection superpowers[39m
+[90m11:48:47 PM[39m [32mloaded user1.json into collection users[39m
+[90m11:48:47 PM[39m [32mloaded user2.json into collection users[39m
+[90m11:48:47 PM[39m [32mloaded fake.json into collection weakness.fake[39m
+[90m11:48:47 PM[39m [32mloaded bieber.json into collection weakness.deadly[39m
+[90m11:48:47 PM[39m [32mloaded crypto.json into collection weakness.deadly[39m
+[90m11:48:47 PM[39m [36m-> Middlewares:[39m
+[ [32m'morgan'[39m ]
+
+stdout | unknown test
+[90m11:48:47 PM[39m [36m-> Middlewares:[39m
+[
+  [32m'morgan'[39m,
+  [32m'open-cors'[39m,
+  [Function (anonymous)] { __is_handler__: [33mtrue[39m },
+  [Function (anonymous)] { __is_handler__: [33mtrue[39m }
+]
+[90m11:48:47 PM[39m [32m-> POST    🛠️  /auth 📜[39m
+[90m11:48:47 PM[39m [32m-> GET     🪝  / 📜[39m
+
+[90m11:48:47 PM[39m [37mApp [35mExample session[39m[37m (version [35mtest[39m[37m) running at:[39m
+
+stdout | unknown test
+[90m11:48:47 PM[39m [32mloaded cities.json into collection cities[39m
+[90m11:48:47 PM[39m [36m-> Middlewares:[39m
+[ [32m'morgan'[39m ]
+[90m11:48:47 PM[39m [32m-> GET     🪝  /throttle/:id ⏳ 📜[39m
+[90m11:48:47 PM[39m [32m-> GET     🪝  /throttle ⏳ 📜[39m
+[90m11:48:47 PM[39m [32m-> GET     📌 /static/labels/:lang 📜[39m
+[90m11:48:47 PM[39m [32m-> GET     📌 /static 📜[39m
+[90m11:48:47 PM[39m [32m-> GET     🪝  /template/hateoas/overwrite 📜[39m
+[90m11:48:47 PM[39m [32m-> GET     🪝  /template/hateoas 📜[39m
+[90m11:48:47 PM[39m [32m-> GET     🪝  /template/hal/overwrite 📜[39m
+[90m11:48:47 PM[39m [32m-> GET     🪝  /template/hal 📜[39m
+[90m11:48:47 PM[39m [32m-> GET     🪝  /proxy/hal/overwrite 📜[39m
+[90m11:48:47 PM[39m [36m-> STATIC ASSETS   /image/dog.jpg => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:47 PM[39m [36m-> STATIC ASSETS   /image/animals/*/cute => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:47 PM[39m [36m-> STATIC ASSETS   /image/animals/*.jpg => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:47 PM[39m [36m-> STATIC ASSETS   /image/animals/domestic-*/feline-* => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:47 PM[39m [36m-> STATIC ASSETS   /image => /w/test/mocks/assets/image[39m
+[90m11:48:47 PM[39m [36m-> PROXY   /proxy => http://127.0.0.1:3636/template[39m
+
+[90m11:48:47 PM[39m [37mApp [35mTest mocks[39m[37m (version [35mtest[39m[37m) running at:[39m
+
+stdout | unknown test
+
+[90m11:48:47 PM[39m [37mMocks root: [35m/w/examples/session[39m[37m[39m
+
+
+stdout | unknown test
+[90m11:48:47 PM[39m [32m-> POST    🛠️  /api/users/:id/powers 📜[39m
+[90m11:48:47 PM[39m [32m-> PUT     🛠️  /api/users/:id 📜[39m
+[90m11:48:47 PM[39m [32m-> DELETE  🛠️  /api/users/:id 📜[39m
+[90m11:48:47 PM[39m [32m-> GET     🛠️  /api/users 📜[39m
+[90m11:48:47 PM[39m [32m-> POST    🛠️  /api/users 📜[39m
+
+[90m11:48:47 PM[39m [37mApp [35mExample App with Database[39m[37m (version [35mtest[39m[37m) running at:[39m
+
+stdout | unknown test
+
+[90m11:48:47 PM[39m [37mMocks root: [35m/w/test/mocks[39m[37m[39m
+
+
+stdout | unknown test
+
+[90m11:48:47 PM[39m [37mMocks root: [35m/w/examples/database[39m[37m[39m
+
+
+[90m11:48:47 PM[39m [31mGET    [39m [31m401[39m - 2ms        [31m/[39m  
+[90m11:48:47 PM[39m [31mGET    [39m [31m404[39m - 1ms        [31m/[39m  
+[90m11:48:47 PM[39m [32mGET    [39m [32m200[39m - 2ms     🛠️  [32m/api/users[39m 📜 
+[90m11:48:47 PM[39m [32mPOST   [39m [32m200[39m - 2ms     🛠️  [32m/auth[39m 📜 
+[90m11:48:47 PM[39m [32mGET    [39m [32m200[39m - 1ms     🪝  [32m/[39m 📜 
+ ✓ test/session.test.js  (3 tests) 52ms
+[90m11:48:47 PM[39m [32mPUT    [39m [32m200[39m - 9ms     🛠️  [32m/api/users/2[39m 📜 
+stdout | test/database.test.js > database > updates user name
+2 { name: [32m'Jozel'[39m }
+
+[90m11:48:47 PM[39m [32mGET    [39m [32m200[39m - 1ms     🛠️  [32m/api/users[39m 📜 
+stdout | test/serve.test.js > serve > throttles request
+[90m11:48:47 PM[39m [36m⏳ throttling [3000 ms]...[39m
+
+[90m11:48:47 PM[39m [32mPOST   [39m [32m200[39m - 1ms     🛠️  [32m/api/users/2/powers[39m 📜 
+[90m11:48:47 PM[39m [32mGET    [39m [32m200[39m - 1ms     🛠️  [32m/api/users[39m 📜 
+[90m11:48:47 PM[39m [32mPOST   [39m [32m200[39m - 1ms     🛠️  [32m/api/users[39m 📜 
+[90m11:48:47 PM[39m [32mGET    [39m [32m200[39m - 0ms     🛠️  [32m/api/users[39m 📜 
+[90m11:48:47 PM[39m [32mDELETE [39m [32m200[39m - 1ms     🛠️  [32m/api/users/3[39m 📜 
+[90m11:48:47 PM[39m [32mGET    [39m [32m200[39m - 1ms     🛠️  [32m/api/users[39m 📜 
+ ✓ test/database.test.js  (5 tests) 79ms
+[90m11:48:50 PM[39m [32mGET    [39m [32m200[39m - 3003ms  🪝  [32m/throttle[39m ⏳ 📜 
+stdout | test/serve.test.js > serve > throttles dynamic route
+[90m11:48:50 PM[39m [36m⏳ throttling [2000 ms]...[39m
+
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 2000ms  🪝  [32m/throttle/10[39m ⏳ 📜 
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 0ms     🪝  [32m/template/hateoas[39m 📜 
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 0ms     🪝  [32m/template/hal[39m 📜 
+stdout | test/serve.test.js > serve > proxies requests
+[90m11:48:52 PM[39m [33m📦 collection cities already exists and won't be overriden.[39m
+[90m11:48:52 PM[39m [36m-> Middlewares:[39m
+[ [32m'morgan'[39m ]
+[90m11:48:52 PM[39m [32m-> GET     🪝  /throttle/:id ⏳ 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /throttle ⏳ 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     📌 /static/labels/:lang 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     📌 /static 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /template/hateoas/overwrite 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /template/hateoas 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /template/hal/overwrite 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /template/hal 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /proxy/hal/overwrite 📜[39m
+[90m11:48:52 PM[39m [36m-> STATIC ASSETS   /image/dog.jpg => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:52 PM[39m [36m-> STATIC ASSETS   /image/animals/*/cute => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:52 PM[39m [36m-> STATIC ASSETS   /image/animals/*.jpg => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:52 PM[39m [36m-> STATIC ASSETS   /image/animals/domestic-*/feline-* => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:52 PM[39m [36m-> STATIC ASSETS   /image => /w/test/mocks/assets/image[39m
+[90m11:48:52 PM[39m [36m-> PROXY   /proxy => http://127.0.0.1:3636/template[39m
+
+[90m11:48:52 PM[39m [37mApp [35mTest mocks[39m[37m (version [35mtest[39m[37m) running at:[39m
+
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 0ms     🪝  [32m/template/hal[39m 📜 
+stdout | test/serve.test.js > serve > proxies requests
+
+[90m11:48:52 PM[39m [37mMocks root: [35m/w/test/mocks[39m[37m[39m
+
+
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 0ms     🪝  [32m/template/hal[39m 📜 
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 3ms     🪝  [36m/proxy/hal[39m 📜 [96mundefined proxied[39m
+stdout | test/serve.test.js > serve > proxies requests
+[90m11:48:52 PM[39m [33mServer stopped[39m
+
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 0ms     🪝  [32m/proxy/hal/overwrite[39m 📜 
+stdout | test/serve.test.js > serve > overwrites proxied request with local route
+[90m11:48:52 PM[39m [33m📦 collection cities already exists and won't be overriden.[39m
+[90m11:48:52 PM[39m [36m-> Middlewares:[39m
+[ [32m'morgan'[39m ]
+[90m11:48:52 PM[39m [32m-> GET     🪝  /throttle/:id ⏳ 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /throttle ⏳ 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     📌 /static/labels/:lang 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     📌 /static 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /template/hateoas/overwrite 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /template/hateoas 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /template/hal/overwrite 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /template/hal 📜[39m
+[90m11:48:52 PM[39m [32m-> GET     🪝  /proxy/hal/overwrite 📜[39m
+[90m11:48:52 PM[39m [36m-> STATIC ASSETS   /image/dog.jpg => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:52 PM[39m [36m-> STATIC ASSETS   /image/animals/*/cute => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:52 PM[39m [36m-> STATIC ASSETS   /image/animals/*.jpg => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:52 PM[39m [36m-> STATIC ASSETS   /image/animals/domestic-*/feline-* => /w/test/mocks/assets/image/cat.jpg[39m
+[90m11:48:52 PM[39m [36m-> STATIC ASSETS   /image => /w/test/mocks/assets/image[39m
+[90m11:48:52 PM[39m [36m-> PROXY   /proxy => http://127.0.0.1:3636/template[39m
+
+[90m11:48:52 PM[39m [37mApp [35mTest mocks[39m[37m (version [35mtest[39m[37m) running at:[39m
+
+[90m11:48:52 PM[39m [37mMocks root: [35m/w/test/mocks[39m[37m[39m
+
+
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 1ms     📌 [32m/static/labels/en[39m 📜 
+stdout | test/serve.test.js > serve > loads static file with param and no verb in filename
+[90m11:48:52 PM[39m [31mfindStatic: tried with [/w/test/mocks/static/static.labels.en.get.json]. File not found.[39m
+[90m11:48:52 PM[39m [36mfindStatic: file used: /w/test/mocks/static/static.labels.en.json[39m
+
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 1ms     📌 [32m/static/labels/de[39m 📜 
+stdout | test/serve.test.js > serve > loads static file with param in filename
+[90m11:48:52 PM[39m [31mfindStatic: tried with [/w/test/mocks/static/static.labels.de.get.json]. File not found.[39m
+[90m11:48:52 PM[39m [31mfindStatic: tried with [/w/test/mocks/static/static.labels.de.json]. File not found.[39m
+[90m11:48:52 PM[39m [31mfindStatic: tried with [/w/test/mocks/static/static.labels.{lang}.get.json]. File not found.[39m
+[90m11:48:52 PM[39m [36mfindStatic: file used: /w/test/mocks/static/static.labels.{lang}.json[39m
+
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 2ms        [32m/image/cat.jpg[39m  
+[90m11:48:52 PM[39m [31mGET    [39m [31m404[39m - 0ms        [31m/image/bird.jpg[39m  
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 1ms        [32m/image/dog.jpg[39m  
+[90m11:48:52 PM[39m [32mGET    [39m [32m200[39m - 1ms        [32m/image/animals/bird.jpg[39m  
+[90m11:48:53 PM[39m [31mGET    [39m [31m404[39m - 0ms        [31m/image/other/bird.jpg[39m  
+[90m11:48:53 PM[39m [32mGET    [39m [32m200[39m - 1ms        [32m/image/animals/domestic-a/feline-b.jpg[39m  
+[90m11:48:53 PM[39m [32mGET    [39m [32m200[39m - 1ms        [32m/image/animals/domestic-a/feline-blabla[39m  
+[90m11:48:53 PM[39m [31mGET    [39m [31m404[39m - 1ms        [31m/image/animals/domestic-a/feline.jpg[39m  
+[90m11:48:53 PM[39m [32mGET    [39m [32m200[39m - 1ms        [32m/image/animals/whale/cute[39m  
+[90m11:48:53 PM[39m [31mGET    [39m [31m404[39m - 1ms        [31m/image/animals/whale/ugly[39m  
+ ✓ test/serve.test.js  (22 tests | 1 skipped) 5114ms
+
+Test Files  5 passed (5)
+     Tests  36 passed | 1 skipped | 5 todo (42)
+  Start at  23:48:46
+  Duration  6.26s (transform 334ms, setup 0ms, collect 876ms, tests 5.25s)
+
+STATE-OLD rc=0

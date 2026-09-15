@@ -1,0 +1,64 @@
+{
+  "id": "home-assistant-libs__pytradfri",
+  "name": "home-assistant-libs__pytradfri",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "home-assistant-libs/pytradfri",
+    "url": "https://github.com/home-assistant-libs/pytradfri",
+    "commit": "0d7bfbfc63670c050570c96bf3f4a1b20c8091a3",
+    "license": "MIT"
+  },
+  "lib": "pydantic",
+  "v_old": "2.3.0",
+  "v_new": "2.11.7",
+  "library_repo": "https://github.com/pydantic/pydantic",
+  "library_tags": {
+    "old": "v2.3.0",
+    "new": "v2.11.7"
+  },
+  "reference_fix_source": "benchmark-authors",
+  "root_api": "pydantic.Field and pydantic.BaseModel field declarations",
+  "root_symbols": [
+    "Field",
+    "FieldInfo.is_required",
+    "coerce_numbers_to_str"
+  ],
+  "behavioral_change": "pydantic v_old 2.3.0 to v_new 2.11.7 (v_old is a resolved value that the sources record as not matching the mechanism, since the behavior already holds in 2.3.0). Optional[X] fields declared with Field(...) are no longer implicitly defaulted to None and are treated as required (root symbols Field, FieldInfo.is_required).",
+  "downstream_effect": "Model instantiation in the downstream project fails because formerly optional fields are now required; the original tests need no change.",
+  "reference_fix": "The reference fix adds default=None to 48 Field(...) declarations.",
+  "test_cmd": "bash /work/test_home-assistant-libs__pytradfri.sh",
+  "test_files": [
+    "tests/__init__.py",
+    "tests/api/__init__.py",
+    "tests/api/test_aiocoap_api.py",
+    "tests/api/test_libcoap_api.py",
+    "tests/devices.py",
+    "tests/moods.py",
+    "tests/test_air_purifiers.py",
+    "tests/test_blinds.py",
+    "tests/test_color.py",
+    "tests/test_command.py",
+    "tests/test_device.py",
+    "tests/test_gateway.py",
+    "tests/test_group.py",
+    "tests/test_light.py",
+    "tests/test_mood.py",
+    "tests/test_signal_repeater.py",
+    "tests/test_smart_task.py",
+    "tests/test_socket.py",
+    "tests/test_util.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:home-assistant-libs__pytradfri",
+    "python": "3.12.11"
+  },
+  "upgrade": {
+    "kind": "dated-snapshot",
+    "intact_date": "2023-08-28",
+    "broken_date": "2025-07-31",
+    "note": "TimeMachine-bench case: every dependency is resolved at the dated snapshot; the library at v_old/v_new is the one whose behavioral change breaks the tests."
+  }
+}

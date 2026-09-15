@@ -1,0 +1,83 @@
+{
+  "id": "kevin1024__vcrpy",
+  "name": "kevin1024__vcrpy",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "kevin1024/vcrpy",
+    "url": "https://github.com/kevin1024/vcrpy",
+    "commit": "69621c67fb29dedd9ece4a7bdbf50380fbe4c5ee"
+  },
+  "lib": "urllib3",
+  "v_old": "2.2.3",
+  "v_new": "2.3.0",
+  "library_repo": "https://github.com/urllib3/urllib3",
+  "library_tags": {
+    "old": "2.2.3",
+    "new": "2.3.0"
+  },
+  "reference_fix_source": "maintainer",
+  "root_api": "subclassing urllib3.response.HTTPResponse; HTTPConnectionPool.urlopen reads response.version_string",
+  "root_symbols": [
+    "HTTPConnectionPool._make_request",
+    "HTTPResponse.version_string"
+  ],
+  "behavioral_change": "urllib3 v_old 2.2.3 to v_new 2.3.0. HTTPConnectionPool._make_request (reached through urlopen) now accesses response.version_string on the response object; the downstream project subclasses urllib3.response.HTTPResponse with a stubbed object that lacks this attribute.",
+  "downstream_effect": "Existing tests fail with a missing-attribute error on the stubbed response object.",
+  "reference_fix": "The reference fix adds the missing version_string attribute to the stubbed response object.",
+  "test_cmd": "bash /work/test_kevin1024__vcrpy.sh",
+  "test_files": [
+    "tests/__init__.py",
+    "tests/assertions.py",
+    "tests/integration/__init__.py",
+    "tests/integration/aiohttp_utils.py",
+    "tests/integration/test_aiohttp.py",
+    "tests/integration/test_basic.py",
+    "tests/integration/test_boto3.py",
+    "tests/integration/test_config.py",
+    "tests/integration/test_disksaver.py",
+    "tests/integration/test_filter.py",
+    "tests/integration/test_httplib2.py",
+    "tests/integration/test_httpx.py",
+    "tests/integration/test_ignore.py",
+    "tests/integration/test_matchers.py",
+    "tests/integration/test_multiple.py",
+    "tests/integration/test_proxy.py",
+    "tests/integration/test_record_mode.py",
+    "tests/integration/test_register_matcher.py",
+    "tests/integration/test_register_persister.py",
+    "tests/integration/test_register_serializer.py",
+    "tests/integration/test_request.py",
+    "tests/integration/test_requests.py",
+    "tests/integration/test_stubs.py",
+    "tests/integration/test_tornado.py",
+    "tests/integration/test_urllib2.py",
+    "tests/integration/test_urllib3.py",
+    "tests/integration/test_wild.py",
+    "tests/unit/test_cassettes.py",
+    "tests/unit/test_errors.py",
+    "tests/unit/test_filters.py",
+    "tests/unit/test_json_serializer.py",
+    "tests/unit/test_matchers.py",
+    "tests/unit/test_migration.py",
+    "tests/unit/test_persist.py",
+    "tests/unit/test_request.py",
+    "tests/unit/test_response.py",
+    "tests/unit/test_serialize.py",
+    "tests/unit/test_stubs.py",
+    "tests/unit/test_unittest.py",
+    "tests/unit/test_util.py",
+    "tests/unit/test_vcr.py",
+    "tests/unit/test_vcr_import.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:kevin1024__vcrpy",
+    "python": "3.12.13"
+  },
+  "upgrade": {
+    "kind": "single-package",
+    "intact_pip": "urllib3==2.2.3"
+  }
+}

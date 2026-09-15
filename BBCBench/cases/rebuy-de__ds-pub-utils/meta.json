@@ -1,0 +1,49 @@
+{
+  "id": "rebuy-de__ds-pub-utils",
+  "name": "rebuy-de__ds-pub-utils",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "rebuy-de/ds-pub-utils",
+    "url": "https://github.com/rebuy-de/ds-pub-utils",
+    "commit": "49a14b9ee16960a76f2523429e192a5d5af37038",
+    "license": "MIT"
+  },
+  "lib": "scikit-learn",
+  "v_old": "0.19.1",
+  "v_new": "1.7.1",
+  "library_repo": "https://github.com/scikit-learn/scikit-learn",
+  "library_tags": {
+    "old": "0.19.1",
+    "new": "1.7.1"
+  },
+  "reference_fix_source": "benchmark-authors",
+  "root_api": "pandas.Series.value_counts",
+  "root_symbols": [
+    "value_counts_internal",
+    "IndexOpsMixin.value_counts"
+  ],
+  "behavioral_change": "pandas v_old 0.20.3 to v_new 2.3.1 (resolved value; ruled the responsible library). The result of pandas.Series.value_counts (value_counts_internal) no longer preserves the Series name and index name; the case is mixed with the interface-level removal of OneHotEncoder n_values in scikit-learn 0.19.1 to 1.7.1.",
+  "downstream_effect": "The downstream computations that rely on the preserved name and index name fail their tests after the upgrade; the case carries a human test_patch.",
+  "reference_fix": "The reference fix adapts the downstream code to the changed name and index-name semantics of the pandas result and to the renamed scikit-learn interface.",
+  "test_cmd": "bash /work/test_rebuy-de__ds-pub-utils.sh",
+  "test_files": [
+    "tests/__init__.py",
+    "tests/test_calcs.py",
+    "tests/test_feat_eng.py",
+    "tests/test_feat_eng_pipelines.py",
+    "tests/test_preprocessing.py"
+  ],
+  "reference_fix_tests": true,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:rebuy-de__ds-pub-utils",
+    "python": "3.12.11"
+  },
+  "upgrade": {
+    "kind": "dated-snapshot",
+    "intact_date": "2017-10-25",
+    "broken_date": "2025-07-31",
+    "note": "TimeMachine-bench case: every dependency is resolved at the dated snapshot; the library at v_old/v_new is the one whose behavioral change breaks the tests."
+  }
+}

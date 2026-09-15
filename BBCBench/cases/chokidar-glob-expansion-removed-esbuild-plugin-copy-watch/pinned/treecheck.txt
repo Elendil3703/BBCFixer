@@ -1,0 +1,9 @@
+changed packages (5): binary-extensions, chokidar, glob-parent, is-binary-path, readdirp
+  OK old binary-extensions@2.3.0 at binary-extensions
+  OK new chokidar@4.0.3 at chokidar
+  OK old chokidar@3.6.0 at chokidar
+  OK old glob-parent@5.1.2 at chokidar/node_modules/glob-parent
+  OK old is-binary-path@2.1.0 at is-binary-path
+  OK new readdirp@4.1.2 at readdirp
+  OK old readdirp@3.6.0 at readdirp
+TREECHECK_OK: every change is inside the allowed closure (15 allowed names)

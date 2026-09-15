@@ -1,0 +1,27 @@
+diff --git skimage/restoration/_denoise.py skimage/restoration/_denoise.py
+index 791a8c9f2..4f4a235ac 100644
+--- skimage/restoration/_denoise.py
++++ skimage/restoration/_denoise.py
+@@ -788,7 +788,9 @@ def _wavelet_threshold(
+             for thresh, level in zip(threshold, dcoeffs)
+         ]
+     denoised_coeffs = [coeffs[0]] + denoised_detail
+-    return pywt.waverecn(denoised_coeffs, wavelet)[original_extent]
++    out = pywt.waverecn(denoised_coeffs, wavelet)[original_extent]
++    out = out.astype(image.dtype)
++    return out
+ 
+ 
+ def _scale_sigma_and_image_consistently(image, sigma, multichannel, rescale_sigma):
+diff --git skimage/metrics/simple_metrics.py skimage/metrics/simple_metrics.py
+index 37cd69ee1..7bb13acf1 100644
+--- skimage/metrics/simple_metrics.py
++++ skimage/metrics/simple_metrics.py
+@@ -164,6 +164,7 @@ def peak_signal_noise_ratio(image_true, image_test, *, data_range=None):
+     image_true, image_test = _as_floats(image_true, image_test)
+ 
+     err = mean_squared_error(image_true, image_test)
++    data_range = float(data_range)  # prevent overflow for small integer types
+     return 10 * np.log10((data_range**2) / err)
+ 
+ 

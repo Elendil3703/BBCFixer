@@ -1,0 +1,61 @@
+{
+  "id": "pydantic-subclass-fields-dropped-on-dump-komposer",
+  "name": "pydantic-subclass-fields-dropped-on-dump-komposer",
+  "harness": "lockfile",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "expobrain/komposer",
+    "url": "https://github.com/expobrain/komposer",
+    "commit": "7bf9ecc891f2bbe4e6ac47d22c65d47f1eb42b20"
+  },
+  "lib": "pydantic",
+  "v_old": "1.10.2",
+  "v_new": "2.5.3",
+  "library_repo": "https://github.com/pydantic/pydantic",
+  "library_tags": {
+    "old": "v1.10.2",
+    "new": "v2.5.3"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "pydantic.BaseModel.model_dump",
+  "root_symbols": [
+    "SerializeAsAny",
+    "BaseModel.model_dump",
+    "BaseModel._iter"
+  ],
+  "behavioral_change": "In Pydantic V1, dumping a model serialized every field of the runtime subclass instance held in a field annotated with a base class. In V2, only the fields declared on the annotated type are emitted, so subclass-specific fields are silently dropped from the output.",
+  "downstream_effect": "The downstream project's `List` model declares `items: list[Item]` while the values are Deployment, Service, ConfigMap and Ingress subclasses, so the entire `spec` subtree of every generated Kubernetes object disappears from the rendered manifest. The five failures in tests/core/base_test.py are whole-manifest dict inequalities showing a missing `spec` key, with no exception, no library stack frame, and no mention of serialization, SerializeAsAny or subclasses.",
+  "reference_fix": "The reference fix changes the field annotation in komposer/types/kubernetes.py:262 to `items: list[SerializeAsAny[Item]] = []` and imports `SerializeAsAny` from pydantic.",
+  "documented_in": "The Pydantic V2 migration guide (docs/migration.md, tag v2.5.3) announces that dumping now includes only fields defined on the annotated type and links to the serialization docs (docs/concepts/serialization.md, section \"Serializing with duck-typing\"), which state that the old behavior can be preserved with `SerializeAsAny` and show the `as_any: SerializeAsAny[User]` annotation form in a code block.",
+  "failing_tests": [
+    "tests/core/base_test.py::test_generate_manifest_from_docker_compose[Single service]",
+    "tests/core/base_test.py::test_generate_manifest_from_docker_compose[Single service with single port]",
+    "tests/core/base_test.py::test_generate_manifest_from_docker_compose[Single service with same mapped port]",
+    "tests/core/base_test.py::test_generate_manifest_from_docker_compose[Single service with ingress]",
+    "tests/core/base_test.py::test_generate_manifest_from_docker_compose[Single service with extra manifest]"
+  ],
+  "test_cmd": "python -m pytest -p no:cacheprovider -q --continue-on-collection-errors",
+  "runtime": {
+    "kind": "docker",
+    "image": "python:3.10",
+    "python_minor": "3.10",
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "expobrain/komposer",
+  "commit": "7bf9ecc891f2bbe4e6ac47d22c65d47f1eb42b20",
+  "no_summary_states": {},
+  "log_mentions": [
+    {
+      "log": "STATE-NEW.log",
+      "token": "pydantic",
+      "count": ">0",
+      "reason": "genuine upstream output: deprecation warnings for the V1 .json() method that the production code still calls"
+    },
+    {
+      "log": "STATE-OLD.log",
+      "token": "pydantic",
+      "count": 0,
+      "reason": "none"
+    }
+  ]
+}

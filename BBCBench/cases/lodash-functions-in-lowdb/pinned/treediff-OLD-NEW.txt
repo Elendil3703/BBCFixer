@@ -1,0 +1,12 @@
+38a39
+> babel-eslint/node_modules/babel-core/node_modules/lodash	lodash@3.10.1
+76a78
+> babel-plugin-proto-to-assign/node_modules/lodash	lodash@3.10.1
+234a237
+> esformatter-jsx/node_modules/babel-core/node_modules/lodash	lodash@3.10.1
+345a349
+> inquirer/node_modules/lodash	lodash@3.10.1
+418c422
+< lodash	lodash@3.10.1
+---
+> lodash	lodash@4.17.21

@@ -1,0 +1,26 @@
+diff --git a/lib/Compilation.js b/lib/Compilation.js
+index e6c4148..c79fc22 100644
+--- a/lib/Compilation.js
++++ b/lib/Compilation.js
+@@ -12,7 +12,7 @@ var TaskContext = require('./TaskContext');
+ 
+ function Compilation() {
+   Tapable.call(this);
+-  _.bindAll(this);
++  _.bindAll(this, _.functionsIn(this));
+ 
+   this.modules = {};
+ 
+diff --git a/lib/Compiler.js b/lib/Compiler.js
+index cf16965..fcd4d0c 100644
+--- a/lib/Compiler.js
++++ b/lib/Compiler.js
+@@ -10,7 +10,7 @@ var Watcher = require('./Watcher');
+ 
+ function Compiler(options) {
+   Tapable.call(this);
+-  _.bindAll(this);
++  _.bindAll(this, _.functionsIn(this));
+ 
+   this.context = options.context;
+   this.output = options.output;

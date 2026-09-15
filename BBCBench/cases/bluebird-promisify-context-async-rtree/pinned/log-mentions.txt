@@ -1,0 +1,6 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	bluebird	10	The unhandled rejection stack frames genuinely pass through implementation files under node_modules/bluebird/js/release; this is the project's own failure output and removing it would falsify the failure. The frames only name the triggering library and do not point to the fix location lib/index.js line 17.
+STATE-NEW.log	promisify	2	Two frames in the same stack read at Object.ret [as put] (eval at makeNodePromisifiedEval (node_modules/bluebird/js/release/promisify.js:184:12)), left by bluebird when it generates wrappers for promisified functions; this is genuine project output. It is a fairly strong hint (it names the offending method family), which is recorded in the error_neq_fix and difficulty_note fields of meta.json rather than removed.

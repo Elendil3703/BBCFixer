@@ -1,0 +1,6 @@
+177c177
+< lodash	lodash@3.10.1
+---
+> lodash	lodash@4.17.21
+302a303
+> xmlbuilder/node_modules/lodash	lodash@3.10.1

@@ -1,0 +1,20 @@
+71c71
+< grunt-legacy-util/node_modules/lodash	lodash@0.9.2
+---
+> grunt-legacy-util/node_modules/lodash	lodash@2.4.2
+77c77
+< grunt/node_modules/lodash	lodash@0.9.2
+---
+> grunt/node_modules/lodash	lodash@2.4.2
+95c95
+< jscomplexity/node_modules/lodash	lodash@2.4.1
+---
+> jscomplexity/node_modules/lodash	lodash@2.4.2
+97c97
+< jshint/node_modules/lodash	lodash@4.17.23
+---
+> jshint/node_modules/lodash	lodash@2.4.2
+99c99
+< lodash	lodash@2.4.2
+---
+> lodash	lodash@3.10.1

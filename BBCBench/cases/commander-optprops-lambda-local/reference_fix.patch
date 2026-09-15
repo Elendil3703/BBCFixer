@@ -1,0 +1,100 @@
+diff --git a/src/cli.ts b/src/cli.ts
+index bb0944a..dccb3ff 100755
+--- a/src/cli.ts
++++ b/src/cli.ts
+@@ -45,25 +45,26 @@ import utils = require('./lib/utils');
+         .option('-W, --watch [port]', 
+             '(optional) Starts lambda-local in watch mode listening to the specified port [1-65535]. Default is 8008')
+         .parse(process.argv);
++    var options = program.opts();
+     
+-    var eventPath = program.eventPath,
+-        lambdaPath = program.lambdaPath,
+-        lambdaHandler = program.handler,
+-        profilePath = program.profilePath,
+-        profileName = program.profile,
+-        region = program.region,
+-        environment = program.environment,
+-        envdestroy = program.envdestroy,
+-        envfile = program.envfile,
+-        callbackWaitsForEmptyEventLoop = program.waitEmptyEventLoop,
+-        verboseLevel = program.verboselevel;
++    var eventPath = options.eventPath,
++        lambdaPath = options.lambdaPath,
++        lambdaHandler = options.handler,
++        profilePath = options.profilePath,
++        profileName = options.profile,
++        region = options.region,
++        environment = options.environment,
++        envdestroy = options.envdestroy,
++        envfile = options.envfile,
++        callbackWaitsForEmptyEventLoop = options.waitEmptyEventLoop,
++        verboseLevel = options.verboselevel;
+ 
+     var port;
+-    if (program.watch) {
+-        if (program.watch == true) {
++    if (options.watch) {
++        if (options.watch == true) {
+             port = 8008;
+         } else {
+-            port = parseInt(program.watch);
++            port = parseInt(options.watch);
+             if(port < 1 || port > 65535) program.help();
+         }
+         eventPath = true;
+@@ -99,8 +100,8 @@ import utils = require('./lib/utils');
+ 
+     // timeout milliseconds
+     var timeoutMs;
+-    if (program.timeout) {
+-        timeoutMs = program.timeout * 1000;
++    if (options.timeout) {
++        timeoutMs = options.timeout * 1000;
+     } else {
+         timeoutMs = 3000;
+     }
+@@ -112,19 +113,19 @@ import utils = require('./lib/utils');
+     //Use NodeJS inspector
+     var inspector;
+     var _close_inspector;
+-    if (program.inspect) {
++    if (options.inspect) {
+         if (get_node_major_version() < 8) {
+             logger.log('error', 'Inspector API not available on NodeJS < 8.0.0');
+         } else {
+             inspector = require('inspector');
+-            if (program.inspect == true) {
++            if (options.inspect == true) {
+                 inspector.open();
+-            } else if (typeof(program.inspect) === 'string') {
+-                if (program.inspect.indexOf(":") !== -1){
+-                    var arr = program.inspect.split(":");
++            } else if (typeof(options.inspect) === 'string') {
++                if (options.inspect.indexOf(":") !== -1){
++                    var arr = options.inspect.split(":");
+                     inspector.open(parseInt(arr[1]), arr[0]);
+                 } else {
+-                    inspector.open(parseInt(program.inspect));
++                    inspector.open(parseInt(options.inspect));
+                 }
+             } else {
+                 logger.log('error', 'Unknown parameters following --inspect');
+@@ -133,7 +134,7 @@ import utils = require('./lib/utils');
+         }
+     }
+     var event = function(){
+-        if(program.watch) return null;
++        if(options.watch) return null;
+         return require(utils.getAbsolutePath(eventPath));
+     }
+     try {
+@@ -154,7 +155,7 @@ import utils = require('./lib/utils');
+             verboseLevel: verboseLevel,
+         };
+ 
+-        if(program.watch) {
++        if(options.watch) {
+             return lambdaLocal.watch({ ...opts, port });
+         }
+ 

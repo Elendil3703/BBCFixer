@@ -1,0 +1,42 @@
+{
+  "id": "lodash-bindall-no-names-miaow",
+  "name": "lodash-bindall-no-names-miaow",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "miaowjs/miaow",
+    "url": "https://github.com/miaowjs/miaow",
+    "commit": "0e3d1e6983611154905804b60ddefaac91651bc8"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.bindAll",
+  "root_symbols": [
+    "bindAll",
+    "functions",
+    "functionsIn"
+  ],
+  "behavioral_change": "lodash 4.0.0 removed the v_old behavior of `_.bindAll` binding all enumerable function properties (own and inherited) when no method names are given. In v_new, `_.bindAll(obj)` with no method names binds nothing; the function name and signature are unchanged.",
+  "downstream_effect": "The downstream project (miaow) calls `_.bindAll(this)` in the constructors of `Compilation` and `Compiler` and then passes methods such as `getFiles` as bare functions to `async.waterfall`; after the upgrade `this` is not the instance and the build throws `Uncaught TypeError: Cannot read property 'concat' of undefined` in a `before all` hook. The stack frames point at eight later call sites in `lib/Compilation.js`, `lib/Compiler.js` and `lib/plugins/Cache.js`, none of which is the constructor line that must change, and the output never mentions lodash or `bindAll`.",
+  "reference_fix": "The reference fix changes the two `_.bindAll(this)` calls (`lib/Compilation.js:15`, `lib/Compiler.js:13`) to `_.bindAll(this, _.functionsIn(this))`.",
+  "documented_in": "The lodash Changelog v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), section Compatibility Warnings, states that support for binding all methods by default was removed from `_.bindAll`. Tier 2: the entry has no code; the new form is derived by comparing the v3 `_.bindAll` jsdoc with the v4 `_.functionsIn` jsdoc.",
+  "failing_tests": [
+    "test :: \"before all\" hook (the exception is thrown in the before-all hook, so the whole suite does not run; none of the 5 tests of STATE-OLD runs in STATE-NEW)"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:10",
+    "node_major": 10,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "miaowjs/miaow",
+  "commit": "0e3d1e6983611154905804b60ddefaac91651bc8"
+}

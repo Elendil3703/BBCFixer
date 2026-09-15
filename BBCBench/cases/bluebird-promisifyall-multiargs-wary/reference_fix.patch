@@ -1,0 +1,13 @@
+diff --git a/lib/temporal.coffee b/lib/temporal.coffee
+index dabb6ca..05e1018 100644
+--- a/lib/temporal.coffee
++++ b/lib/temporal.coffee
+@@ -24,7 +24,7 @@ THE SOFTWARE.
+ 
+ fs = require('fs-extra')
+ Promise = require('bluebird')
+-tmp = Promise.promisifyAll(require('tmp'))
++tmp = Promise.promisifyAll(require('tmp'), multiArgs: true)
+ tmp.setGracefulCleanup()
+ 
+ ###*

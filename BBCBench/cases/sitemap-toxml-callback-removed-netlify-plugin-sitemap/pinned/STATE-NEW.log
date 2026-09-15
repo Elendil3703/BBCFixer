@@ -1,0 +1,176 @@
+TAP version 13
+# beforeEach hook for Creates Sitemap with all html files - relative path
+# beforeEach hook for Creates Sitemap with all html files with trailing slash - relative path
+# beforeEach hook for Sitemap pretty urls off works correctly - relative path
+# beforeEach hook for Sitemap applies changeFreq and priority when configured - relative path
+# beforeEach hook for Sitemap changefreq and priority defaults to weekly and 0.8 - relative path
+# beforeEach hook for Sitemap exclude works correctly - relative path
+# beforeEach hook for Sitemap urlPrefix works correctly - relative path
+# beforeEach hook for Creates Sitemap with all html files - absolute path
+# beforeEach hook for Creates Sitemap with all html files with trailing slash - absolute path
+# beforeEach hook for Sitemap pretty urls off works correctly - absolute path
+# beforeEach hook for Sitemap applies changeFreq and priority when configured - absolute path
+# beforeEach hook for Sitemap changefreq and priority defaults to weekly and 0.8 - absolute path
+# beforeEach hook for Sitemap exclude works correctly - absolute path
+# beforeEach hook for Sitemap urlPrefix works correctly - absolute path
+# beforeEach hook for Creates Sitemap with all html files - root relative path
+# beforeEach hook for Creates Sitemap with all html files with trailing slash - root relative path
+# beforeEach hook for Sitemap pretty urls off works correctly - root relative path
+# beforeEach hook for Sitemap applies changeFreq and priority when configured - root relative path
+# beforeEach hook for Sitemap changefreq and priority defaults to weekly and 0.8 - root relative path
+# beforeEach hook for Sitemap exclude works correctly - root relative path
+# beforeEach hook for Sitemap urlPrefix works correctly - root relative path
+# Creates Sitemap with all html files - relative path
+not ok 1 - Creates Sitemap with all html files - relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Creates Sitemap with all html files with trailing slash - relative path
+not ok 2 - Creates Sitemap with all html files with trailing slash - relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap pretty urls off works correctly - relative path
+not ok 3 - Sitemap pretty urls off works correctly - relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap applies changeFreq and priority when configured - relative path
+not ok 4 - Sitemap applies changeFreq and priority when configured - relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap changefreq and priority defaults to weekly and 0.8 - relative path
+not ok 5 - Sitemap changefreq and priority defaults to weekly and 0.8 - relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap exclude works correctly - relative path
+not ok 6 - Sitemap exclude works correctly - relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap urlPrefix works correctly - relative path
+not ok 7 - Sitemap urlPrefix works correctly - relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Creates Sitemap with all html files - absolute path
+not ok 8 - Creates Sitemap with all html files - absolute path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Creates Sitemap with all html files with trailing slash - absolute path
+not ok 9 - Creates Sitemap with all html files with trailing slash - absolute path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap pretty urls off works correctly - absolute path
+not ok 10 - Sitemap pretty urls off works correctly - absolute path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap applies changeFreq and priority when configured - absolute path
+not ok 11 - Sitemap applies changeFreq and priority when configured - absolute path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap changefreq and priority defaults to weekly and 0.8 - absolute path
+not ok 12 - Sitemap changefreq and priority defaults to weekly and 0.8 - absolute path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap exclude works correctly - absolute path
+not ok 13 - Sitemap exclude works correctly - absolute path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap urlPrefix works correctly - absolute path
+not ok 14 - Sitemap urlPrefix works correctly - absolute path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Creates Sitemap with all html files - root relative path
+not ok 15 - Creates Sitemap with all html files - root relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Creates Sitemap with all html files with trailing slash - root relative path
+not ok 16 - Creates Sitemap with all html files with trailing slash - root relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap pretty urls off works correctly - root relative path
+not ok 17 - Sitemap pretty urls off works correctly - root relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap applies changeFreq and priority when configured - root relative path
+not ok 18 - Sitemap applies changeFreq and priority when configured - root relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap changefreq and priority defaults to weekly and 0.8 - root relative path
+not ok 19 - Sitemap changefreq and priority defaults to weekly and 0.8 - root relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap exclude works correctly - root relative path
+not ok 20 - Sitemap exclude works correctly - root relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+# Sitemap urlPrefix works correctly - root relative path
+not ok 21 - Sitemap urlPrefix works correctly - root relative path
+  ---
+    name: Error
+    message: Promise returned by test never resolved
+    at: 'process.emit (node:events:517:28)'
+  ...
+
+1..21
+# tests 21
+# pass 0
+# fail 21
+
+STATE-NEW rc=1

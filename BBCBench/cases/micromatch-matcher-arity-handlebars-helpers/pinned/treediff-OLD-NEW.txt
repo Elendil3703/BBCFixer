@@ -1,0 +1,39 @@
+116c116
+< braces	braces@2.3.2
+---
+> braces	braces@3.0.3
+297,299c297
+< fill-range	fill-range@4.0.0
+< fill-range/node_modules/is-number	is-number@3.0.0
+< fill-range/node_modules/kind-of	kind-of@3.2.2
+---
+> fill-range	fill-range@7.1.1
+308a307,311
+> findup-sync/node_modules/assign-symbols	assign-symbols@1.0.0
+> findup-sync/node_modules/braces	braces@2.3.2
+> findup-sync/node_modules/define-property	define-property@2.0.2
+> findup-sync/node_modules/fill-range	fill-range@4.0.0
+> findup-sync/node_modules/is-extendable	is-extendable@1.0.1
+309a313,317
+> findup-sync/node_modules/is-number	is-number@3.0.0
+> findup-sync/node_modules/is-number/node_modules/kind-of	kind-of@3.2.2
+> findup-sync/node_modules/micromatch	micromatch@3.1.10
+> findup-sync/node_modules/micromatch/node_modules/extend-shallow	extend-shallow@3.0.2
+> findup-sync/node_modules/to-regex-range	to-regex-range@2.1.1
+623,627c631
+< micromatch	micromatch@3.1.10
+< micromatch/node_modules/assign-symbols	assign-symbols@1.0.0
+< micromatch/node_modules/define-property	define-property@2.0.2
+< micromatch/node_modules/extend-shallow	extend-shallow@3.0.2
+< micromatch/node_modules/is-extendable	is-extendable@1.0.1
+---
+> micromatch	micromatch@4.0.8
+733a738
+> picomatch	picomatch@2.3.2
+917,919c922,923
+< to-regex-range	to-regex-range@2.1.1
+< to-regex-range/node_modules/is-number	is-number@3.0.0
+< to-regex-range/node_modules/kind-of	kind-of@3.2.2
+---
+> to-regex-range	to-regex-range@5.0.1
+> to-regex-range/node_modules/is-number	is-number@7.0.0

@@ -1,0 +1,42 @@
+{
+  "id": "svgo-sortattrs-rollup-svg-sprite-loader",
+  "name": "svgo-sortattrs-rollup-svg-sprite-loader",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "nyanyani/rollup-plugin-svg-sprite-loader",
+    "url": "https://github.com/nyanyani/rollup-plugin-svg-sprite-loader",
+    "commit": "bcce17839d4dadd447208b04c0627027c00491c3"
+  },
+  "lib": "svgo",
+  "v_old": "2.8.3",
+  "v_new": "3.0.2",
+  "library_repo": "https://github.com/svg/svgo",
+  "library_tags": {
+    "old": "v2.8.3",
+    "new": "v3.0.2"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "svgo.optimize",
+  "root_symbols": [
+    "presetDefault",
+    "sortAttrs"
+  ],
+  "behavioral_change": "svgo v3.0.0 added the `sortAttrs` plugin to `preset-default`, enabled by default to improve gzip compression. `svgo.optimize(code, svgoOptions)` keeps the same signature and throws nothing, but the attributes of every element in the output are reordered. The same release renamed the `cleanupIDs` plugin to `cleanupIds` and replaced the `OptimizeOptions` and `Plugin` types with a built-in `Config` type.",
+  "downstream_effect": "The downstream project's output has the same bytes in a different attribute order, so whole-file string comparisons against committed target files in tests/index.test.ts fail with only \"Expected: true, Received: false\". The output also shows TS2305 type errors and `cleanupIDs` configuration warnings pointing at src/index.ts, but these concern the interface components; sortAttrs never appears and the attribute reordering must be discovered by comparing the artifacts.",
+  "reference_fix": "The reference fix edits src/index.ts in two hunks: it imports `Config` from svgo and derives type aliases from it, and in the `preset-default` overrides renames `cleanupIDs` to `cleanupIds` and adds `sortAttrs: false`.",
+  "documented_in": "The svgo v3.0.0 release notes (https://github.com/svg/svgo/releases/tag/v3.0.0), \"Breaking channges\" (sic) Config section, state \"Enabled sortAttrs plugin by default to get better gzip compression\", show a before/after SVG, and give a complete code block with `sortAttrs: false` in `params.overrides`, which the reference fix matches verbatim; the same section documents the `cleanupIds` rename with a code block and the `Config` type.",
+  "failing_tests": [
+    "tests/index.test.ts :: extract › extract",
+    "tests/index.test.ts :: extract › inline"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "nyanyani/rollup-plugin-svg-sprite-loader",
+  "commit": "bcce17839d4dadd447208b04c0627027c00491c3"
+}

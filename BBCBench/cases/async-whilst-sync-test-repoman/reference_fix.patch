@@ -1,0 +1,13 @@
+--- a/lib/generator/github.js
++++ b/lib/generator/github.js
+@@ -145,8 +145,8 @@
+   }
+   process(result);
+
+-  function check() {
+-    return self.gh.hasNextPage(result);
++  function check(cb) {
++    cb(null, self.gh.hasNextPage(result));
+   }
+   function _do(cb) {
+     self.gh.getNextPage(result, function(err, nextPageResult) {

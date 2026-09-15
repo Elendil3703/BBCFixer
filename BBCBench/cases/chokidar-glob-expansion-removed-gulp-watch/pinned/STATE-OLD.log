@@ -1,0 +1,69 @@
+
+> gulp-watch@5.0.1 test
+> xo --ignore ./test/fixtures/ && mocha -r test/util/set-default-options -t 5000 -R spec test/test-*
+
+
+
+  api
+    Basic functionality
+      ✓ should normalize reported paths for modified files with non-normalized absolute glob
+      ✓ should normalize reported paths for modified files with non-normalized relative glob
+      ✓ should normalize reported paths for removed files with non-normalized absolute glob (102ms)
+      ✓ should normalize reported paths for removed files with non-normalized relative glob (103ms)
+    add
+      ✓ should emit added file
+      ✓ should emit change event on file change
+
+  base
+    ✓ should be determined by glob
+    ✓ should be overridden by option
+
+  callback
+    ✓ should be called on add event
+    ✓ should be called on non-glob pattern
+    ✓ should be called on add event in new directory
+    ✓ unlinked `file.path` should be absolute (absolute glob) (102ms)
+    ✓ unlinked `file.path` should be absolute (relative glob) (102ms)
+
+  cwd
+    ✓ should respect opts.cwd
+    ✓ should emit file outside opts.cwd using relative glob
+    ✓ should emit file outside opts.cwd using absolute glob
+    ✓ should normalized reported paths with non-normalized cwd and non-normalized relative glob
+    ✓ should normalized reported paths with non-normalized cwd and non-normalized absolute glob
+    ✓ should normalized reported paths with non-normalized relative glob outside implicit cwd
+    ✓ should normalized reported paths with non-normalized absolute glob outside implicit cwd
+
+  dir
+    ✓ should watch files inside directory
+    - should watch directory creation
+    - should watch directory removal
+
+  ignore
+    ✓ should ignore files (203ms)
+
+  log
+    ✓ should print file name
+    ✓ should print relative file name
+    ✓ should print custom watcher name
+
+  opts
+    ✓ should not mutate the options object
+
+  stream
+    ✓ should emit ready and end
+    ✓ should emit added file
+    ✓ should emit change event on file change
+    ✓ should emit changed file with stream contents
+    ✓ should emit changed file with stats
+    - should emit deleted file with stats
+
+  watch
+    ✓ should throw on invalid glob argument
+    ✓ should return passThrough stream
+
+
+  33 passing (942ms)
+  3 pending
+
+STATE-OLD rc=0

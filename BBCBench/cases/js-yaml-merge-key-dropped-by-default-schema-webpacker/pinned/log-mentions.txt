@@ -1,0 +1,5 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	merge	11	Project output, not introduced by the harness: jest prints lines 18 to 23 of package/config.js verbatim in every failure block, and line 19 is const config = merge(defaults, app), where merge is the function exported by webpack-merge, unrelated to js-yaml's !!merge key and not pointing to the cause of this case. STATE-NEW has 11 failure blocks, each printing it once, hence 11; STATE-OLD and STATE-FIXED pass, print no source context and have 0 hits. Removing this line would tamper with the project's genuine failure, so it is kept and recorded here.

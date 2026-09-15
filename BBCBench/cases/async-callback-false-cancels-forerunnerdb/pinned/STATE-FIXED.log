@@ -1,0 +1,150 @@
+[4mRunning "testbear" task[24m
+[36m[1mCore -[22m[39m [32m[1mInstantiate ForerunnerDB[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mForerunnerDB instance is instantiated[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 1 assertions and took [35m[1m1 ms[22m[39m
+
+[36m[1mCore -[22m[39m [32m[1mInstantiate a Database Instance[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mForerunnerDB database instance is instantiated[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 1 assertions and took [35m[1m0 ms[22m[39m
+
+[36m[1mCollection -[22m[39m [32m[1mInstantiate a Collection Instance[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mForerunnerDB instance is instantiated[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 1 assertions and took [35m[1m1 ms[22m[39m
+
+[36m[1mCollection -[22m[39m [32m[1mUpsert with array in update correctly removes maintain references[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData length is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData id 1 is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData id 2 is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData id 1 arr 1 is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData id 2 arr 1 is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData 1 length is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData 1 length is correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData arrays in find result have been decoupled[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mData arrays in underlying data have been decoupled[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 9 assertions and took [35m[1m4 ms[22m[39m
+
+[36m[1mCollection -[22m[39m [32m[1mindex() :: Test 2d index search on large data set[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1m499[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1m499[22m[39m
+Collection record count: 499
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1mCheck index is available: cityLatLngIndex[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1mCheck index is correct name: cityLatLngIndex[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mNumber of doc in 100 miles is more than docs in 50 miles[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult1 count correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult2 count correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 1 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 2 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 3 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 4 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 5 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 6 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 7 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 8 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 9 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 1 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 2 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 3 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 4 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 5 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 6 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 7 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 8 correct[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mResult 9 correct[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 25 assertions and took [35m[1m135 ms[22m[39m
+
+[36m[1mCollection -[22m[39m [32m[1mCheck aggregation[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1mThe return data length is correct[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 1 assertions and took [35m[1m1 ms[22m[39m
+
+[36m[1mPersist -[22m[39m [32m[1mSave Collection Data and Load it Back From File-Based Persistent Storage[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mEQUAL	[22m[39m [32m[1mSave did not produce an error[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mCheck that there are currently no items in the collection[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1mLoad did not produce an error[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mCheck that items were loaded correctly[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mCheck that the data loaded holds correct information[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mCollection lastChange flag in metadata is the same as when saved[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 6 assertions and took [35m[1m4 ms[22m[39m
+
+[36m[1mPersist -[22m[39m [32m[1mTimed save, 50,000 records[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1mCheck that each entry is 519 or 520 bytes[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mTIME	[22m[39m [32m[1mGenerating 50000 records[22m[39m	 [35m[1m501 ms[22m[39m[32m <= [39m[35m[1m10000 ms[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mTIME	[22m[39m [32m[1mInserting 50000 records[22m[39m	 [35m[1m877 ms[22m[39m[32m <= [39m[35m[1m10000 ms[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mTIME	[22m[39m [32m[1mSaving data[22m[39m	 [35m[1m80 ms[22m[39m[32m <= [39m[35m[1m10000 ms[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mEQUAL	[22m[39m [32m[1mSave did not produce an error[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mCheck that there are currently no items in the collection[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mTIME	[22m[39m [32m[1mLoading data[22m[39m	 [35m[1m975 ms[22m[39m[32m <= [39m[35m[1m10000 ms[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1mLoad did not produce an error[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mTIME	[22m[39m [32m[1mRunning find on collection[22m[39m	 [35m[1m4 ms[22m[39m[32m <= [39m[35m[1m10000 ms[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mCheck that items were loaded correctly[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mCollection lastChange flag in metadata is the same as when saved[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 11 assertions and took [35m[1m2439 ms[22m[39m
+
+[36m[1mPersist -[22m[39m [32m[1mCheck persist.auto()[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mOK	[22m[39m [32m[1mCollection load event fired[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 1 assertions and took [35m[1m4 ms[22m[39m
+
+[36m[1mCondition -[22m[39m [32m[1mTest IFTTT condition functionality[22m[39m
+
+	RESULT	 ACTION	 LOG
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mTSLA value is 214[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mTSLA value is 20[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mTSLA value is 214[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mSTRICT	[22m[39m [32m[1mTSLA value is 25[22m[39m
+	[32m[1mPASSED	[22m[39m [32m[1mEXPECT	[22m[39m [32m[1mExpected 4 assertions[22m[39m
+	----------------------------------------------------
+	[32m[1mPASSED	[22m[39m Ran 4 assertions and took [35m[1m11 ms[22m[39m
+
+                        _     _
+                       ( \---/ )   
+                        ( . . )
+                 ___,--.(__Y__),--.___
+                |   `--'       `--'   |
+                | Test Bear is HAPPY! |
+                |    _,-.     ,-._    |
+                |___(ooO )___( Ooo)___|
+                     `--'     `--' 
+------------------------------------------------------------
+| Run     | Passed     | Failed     | Total Time           |
+------------------------------------------------------------
+| 10      | 10         | 0          | 2605 ms              |
+------------------------------------------------------------
+
+[32mDone.[39m
+STATE-FIXED rc=0

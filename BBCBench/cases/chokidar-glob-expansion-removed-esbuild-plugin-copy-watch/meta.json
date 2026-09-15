@@ -1,0 +1,44 @@
+{
+  "id": "chokidar-glob-expansion-removed-esbuild-plugin-copy-watch",
+  "name": "chokidar-glob-expansion-removed-esbuild-plugin-copy-watch",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "tinchoz49/esbuild-plugin-copy-watch",
+    "url": "https://github.com/tinchoz49/esbuild-plugin-copy-watch",
+    "commit": "da0a6db723dd962a6c6780e9a8cc3895093624a5"
+  },
+  "lib": "chokidar",
+  "v_old": "3.6.0",
+  "v_new": "4.0.3",
+  "library_repo": "https://github.com/paulmillr/chokidar",
+  "library_tags": {
+    "old": "3.6.0",
+    "new": "4.0.3"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "chokidar.watch",
+  "root_symbols": [
+    "WatchHelper",
+    "FSWatcher._getWatchHelpers",
+    "FSWatcher.add"
+  ],
+  "behavioral_change": "In chokidar v_new (4.0.0), glob expansion was removed: v_old (3.x) let `chokidar.watch` accept glob strings, deriving the directory to traverse with glob-parent and matching files with anymatch, whereas v4 treats the first argument of `watch` as a literal path and the `ignored` option accepts only a predicate function, regex or literal path. The call form is unchanged and no exception is raised; a pattern such as `from/c/**` is treated as a non-existent path, so the watcher emits no add, change, unlink or unlinkDir events.",
+  "downstream_effect": "esbuild-plugin-copy-watch normalises each `from` path into a glob and passes the list to `chokidar.watch` in `build.onEnd`; after the upgrade no events fire, `onFile` and `onUnlink` are never called, and three uvu tests fail on `Exists: ...` assertions for files that were never copied. The output contains only the assertion message, uvu internals and test file lines; chokidar and glob never appear, and no frame points at src/index.js where the `chokidar.watch` call must be rewritten.",
+  "reference_fix": "The reference fix changes src/index.js to watch the deduplicated non-glob parent directories (`watchRoots`) instead of the glob list and to move per-file filtering into an `isIgnored` predicate passed as `ignored`, reusing the file's existing `valid` matcher and anymatch for negated patterns and never pruning directories.",
+  "documented_in": "The chokidar 4.0.3 README.md, Upgrading section, contrasts v3 `chok.watch('**/*.js')` with v4 `chok.watch('.', { ignored: (path, stats) => stats?.isFile() && !path.endsWith('.js') })`, and its Changelog section announces `v4 (Sep 2024): remove glob support`. The README shows a hard-coded example of the strategy but not the general form used by the reference fix, and the 4.0.0 GitHub release notes say only `Remove glob support` with no code.",
+  "failing_tests": [
+    "tests/index.test.js :: Tests > basic",
+    "tests/index.test.js :: Tests > watch",
+    "tests/index.test.js :: Tests > watch forceCopyOnRebuild"
+  ],
+  "test_cmd": "./node_modules/.bin/uvu -i tests/from -i tests/to",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "tinchoz49/esbuild-plugin-copy-watch",
+  "commit": "da0a6db723dd962a6c6780e9a8cc3895093624a5"
+}

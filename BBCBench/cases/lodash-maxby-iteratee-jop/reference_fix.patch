@@ -1,0 +1,24 @@
+diff --git a/lib/processor.js b/lib/processor.js
+index dddf9bd..87e5538 100755
+--- a/lib/processor.js
++++ b/lib/processor.js
+@@ -62,8 +62,8 @@ var execs = {
+             return e;
+         }
+     }},
+-    min: _.min,
+-    max: _.max,
++    min: _.minBy,
++    max: _.maxBy,
+     prop: { wrapper: function (content, name) {
+         try {
+             return _.result(content, name)
+@@ -75,7 +75,7 @@ var execs = {
+     sortby: _.sortBy,
+     sample: { wrapper: function (content, n) {
+         try {
+-            return _.sample(content, n)
++            return _.sampleSize(content, n)
+         } catch (e) {
+             return e;
+         }

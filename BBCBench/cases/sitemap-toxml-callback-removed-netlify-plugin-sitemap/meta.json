@@ -1,0 +1,61 @@
+{
+  "id": "sitemap-toxml-callback-removed-netlify-plugin-sitemap",
+  "name": "sitemap-toxml-callback-removed-netlify-plugin-sitemap",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "netlify-labs/netlify-plugin-sitemap",
+    "url": "https://github.com/netlify-labs/netlify-plugin-sitemap",
+    "commit": "8f71ba17615b81253dac76e1d5e0b9d67601b791"
+  },
+  "lib": "sitemap",
+  "v_old": "3.2.2",
+  "v_new": "4.1.1",
+  "library_repo": "https://github.com/ekalinin/sitemap.js",
+  "library_tags": {
+    "old": "3.2.2",
+    "new": "4.1.1"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "sitemap.Sitemap.toXML",
+  "root_symbols": [
+    "Sitemap.toXML",
+    "Sitemap.toString"
+  ],
+  "behavioral_change": "sitemap v4.0.0 removed the callback form of `Sitemap.prototype.toXML`. In v_old (3.2.2) `toXML(callback)` invoked the callback via process.nextTick and could be wrapped with `util.promisify`; in v_new (4.1.1) `toXML(pretty)` synchronously returns `this.toString(pretty)`, so a passed function is coerced to a boolean and never called.",
+  "downstream_effect": "The downstream project awaits `util.promisify(sitemap.toXML.bind(sitemap))()` in make_sitemap.js:75, and the resulting Promise never settles, so file writing and all later steps never run. All 21 tests fail with ava's own \"Error: Promise returned by test never resolved\", with no frame in make_sitemap.js, no mention of toXML or sitemap, and two `util.promisify` calls in the file to distinguish between.",
+  "reference_fix": "The reference fix deletes the line `await util.promisify(sitemap.toXML.bind(sitemap))()` in make_sitemap.js:75, since the next line `const xml = sitemap.toString()` already obtains the same XML.",
+  "documented_in": "The sitemap.js CHANGELOG 4.0.0 section (https://github.com/ekalinin/sitemap.js/blob/master/CHANGELOG.md) lists \"Remove callback on toXML - This had no performance benefit\" among breaking changes; it does not say the first parameter became `pretty` and gives no code for the new call form, so the reference fix was derived from the 4.1.1 implementation of toXML and toString.",
+  "failing_tests": [
+    "tests/sitemap.test.js :: Creates Sitemap with all html files - relative path",
+    "tests/sitemap.test.js :: Creates Sitemap with all html files with trailing slash - relative path",
+    "tests/sitemap.test.js :: Sitemap pretty urls off works correctly - relative path",
+    "tests/sitemap.test.js :: Sitemap applies changeFreq and priority when configured - relative path",
+    "tests/sitemap.test.js :: Sitemap changefreq and priority defaults to weekly and 0.8 - relative path",
+    "tests/sitemap.test.js :: Sitemap exclude works correctly - relative path",
+    "tests/sitemap.test.js :: Sitemap urlPrefix works correctly - relative path",
+    "tests/sitemap.test.js :: Creates Sitemap with all html files - absolute path",
+    "tests/sitemap.test.js :: Creates Sitemap with all html files with trailing slash - absolute path",
+    "tests/sitemap.test.js :: Sitemap pretty urls off works correctly - absolute path",
+    "tests/sitemap.test.js :: Sitemap applies changeFreq and priority when configured - absolute path",
+    "tests/sitemap.test.js :: Sitemap changefreq and priority defaults to weekly and 0.8 - absolute path",
+    "tests/sitemap.test.js :: Sitemap exclude works correctly - absolute path",
+    "tests/sitemap.test.js :: Sitemap urlPrefix works correctly - absolute path",
+    "tests/sitemap.test.js :: Creates Sitemap with all html files - root relative path",
+    "tests/sitemap.test.js :: Creates Sitemap with all html files with trailing slash - root relative path",
+    "tests/sitemap.test.js :: Sitemap pretty urls off works correctly - root relative path",
+    "tests/sitemap.test.js :: Sitemap applies changeFreq and priority when configured - root relative path",
+    "tests/sitemap.test.js :: Sitemap changefreq and priority defaults to weekly and 0.8 - root relative path",
+    "tests/sitemap.test.js :: Sitemap exclude works correctly - root relative path",
+    "tests/sitemap.test.js :: Sitemap urlPrefix works correctly - root relative path"
+  ],
+  "test_cmd": "npx ava --tap",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:18",
+    "node_major": 18,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "netlify-labs/netlify-plugin-sitemap",
+  "commit": "8f71ba17615b81253dac76e1d5e0b9d67601b791"
+}

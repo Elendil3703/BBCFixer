@@ -1,0 +1,128 @@
+diff --git a/index.js b/index.js
+index 9bc887d..f915862 100644
+--- a/index.js
++++ b/index.js
+@@ -1,16 +1,122 @@
+ 'use strict';
+ 
++var path = require('path');
++
+ var chokidar = require('chokidar');
++var picomatch = require('picomatch');
+ var asyncDone = require('async-done');
+ var normalizeArgs = require('./lib/normalize-args');
+ var debounce = require('./lib/debounce');
+ 
++var BANG = '!';
++
+ function watch(glob, options, cb) {
+   return normalizeArgs(glob, options, cb, watchProc);
+ }
+ 
++// chokidar 4 no longer expands globs: a pattern handed to `chokidar.watch` is
++// taken as a literal path, so it matches nothing and no event is ever emitted.
++// The replacement documented in the chokidar v4 README ("Upgrading") is to watch
++// the non-glob base of each pattern and to decide per file with the `ignored`
++// predicate.
++function resolveGlobs(globs) {
++  var positives = [];
++  var negatives = [];
++
++  globs.forEach(function (glob) {
++    if (typeof glob === 'string' && glob.charAt(0) === BANG) {
++      var negated = glob.slice(1);
++      if (negatives.indexOf(negated) === -1) {
++        negatives.push(negated);
++      }
++      return;
++    }
++
++    var idx = negatives.indexOf(glob);
++    if (idx !== -1) {
++      negatives.splice(idx, 1);
++    }
++    if (positives.indexOf(glob) === -1) {
++      positives.push(glob);
++    }
++  });
++
++  var roots = [];
++  positives.forEach(function (glob) {
++    var base = picomatch.scan(glob).base || '.';
++    if (roots.indexOf(base) === -1) {
++      roots.push(base);
++    }
++  });
++
++  return { roots: roots, positives: positives, negatives: negatives };
++}
++
++function toMatcher(matchers) {
++  var patterns = [];
++  var others = [];
++
++  [].concat(matchers || []).forEach(function (matcher) {
++    if (typeof matcher === 'string') {
++      patterns.push(matcher);
++    } else if (matcher) {
++      others.push(matcher);
++    }
++  });
++
++  var isMatch = patterns.length
++    ? picomatch(patterns, { dot: true })
++    : function () {
++        return false;
++      };
++
++  return function (filepath, relative) {
++    if (isMatch(filepath) || (relative && isMatch(relative))) {
++      return true;
++    }
++    return others.some(function (matcher) {
++      if (matcher instanceof RegExp) {
++        return matcher.test(filepath) || (relative && matcher.test(relative));
++      }
++      if (typeof matcher === 'function') {
++        return matcher(filepath) || (relative && matcher(relative));
++      }
++      return false;
++    });
++  };
++}
++
+ function watchProc(globs, options, cb) {
+-  var watcher = chokidar.watch(globs, options);
++  var resolved = resolveGlobs(globs);
++
++  var isWatched = toMatcher(resolved.positives);
++  var isNegated = toMatcher(resolved.negatives);
++  var isUserIgnored = toMatcher(options.ignored);
++
++  var cwd = options.cwd;
++
++  // chokidar hands this predicate an absolute path even when `cwd` is set, while
++  // the patterns the caller gave us are written relative to `cwd`. Match against
++  // both spellings so either form of pattern keeps working.
++  function relativeTo(filepath) {
++    return cwd ? path.relative(cwd, filepath) : null;
++  }
++
++  function ignored(filepath, stats) {
++    // Never prune directories: doing so would cut off the files below them.
++    if (!stats || !stats.isFile()) {
++      return false;
++    }
++    var relative = relativeTo(filepath);
++    if (isUserIgnored(filepath, relative) || isNegated(filepath, relative)) {
++      return true;
++    }
++    return !isWatched(filepath, relative);
++  }
++
++  var chokidarOptions = Object.assign({}, options, { ignored: ignored });
++
++  var watcher = chokidar.watch(resolved.roots, chokidarOptions);
+   registerWatchEvent(watcher, options, cb);
+   return watcher;
+ }

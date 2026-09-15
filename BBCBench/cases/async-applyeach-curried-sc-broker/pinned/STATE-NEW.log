@@ -1,0 +1,225 @@
+
+> sc-broker@8.0.0 test
+> mocha --reporter spec --timeout 10000 --slow 10000
+
+
+
+  sc-broker failure handling and recovery
+Start broker
+    1) should be able to handle failure and gracefully recover from it
+
+  sc-broker client
+CLIENT ERROR: Error: connect ECONNREFUSED 127.0.0.1:9002
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1634:16) {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 9002
+}
+Start broker
+    sc-broker#executeCommandWhenClientIsDisconnected
+null
+      ✓ should be able to execute getAll action if client starts out disconnected
+      ✓ should emit the data by value (not by reference) when recovering from lost connection
+    sc-broker#createServer
+      ✓ should provide server.on
+      ✓ should provide server.destroy
+    sc-broker#createClient
+      ✓ should provide scBroker.createClient
+    sc-broker#sendToBroker
+      ✓ should be able to send a message to the broker and get a response
+      ✓ should be able to send a message to the broker and get back an error if something went wrong
+      ✓ should be able to send a message to the broker and timeout if callback is provided and broker does not respond
+      ✓ should be able to send a message to the broker and not timeout if no callback is provided and broker does not respond
+    broker-controller#sendToMaster
+      ✓ should be able to send a message to the master and get a response
+      ✓ should be able to send a message to the master and get back an error if something went wrong
+      ✓ should be able to send a message to the master and timeout if callback is provided and master does not respond
+      ✓ should be able to send a message to the master and not timeout if no callback is provided and master does not respond
+    client#getAll
+null
+      ✓ should get all
+    client#get
+      ✓ should provide client.get
+      ✓ should set values
+    client#add
+      ✓ should add a value to an existing, existing should be kept
+    client#concat
+      ✓ should concat string values
+      ✓ should concat arrays
+      ✓ should concat objects
+    client#removeRange
+      ✓ should remove object entries by range
+      ✓ should remove array entries by range
+    client#exec
+      ✓ should execute query functions
+      ✓ should set values over query.data
+    client#getRange
+      ✓ should get range test1
+      ✓ should get range test2
+      ✓ should get range test3
+      ✓ should get range test4
+      ✓ should get range test5
+      ✓ should get range test6
+      ✓ should get range test7
+    client#splice
+      ✓ should splice values test1
+      ✓ should splice values test2
+      ✓ should splice values test3
+      ✓ should splice values test4
+      ✓ should splice values test5
+    client#subscriptions
+      ✓ should have no subscriptions (empty array)
+Error [TimeoutError]: Broker Error - The subscribe action timed out
+    at Timeout._onTimeout (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-617a218e0563/src/index.js:363:21)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+      2) should return no error
+      3) should subscribe channel foo
+      4) can be blocked by middleware
+      ✓ can be delayed by middleware
+    client#unsubscriptions
+undefined
+      ✓ should return no error (returns undefined)
+    client#publish
+Error [TimeoutError]: Broker Error - The publish action timed out
+    at Timeout._onTimeout (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-617a218e0563/src/index.js:363:21)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+      5) should return no error (returns null)
+      6) can be blocked by middleware
+      ✓ can be delayed by middleware
+      7) can be transformed by middleware
+    client#expire
+      ✓ value should be expired 1000ms after the given time.
+    client#set
+      ✓ should provide client.set
+      ✓ should set and return values
+      ✓ should set and return object values
+      ✓ should return null if no value is demanded
+      ✓ should set properly in callbacks (double set to the same path)
+      ✓ should set value inside the callback of a .get()
+    client#remove
+      ✓ should remove the value at keyChain
+    client#pop
+      ✓ should remove the last numerically-indexed entry at keyChain
+    client#end
+      ✓ should return no error
+
+
+  50 passing (25s)
+  7 failing
+
+  1) sc-broker failure handling and recovery
+       should be able to handle failure and gracefully recover from it:
+     Uncaught TimeoutError: Broker Error - The subscribe action timed out
+      at Timeout._onTimeout (index.js:363:21)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  2) sc-broker client
+       client#subscriptions
+         should return no error:
+
+      Uncaught AssertionError [ERR_ASSERTION]: false == true
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-617a218e0563/src/test/main.js:552:16
+      at callback (index.js:504:26)
+      at Timeout._onTimeout (index.js:368:9)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  3) sc-broker client
+       client#subscriptions
+         should subscribe channel foo:
+
+      Uncaught AssertionError [ERR_ASSERTION]: false == true
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-617a218e0563/src/test/main.js:560:16
+      at callback (index.js:504:26)
+      at Timeout._onTimeout (index.js:368:9)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  4) sc-broker client
+       client#subscriptions
+         can be blocked by middleware:
+
+      Uncaught AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(/bad channel/.test(err.message))
+
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-617a218e0563/src/test/main.js:570:9
+      at callback (index.js:504:26)
+      at Timeout._onTimeout (index.js:368:9)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  5) sc-broker client
+       client#publish
+         should return no error (returns null):
+
+      Uncaught AssertionError [ERR_ASSERTION]: false == true
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-617a218e0563/src/test/main.js:599:16
+      at Timeout._onTimeout (index.js:368:9)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  6) sc-broker client
+       client#publish
+         can be blocked by middleware:
+
+      Uncaught AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(/silent channel/.test(err.message))
+
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-617a218e0563/src/test/main.js:606:9
+      at Timeout._onTimeout (index.js:368:9)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+  7) sc-broker client
+       client#publish
+         can be transformed by middleware:
+
+      Uncaught AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(!err)
+
+      + expected - actual
+
+      -false
+      +true
+      
+      at /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-617a218e0563/src/test/main.js:622:9
+      at Timeout._onTimeout (index.js:368:9)
+      at listOnTimeout (node:internal/timers:594:17)
+      at process.processTimers (node:internal/timers:529:7)
+
+
+
+STATE-NEW rc=7

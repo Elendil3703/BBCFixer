@@ -1,0 +1,40 @@
+diff --git a/models/Socrata.js b/models/Socrata.js
+index 1229269..018bd95 100644
+--- a/models/Socrata.js
++++ b/models/Socrata.js
+@@ -83,7 +83,7 @@ var Socrata = function (koop) {
+       })
+     }, 4)
+ 
+-    pageQueue.drain = function () {
++    pageQueue.drain(function () {
+       koop.Cache.getInfo(table, function (err, info) {
+         if (err) {
+           koop.log.error('Could not get info of ' + table, err)
+@@ -96,7 +96,7 @@ var Socrata = function (koop) {
+           delete processing[host + id]
+         })
+       })
+-    }
++    })
+ 
+     // request queue for gathering info on a dataset
+     var infoQueue = async.queue(function (job, cb) {
+@@ -104,7 +104,7 @@ var Socrata = function (koop) {
+     }, 3)
+ 
+     // when the infoQueue drains we will use the feedback from the first three socrata API calls to decide how to proceed
+-    infoQueue.drain = function () {
++    infoQueue.drain(function () {
+       // if the dataset is only one page long and getting the first row fails
+       // we can still grab it by requesting the whole dataset in one go
+       if (!errors.length) {
+@@ -155,7 +155,7 @@ var Socrata = function (koop) {
+           delete processing[host + id]
+         })
+       }
+-    }
++    })
+ 
+     koop.Cache.get(type, key, options, function (err, entry) {
+       var cacheMiss = err ||

@@ -1,0 +1,71 @@
+{
+  "id": "flatironinstitute__inferelator",
+  "name": "flatironinstitute__inferelator",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "flatironinstitute/inferelator",
+    "url": "https://github.com/flatironinstitute/inferelator",
+    "commit": "5fd992e9ac22bd11f9df0d8ed352aa7d86e0866c",
+    "license": "BSD-2-Clause"
+  },
+  "lib": "pandas",
+  "v_old": "2.0.3",
+  "v_new": "2.3.1",
+  "library_repo": "https://github.com/pandas-dev/pandas",
+  "library_tags": {
+    "old": "v2.0.3",
+    "new": "v2.3.1"
+  },
+  "reference_fix_source": "benchmark-authors",
+  "root_api": "the .A attribute of scipy.sparse spmatrix and sparray",
+  "root_symbols": [
+    "_spbase.A"
+  ],
+  "behavioral_change": "Whole-snapshot upgrade of pandas 2.0.3 to 2.3.1, numpy 1.25.0 to 2.3.2, scipy 1.11.1 to 1.16.1 and anndata 0.9.1 to 0.12.1 (resolved values); the root API label records scipy 1.11.1 to 1.16.1 as primary with the removal of the sparse .A attribute (_spbase.A). The behavioral component is that the row order of a pandas merge result is no longer stable, mixed with many interface renames.",
+  "downstream_effect": "Only 1 of 412 scored tests fails: test_result_processor_random asserts a score of 0.406 where 0.378 is expected, because the multi-task result processor computes a shifted score from the reordered rows; no exception is raised and the traceback gives no direct clue.",
+  "reference_fix": "Replaces the sparse-matrix `.A` attribute with `.toarray()` across `inferelator/preprocessing/data_normalization.py`, `inferelator/preprocessing/velocity.py`, `inferelator/regression/mi.py`, `inferelator/tfa/ridge_tfa.py`, `inferelator/utils/data.py` and `inferelator/utils/inferelator_data.py` (using `np.array(...)` for `sum`/`mean` results), changes `ad.read(model)` to `ad.read_h5ad(model)` in `inferelator/predict/static.py`, and in `inferelator/postprocessing/model_performance.py` replaces `np.NaN` with `np.nan` and adds `confidence_idx`/`gold_idx` columns to sort the outer join result before dropping them.",
+  "test_cmd": "bash /work/test_flatironinstitute__inferelator.sh",
+  "test_files": [
+    "inferelator/tests/__init__.py",
+    "inferelator/tests/artifacts/__init__.py",
+    "inferelator/tests/artifacts/test_data.py",
+    "inferelator/tests/artifacts/test_stubs.py",
+    "inferelator/tests/test_amusr.py",
+    "inferelator/tests/test_base_regression.py",
+    "inferelator/tests/test_bayes_stats.py",
+    "inferelator/tests/test_bbsr.py",
+    "inferelator/tests/test_crossvalidation_wrapper.py",
+    "inferelator/tests/test_data_loader.py",
+    "inferelator/tests/test_data_normalization.py",
+    "inferelator/tests/test_data_wrapper.py",
+    "inferelator/tests/test_design_response.py",
+    "inferelator/tests/test_elasticnet_python.py",
+    "inferelator/tests/test_homology.py",
+    "inferelator/tests/test_mi.py",
+    "inferelator/tests/test_mpcontrol.py",
+    "inferelator/tests/test_noising_data.py",
+    "inferelator/tests/test_priors.py",
+    "inferelator/tests/test_regression.py",
+    "inferelator/tests/test_results_processor.py",
+    "inferelator/tests/test_single_cell.py",
+    "inferelator/tests/test_tfa.py",
+    "inferelator/tests/test_utils.py",
+    "inferelator/tests/test_workflow_base.py",
+    "inferelator/tests/test_workflow_multitask.py",
+    "inferelator/tests/test_workflow_tfa.py",
+    "inferelator/tests/test_workflow_velocity.py"
+  ],
+  "reference_fix_tests": true,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:flatironinstitute__inferelator",
+    "python": "3.12.11"
+  },
+  "upgrade": {
+    "kind": "dated-snapshot",
+    "intact_date": "2023-06-28",
+    "broken_date": "2025-07-31",
+    "note": "TimeMachine-bench case: every dependency is resolved at the dated snapshot; the library at v_old/v_new is the one whose behavioral change breaks the tests."
+  }
+}

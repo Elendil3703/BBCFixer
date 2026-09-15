@@ -1,0 +1,8 @@
+tests/__init__.py
+tests/data/__init__.py
+tests/data/test_encoding.py
+tests/data/test_fields.py
+tests/data/test_structures.py
+tests/services/__init__.py
+tests/services/test_pubsub.py
+tests/test_integration.py

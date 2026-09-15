@@ -1,0 +1,269 @@
+jest-haste-map: duplicate manual mock found:
+  Module name: index
+  Duplicate Mock path: /w/src/domain/Config/__mocks__/index.js
+This warning is caused by two manual mock files with the same file name.
+Jest will use the mock file found in: 
+/w/src/domain/Config/__mocks__/index.js
+ Please delete one of the following two files: 
+ /w/src/domain/createApiActionCreator/__mocks__/index.js
+/w/src/domain/Config/__mocks__/index.js
+
+
+jest-haste-map: duplicate manual mock found:
+  Module name: index
+  Duplicate Mock path: /w/src/domain/MediaQuery/__mocks__/index.js
+This warning is caused by two manual mock files with the same file name.
+Jest will use the mock file found in: 
+/w/src/domain/MediaQuery/__mocks__/index.js
+ Please delete one of the following two files: 
+ /w/src/domain/Config/__mocks__/index.js
+/w/src/domain/MediaQuery/__mocks__/index.js
+
+
+jest-haste-map: duplicate manual mock found:
+  Module name: index
+  Duplicate Mock path: /w/src/domain/testClass/__mocks__/index.js
+This warning is caused by two manual mock files with the same file name.
+Jest will use the mock file found in: 
+/w/src/domain/testClass/__mocks__/index.js
+ Please delete one of the following two files: 
+ /w/src/domain/MediaQuery/__mocks__/index.js
+/w/src/domain/testClass/__mocks__/index.js
+
+
+ PASS  src/domain/ApiResponseHelper/spec.js
+ PASS  src/domain/log/buildLogToRaven.spec.js
+ PASS  src/domain/BreadcrumbsBuilder/spec.js
+ PASS  src/containers/ApiCalls/ApiAction.spec.js
+ PASS  src/containers/ApiCalls/ApiCall.spec.js
+ PASS  src/domain/createBuildRoute/spec.js
+ PASS  src/containers/ApiCalls/ApiState.spec.js
+ PASS  src/domain/Api/spec.js
+ PASS  src/domain/ApiResponse/spec.js
+ PASS  src/domain/connect/spec.js
+ PASS  src/domain/createApiActionCreator/spec.js
+ PASS  src/containers/ApiCalls/reducer.spec.js
+ PASS  src/domain/createNotificationsMiddleware/spec.js
+ PASS  src/domain/log/spec.js
+ PASS  src/domain/parseRoutes/spec.js
+ PASS  src/domain/PrivilegeChecker/spec.js
+ PASS  src/domain/createLoggerMiddleware/spec.js
+ PASS  src/components/Form/Field/spec.jsx
+ PASS  src/components/Avatar/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `userLastName` of type `number` supplied to `Avatar`, expected `string`.
+          in Avatar
+
+ PASS  src/containers/ApiCalls/ApiKey.spec.js
+ PASS  src/components/ProgressBar/spec.jsx
+ PASS  src/containers/SingleSignOn/IdleTimeoutHandler.spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `router` is marked as required in `IdleTimeoutHandler`, but its value is `undefined`.
+          in IdleTimeoutHandler
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `routes` is marked as required in `IdleTimeoutHandler`, but its value is `undefined`.
+          in IdleTimeoutHandler
+
+ PASS  src/components/HorizontalScroll/spec.jsx
+ PASS  src/containers/Sidebar/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `routes` is marked as required in `Sidebar`, but its value is `undefined`.
+          in Sidebar
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `location` is marked as required in `Sidebar`, but its value is `undefined`.
+          in Sidebar
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: transitionEnterTimeout wasn't supplied to CSSTransitionGroup: this can cause unreliable animations and won't be supported in a future version of React. See https://fb.me/react-animation-transition-group-timeout for more information.
+          in CSSTransitionGroup (created by Sidebar)
+          in Sidebar (created by WrapperComponent)
+          in WrapperComponent
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: transitionLeaveTimeout wasn't supplied to CSSTransitionGroup: this can cause unreliable animations and won't be supported in a future version of React. See https://fb.me/react-animation-transition-group-timeout for more information.
+          in CSSTransitionGroup (created by Sidebar)
+          in Sidebar (created by WrapperComponent)
+          in WrapperComponent
+
+ PASS  src/components/Button/button.spec.jsx
+  ● Console
+
+    console.warn node_modules/jest-util/build/FakeTimers.js:323
+      A function to advance timers was called but the timers API is not mocked with fake timers. Call `jest.useFakeTimers()` in this test or enable fake timers globally by setting `"timers": "fake"` in the configuration file. This warning is likely a result of a default configuration change in Jest 15.
+      
+      Release Blog Post: https://facebook.github.io/jest/blog/2016/09/01/jest-15.html
+      Stack Trace:
+            Error
+            at FakeTimers._checkFakeTimers (node_modules/jest-util/build/FakeTimers.js:332:24)
+            at Object.<anonymous> (src/components/Button/button.spec.jsx:117:12)
+                at new Promise (<anonymous>)
+            at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+                at <anonymous>
+    console.warn node_modules/jest-util/build/FakeTimers.js:323
+      A function to advance timers was called but the timers API is not mocked with fake timers. Call `jest.useFakeTimers()` in this test or enable fake timers globally by setting `"timers": "fake"` in the configuration file. This warning is likely a result of a default configuration change in Jest 15.
+      
+      Release Blog Post: https://facebook.github.io/jest/blog/2016/09/01/jest-15.html
+      Stack Trace:
+            Error
+            at FakeTimers._checkFakeTimers (node_modules/jest-util/build/FakeTimers.js:332:24)
+            at src/components/Button/button.spec.jsx:119:39
+            at Object.<anonymous> (src/components/Button/button.spec.jsx:119:73)
+                at new Promise (<anonymous>)
+
+ PASS  src/containers/AuthorizationHandler/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: AuthorizationHandler: prop type `user.get` is invalid; it must be a function, usually from the `prop-types` package, but received `undefined`.
+          in AuthorizationHandler
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `havePrivilegesLoaded` is marked as required in `AuthorizationHandler`, but its value is `undefined`.
+          in AuthorizationHandler
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `permissionChecks[0].canAccess` is marked as required in `AuthorizationHandler`, but its value is `undefined`.
+          in AuthorizationHandler
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+    console.warn node_modules/react-ga/dist/react-ga.js:110
+      [react-ga] ReactGA.initialize must be called first or GoogleAnalytics should be loaded manually
+
+ PASS  src/components/Grid/Group/spec.jsx
+ PASS  src/components/Dialog/spec.jsx
+ PASS  src/components/ErrorPage/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `replace` is marked as required in `ErrorPage`, but its value is `undefined`.
+          in ErrorPage
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `location` is marked as required in `ErrorPage`, but its value is `undefined`.
+          in ErrorPage
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `id` of value `custom-id` supplied to `Icon`, expected one of ["cross","happy","yingfu-logo","success","bell","chevron-small-right","sorting","cycle","question","arrow-down","unhappy","check","chevron-fat-down","smile","chevron-thin-left","dots","star-full","edit","lock","arrow-left","clock","info","star-half","circle","magnifying-glass","star-empty","chevron-small-up","toggle-course","export","burger","minus-squared-button","add-square-button","ef-logo","close","trash","arrow-right","chevron-small-down","chevron-thin-right","organisation","new-message","add-circle","warning","toggle-session","tick","cross-circle","history2","calendar","home","cross-circle-hollow","chevron-small-left"].
+          in Icon
+
+ PASS  src/components/HorizontalSelect/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `getLinkHrefForValue` is marked as required in `HorizontalSelect`, but its value is `undefined`.
+          in HorizontalSelect
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `options[0].value` of type `number` supplied to `HorizontalSelect`, expected `string`.
+          in HorizontalSelect
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `value` of type `number` supplied to `HorizontalSelect`, expected `string`.
+          in HorizontalSelect
+
+ PASS  src/components/Grid/Item/spec.jsx
+ PASS  src/components/SolidRadio/spec.jsx
+ PASS  src/components/Button/validateType.spec.js
+ PASS  src/components/Icon/spec.jsx
+ PASS  src/components/StudentPicture/spec.jsx
+ PASS  src/domain/Store/spec.js
+ PASS  src/components/Card/Content/spec.jsx
+ PASS  src/components/AdultPicture/spec.jsx
+ PASS  src/components/SelectionTable/spec.jsx
+ PASS  src/components/ColourLabel/spec.jsx
+ PASS  src/domain/testClass/spec.js
+ PASS  src/components/Card/Card/spec.jsx
+ PASS  src/components/Form/spec.js
+ PASS  src/domain/Config/spec.js
+ PASS  src/containers/ErrorPageHandler/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: ErrorPageHandler: prop type `erroredApis.size` is invalid; it must be a function, usually from the `prop-types` package, but received `undefined`.
+          in ErrorPageHandler
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `replace` is marked as required in `ErrorPageHandler`, but its value is `undefined`.
+          in ErrorPageHandler
+
+ PASS  src/components/Button/type.spec.js
+ PASS  src/domain/moment/spec.js
+ PASS  src/components/Breadcrumbs/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `items[1].href` is marked as required in `Breadcrumbs`, but its value is `undefined`.
+          in Breadcrumbs
+
+ PASS  src/components/Grid/spec.js
+ PASS  src/components/Person/spec.jsx
+ PASS  src/components/Form/Select/spec.jsx
+ PASS  src/components/PageCard/spec.jsx
+ PASS  src/components/StudentCard/StudentCard/spec.jsx
+ PASS  src/components/StudentCard/Profile/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `gender` of type `number` supplied to `PersonComp`, expected `string`.
+          in PersonComp (created by pure(PersonComp))
+          in pure(PersonComp) (created by Profile)
+          in div (created by Content)
+          in Content (created by pure(Content))
+          in pure(Content) (created by Profile)
+          in Profile (created by WrapperComponent)
+          in WrapperComponent
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `gender` of type `number` supplied to `StudentPicture`, expected `string`.
+          in StudentPicture (created by pure(StudentPicture))
+          in pure(StudentPicture)
+          in div (created by Person)
+          in Person (created by PersonComp)
+          in PersonComp (created by pure(PersonComp))
+          in pure(PersonComp) (created by Profile)
+          in div (created by Content)
+          in Content (created by pure(Content))
+          in pure(Content) (created by Profile)
+          in Profile (created by WrapperComponent)
+          in WrapperComponent
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `gender` of type `number` supplied to `Avatar`, expected `string`.
+          in Avatar (created by StudentPicture)
+          in StudentPicture (created by pure(StudentPicture))
+          in pure(StudentPicture)
+          in div (created by Person)
+          in Person (created by PersonComp)
+          in PersonComp (created by pure(PersonComp))
+          in pure(PersonComp) (created by Profile)
+          in div (created by Content)
+          in Content (created by pure(Content))
+          in pure(Content) (created by Profile)
+          in Profile (created by WrapperComponent)
+          in WrapperComponent
+
+ PASS  src/components/Grid/Grid/spec.jsx
+ PASS  src/components/Detailsboard/spec.jsx
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `boardTitle` is marked as required in `DetailsBoard`, but its value is `undefined`.
+          in DetailsBoard
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: The prop `boardValue` is marked as required in `DetailsBoard`, but its value is `undefined`.
+          in DetailsBoard
+
+ PASS  src/components/Form/TextInput/spec.jsx
+ PASS  src/components/StudentCard/Content/spec.jsx
+
+Test Suites: 58 passed, 58 total
+Tests:       437 passed, 437 total
+Snapshots:   0 total
+Time:        1.78s
+Ran all test suites.
+STATE-OLD rc=0

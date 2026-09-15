@@ -1,0 +1,31 @@
+{
+  "name": "async-rtree",
+  "version": "1.2.2",
+  "description": "an async rtree suitable for use with leveldb",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.2.2",
+    "noms": "0.0.0",
+    "stringmap": "^0.2.2",
+    "stringset": "^0.2.1",
+    "uuid": "^3.0.0",
+    "xtend": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/calvinmetcalf/async-rtree.git"
+  },
+  "devDependencies": {
+    "tape": "^2.12.0"
+  },
+  "keywords": [
+    "rtree",
+    "async",
+    "geospatial"
+  ]
+}

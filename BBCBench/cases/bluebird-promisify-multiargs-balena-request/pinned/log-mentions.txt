@@ -1,0 +1,5 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	bluebird	132	Exception stack frames printed by mocha genuinely pass through bluebird implementation files under node_modules, many of them from the nested copy bundled with resin-settings-storage; this is the project's own failure output and removing it would falsify the failure. The lines only name the triggering library, contain neither promisify nor spread, and do not point to the fix location lib/request.coffee line 23.

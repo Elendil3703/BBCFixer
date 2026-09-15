@@ -1,0 +1,45 @@
+{
+  "id": "commander-optprops-lambda-local",
+  "name": "commander-optprops-lambda-local",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "ashiina/lambda-local",
+    "url": "https://github.com/ashiina/lambda-local",
+    "commit": "ece4389322d33f11785bdff055979157c6d34fab"
+  },
+  "lib": "commander",
+  "v_old": "6.2.1",
+  "v_new": "7.2.0",
+  "library_repo": "https://github.com/tj/commander.js",
+  "library_tags": {
+    "old": "v6.2.1",
+    "new": "v7.2.0"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "Command.opts",
+  "root_symbols": [
+    "Command.constructor",
+    "Command.storeOptionsAsProperties",
+    "Command.setOptionValue",
+    "Command.opts"
+  ],
+  "behavioral_change": "Since commander 7.0.0, parsed option values are no longer stored as properties on the Command object; they are stored separately and must be read through `program.opts()`. Method names, option declarations and command-line usage are unchanged, so the v_old form `program.<optionName>` silently evaluates to `undefined` in v_new, as if the flag had never been passed.",
+  "downstream_effect": "In the downstream project (lambda-local), `src/cli.ts` reads fourteen options from `program` after `.parse(process.argv)`; after the upgrade all of them are `undefined`, so the CLI enters its missing-argument branch and prints help text, `-v 0` no longer suppresses output, and `--wait-empty-event-loop` has no effect. The failing assertions are reported only in `test/test.js`; the output never mentions `src/cli.ts` or commander, so nothing points at the code that must be edited.",
+  "reference_fix": "The reference fix edits only `src/cli.ts`, adding `var options = program.opts();` after parsing and changing the fourteen `program.<name>` reads to `options.<name>`.",
+  "documented_in": "The commander CHANGELOG.md entry [7.0.0] (2021-01-15) declares the change under Changed (options are stored safely by default, use `program.opts()`) and its Migration Tips section shows old and new code blocks (`if (program.debug)` versus `const options = program.opts(); if (options.debug)`). Tier 1: the documentation shows the new code form directly.",
+  "failing_tests": [
+    "- Testing cli.js * Verbose test should have no output",
+    "- Testing cli.js * Test --wait-empty-event-loop should wait for all timeouts to end",
+    "ten further failures in cli.js (seven under Failing Run, and one each for Crashing run, Timeout Run and Not stringifyable run), 12 failing in total"
+  ],
+  "test_cmd": "npm run build && npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:16",
+    "node_major": 16,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "ashiina/lambda-local",
+  "commit": "ece4389322d33f11785bdff055979157c6d34fab"
+}

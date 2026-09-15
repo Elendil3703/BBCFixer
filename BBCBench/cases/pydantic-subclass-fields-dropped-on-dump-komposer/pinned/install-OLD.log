@@ -1,0 +1,102 @@
+### poetry install --no-root
+Installing dependencies from lock file
+
+Package operations: 63 installs, 10 updates, 0 removals
+
+  - Installing six (1.16.0)
+  - Installing markupsafe (2.1.1)
+  - Installing pyparsing (3.0.9)
+  - Installing python-dateutil (2.8.2)
+  - Installing pyyaml (6.0)
+  - Downgrading certifi (2026.7.22 -> 2022.6.15)
+  - Downgrading charset-normalizer (3.4.9 -> 2.1.0)
+  - Installing click (8.1.3)
+  - Installing ghp-import (2.1.0)
+  - Downgrading idna (3.18 -> 3.3)
+  - Installing jinja2 (3.1.2)
+  - Installing markdown (3.3.7)
+  - Installing pyyaml-env-tag (0.1)
+  - Installing mergedeep (1.3.4)
+  - Downgrading packaging (26.2 -> 21.3)
+  - Installing smmap (5.0.0)
+  - Downgrading urllib3 (2.7.0 -> 1.26.10)
+  - Installing watchdog (2.1.9)
+  - Installing attrs (21.4.0)
+  - Installing commonmark (0.9.1)
+  - Installing editorconfig (0.12.3)
+  - Installing gitdb (4.0.9)
+  - Installing iniconfig (1.1.1)
+  - Installing mccabe (0.7.0)
+  - Installing mkdocs (1.4.0)
+  - Installing mkdocs-material-extensions (1.0.3)
+  - Installing pbr (5.10.0)
+  - Installing pluggy (1.0.0)
+  - Installing py (1.11.0)
+  - Installing pycodestyle (2.9.0)
+  - Installing pygments (2.12.0)
+  - Installing pyrepl (0.9.0)
+  - Installing soupsieve (2.3.2.post1)
+  - Installing pyflakes (2.5.0)
+  - Downgrading requests (2.34.2 -> 2.28.1)
+  - Installing pymdown-extensions (9.5)
+  - Downgrading tomli (2.4.1 -> 2.0.1)
+  - Installing beautifulsoup4 (4.11.1)
+  - Installing coverage (6.4.1)
+  - Installing fancycompleter (0.9.1)
+  - Installing flake8 (5.0.4)
+  - Installing gitpython (3.1.29)
+  - Installing jsbeautifier (1.14.4)
+  - Installing mkdocs-material (8.5.6)
+  - Installing mypy-extensions (0.4.3)
+  - Installing pathspec (0.9.0)
+  - Downgrading platformdirs (4.11.0 -> 2.5.2)
+  - Installing pprintpp (0.4.0)
+  - Installing pytest (7.1.3)
+  - Downgrading setuptools (83.0.0 -> 65.4.0)
+  - Installing rich (12.4.4)
+  - Installing stevedore (4.0.1)
+  - Downgrading typing-extensions (4.16.0 -> 4.2.0)
+  - Installing tokenize-rt (4.2.1)
+  - Installing wmctrl (0.4)
+  - Installing autoflake (1.6.1)
+  - Installing bandit (1.7.4)
+  - Installing black (22.8.0)
+  - Installing flake8-bugbear (22.9.23)
+  - Installing flake8-datetime-utcnow-plugin (0.1.2)
+  - Installing isort (5.10.1)
+  - Installing pytest-testmon (1.3.3)
+  - Installing mkdocs-mermaid2-plugin (0.6.0)
+  - Installing pydantic (1.10.2)
+  - Installing pytest-mock (3.9.0)
+  - Installing pdbpp (0.10.3)
+  - Installing pytest-clarity (1.0.1)
+  - Installing pytest-cov (4.0.0)
+  - Installing python-dotenv (0.21.0)
+  - Installing pyupgrade (2.38.2)
+  - Installing stringcase (1.2.0)
+  - Installing types-pyyaml (6.0.12)
+  - Installing mypy (0.981)
+### pip install -e .
+Obtaining file:///work/repo
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: PyYAML<7.0,>=6.0 in /work/.venv/lib/python3.10/site-packages (from komposer==0.1.9) (6.0)
+Requirement already satisfied: click<9.0.0,>=8.1.3 in /work/.venv/lib/python3.10/site-packages (from komposer==0.1.9) (8.1.3)
+Requirement already satisfied: pydantic<2.0.0,>=1.9.1 in /work/.venv/lib/python3.10/site-packages (from komposer==0.1.9) (1.10.2)
+Requirement already satisfied: python-dotenv>=0.20 in /work/.venv/lib/python3.10/site-packages (from komposer==0.1.9) (0.21.0)
+Requirement already satisfied: stringcase<2.0.0,>=1.2.0 in /work/.venv/lib/python3.10/site-packages (from komposer==0.1.9) (1.2.0)
+Requirement already satisfied: typing-extensions>=4.1.0 in /work/.venv/lib/python3.10/site-packages (from pydantic<2.0.0,>=1.9.1->komposer==0.1.9) (4.2.0)
+Building wheels for collected packages: komposer
+  Building editable for komposer (pyproject.toml): started
+  Building editable for komposer (pyproject.toml): finished with status 'done'
+  Created wheel for komposer: filename=komposer-0.1.9-py3-none-any.whl size=2650 sha256=c15db467bff3e0747685dc1de8dab344f2312efd399485cf51ba3c6c6e359446
+  Stored in directory: /work/.tmp/pip-ephem-wheel-cache-zfeqye_m/wheels/28/46/d5/13452af23b02174977a26893c2f5421ad43881dd69e65701ac
+Successfully built komposer
+Installing collected packages: komposer
+Successfully installed komposer-0.1.9

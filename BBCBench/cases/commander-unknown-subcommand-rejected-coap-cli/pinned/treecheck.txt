@@ -1,0 +1,4 @@
+changed packages (1): commander
+  OK new commander@5.1.0 at commander
+  OK old commander@4.1.1 at commander
+TREECHECK_OK: every change is inside the allowed closure (1 allowed names)

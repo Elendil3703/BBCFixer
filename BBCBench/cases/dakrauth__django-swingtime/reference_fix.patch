@@ -1,0 +1,10 @@
+--- demo/settings.py
++++ demo/settings.py
+@@ -23,6 +23,7 @@
+ LANGUAGES = (('en', 'English'),)
+ STATIC_URL = '/static/'
+ STATIC_ROOT = 'static'
++USE_TZ = False
+ TIME_ZONE = 'America/New_York'
+ SITE_ID = 1
+ USE_I18N = True

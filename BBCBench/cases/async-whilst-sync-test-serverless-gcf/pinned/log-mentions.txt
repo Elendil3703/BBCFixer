@@ -1,0 +1,7 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-FIXED.log	async	4	As in STATE-NEW, the hits are the repository's own constant names HTTP_ASYNC_HANDLER / EVENT_ASYNC_HANDLER, genuine project output that does not refer to the async package and does not reveal the fix.
+STATE-NEW.log	async	20	Hits are jest's own timeout message Timeout - Async callback was not invoked plus the repository's own constant names HTTP_ASYNC_HANDLER / EVENT_ASYNC_HANDLER; neither is the triggering library name, and neither points to the async package or to the fix.
+STATE-OLD.log	async	4	As in STATE-NEW, the hits are the repository's own constant names HTTP_ASYNC_HANDLER / EVENT_ASYNC_HANDLER, genuine project output that does not refer to the async package and does not reveal the fix.

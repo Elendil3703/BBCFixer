@@ -1,0 +1,6 @@
+changed packages (1): immutable
+  OK new immutable@3.8.3 at immutable-cursor/node_modules/immutable
+  OK new immutable@3.8.3 at react-daterange-picker/node_modules/immutable
+  OK new immutable@4.3.9 at immutable
+  OK old immutable@3.8.3 at immutable
+TREECHECK_OK: every change is inside the allowed closure (1 allowed names)

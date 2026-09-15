@@ -1,0 +1,39 @@
+diff --git a/src/index.js b/src/index.js
+index 0f28acd..57ebb9a 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -132,6 +132,23 @@ export default function copyPlugin(options) {
+       const jobs = new Set()
+       const { paths, ignorePaths } = parseUserPaths(userPaths, absWorkingDir, defaultTo)
+ 
++      // chokidar 4 no longer expands globs: the first argument of chokidar.watch is
++      // taken as a literal path, so a pattern such as from/c/** matches nothing and
++      // no event is ever emitted. The replacement documented in the chokidar v4
++      // README ("Upgrading") is to watch a real directory and to decide file by file
++      // with the `ignored` predicate.
++      const watchRoots = Array.from(new Set(paths.map(pathOptions => pathOptions.parent)))
++      const matchIgnorePaths = anymatch(ignorePaths, null, { dot: true })
++
++      const isIgnored = (watchedPath, stats) => {
++        // Never prune directories: that would cut off everything below them.
++        if (!stats || !stats.isFile()) return false
++        const fullPath = path.resolve(absWorkingDir, watchedPath)
++        const srcFile = path.relative(absWorkingDir, fullPath)
++        if (matchIgnorePaths(normalize(srcFile)) || matchIgnorePaths(normalize(fullPath))) return true
++        return !paths.some(pathOptions => pathOptions.valid(srcFile, fullPath))
++      }
++
+       const getPaths = (srcFile) => {
+         const srcPath = path.resolve(absWorkingDir, srcFile)
+         const pathOptions = paths.find(pathOptions => pathOptions.valid(srcFile, srcPath))
+@@ -182,8 +199,8 @@ export default function copyPlugin(options) {
+           }
+         }
+ 
+-        watcher = chokidar.watch(paths.map(pathOptions => pathOptions.from), {
+-          ignored: ignorePaths,
++        watcher = chokidar.watch(watchRoots, {
++          ignored: isIgnored,
+           cwd: absWorkingDir,
+         })
+ 

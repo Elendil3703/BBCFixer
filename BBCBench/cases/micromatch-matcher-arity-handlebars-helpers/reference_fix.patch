@@ -1,0 +1,19 @@
+diff --git a/lib/fs.js b/lib/fs.js
+index 6c2d4fe..c442442 100644
+--- a/lib/fs.js
++++ b/lib/fs.js
+@@ -56,7 +56,13 @@ helpers.readdir = function(dir, filter) {
+     });
+   }
+   if (utils.isGlob(filter)) {
+-    return files.filter(utils.mm.matcher(filter));
++    // The matcher returned by micromatch takes the string to match as its only
++    // argument, as its README documents. Handing the matcher straight to
++    // Array#filter also passes the index and the array, so wrap the call.
++    var isMatch = utils.mm.matcher(filter);
++    return files.filter(function(fp) {
++      return isMatch(fp);
++    });
+   }
+   if (['isFile', 'isDirectory'].indexOf(filter) !== -1) {
+     return files.filter(function(fp) {

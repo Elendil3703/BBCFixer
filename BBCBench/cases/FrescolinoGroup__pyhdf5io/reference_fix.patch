@@ -1,0 +1,77 @@
+diff --git fsc/hdf5_io/_save_load.py fsc/hdf5_io/_save_load.py
+index dcc35e7..6427522 100644
+--- fsc/hdf5_io/_save_load.py
++++ fsc/hdf5_io/_save_load.py
+@@ -60,7 +60,7 @@ def from_hdf5(hdf5_handle):
+     :type hdf5_handle: :py:class:`h5py.File<File>` or :py:class:`h5py.Group<Group>`.
+     """
+     try:
+-        type_tag = hdf5_handle[TYPE_TAG_KEY][()]
++        type_tag = hdf5_handle[TYPE_TAG_KEY][()].decode('utf-8')
+     except KeyError as err:
+         raise ValueError(
+             "HDF5 object '{}' cannot be de-serialized: No type information given."
+diff --git fsc/hdf5_io/_special_types.py fsc/hdf5_io/_special_types.py
+index 85534ed..d81cfb3 100644
+--- fsc/hdf5_io/_special_types.py
++++ fsc/hdf5_io/_special_types.py
+@@ -26,6 +26,7 @@ class _SpecialTypeTags(SimpleNamespace):
+     DICT = 'builtins.dict'
+     NUMBER = 'builtins.number'
+     STR = 'builtins.str'
++    BYTES = 'builtins.bytes'
+     NONE = 'builtins.none'
+     NUMPY_ARRAY = 'numpy.ndarray'
+     SYMPY = 'sympy.object'  # defined in _sympy_load.py and _sympy_save.py
+@@ -69,14 +70,22 @@ def _deserialize_iterable(hdf5_handle):
+     return [from_hdf5(hdf5_handle[key]) for key in sorted(int_keys, key=int)]
+ 
+ 
+-@subscribe_hdf5(_SpecialTypeTags.NUMBER, extra_tags=(_SpecialTypeTags.STR, ))
++@subscribe_hdf5(_SpecialTypeTags.NUMBER, extra_tags=(_SpecialTypeTags.BYTES, ))
+ class _ValueDeserializer(Deserializable):
+-    """Helper class to de-serialize numbers and strings objects."""
++    """Helper class to de-serialize numbers."""
+     @classmethod
+     def from_hdf5(cls, hdf5_handle):
+         return hdf5_handle['value'][()]
+ 
+ 
++@subscribe_hdf5(_SpecialTypeTags.STR)
++class _StringDeserializer(Deserializable):
++    """Helper class to de-serialize strings."""
++    @classmethod
++    def from_hdf5(cls, hdf5_handle):
++        return hdf5_handle['value'][()].decode('utf-8')
++
++
+ @subscribe_hdf5(_SpecialTypeTags.NUMPY_ARRAY)
+ class _NumpyArraryDeserializer(Deserializable):
+     """Helper class to de-serialize numpy arrays."""
+@@ -147,6 +156,12 @@ def _(obj, hdf5_handle):
+     _value_serializer(str(obj), hdf5_handle)
+ 
+ 
++@to_hdf5_singledispatch.register(bytes)
++@add_type_tag(_SpecialTypeTags.BYTES)
++def _(obj, hdf5_handle):
++    _value_serializer(obj, hdf5_handle)
++
++
+ @to_hdf5_singledispatch.register(type(None))
+ @add_type_tag(_SpecialTypeTags.NONE)
+ def _(obj, hdf5_handle):
+diff --git fsc/hdf5_io/_subscribe.py fsc/hdf5_io/_subscribe.py
+index a07144b..044c3e9 100644
+--- fsc/hdf5_io/_subscribe.py
++++ fsc/hdf5_io/_subscribe.py
+@@ -54,7 +54,8 @@ def subscribe_hdf5(type_tag, extra_tags=(), check_on_load=True):
+             ):
+                 # check only the top-level class.
+                 if curr_cls == cls:
+-                    assert hdf5_handle[TYPE_TAG_KEY][()] in all_type_tags
++                    assert hdf5_handle[TYPE_TAG_KEY][(
++                    )].decode('utf-8') in all_type_tags
+                 return from_hdf5_func(curr_cls, hdf5_handle, *args, **kwargs)
+ 
+             cls.from_hdf5 = classmethod(check_type_tag(cls.from_hdf5.__func__))  # pylint: disable=no-value-for-parameter

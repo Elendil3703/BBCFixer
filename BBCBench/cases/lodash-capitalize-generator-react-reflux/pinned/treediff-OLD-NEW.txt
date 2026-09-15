@@ -1,0 +1,12 @@
+55a56
+> cheerio/node_modules/lodash	lodash@3.8.0
+247a249
+> inquirer/node_modules/lodash	lodash@3.8.0
+314c316
+< lodash	lodash@3.8.0
+---
+> lodash	lodash@4.17.21
+348a351
+> mem-fs-editor/node_modules/lodash	lodash@3.8.0
+635a639
+> yeoman-generator/node_modules/lodash	lodash@3.8.0

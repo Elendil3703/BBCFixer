@@ -1,0 +1,42 @@
+{
+  "id": "bluebird-promisify-multiargs-balena-request",
+  "name": "bluebird-promisify-multiargs-balena-request",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "balena-io-modules/balena-request",
+    "url": "https://github.com/balena-io-modules/balena-request",
+    "commit": "d3a7083e2c267ff5a6ec0043d59b562c5d858c6c"
+  },
+  "lib": "bluebird",
+  "v_old": "2.11.0",
+  "v_new": "3.7.2",
+  "library_repo": "https://github.com/petkaantonov/bluebird",
+  "library_tags": {
+    "old": "v2.11.0",
+    "new": "v3.7.2"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "Promise.promisify",
+  "root_symbols": [
+    "Promise.promisify",
+    "nodebackForPromise",
+    "makeNodePromisified"
+  ],
+  "behavioral_change": "In bluebird v_new (3.0.0), `Promise.promisify` and `Promise.promisifyAll` by default resolve the promise with only the first success value passed to the node-style callback, whereas v_old (2.x) collected multiple success values into an array. The call form is unchanged and no exception is raised by the library itself; the old array behaviour is restored with the new `multiArgs: true` option.",
+  "downstream_effect": "balena-request's lib/request.coffee promisifies the `request` module, whose callback yields `(err, response, body)`, and consumes the result with `.spread (response) ->`; after the upgrade the promise resolves to the bare response object and `.spread` throws `TypeError: expecting an array or an iterable object`, so 22 tests fail with rejected promises and mismatched assertions. The output never names lib/request.coffee, promisify or spread; stack frames point at the test file and node_modules only, and the many bluebird paths identify the library but not the mechanism.",
+  "reference_fix": "The reference fix changes one line in lib/request.coffee, adding `multiArgs: true` to the `Promise.promisify` call on line 23.",
+  "documented_in": "bluebird's \"New in bluebird 3.0\" document (docs/docs/new-in-bluebird-3.md, tag v3.7.2), section Promisification API changes, states in prose that promisification now uses only the first callback argument and that a new boolean option `multiArgs` restores the array behaviour. The document gives only prose for this change and no code showing `Promise.promisify(fn, {multiArgs: true})`.",
+  "failing_tests": [
+    "22 failing tests, listed in pinned/STATE-NEW.log; for example: Request: given the token is always fresh .send() given a simple GET endpoint given an absolute url should allow passing a baseUrl"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:8",
+    "node_major": 8,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "balena-io-modules/balena-request",
+  "commit": "d3a7083e2c267ff5a6ec0043d59b562c5d858c6c"
+}

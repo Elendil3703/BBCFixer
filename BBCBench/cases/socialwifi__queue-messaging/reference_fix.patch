@@ -1,0 +1,60 @@
+--- queue_messaging/data/encoding.py
++++ queue_messaging/data/encoding.py
+@@ -10,15 +10,12 @@
+ def encode(model: structures.Model):
+     try:
+         serialization_result = model.Meta.schema().dumps(model)
++        model.Meta.schema().loads(serialization_result)
+     except AttributeError as e:
+         raise exceptions.EncodingError(e)
+     except marshmallow.ValidationError as e:
+         raise exceptions.EncodingError(e.messages)
+-    else:
+-        if serialization_result.errors:
+-            raise exceptions.EncodingError(serialization_result.errors)
+-        else:
+-            return serialization_result.data
++    return serialization_result
+ 
+ 
+ def decode_payload(header: structures.Header, encoded_data: str, message_config: dict):
+@@ -34,16 +31,13 @@
+ 
+ def decode(type, encoded_data: str):
+     try:
+-        decoded_data = type.Meta.schema().loads(encoded_data)
++        decoded_data = type.Meta.schema().loads(encoded_data, unknown=marshmallow.EXCLUDE)
+     except (json.decoder.JSONDecodeError, TypeError, AttributeError):
+         raise exceptions.DecodingError('Error while decoding.', encoded_data=encoded_data)
+     except marshmallow.ValidationError as e:
+         raise exceptions.DecodingError(e.messages)
+-    else:
+-        if decoded_data.errors:
+-            raise exceptions.DecodingError(decoded_data.errors)
+-        else:
+-            return type(**decoded_data.data)
++
++    return type(**decoded_data)
+ 
+ 
+ def create_attributes(model: structures.Model, now=None) -> dict:
+--- queue_messaging/data/fields.py
++++ queue_messaging/data/fields.py
+@@ -15,7 +15,7 @@
+         try:
+             return str(self._to_python(value))
+         except netaddr.AddrFormatError:
+-            self.fail('format', input=value)
++            raise self.make_error('format', input=value)
+ 
+     def _deserialize(self, value, attr, data):
+         if not value:
+@@ -23,7 +23,7 @@
+         try:
+             return self._to_python(value)
+         except netaddr.AddrFormatError:
+-            self.fail('format', input=value)
++            raise self.make_error('format', input=value)
+ 
+     def _to_python(self, value):
+         eui = netaddr.EUI(value)

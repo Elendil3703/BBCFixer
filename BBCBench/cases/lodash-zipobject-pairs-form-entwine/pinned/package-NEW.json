@@ -1,0 +1,32 @@
+{
+  "name": "entwine",
+  "version": "0.1.0",
+  "description": "Immutable Dependency Injection",
+  "author": "MojoTech",
+  "keywords": [
+    "immutable"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/mojotech/entwine",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mojotech/entwine.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mojotech/entwine/issues"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "bluebird": "3.0.6",
+    "immutable": "3.7.5",
+    "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "mocha": "2.3.4"
+  }
+}

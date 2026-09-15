@@ -1,0 +1,254 @@
+
+> azul-transaction@0.1.0 test /w/wk-96a83320939a/src
+> jshint --exclude-path=.gitignore . && ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report $(if [ "$TRAVIS" ]; then echo lcovonly; else echo html; fi) -- --recursive && if [ "$TRAVIS" ]; then cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi
+
+
+
+  azul-transaction
+    middleware
+      when begun
+        ✓ starts the transaction
+        ✓ commits on `end`
+        ✓ calls original `end` with proper args
+        ✓ commits on `write`
+        ✓ calls original `write` with proper args
+        ✓ commits on `writeHead`
+        ✓ calls original `writeHead` with proper args
+    error middleware
+      ✓ performs rollback
+    wrapped route
+      1) recognizes a next parameter
+      2) recognizes an error parameter
+      3) recognizes an error parameter with function body
+      4) accepts unknown parameter configurations as standard express params
+      5) throws for unkown params following azul params
+      6) works with middleware installed
+      7) works without middleware installed
+      8) works for defining error middleware
+      9) performs rollback if next is called with error
+      10) performs only performs one rollback if rolled back manually & through error
+      11) commits if next is called without arguments
+      12) throws if next is called with non-error
+      13) works with relationships
+      with azul params
+        14) "before each" hook for "generates a standard express route"
+      when begin transaction fails
+        15) calls next with error
+      when commit transaction fails
+        16) calls next with error
+      when rollback transaction fails
+        17) calls next with error
+    test setup
+      ✓ uses multiple clients
+
+
+  9 passing (62ms)
+  17 failing
+
+  1) azul-transaction wrapped route recognizes a next parameter:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at Context.<anonymous> (test/tests.js:179:22)
+
+  2) azul-transaction wrapped route recognizes an error parameter:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at Context.<anonymous> (test/tests.js:184:22)
+
+  3) azul-transaction wrapped route recognizes an error parameter with function body:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at Context.<anonymous> (test/tests.js:191:22)
+
+  4) azul-transaction wrapped route accepts unknown parameter configurations as standard express params:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at Context.<anonymous> (test/tests.js:196:22)
+
+  5) azul-transaction wrapped route throws for unkown params following azul params:
+     AssertionError: expected [Function] to throw error matching /unexpected arguments:.*query, item, bad/i but got 'Cannot read property \'length\' of undefined'
+      at Context.<anonymous> (test/tests.js:207:18)
+
+  6) azul-transaction wrapped route works with middleware installed:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at Object.<anonymous> (test/tests.js:226:24)
+      at Object.tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+  7) azul-transaction wrapped route works without middleware installed:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at Object.<anonymous> (test/tests.js:260:24)
+      at Object.tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Promise._settlePromiseAtPostResolution (node_modules/bluebird/js/main/promise.js:248:10)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+  8) azul-transaction wrapped route works for defining error middleware:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at Object.<anonymous> (test/tests.js:294:24)
+      at Object.tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Promise._settlePromiseAtPostResolution (node_modules/bluebird/js/main/promise.js:248:10)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+  9) azul-transaction wrapped route performs rollback if next is called with error:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at test/tests.js:318:24
+      at tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Promise._settlePromiseAtPostResolution (node_modules/bluebird/js/main/promise.js:248:10)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+  10) azul-transaction wrapped route performs only performs one rollback if rolled back manually & through error:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at test/tests.js:340:24
+      at tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Promise._settlePromiseAtPostResolution (node_modules/bluebird/js/main/promise.js:248:10)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+  11) azul-transaction wrapped route commits if next is called without arguments:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at test/tests.js:359:24
+      at tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Promise._settlePromiseAtPostResolution (node_modules/bluebird/js/main/promise.js:248:10)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+  12) azul-transaction wrapped route throws if next is called with non-error:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at test/tests.js:380:24
+      at tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Promise._settlePromiseAtPostResolution (node_modules/bluebird/js/main/promise.js:248:10)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+  13) azul-transaction wrapped route works with relationships:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at test/tests.js:494:24
+      at tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Promise._settlePromiseAtPostResolution (node_modules/bluebird/js/main/promise.js:248:10)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+  14) azul-transaction wrapped route with azul params "before each" hook for "generates a standard express route":
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at Context.<anonymous> (test/tests.js:212:25)
+
+  15) azul-transaction wrapped route when begin transaction fails calls next with error:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at test/tests.js:404:26
+      at tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Promise._settlePromiseAtPostResolution (node_modules/bluebird/js/main/promise.js:248:10)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+  16) azul-transaction wrapped route when commit transaction fails calls next with error:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at test/tests.js:429:26
+      at tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Promise._settlePromiseAtPostResolution (node_modules/bluebird/js/main/promise.js:248:10)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+  17) azul-transaction wrapped route when rollback transaction fails calls next with error:
+     TypeError: Cannot read property 'length' of undefined
+      at Function.route (index.js:9:8564)
+      at apply (node_modules/lodash/lodash.js:489:27)
+      at Function.wrapper [as route] (node_modules/lodash/lodash.js:5379:16)
+      at test/tests.js:459:26
+      at tryCatcher (node_modules/bluebird/js/main/util.js:26:23)
+      at Promise._settlePromiseFromHandler (node_modules/bluebird/js/main/promise.js:510:31)
+      at Promise._settlePromiseAt (node_modules/bluebird/js/main/promise.js:584:18)
+      at Promise._settlePromiseAtPostResolution (node_modules/bluebird/js/main/promise.js:248:10)
+      at Async._drainQueue (node_modules/bluebird/js/main/async.js:128:12)
+      at Async._drainQueues (node_modules/bluebird/js/main/async.js:133:10)
+      at Immediate.Async.drainQueues [as _onImmediate] (node_modules/bluebird/js/main/async.js:15:14)
+
+
+
+=============================================================================
+Writing coverage object [/w/wk-96a83320939a/src/coverage/coverage.json]
+Writing coverage reports at [/w/wk-96a83320939a/src/coverage]
+=============================================================================
+
+=============================== Coverage summary ===============================
+[93mStatements   : 51.69% ( 61/118 )[0m
+[91mBranches     : 26.47% ( 9/34 )[0m
+[93mFunctions    : 50% ( 14/28 )[0m
+[93mLines        : 53.1% ( 60/113 )[0m
+================================================================================
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

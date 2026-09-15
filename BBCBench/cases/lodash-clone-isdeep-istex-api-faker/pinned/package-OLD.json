@@ -1,0 +1,38 @@
+{
+  "name": "istex-api-faker",
+  "version": "1.5.7",
+  "description": "ISTEX API faker. Create a Web server simulating the ISTEX API but only with few data.",
+  "main": "app.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha",
+    "start": "bin/istex-api-faker.njs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/istex/istex-api-faker"
+  },
+  "author": "Stéphane Gully <stephane.gully@gmail.com>",
+  "license": "CeCILL",
+  "bugs": {
+    "url": "https://github.com/istex/istex-api-faker/issues"
+  },
+  "homepage": "https://github.com/istex/istex-api-faker",
+  "dependencies": {
+    "async": "^0.9.0",
+    "cors": "^2.5.3",
+    "debug": "^2.1.1",
+    "express": "^4.11.2",
+    "faker": "^2.1.2",
+    "lodash": "^3.2.0",
+    "nconf": "^0.7.1",
+    "superagent": "^0.21.0"
+  },
+  "devDependencies": {
+    "chai": "^2.0.0",
+    "mocha": "^2.1.0"
+  },
+  "bin": {
+    "istex-api-faker": "./bin/istex-api-faker.njs",
+    "istex-api-faker-generator": "./bin/istex-api-faker-generator.njs"
+  }
+}

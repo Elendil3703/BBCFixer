@@ -1,0 +1,90 @@
+
+> yargs-unparser@2.0.0 test /w
+> jest --env node --coverage
+
+FAIL test/index.spec.js
+  ✓ should unparse options whose values are primitives (3ms)
+  ✓ should unparse options whose values are arrays (1ms)
+  ✓ should unparse options whose values are objects
+  ✓ should unparse options whose values are not primitives, arrays or objects (1ms)
+  ✓ should unparse options whose values are empty strings correctly
+  ✓ should only add a dash for short option names (1ms)
+  ✕ should not duplicate keys that are camel-cased (3ms)
+  ✓ should keep camel-cased keys if standard ones were not found on argv
+  ✕ should not duplicate nested keys that are camel-cased
+  ✓ should keep nested camel-cased keys if standard ones were not found on argv
+  ✓ should ignore nullish option values (1ms)
+  ✓ should add unknown positional arguments at the start
+  ✓ should add arguments after -- at the end
+  ✓ should ignore $0
+  options
+    ✓ should ignore aliases specified via `options.aliases` (1ms)
+    ✓ should filter flags with default values via `options.defaults`
+    ✓ should handle known positional arguments specified via `options.command` (8ms)
+    ✓ should handle optional known positional arguments specified via `options.command` (1ms)
+    ✓ should handle unknown positional arguments when `options.command` is set (1ms)
+    ✓ should handle positional arguments with alias specified in `options.command` (1ms)
+  interoperation with other libraries
+    ✓ should have basic integration with minimist (1ms)
+
+  ● should not duplicate keys that are camel-cased
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected
+    + Received
+
+      Array [
+        "--some-string",
+        "foo",
+    +   "--someString",
+    +   "foo",
+      ]
+
+      72 |     const argv = parse(['--some-string', 'foo']);
+      73 | 
+    > 74 |     expect(unparse(argv)).toEqual(['--some-string', 'foo']);
+         |                           ^
+      75 | });
+      76 | 
+      77 | it('should keep camel-cased keys if standard ones were not found on argv', () => {
+
+      at Object.<anonymous> (test/index.spec.js:74:27)
+
+  ● should not duplicate nested keys that are camel-cased
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected
+    + Received
+
+      Array [
+        "--paths.some-string",
+        "foo",
+    +   "--paths.someString",
+    +   "foo",
+      ]
+
+      84 |     const argv = parse(['--paths.some-string', 'foo']);
+      85 | 
+    > 86 |     expect(unparse(argv)).toEqual(['--paths.some-string', 'foo']);
+         |                           ^
+      87 | });
+      88 | 
+      89 | it('should keep nested camel-cased keys if standard ones were not found on argv', () => {
+
+      at Object.<anonymous> (test/index.spec.js:86:27)
+
+----------|----------|----------|----------|----------|-------------------|
+File      |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+----------|----------|----------|----------|----------|-------------------|
+All files |    98.53 |    93.18 |      100 |      100 |                   |
+ index.js |    98.53 |    93.18 |      100 |      100 |          32,73,78 |
+----------|----------|----------|----------|----------|-------------------|
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 19 passed, 21 total
+Snapshots:   0 total
+Time:        3.564s
+Ran all test suites.
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

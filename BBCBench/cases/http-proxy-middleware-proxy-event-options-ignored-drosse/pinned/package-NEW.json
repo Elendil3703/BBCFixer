@@ -1,0 +1,88 @@
+{
+  "name": "@jota-one/drosse",
+  "version": "3.6.3",
+  "description": "A stateful and programmable mock server",
+  "author": "Juniors at Work",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./index.d.ts"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
+  "bin": {
+    "drosse": "./dist/index.cjs",
+    "drosse-esm": "./dist/index.mjs"
+  },
+  "pkg": {
+    "scripts": "dist/index.cjs",
+    "outputPath": "bundle"
+  },
+  "scripts": {
+    "describe": "node ./dist/index.cjs describe",
+    "describe:esm": "node ./dist/index.mjs describe",
+    "build": "unbuild",
+    "build:stub": "unbuild  --stub",
+    "bundle": "pkg .",
+    "serve": "node ./dist/index.cjs serve",
+    "serve:esm": "node ./dist/index.mjs serve",
+    "static": "node ./dist/index.cjs static",
+    "static:esm": "node ./dist/index.mjs static",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "doc": "docsify serve docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jota-one/drosse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jota-one/drosse/issues"
+  },
+  "homepage": "https://drosse.dev",
+  "keywords": [
+    "mock",
+    "server",
+    "loki",
+    "dynamic",
+    "feutre",
+    "proxy"
+  ],
+  "dependencies": {
+    "@jota-one/replacer": "^0.5.0",
+    "@moleculer/vorpal": "^1.11.5",
+    "ansi-colors": "^4.1.3",
+    "h3": "^1.8.1",
+    "http-proxy-middleware": "3.0.5",
+    "listhen": "^0.2.15",
+    "lokijs": "^1.5.12",
+    "mergician": "^1.0.3",
+    "morgan": "^1.10.0",
+    "node-discover": "^1.2.1",
+    "rrdir": "^8.2.2",
+    "serve-static": "^1.15.0",
+    "uuid": "^9.0.0",
+    "yargs": "^17.5.1"
+  },
+  "devDependencies": {
+    "@vitest/coverage-c8": "^0.23.2",
+    "auto": "^11.3.0",
+    "express-session": "^1.17.3",
+    "pkg": "^5.8.0",
+    "sockjs": "^0.3.24",
+    "supertest": "^6.2.4",
+    "unbuild": "^0.8.10",
+    "vitest": "^0.23.2",
+    "ws": "^8.8.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -1,0 +1,6 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	functions	8	Genuine output of the project under test: when an assertion fails, tape prints the actual value with node's util.inspect, and the actual value is an unevaluated chain wrapper whose dump lists the own properties of the referenced lodash function (nearly three hundred method names in alphabetical order). The two matched lines carry four hits, verbatim functions: [Function: functions] twice and functionsIn: [Function: functionsIn] twice; we did not introduce them and removing them would falsify the failure output. It is recorded that the replacement method name functionsIn does appear in the failure output, but buried among every method name in the same property listing, and it does not indicate which line to change.
+STATE-NEW.log	lodash	4	Same util.inspect output. The two matched lines carry two hits, verbatim the object header LodashWrapper and the constructor name [Function: lodash]; this exposes only the type of the failing value and does not indicate which line to change.

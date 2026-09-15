@@ -1,0 +1,5 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	yaml	9	ava's diff output prints the key paths of site.data, with 'yaml/invoice.yml' three times and 'yaml/test.yaml' three times (the latter containing yaml twice), nine hits in total; these are the project's own fixture directory name and file extensions, genuine project output whose removal would falsify the case. They point only to the parsed data files, not to the triggering library's install location or to any production file; the library name js-yaml and the replacement schema name occur 0 times in all three states. This is recorded in error_neq_fix in meta.json as the observable fact about how the failure output mentions the triggering library.

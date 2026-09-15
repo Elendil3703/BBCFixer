@@ -1,0 +1,48 @@
+diff --git a/js/lib/NodePersist.js b/js/lib/NodePersist.js
+index cb5cf87eb..bbda8d58e 100644
+--- a/js/lib/NodePersist.js
++++ b/js/lib/NodePersist.js
+@@ -177,7 +177,7 @@ NodePersist.prototype._autoSave = function (obj, objType, name) {
+  */
+ NodePersist.prototype.decode = function (val, finished) {
+ 	async.waterfall([function (callback) {
+-		if (callback) { callback(false, val, {}); }
++		if (callback) { callback(null, val, {}); }
+ 	}].concat(this._decodeSteps), finished);
+ };
+ 
+@@ -188,7 +188,7 @@ NodePersist.prototype.decode = function (val, finished) {
+  */
+ NodePersist.prototype.encode = function (val, finished) {
+ 	async.waterfall([function (callback) {
+-		if (callback) { callback(false, val, {}); }
++		if (callback) { callback(null, val, {}); }
+ 	}].concat(this._encodeSteps), finished);
+ };
+ 
+@@ -295,14 +295,14 @@ NodePersist.prototype._decode = function (val, meta, finished) {
+ 		}
+ 
+ 		if (finished) {
+-			finished(false, data, meta);
++			finished(null, data, meta);
+ 		}
+ 	} else {
+ 		meta.foundData = false;
+ 		meta.rowCount = 0;
+ 
+ 		if (finished) {
+-			finished(false, val, meta);
++			finished(null, val, meta);
+ 		}
+ 	}
+ };
+@@ -334,7 +334,7 @@ NodePersist.prototype._encode = function (val, meta, finished) {
+ 	}
+ 
+ 	if (finished) {
+-		finished(false, val, meta);
++		finished(null, val, meta);
+ 	}
+ };
+ 

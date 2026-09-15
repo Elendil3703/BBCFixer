@@ -1,0 +1,10 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-OLD.log	command	30	cliss is itself a CLI framework and its test suite's case names contain the word command (Nested command help, Main command version, Nested command call, and so on). All 30 hits come from mocha-printed case names and directory names under test/specs, unrelated to the triggering library command-line-usage, which is not mentioned in the old state.
+STATE-FIXED.log	command	30	Same source and count as STATE-OLD.log, all mocha-printed case names. All tests pass in the fixed state and no stack frame appears.
+STATE-NEW.log	command	73	36 of the hits come from the node_modules/command-line-usage path in stack frames (see the next line); of the remaining 37, most are still mocha-printed case names (Nested command 14 times, Main command 3 times, and so on) plus child-process failure messages such as Command failed: node /w/test/specs/complex-cases nested-command-1 --help. All are the repository's own test output and Node's standard child-process error wording.
+STATE-NEW.log	command-line-usage	36	From the stack of the error genuinely thrown after the upgrade, whose call chain passes through node_modules/command-line-usage/lib/chalk-format.js and node_modules/command-line-usage/lib/option-list.js; any developer upgrading this dependency would see it, so it is the failure site itself rather than a harness trace. It only shows that the failure passes through the library; it neither points to the downstream fix locations lib/cli-help.js lines 44 and 53 nor hints that upstream changed the style markup syntax from [style]{text} to {style text}.
+STATE-NEW.log	line	36	Does not occur independently: with the token command-line-usage removed as a whole, line occurs zero times in the log, so all 36 hits are tokenised pieces of the path string described on the line above.
+STATE-NEW.log	usage	36	Same as line: does not occur independently, all hits come from the path string node_modules/command-line-usage.

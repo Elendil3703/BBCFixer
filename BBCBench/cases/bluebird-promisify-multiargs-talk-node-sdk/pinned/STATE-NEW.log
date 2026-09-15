@@ -1,0 +1,103 @@
+
+> talk-node-sdk@0.4.10 test /w
+> NODE_ENV=test ./node_modules/.bin/mocha --require coffee-script/register --require should --reporter spec test/main.coffee
+
+
+
+  Talk#Main
+    retry connecting
+      1) should work when api server is started after the client
+    client and call apis
+      2) should get an NO_PERMISSIONT error without authorization
+      3) should call the user.readOne with authorization
+    service and listen for events
+      ✓ should intialize the express server and call the api
+      ✓ should listen for the user.readOne event
+      ✓ should listen for the wildcard * event
+    worker and test for what he should do
+Unhandled rejection TypeError: Cannot read property 'should' of undefined
+    at /w/test/main.coffee:23:14
+    at tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/w/node_modules/bluebird/js/release/promise.js:547:31)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:725:18)
+    at _drainQueueStep (/w/node_modules/bluebird/js/release/async.js:93:12)
+    at _drainQueue (/w/node_modules/bluebird/js/release/async.js:86:9)
+    at Async._drainQueues (/w/node_modules/bluebird/js/release/async.js:102:5)
+    at Immediate.Async.drainQueues (/w/node_modules/bluebird/js/release/async.js:15:14)
+    at runCallback (timers.js:810:20)
+    at tryOnImmediate (timers.js:768:5)
+    at processImmediate [as _immediateCallback] (timers.js:745:5)
+
+Unhandled rejection TypeError: Cannot read property 'should' of undefined
+    at /w/test/main.coffee:43:14
+    at tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/w/node_modules/bluebird/js/release/promise.js:547:31)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:725:18)
+    at _drainQueueStep (/w/node_modules/bluebird/js/release/async.js:93:12)
+    at _drainQueue (/w/node_modules/bluebird/js/release/async.js:86:9)
+    at Async._drainQueues (/w/node_modules/bluebird/js/release/async.js:102:5)
+    at Immediate.Async.drainQueues (/w/node_modules/bluebird/js/release/async.js:15:14)
+    at runCallback (timers.js:810:20)
+    at tryOnImmediate (timers.js:768:5)
+    at processImmediate [as _immediateCallback] (timers.js:745:5)
+
+      4) should run the tasks every 100ms
+Unhandled rejection Error: could not fetch the integration list from server
+    at /w/src/worker.coffee:37:17
+    at tryCatcher (/w/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/w/node_modules/bluebird/js/release/promise.js:547:31)
+    at Promise._settlePromise (/w/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/w/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/w/node_modules/bluebird/js/release/promise.js:725:18)
+    at _drainQueueStep (/w/node_modules/bluebird/js/release/async.js:93:12)
+    at _drainQueue (/w/node_modules/bluebird/js/release/async.js:86:9)
+    at Async._drainQueues (/w/node_modules/bluebird/js/release/async.js:102:5)
+    at Immediate.Async.drainQueues (/w/node_modules/bluebird/js/release/async.js:15:14)
+    at runCallback (timers.js:810:20)
+    at tryOnImmediate (timers.js:768:5)
+    at processImmediate [as _immediateCallback] (timers.js:745:5)
+
+      5) should execute the tasks each second by cron-like schedule
+      6) should not bother the other tasks when a task crashed
+      7) should send a error integration to server when task failed
+
+
+  3 passing (18s)
+  7 failing
+
+  1) Talk#Main retry connecting should work when api server is started after the client:
+     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.
+  
+
+  2) Talk#Main client and call apis should get an NO_PERMISSIONT error without authorization:
+     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.
+  
+
+  3) Talk#Main client and call apis should call the user.readOne with authorization:
+     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.
+  
+
+  4) Talk#Main worker and test for what he should do should run the tasks every 100ms:
+     Error: timeout of 3000ms exceeded. Ensure the done() callback is being called in this test.
+  
+
+  5) Talk#Main worker and test for what he should do should execute the tasks each second by cron-like schedule:
+     Error: timeout of 3000ms exceeded. Ensure the done() callback is being called in this test.
+  
+
+  6) Talk#Main worker and test for what he should do should not bother the other tasks when a task crashed:
+     Error: timeout of 3000ms exceeded. Ensure the done() callback is being called in this test.
+  
+
+  7) Talk#Main worker and test for what he should do should send a error integration to server when task failed:
+     Error: timeout of 3000ms exceeded. Ensure the done() callback is being called in this test.
+  
+
+
+
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

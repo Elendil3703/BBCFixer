@@ -1,0 +1,13 @@
+diff --git a/lib/context.js b/lib/context.js
+index e84ddf8..e1a4e64 100644
+--- a/lib/context.js
++++ b/lib/context.js
+@@ -60,7 +60,7 @@ exports.loadData = function(glob) {
+     } else if (file.extname === '.yml' || file.extname === '.yaml') {
+       data = {
+         key: file.relative,
+-        value: yaml.load(file.contents.toString()),
++        value: yaml.load(file.contents.toString(), { schema: yaml.YAML11_SCHEMA }),
+       };
+     }
+ 

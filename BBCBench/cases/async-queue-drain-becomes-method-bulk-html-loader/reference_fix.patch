@@ -1,0 +1,16 @@
+diff --git a/lib/BulkHtmlLoader.js b/lib/BulkHtmlLoader.js
+index 6360f4a..7f10e88 100644
+--- a/lib/BulkHtmlLoader.js
++++ b/lib/BulkHtmlLoader.js
+@@ -128,9 +128,9 @@ BulkHtmlLoader.prototype = {
+         q.concurrency = that._maxConcurrentConnections;
+ 
+         // Final callback when queue completes
+-        q.drain = function() {
++        q.drain(function() {
+             callback(null, that._queue);
+-        };
++        });
+ 
+         q.push(queue);
+         return that;

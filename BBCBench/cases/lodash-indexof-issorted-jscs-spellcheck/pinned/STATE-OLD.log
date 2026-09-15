@@ -1,0 +1,16 @@
+
+> jscs-spellcheck@1.0.0 test /w
+> npm run lint && mocha --color
+
+
+> jscs-spellcheck@1.0.0 lint /w
+> jshint . && jscs lib test
+
+No code style errors found.
+
+
+  [90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m[90m․[0m
+
+[92m [0m[32m 31 passing[0m[90m (154ms)[0m
+
+STATE-OLD rc=0

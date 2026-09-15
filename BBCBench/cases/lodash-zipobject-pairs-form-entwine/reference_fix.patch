@@ -1,0 +1,12 @@
+diff --git a/index.js b/index.js
+--- a/index.js
++++ b/index.js
+@@ -40,7 +40,7 @@
+ function invertDependencies(ds) {
+   return _.merge.apply(
+     _,
+-    _.map(ds, (v, k) => _.zipObject(_.map(v, (vv, kk) => [vv, {[k]: k}]))));
++    _.map(ds, (v, k) => _.fromPairs(_.map(v, (vv, kk) => [vv, {[k]: k}]))));
+ }
+ 
+ function postwalk(components, dependencies, f) {

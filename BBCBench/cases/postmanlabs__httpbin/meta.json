@@ -1,0 +1,44 @@
+{
+  "id": "postmanlabs__httpbin",
+  "name": "postmanlabs__httpbin",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "postmanlabs/httpbin",
+    "url": "https://github.com/postmanlabs/httpbin",
+    "commit": "f8ec666b4d1b654e4ff6aedd356f510dcac09f83",
+    "fix_commit": "651c03a73072b9f399bbb80741ab473fc8b0adbb"
+  },
+  "lib": "werkzeug",
+  "v_old": "1.0.1",
+  "v_new": "2.0.1",
+  "library_repo": "https://github.com/pallets/werkzeug",
+  "library_tags": {
+    "old": "1.0.1",
+    "new": "2.0.1"
+  },
+  "reference_fix_source": "maintainer",
+  "root_api": "werkzeug.wrappers.BaseResponse.autocorrect_location_header",
+  "root_symbols": [
+    "BaseResponse",
+    "Response.autocorrect_location_header",
+    "Response.get_wsgi_headers"
+  ],
+  "behavioral_change": "werkzeug v_old 1.0.1 to v_new 2.0.1. The autocorrect_location_header flag moved from BaseResponse to the Response subclass, so setting it on werkzeug.wrappers.BaseResponse becomes a silent no-op and redirect Location headers become absolute instead of relative.",
+  "downstream_effect": "The test asserting a relative Location header fails; the root cause is that werkzeug reads the flag from a different class.",
+  "reference_fix": "The reference fix sets the flag on the class from which werkzeug 2.0 reads it.",
+  "test_cmd": "bash /work/test_postmanlabs__httpbin.sh",
+  "test_files": [
+    "test_httpbin.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:postmanlabs__httpbin",
+    "python": "3.9.25"
+  },
+  "upgrade": {
+    "kind": "single-package",
+    "intact_pip": "werkzeug==1.0.1 flask==1.1.2"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "scrapedia__scrapy-httpcache",
+  "name": "scrapedia__scrapy-httpcache",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "scrapedia/scrapy-httpcache",
+    "url": "https://github.com/scrapedia/scrapy-httpcache",
+    "commit": "8497a917e4b9a28cebfe56bc177ff19f70cf3eac",
+    "license": ""
+  },
+  "lib": "Scrapy",
+  "v_old": "2.3.0",
+  "v_new": "2.13.3",
+  "library_repo": "https://github.com/scrapy/scrapy",
+  "library_tags": {
+    "old": "2.3.0",
+    "new": "2.13.3"
+  },
+  "reference_fix_source": "benchmark-authors",
+  "root_api": "scrapy.utils.request.request_fingerprint",
+  "root_symbols": [
+    "request_fingerprint",
+    "fingerprint"
+  ],
+  "behavioral_change": "Scrapy v_old 2.3.0 to v_new 2.13.3 (resolved value). The request fingerprint function (scrapy.utils.request.request_fingerprint, replaced by fingerprint) returns bytes instead of a hexadecimal string; the case is mixed with the function rename, and the sources note that the break first surfaces as an ImportError.",
+  "downstream_effect": "The downstream cache code that expects a hexadecimal string fingerprint fails after the upgrade; the human test_patch only adds a reactor import line and is only indirectly related to the break.",
+  "reference_fix": "The reference fix adapts the downstream code to the bytes fingerprint and the renamed function.",
+  "test_cmd": "bash /work/test_scrapedia__scrapy-httpcache.sh",
+  "test_files": [
+    "tests/__init__.py",
+    "tests/mocks/__init__.py",
+    "tests/mocks/dummydbm.py",
+    "tests/test_downloadermiddleware_httpcache.py"
+  ],
+  "reference_fix_tests": true,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:scrapedia__scrapy-httpcache",
+    "python": "3.12.11"
+  },
+  "upgrade": {
+    "kind": "dated-snapshot",
+    "intact_date": "2020-08-22",
+    "broken_date": "2025-07-31",
+    "note": "TimeMachine-bench case: every dependency is resolved at the dated snapshot; the library at v_old/v_new is the one whose behavioral change breaks the tests."
+  }
+}

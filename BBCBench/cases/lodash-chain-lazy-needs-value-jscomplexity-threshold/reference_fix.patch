@@ -1,0 +1,13 @@
+diff --git a/tasks/util/render.js b/tasks/util/render.js
+--- a/tasks/util/render.js
++++ b/tasks/util/render.js
+@@ -27,7 +27,8 @@
+           scanReport.isThresholdPassed
+         );
+       }
+-    });
++    })
++    .value();
+ 
+   return reporter.render();
+ 

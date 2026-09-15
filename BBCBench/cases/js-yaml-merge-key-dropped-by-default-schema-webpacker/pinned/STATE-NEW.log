@@ -1,0 +1,207 @@
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+FAIL package/__tests__/config.js
+  ● Test suite failed to run
+
+    TypeError: The "paths[1]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/__tests__/config.js:7:16)
+
+PASS package/__tests__/env.js
+FAIL package/__tests__/dev_server.js
+  ● DevServer › with NODE_ENV and RAILS_ENV set to development
+
+    TypeError: The "paths[1]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/dev_server.js:2:16)
+
+  ● DevServer › with custom env prefix
+
+    TypeError: The "paths[1]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/__tests__/dev_server.js:26:20)
+
+  ● DevServer › with NODE_ENV and RAILS_ENV set to production
+
+    TypeError: The "paths[1]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/dev_server.js:2:16)
+
+FAIL package/environments/__tests__/base.js
+  ● Test suite failed to run
+
+    TypeError: The "paths[1]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/dev_server.js:2:16)
+
+FAIL package/__tests__/index.js
+  ● Test suite failed to run
+
+    TypeError: The "paths[1]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/dev_server.js:2:16)
+
+FAIL package/__tests__/staging.js
+  ● Custom environment › webpackConfig › should use staging config and default production environment
+
+    TypeError: The "paths[0]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/dev_server.js:2:16)
+
+FAIL package/__tests__/test.js
+  ● Test environment › toWebpackConfig › should use test config and production environment
+
+    TypeError: The "paths[0]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/dev_server.js:2:16)
+
+FAIL package/__tests__/production.js
+  ● Production environment › webpackConfig › should use production config and environment
+
+    TypeError: The "paths[1]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/dev_server.js:2:16)
+
+FAIL package/__tests__/development.js
+  ● Development environment › webpackConfig › should use development config and environment including devServer if WEBPACK_SERVE
+
+    TypeError: The "paths[1]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/dev_server.js:2:16)
+
+  ● Development environment › webpackConfig › should use development config and environment if WEBPACK_SERVE
+
+    TypeError: The "paths[1]" argument must be of type string. Received undefined
+
+      18 |
+      19 | const config = merge(defaults, app)
+    > 20 | config.outputPath = resolve(config.public_root_path, config.public_output_path)
+         |                     ^
+      21 |
+      22 | // Ensure that the publicPath includes our asset host so dynamic imports
+      23 | // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+
+      at Object.<anonymous> (package/config.js:20:21)
+      at Object.<anonymous> (package/dev_server.js:2:16)
+
+Test Suites: 8 failed, 1 passed, 9 total
+Tests:       8 failed, 4 passed, 12 total
+Snapshots:   0 total
+Time:        0.904 s
+Ran all test suites.
+STATE-NEW rc=1

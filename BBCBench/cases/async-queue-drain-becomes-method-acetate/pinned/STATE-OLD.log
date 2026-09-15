@@ -1,0 +1,114 @@
+
+  ✔ Acetate › load a basic config file
+  ✔ Acetate › should seperate the configuration over multiple files
+  ✔ Acetate › should impliment a plugin interface
+  ✔ Acetate › should watch config file for changes and reload the configuration (335ms)
+  ✔ Acetate › should throw if an invalid config is loaded
+  ✔ Acetate › should emit an error if the config throws an error while the watcher is running
+  ✔ Acetate › should emit an error if the config throws an error while the watcher is running
+  ✔ Acetate › should render markdown with a built in helper
+  ✔ Acetate › should render markdown included from another file with a built in helper
+  ✔ Acetate › should highlight code with a built in helper (175ms)
+  ✔ Acetate › should highlight code with a built in helper and custom highlighter
+  ✔ Acetate › should create anchors code with a built in helper
+  ✔ Acetate › should add stats to pages loaded from templates
+  ✔ Acetate › should not add stats for non-template based pages
+  ✔ Acetate › raise an error if there is an error getting stats
+  - server › should start a basic server
+  ✔ middleware › should return a page when requested
+  ✔ middleware › should keep a cache of transformed pages by URL
+  ✔ middleware › should normalize request URLs to find matching pages
+  ✔ middleware › should pass though if no page is found
+  ✔ middleware › should return early on non GET requests
+  ✔ middleware › should return an error page if there is an error rendering the page
+  ✔ middleware › should return an error page if there is an error transforming the page
+  - middleware › should emit a warning when 2 or more pages with the same url are detected
+  - middleware › should emit a warning when rendering an ignored page
+  ✔ createPage › should set basic properties
+  ✔ createPage › should set `__isMarkdown`
+  ✔ createPage › should set `__templateErrorOffset`
+  ✔ createPage › should merge metadata
+  ✔ createPage › should merge in metadata and calculate the proper metadata offset
+  ✔ createPage › should creat a page froma template string with default metadata
+  ✔ createPage › should throw on invalid metadata
+  ✔ createPage › should load a page from a template
+  ✔ createPage › should load a page from a template with default metadata
+  ✔ createPage › should load a page with external YAML metadata
+  ✔ createPage › should load a page with external JSON metadata
+  ✔ createPage › should load a page with source based metadata
+  ✔ createPage › should prettyify index.html at the root level
+  ✔ createPage › should prettyify url for page at root of the source folder
+  ✔ createPage › should prettyify urls for pages in nested directories
+  ✔ createPage › should disable pretty urls
+  ✔ builder › should perform a basic build
+  ✔ builder › should reject if there is an error at any point
+  ✔ Transformer › perform a basic sync transformation
+  ✔ Transformer › should pass on a basic transformation that does not match
+  ✔ Transformer › reject with an error from a sync transformation
+  ✔ Transformer › perform a basic async transformation
+  ✔ Transformer › should pass on an async transformation that does not match
+  ✔ Transformer › reject with an error from a async transformation
+  ✔ Transformer › reject with an error thown inside an async transformation
+  - Transformer › should query an array of all pages by default
+  - Transformer › apply JSON data to a page
+  - Transformer › apply YAML data to a page
+  - Transformer › apply data from a function to a page
+  - Transformer › reject when a data function throws an error
+  ✔ Transformer › ignore a page
+  ✔ Transformer › merge metadata
+  ✔ Transformer › deep merge metadata
+  ✔ Transformer › merge metadata should not overwrite local metadata
+  ✔ Transformer › update layout
+  - Transformer › should generate new pages while transforming
+  - Transformer › should reject when generator throws an error
+  - Transformer › should reject when generator calls back with an error
+  ✔ Renderer › should render a basic page
+  ✔ Renderer › should capture rendering errors and prettyify
+  ✔ Renderer › should be able to use {% include %} to include other pages
+  ✔ Renderer › extension on {% include %} should be optional
+  ✔ Renderer › should be able to use {% import %} to include exports from other templates
+  ✔ Renderer › should handle other Errors that get thrown in templates
+  ✔ Renderer › should register a prerendering function
+  ✔ Renderer › should not prerender if a page does not match
+  ✔ Renderer › should reject if prerender function calls back with an error
+  ✔ Renderer › should reject if there is an error thrown in a prerender function
+  ✔ Renderer › should be able to invalidate a template
+  ✔ Renderer › should render a markdown page
+  ✔ Renderer › should still interpolate variables in a markdown page
+  ✔ Renderer › should render a markdown page in a layout
+  ✔ Renderer › should render a page in a layout
+  ✔ Renderer › should capture errors when rendering with a layout
+  ✔ Renderer › should syntax highlight code blocks (145ms)
+  ✔ Renderer › should syntax highlight code blocks with a custom highlighter
+  ✔ Renderer › should register a custom helper that can be used in templates
+  ✔ Renderer › should pass options with defaults to helpers
+  ✔ Renderer › should be able to handle errors thrown in custom helpers
+  ✔ Renderer › should register a custom block that can be used in templates
+  ✔ Renderer › should register a custom filter that can be used in templates
+  ✔ Renderer › should allow passing arguments in filters
+  ✔ Renderer › should catch errors in custom filters
+  ✔ Renderer › should register global variables
+  ✔ Loader › load pages with a glob
+  ✔ Loader › load pages with a glob and default metadata
+  ✔ Loader › load pages with a glob and a basePath
+  ✔ Loader › should load directories with symlinks
+  ✔ Loader › should load directories with nested symlinks
+  ✔ Loader › should use an arbitrary function to generate pages
+  ✔ Loader › should throw an error if there is an error in a generator function
+  ✔ Loader › should throw an error if there is an error passed to the callback in a generator function
+  ✔ Loader › should throw if there is an error loading any page
+  ✔ Loader › the watcher should add pages when they are created (128ms)
+  ✔ Loader › the watcher should use default metadata when pages are created (108ms)
+  ✔ Loader › the watcher should update pages when they are changed (107ms)
+  ✔ Loader › the watcher should preserve default metadata when pages are changed (110ms)
+  ✔ Loader › the watcher should remove pages when they are deleted (107ms)
+  ✔ Loader › the watcher should emit an error if there is an error loading pages (109ms)
+  ✔ Loader › should emit an add event when a potential template is added
+  ✔ Loader › should emit a change event when a potential template is edited
+  ✔ Loader › should emit a delete event when a potential template is edited (104ms)
+
+  96 tests passed
+  8 tests skipped
+  3 tests todo
+
+STATE-OLD rc=0

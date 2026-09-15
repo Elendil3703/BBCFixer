@@ -1,0 +1,47 @@
+{
+  "id": "lodash-merge-customizer-opt-merger",
+  "name": "lodash-merge-customizer-opt-merger",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "shakyShane/opt-merger",
+    "url": "https://github.com/shakyShane/opt-merger",
+    "commit": "a014ec56bf21a1c4e0f3d318ba4f4a2dce06decf"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.merge",
+  "root_symbols": [
+    "merge",
+    "mergeWith",
+    "createAssigner",
+    "baseMerge"
+  ],
+  "behavioral_change": "lodash v4.0.0 moved the customizer capability of `_.merge` into `_.mergeWith`. Under v_new a function passed as the third argument to `_.merge` is no longer treated as a customizer but as another source object; since a function has no own enumerable properties, the result is identical to omitting it.",
+  "downstream_effect": "The downstream project calls `_.merge(defaults, toMerge, customizer)` in index.js:71 so that arrays are merged by union; after the upgrade arrays are overwritten index by index. The five failures are deepEqual assertions in test/merge.callbacks.js and test/merge.simple.js, a different file from the one that must be edited, and the output never mentions lodash, mergeWith or customizer.",
+  "reference_fix": "The reference fix replaces `_.merge(_.cloneDeep(defaults), toMerge, customizer)` with `_.mergeWith(...)` in index.js:71.",
+  "documented_in": "The lodash Changelog for v4.0.0 (https://github.com/lodash/lodash/wiki/Changelog), Compatibility Warnings section, \"Split out methods\" list, states \"Split `_.merge` into `_.mergeWith`\" with no accompanying code; the new call form must be derived from the `_.mergeWith` API reference (https://lodash.com/docs/4.17.21#mergeWith), whose customizer takes (objValue, srcValue) as in v_old.",
+  "failing_tests": [
+    "test/merge.callbacks.js:161 :: Merging opts can merge options from command-line + Config together",
+    "test/merge.callbacks.js:185 :: Merging opts can merge options from command-line + Config together with command-line taking precedence",
+    "test/merge.callbacks.js:345 :: Merging opts can give correct info",
+    "test/merge.simple.js:54 :: Merging opts should merge simple",
+    "test/merge.simple.js:95 :: Merging opts should merge simple"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:10",
+    "node_major": 10,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "shakyShane/opt-merger",
+  "commit": "a014ec56bf21a1c4e0f3d318ba4f4a2dce06decf"
+}

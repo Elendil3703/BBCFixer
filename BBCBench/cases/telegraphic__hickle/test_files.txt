@@ -1,0 +1,15 @@
+conftest.py
+hickle/tests/__init__.py
+hickle/tests/generate_legacy_4_0_0.py
+hickle/tests/hickle_loaders/__init__.py
+hickle/tests/hickle_loaders/load_builtins.py
+hickle/tests/legacy_hkls/generate_test_hickle.py
+hickle/tests/test_01_hickle_helpers.py
+hickle/tests/test_02_hickle_lookup.py
+hickle/tests/test_03_load_builtins.py
+hickle/tests/test_04_load_numpy.py
+hickle/tests/test_05_load_scipy.py
+hickle/tests/test_06_load_astropy.py
+hickle/tests/test_99_hickle_core.py
+hickle/tests/test_hickle.py
+hickle/tests/test_legacy_load.py

@@ -1,0 +1,57 @@
+{
+  "name": "speccy",
+  "version": "0.11.0",
+  "description": "An OpenAPI v3.0 development workflow assistant",
+  "homepage": "https://speccy.io/",
+  "bin": {
+    "speccy": "./speccy.js"
+  },
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "preferGlobal": true,
+  "repository": {
+    "url": "https://github.com/wework/speccy.git",
+    "type": "git"
+  },
+  "author": "Phil Sturgeon <phil.sturgeon@wework.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wework/speccy/issues"
+  },
+  "keywords": [
+    "openapi",
+    "openapi3",
+    "swagger",
+    "documentation",
+    "validator",
+    "validation",
+    "resolver",
+    "lint",
+    "linter"
+  ],
+  "dependencies": {
+    "commander": "^2.18.0",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "json-schema-to-openapi-schema": "^0.3.0",
+    "nconf": "^0.10.0",
+    "nconf-yaml": "^1.0.2",
+    "node-fetch": "^2.3.0",
+    "node-readfiles": "^0.2.0",
+    "oas-linter": "^3.0.0",
+    "oas-resolver": "^2.2.4",
+    "oas-validator": "^3.0.1",
+    "redoc": "v2.0.0-rc.12",
+    "yaml": "2.9.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^8.0.5",
+    "babel-preset-es2015": "^6.24.1",
+    "coveralls": "^3.0.0",
+    "jest": "^24.1.0",
+    "mock-stdin": "^0.3.1",
+    "nock": "^10.0.0"
+  }
+}

@@ -1,0 +1,84 @@
+
+> fontmin@0.9.6 test
+> mocha
+
+
+
+(node:26) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+  Fontmin util
+    ✓ getFontFolder should be string
+    ✓ getFonts should be array (77ms)
+
+  Fontmin base
+    ✓ should run when no cb
+    ✓ should not dest when src buffer
+    ✓ should run when src null
+    ✓ should dest one when clone false
+    ✓ should exclude files not font
+    ✓ should throw `Streaming is not supported`
+
+  otf2ttf plugin
+    ✓ input should be otf
+    ✓ output buffer should be ttf
+    ✓ should keep source when clone true (52ms)
+
+  glyph plugin
+    ✓ output buffer should be ttf
+    ✓ output should miner than input
+    ✓ dest file should exist
+    ✓ dest file should be ttf
+
+  ttf2eot plugin
+    ✓ output buffer should be eot
+    ✓ dest file should exist
+    ✓ dest file should be eot
+
+  ttf2woff plugin
+    ✓ output buffer should be woff
+    ✓ dest file should exist woff
+    ✓ dest file should be woff
+
+  ttf2svg plugin
+    ✓ output buffer should be svg
+    ✓ dest file should exist svg
+    ✓ dest file should be svg
+
+  css plugin
+    ✓ dest file should exist css
+    ✓ dest css should have "@font-face"
+    ✓ dest css should match /.icon-(w+):before/
+    ✓ dest css should have fontPath "./"
+    ✓ dest css should have local()
+    ✓ dest css should have transformed @font-family name
+
+  subset
+    ✓ input is't ttf shoud be pass
+    ✓ should be ok when unicodes out of subbset
+    ✓ dest should be minier ttf
+    ✓ should has whitespace when trim false
+    ✓ should support empty text
+    ✓ should support use plugin function
+    ✓ should pass use plugin not function
+    ✓ subset of non-existent character shoud be ttf
+
+  svg2ttf plugin
+    ✓ input is't svg shoud be pass
+    ✓ should dest one when clone false (91ms)
+    ✓ output buffer should be ttf
+    ✓ dest file should exist ttf
+    ✓ dest file should be ttf
+
+  svgs2ttf plugin
+    ✓ should require root path
+    ✓ should require root path in file options
+    ✓ set path in file options
+    ✓ input is't svg shoud be exclude
+    ✓ output buffer should be ttf
+    ✓ dest file should exist ttf
+    ✓ dest file should be ttf
+
+
+  50 passing (807ms)
+
+STATE-OLD rc=0

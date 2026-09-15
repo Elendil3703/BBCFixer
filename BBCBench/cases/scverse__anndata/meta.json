@@ -1,0 +1,65 @@
+{
+  "id": "scverse__anndata",
+  "name": "scverse__anndata",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "scverse/anndata",
+    "url": "https://github.com/scverse/anndata",
+    "commit": "77a633cc825b428d02dabdf75491841c3a175a8d",
+    "fix_commit": "ecd37193757c8893d3ffd8ddd2dbfd864c8ae359"
+  },
+  "lib": "h5py",
+  "v_old": "2.10.0",
+  "v_new": "3.11.0",
+  "library_repo": "https://github.com/h5py/h5py",
+  "library_tags": {
+    "old": "2.10.0",
+    "new": "3.11.0"
+  },
+  "reference_fix_source": "maintainer",
+  "root_api": "h5py.Dataset.__getitem__ and h5py.Dataset.asstr / h5py.check_string_dtype",
+  "root_symbols": [
+    "conv_vlen2str",
+    "Dataset.asstr",
+    "AsStrWrapper",
+    "init_vlen2str"
+  ],
+  "behavioral_change": "h5py v_old 2.10.0 to v_new 3.11.0. Reading a variable-length string dataset through h5py.Dataset.__getitem__ returns bytes instead of str (conv_vlen2str, init_vlen2str); h5py 3 adds Dataset.asstr and check_string_dtype for explicit decoding.",
+  "downstream_effect": "A categorical dtype assertion fails after a write and read round trip; the read path is wrapped in several layers, so the assertion site is far from the point where the bytes must be decoded.",
+  "reference_fix": "The reference fix adds the decoding in the downstream compat layer.",
+  "test_cmd": "bash /work/test_scverse__anndata.sh",
+  "test_files": [
+    "anndata/tests/conftest.py",
+    "anndata/tests/helpers.py",
+    "anndata/tests/test_backed_sparse.py",
+    "anndata/tests/test_base.py",
+    "anndata/tests/test_concatenate.py",
+    "anndata/tests/test_deprecations.py",
+    "anndata/tests/test_get_vector.py",
+    "anndata/tests/test_hdf5_backing.py",
+    "anndata/tests/test_helpers.py",
+    "anndata/tests/test_inplace_subset.py",
+    "anndata/tests/test_io_conversion.py",
+    "anndata/tests/test_io_utils.py",
+    "anndata/tests/test_layers.py",
+    "anndata/tests/test_obsmvarm.py",
+    "anndata/tests/test_obspvarp.py",
+    "anndata/tests/test_raw.py",
+    "anndata/tests/test_readwrite.py",
+    "anndata/tests/test_repr.py",
+    "anndata/tests/test_uns.py",
+    "anndata/tests/test_utils.py",
+    "anndata/tests/test_views.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:scverse__anndata",
+    "python": "3.8.20"
+  },
+  "upgrade": {
+    "kind": "single-package",
+    "intact_pip": "h5py==2.10.0"
+  }
+}

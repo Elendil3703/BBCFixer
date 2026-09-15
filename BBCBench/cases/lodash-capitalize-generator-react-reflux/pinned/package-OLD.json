@@ -1,0 +1,47 @@
+{
+  "name": "generator-react-reflux",
+  "version": "1.4.3",
+  "description": "A Yeoman Generator for facebook's React framework and flux architecture using reflux.",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "tfaga/generator-react-reflux",
+  "author": {
+    "name": "Tilen Faganel",
+    "email": "tilen.faganel@me.com",
+    "url": "https://github.com/TFaga"
+  },
+  "contributors": [
+    "Olivier Constant <olivier.constant.pro@gmail.com>",
+    "Anders E. Andersen <andersa@ellenshoej.dk>",
+    "evgenykochetkov <evgenykochetkov@users.noreply.github.com>"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "app",
+    "component",
+    "store",
+    "actions"
+  ],
+  "keywords": [
+    "yeoman-generator",
+    "scaffold",
+    "framework",
+    "react-js",
+    "flux",
+    "reflux"
+  ],
+  "dependencies": {
+    "chalk": "~1.0.0",
+    "lodash": "~3.8.0",
+    "yeoman-generator": "~0.19.2",
+    "yosay": "~1.0.3"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}

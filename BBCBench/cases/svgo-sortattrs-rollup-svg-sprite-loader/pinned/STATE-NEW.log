@@ -1,0 +1,437 @@
+
+> rollup-plugin-svg-sprite-loader@0.0.4 test
+> jest
+
+  console.warn
+    @rollup/plugin-typescript TS2305: Module '"svgo"' has no exported member 'OptimizeOptions'.
+
+      12 |
+      13 | async function buildSprite(pluginOptions?: PluginOptions, inputOptions?: InputOptions) {
+    > 14 |   const { write } = await rollup({
+         |                     ^
+      15 |     input: "./emptyInput.ts",
+      16 |     plugins: [
+      17 |       nodeResolve(),
+
+      at Object.defaultOnWarn [as onwarn] (node_modules/rollup/dist/shared/rollup.js:565:42)
+      at Object.warn (node_modules/rollup/dist/shared/rollup.js:22745:21)
+      at emitDiagnostic (node_modules/@rollup/plugin-typescript/dist/index.js:543:17)
+      at reportDiagnostics (node_modules/@rollup/plugin-typescript/dist/index.js:548:9)
+          at Array.forEach (<anonymous>)
+      at emitFilesAndReportErrors (node_modules/typescript/lib/typescript.js:126138:21)
+      at Object.result.afterProgramCreate (node_modules/typescript/lib/typescript.js:126329:13)
+      at Object.afterProgramCreate (node_modules/@rollup/plugin-typescript/dist/index.js:703:29)
+      at synchronizeProgram (node_modules/typescript/lib/typescript.js:126639:22)
+      at Object.createWatchProgram (node_modules/typescript/lib/typescript.js:126556:9)
+      at createWatchProgram (node_modules/@rollup/plugin-typescript/dist/index.js:717:15)
+      at Object.buildStart (node_modules/@rollup/plugin-typescript/dist/index.js:777:27)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+          at async Promise.all (index 1)
+      at async PluginDriver.hookParallel (node_modules/rollup/dist/shared/rollup.js:22837:9)
+      at async /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-2e0cab80279d/src/node_modules/rollup/dist/shared/rollup.js:23797:13
+      at async catchUnfinishedHookActions (node_modules/rollup/dist/shared/rollup.js:23277:20)
+      at async rollupInternal (node_modules/rollup/dist/shared/rollup.js:23795:5)
+      at async buildSprite (tests/index.test.ts:14:21)
+      at async Object.<anonymous> (tests/index.test.ts:104:5)
+
+  console.warn
+    @rollup/plugin-typescript TS2305: Module '"svgo"' has no exported member 'Plugin'.
+
+      12 |
+      13 | async function buildSprite(pluginOptions?: PluginOptions, inputOptions?: InputOptions) {
+    > 14 |   const { write } = await rollup({
+         |                     ^
+      15 |     input: "./emptyInput.ts",
+      16 |     plugins: [
+      17 |       nodeResolve(),
+
+      at Object.defaultOnWarn [as onwarn] (node_modules/rollup/dist/shared/rollup.js:565:42)
+      at Object.warn (node_modules/rollup/dist/shared/rollup.js:22745:21)
+      at emitDiagnostic (node_modules/@rollup/plugin-typescript/dist/index.js:543:17)
+      at reportDiagnostics (node_modules/@rollup/plugin-typescript/dist/index.js:548:9)
+          at Array.forEach (<anonymous>)
+      at emitFilesAndReportErrors (node_modules/typescript/lib/typescript.js:126138:21)
+      at Object.result.afterProgramCreate (node_modules/typescript/lib/typescript.js:126329:13)
+      at Object.afterProgramCreate (node_modules/@rollup/plugin-typescript/dist/index.js:703:29)
+      at synchronizeProgram (node_modules/typescript/lib/typescript.js:126639:22)
+      at Object.createWatchProgram (node_modules/typescript/lib/typescript.js:126556:9)
+      at createWatchProgram (node_modules/@rollup/plugin-typescript/dist/index.js:717:15)
+      at Object.buildStart (node_modules/@rollup/plugin-typescript/dist/index.js:777:27)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+          at async Promise.all (index 1)
+      at async PluginDriver.hookParallel (node_modules/rollup/dist/shared/rollup.js:22837:9)
+      at async /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-2e0cab80279d/src/node_modules/rollup/dist/shared/rollup.js:23797:13
+      at async catchUnfinishedHookActions (node_modules/rollup/dist/shared/rollup.js:23277:20)
+      at async rollupInternal (node_modules/rollup/dist/shared/rollup.js:23795:5)
+      at async buildSprite (tests/index.test.ts:14:21)
+      at async Object.<anonymous> (tests/index.test.ts:104:5)
+
+  console.warn
+    @rollup/plugin-typescript TS2322: Type '(Partial<T>[Extract<keyof T, string>] & object) | (Partial<T>[Extract<keyof T, string>] & null)' is not assignable to type 'T[Extract<keyof T, string>] | undefined'.
+      Type 'Partial<T>[Extract<keyof T, string>] & object' is not assignable to type 'T[Extract<keyof T, string>] | undefined'.
+
+      12 |
+      13 | async function buildSprite(pluginOptions?: PluginOptions, inputOptions?: InputOptions) {
+    > 14 |   const { write } = await rollup({
+         |                     ^
+      15 |     input: "./emptyInput.ts",
+      16 |     plugins: [
+      17 |       nodeResolve(),
+
+      at Object.defaultOnWarn [as onwarn] (node_modules/rollup/dist/shared/rollup.js:565:42)
+      at Object.warn (node_modules/rollup/dist/shared/rollup.js:22745:21)
+      at emitDiagnostic (node_modules/@rollup/plugin-typescript/dist/index.js:543:17)
+      at reportDiagnostics (node_modules/@rollup/plugin-typescript/dist/index.js:548:9)
+          at Array.forEach (<anonymous>)
+      at emitFilesAndReportErrors (node_modules/typescript/lib/typescript.js:126138:21)
+      at Object.result.afterProgramCreate (node_modules/typescript/lib/typescript.js:126329:13)
+      at Object.afterProgramCreate (node_modules/@rollup/plugin-typescript/dist/index.js:703:29)
+      at synchronizeProgram (node_modules/typescript/lib/typescript.js:126639:22)
+      at Object.createWatchProgram (node_modules/typescript/lib/typescript.js:126556:9)
+      at createWatchProgram (node_modules/@rollup/plugin-typescript/dist/index.js:717:15)
+      at Object.buildStart (node_modules/@rollup/plugin-typescript/dist/index.js:777:27)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+          at async Promise.all (index 1)
+      at async PluginDriver.hookParallel (node_modules/rollup/dist/shared/rollup.js:22837:9)
+      at async /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-2e0cab80279d/src/node_modules/rollup/dist/shared/rollup.js:23797:13
+      at async catchUnfinishedHookActions (node_modules/rollup/dist/shared/rollup.js:23277:20)
+      at async rollupInternal (node_modules/rollup/dist/shared/rollup.js:23795:5)
+      at async buildSprite (tests/index.test.ts:14:21)
+      at async Object.<anonymous> (tests/index.test.ts:104:5)
+
+  console.warn
+    @rollup/plugin-typescript TS2345: Argument of type 'T[Extract<keyof T, string>] | undefined' is not assignable to parameter of type 'Partial<(Partial<T>[Extract<keyof T, string>] & object) | (Partial<T>[Extract<keyof T, string>] & null)> | undefined'.
+      Type 'T[Extract<keyof T, string>]' is not assignable to type 'Partial<(Partial<T>[Extract<keyof T, string>] & object) | (Partial<T>[Extract<keyof T, string>] & null)> | undefined'.
+        Type 'T[string]' is not assignable to type 'Partial<(Partial<T>[Extract<keyof T, string>] & object) | (Partial<T>[Extract<keyof T, string>] & null)> | undefined'.
+
+      12 |
+      13 | async function buildSprite(pluginOptions?: PluginOptions, inputOptions?: InputOptions) {
+    > 14 |   const { write } = await rollup({
+         |                     ^
+      15 |     input: "./emptyInput.ts",
+      16 |     plugins: [
+      17 |       nodeResolve(),
+
+      at Object.defaultOnWarn [as onwarn] (node_modules/rollup/dist/shared/rollup.js:565:42)
+      at Object.warn (node_modules/rollup/dist/shared/rollup.js:22745:21)
+      at emitDiagnostic (node_modules/@rollup/plugin-typescript/dist/index.js:543:17)
+      at reportDiagnostics (node_modules/@rollup/plugin-typescript/dist/index.js:548:9)
+          at Array.forEach (<anonymous>)
+      at emitFilesAndReportErrors (node_modules/typescript/lib/typescript.js:126138:21)
+      at Object.result.afterProgramCreate (node_modules/typescript/lib/typescript.js:126329:13)
+      at Object.afterProgramCreate (node_modules/@rollup/plugin-typescript/dist/index.js:703:29)
+      at synchronizeProgram (node_modules/typescript/lib/typescript.js:126639:22)
+      at Object.createWatchProgram (node_modules/typescript/lib/typescript.js:126556:9)
+      at createWatchProgram (node_modules/@rollup/plugin-typescript/dist/index.js:717:15)
+      at Object.buildStart (node_modules/@rollup/plugin-typescript/dist/index.js:777:27)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+          at async Promise.all (index 1)
+      at async PluginDriver.hookParallel (node_modules/rollup/dist/shared/rollup.js:22837:9)
+      at async /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-2e0cab80279d/src/node_modules/rollup/dist/shared/rollup.js:23797:13
+      at async catchUnfinishedHookActions (node_modules/rollup/dist/shared/rollup.js:23277:20)
+      at async rollupInternal (node_modules/rollup/dist/shared/rollup.js:23795:5)
+      at async buildSprite (tests/index.test.ts:14:21)
+      at async Object.<anonymous> (tests/index.test.ts:104:5)
+
+  console.warn
+    You are trying to configure cleanupIDs which is not part of preset-default.
+    Try to put it before or after, for example
+    
+    plugins: [
+      {
+        name: 'preset-default',
+      },
+      'cleanupIDs'
+    ]
+
+      74 |         return null
+      75 |       }
+    > 76 |       const { data } = svgo.optimize(code, svgoOptions)
+         |                             ^
+      77 |       const interpolatedId =
+      78 |         typeof symbolIdQuery === "function" ? symbolIdQuery(id) : interpolateName(outputPath, id, code, symbolIdQuery)
+      79 |       const symbol = sprite.add(interpolatedId, data)
+
+      at Object.fn (node_modules/svgo/lib/svgo/plugins.js:44:21)
+      at invokePlugins (node_modules/svgo/lib/svgo/plugins.js:23:28)
+      at optimize (node_modules/svgo/lib/svgo.js:78:5)
+      at Object.optimize (node_modules/svgo/lib/svgo-node.js:76:10)
+      at Object.transform (src/index.ts:76:29)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+
+  console.warn
+    You are trying to configure cleanupIDs which is not part of preset-default.
+    Try to put it before or after, for example
+    
+    plugins: [
+      {
+        name: 'preset-default',
+      },
+      'cleanupIDs'
+    ]
+
+      74 |         return null
+      75 |       }
+    > 76 |       const { data } = svgo.optimize(code, svgoOptions)
+         |                             ^
+      77 |       const interpolatedId =
+      78 |         typeof symbolIdQuery === "function" ? symbolIdQuery(id) : interpolateName(outputPath, id, code, symbolIdQuery)
+      79 |       const symbol = sprite.add(interpolatedId, data)
+
+      at Object.fn (node_modules/svgo/lib/svgo/plugins.js:44:21)
+      at invokePlugins (node_modules/svgo/lib/svgo/plugins.js:23:28)
+      at optimize (node_modules/svgo/lib/svgo.js:78:5)
+      at Object.optimize (node_modules/svgo/lib/svgo-node.js:76:10)
+      at Object.transform (src/index.ts:76:29)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+
+  console.warn
+    @rollup/plugin-typescript TS2305: Module '"svgo"' has no exported member 'OptimizeOptions'.
+
+      12 |
+      13 | async function buildSprite(pluginOptions?: PluginOptions, inputOptions?: InputOptions) {
+    > 14 |   const { write } = await rollup({
+         |                     ^
+      15 |     input: "./emptyInput.ts",
+      16 |     plugins: [
+      17 |       nodeResolve(),
+
+      at Object.defaultOnWarn [as onwarn] (node_modules/rollup/dist/shared/rollup.js:565:42)
+      at Object.warn (node_modules/rollup/dist/shared/rollup.js:22745:21)
+      at emitDiagnostic (node_modules/@rollup/plugin-typescript/dist/index.js:543:17)
+      at reportDiagnostics (node_modules/@rollup/plugin-typescript/dist/index.js:548:9)
+          at Array.forEach (<anonymous>)
+      at emitFilesAndReportErrors (node_modules/typescript/lib/typescript.js:126138:21)
+      at Object.result.afterProgramCreate (node_modules/typescript/lib/typescript.js:126329:13)
+      at Object.afterProgramCreate (node_modules/@rollup/plugin-typescript/dist/index.js:703:29)
+      at synchronizeProgram (node_modules/typescript/lib/typescript.js:126639:22)
+      at Object.createWatchProgram (node_modules/typescript/lib/typescript.js:126556:9)
+      at createWatchProgram (node_modules/@rollup/plugin-typescript/dist/index.js:717:15)
+      at Object.buildStart (node_modules/@rollup/plugin-typescript/dist/index.js:777:27)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+          at async Promise.all (index 1)
+      at async PluginDriver.hookParallel (node_modules/rollup/dist/shared/rollup.js:22837:9)
+      at async /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-2e0cab80279d/src/node_modules/rollup/dist/shared/rollup.js:23797:13
+      at async catchUnfinishedHookActions (node_modules/rollup/dist/shared/rollup.js:23277:20)
+      at async rollupInternal (node_modules/rollup/dist/shared/rollup.js:23795:5)
+      at async buildSprite (tests/index.test.ts:14:21)
+      at async Object.<anonymous> (tests/index.test.ts:110:5)
+
+  console.warn
+    @rollup/plugin-typescript TS2305: Module '"svgo"' has no exported member 'Plugin'.
+
+      12 |
+      13 | async function buildSprite(pluginOptions?: PluginOptions, inputOptions?: InputOptions) {
+    > 14 |   const { write } = await rollup({
+         |                     ^
+      15 |     input: "./emptyInput.ts",
+      16 |     plugins: [
+      17 |       nodeResolve(),
+
+      at Object.defaultOnWarn [as onwarn] (node_modules/rollup/dist/shared/rollup.js:565:42)
+      at Object.warn (node_modules/rollup/dist/shared/rollup.js:22745:21)
+      at emitDiagnostic (node_modules/@rollup/plugin-typescript/dist/index.js:543:17)
+      at reportDiagnostics (node_modules/@rollup/plugin-typescript/dist/index.js:548:9)
+          at Array.forEach (<anonymous>)
+      at emitFilesAndReportErrors (node_modules/typescript/lib/typescript.js:126138:21)
+      at Object.result.afterProgramCreate (node_modules/typescript/lib/typescript.js:126329:13)
+      at Object.afterProgramCreate (node_modules/@rollup/plugin-typescript/dist/index.js:703:29)
+      at synchronizeProgram (node_modules/typescript/lib/typescript.js:126639:22)
+      at Object.createWatchProgram (node_modules/typescript/lib/typescript.js:126556:9)
+      at createWatchProgram (node_modules/@rollup/plugin-typescript/dist/index.js:717:15)
+      at Object.buildStart (node_modules/@rollup/plugin-typescript/dist/index.js:777:27)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+          at async Promise.all (index 1)
+      at async PluginDriver.hookParallel (node_modules/rollup/dist/shared/rollup.js:22837:9)
+      at async /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-2e0cab80279d/src/node_modules/rollup/dist/shared/rollup.js:23797:13
+      at async catchUnfinishedHookActions (node_modules/rollup/dist/shared/rollup.js:23277:20)
+      at async rollupInternal (node_modules/rollup/dist/shared/rollup.js:23795:5)
+      at async buildSprite (tests/index.test.ts:14:21)
+      at async Object.<anonymous> (tests/index.test.ts:110:5)
+
+  console.warn
+    @rollup/plugin-typescript TS2322: Type '(Partial<T>[Extract<keyof T, string>] & object) | (Partial<T>[Extract<keyof T, string>] & null)' is not assignable to type 'T[Extract<keyof T, string>] | undefined'.
+      Type 'Partial<T>[Extract<keyof T, string>] & object' is not assignable to type 'T[Extract<keyof T, string>] | undefined'.
+
+      12 |
+      13 | async function buildSprite(pluginOptions?: PluginOptions, inputOptions?: InputOptions) {
+    > 14 |   const { write } = await rollup({
+         |                     ^
+      15 |     input: "./emptyInput.ts",
+      16 |     plugins: [
+      17 |       nodeResolve(),
+
+      at Object.defaultOnWarn [as onwarn] (node_modules/rollup/dist/shared/rollup.js:565:42)
+      at Object.warn (node_modules/rollup/dist/shared/rollup.js:22745:21)
+      at emitDiagnostic (node_modules/@rollup/plugin-typescript/dist/index.js:543:17)
+      at reportDiagnostics (node_modules/@rollup/plugin-typescript/dist/index.js:548:9)
+          at Array.forEach (<anonymous>)
+      at emitFilesAndReportErrors (node_modules/typescript/lib/typescript.js:126138:21)
+      at Object.result.afterProgramCreate (node_modules/typescript/lib/typescript.js:126329:13)
+      at Object.afterProgramCreate (node_modules/@rollup/plugin-typescript/dist/index.js:703:29)
+      at synchronizeProgram (node_modules/typescript/lib/typescript.js:126639:22)
+      at Object.createWatchProgram (node_modules/typescript/lib/typescript.js:126556:9)
+      at createWatchProgram (node_modules/@rollup/plugin-typescript/dist/index.js:717:15)
+      at Object.buildStart (node_modules/@rollup/plugin-typescript/dist/index.js:777:27)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+          at async Promise.all (index 1)
+      at async PluginDriver.hookParallel (node_modules/rollup/dist/shared/rollup.js:22837:9)
+      at async /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-2e0cab80279d/src/node_modules/rollup/dist/shared/rollup.js:23797:13
+      at async catchUnfinishedHookActions (node_modules/rollup/dist/shared/rollup.js:23277:20)
+      at async rollupInternal (node_modules/rollup/dist/shared/rollup.js:23795:5)
+      at async buildSprite (tests/index.test.ts:14:21)
+      at async Object.<anonymous> (tests/index.test.ts:110:5)
+
+  console.warn
+    @rollup/plugin-typescript TS2345: Argument of type 'T[Extract<keyof T, string>] | undefined' is not assignable to parameter of type 'Partial<(Partial<T>[Extract<keyof T, string>] & object) | (Partial<T>[Extract<keyof T, string>] & null)> | undefined'.
+      Type 'T[Extract<keyof T, string>]' is not assignable to type 'Partial<(Partial<T>[Extract<keyof T, string>] & object) | (Partial<T>[Extract<keyof T, string>] & null)> | undefined'.
+        Type 'T[string]' is not assignable to type 'Partial<(Partial<T>[Extract<keyof T, string>] & object) | (Partial<T>[Extract<keyof T, string>] & null)> | undefined'.
+
+      12 |
+      13 | async function buildSprite(pluginOptions?: PluginOptions, inputOptions?: InputOptions) {
+    > 14 |   const { write } = await rollup({
+         |                     ^
+      15 |     input: "./emptyInput.ts",
+      16 |     plugins: [
+      17 |       nodeResolve(),
+
+      at Object.defaultOnWarn [as onwarn] (node_modules/rollup/dist/shared/rollup.js:565:42)
+      at Object.warn (node_modules/rollup/dist/shared/rollup.js:22745:21)
+      at emitDiagnostic (node_modules/@rollup/plugin-typescript/dist/index.js:543:17)
+      at reportDiagnostics (node_modules/@rollup/plugin-typescript/dist/index.js:548:9)
+          at Array.forEach (<anonymous>)
+      at emitFilesAndReportErrors (node_modules/typescript/lib/typescript.js:126138:21)
+      at Object.result.afterProgramCreate (node_modules/typescript/lib/typescript.js:126329:13)
+      at Object.afterProgramCreate (node_modules/@rollup/plugin-typescript/dist/index.js:703:29)
+      at synchronizeProgram (node_modules/typescript/lib/typescript.js:126639:22)
+      at Object.createWatchProgram (node_modules/typescript/lib/typescript.js:126556:9)
+      at createWatchProgram (node_modules/@rollup/plugin-typescript/dist/index.js:717:15)
+      at Object.buildStart (node_modules/@rollup/plugin-typescript/dist/index.js:777:27)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+          at async Promise.all (index 1)
+      at async PluginDriver.hookParallel (node_modules/rollup/dist/shared/rollup.js:22837:9)
+      at async /home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-2e0cab80279d/src/node_modules/rollup/dist/shared/rollup.js:23797:13
+      at async catchUnfinishedHookActions (node_modules/rollup/dist/shared/rollup.js:23277:20)
+      at async rollupInternal (node_modules/rollup/dist/shared/rollup.js:23795:5)
+      at async buildSprite (tests/index.test.ts:14:21)
+      at async Object.<anonymous> (tests/index.test.ts:110:5)
+
+  console.warn
+    You are trying to configure cleanupIDs which is not part of preset-default.
+    Try to put it before or after, for example
+    
+    plugins: [
+      {
+        name: 'preset-default',
+      },
+      'cleanupIDs'
+    ]
+
+      74 |         return null
+      75 |       }
+    > 76 |       const { data } = svgo.optimize(code, svgoOptions)
+         |                             ^
+      77 |       const interpolatedId =
+      78 |         typeof symbolIdQuery === "function" ? symbolIdQuery(id) : interpolateName(outputPath, id, code, symbolIdQuery)
+      79 |       const symbol = sprite.add(interpolatedId, data)
+
+      at Object.fn (node_modules/svgo/lib/svgo/plugins.js:44:21)
+      at invokePlugins (node_modules/svgo/lib/svgo/plugins.js:23:28)
+      at optimize (node_modules/svgo/lib/svgo.js:78:5)
+      at Object.optimize (node_modules/svgo/lib/svgo-node.js:76:10)
+      at Object.transform (src/index.ts:76:29)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+
+  console.warn
+    You are trying to configure cleanupIDs which is not part of preset-default.
+    Try to put it before or after, for example
+    
+    plugins: [
+      {
+        name: 'preset-default',
+      },
+      'cleanupIDs'
+    ]
+
+      74 |         return null
+      75 |       }
+    > 76 |       const { data } = svgo.optimize(code, svgoOptions)
+         |                             ^
+      77 |       const interpolatedId =
+      78 |         typeof symbolIdQuery === "function" ? symbolIdQuery(id) : interpolateName(outputPath, id, code, symbolIdQuery)
+      79 |       const symbol = sprite.add(interpolatedId, data)
+
+      at Object.fn (node_modules/svgo/lib/svgo/plugins.js:44:21)
+      at invokePlugins (node_modules/svgo/lib/svgo/plugins.js:23:28)
+      at optimize (node_modules/svgo/lib/svgo.js:78:5)
+      at Object.optimize (node_modules/svgo/lib/svgo-node.js:76:10)
+      at Object.transform (src/index.ts:76:29)
+      at node_modules/rollup/dist/shared/rollup.js:22909:40
+
+FAIL tests/index.test.ts
+  extract
+    ✕ extract (1227 ms)
+    ✕ inline (852 ms)
+
+  ● extract › extract
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      105 |     const output = await fsp.readFile(path.resolve(outputPath, "./public/sprite.svg"), { encoding: "utf-8" })
+      106 |     const target = await fsp.readFile(path.resolve(__dirname, "./build/target/sprite.svg"), { encoding: "utf-8" })
+    > 107 |     expect(output === target).toBe(true)
+          |                               ^
+      108 |   })
+      109 |   test("inline", async () => {
+      110 |     await buildSprite({ outputPath, extract: false }, { input: inputPathGen(["example-1.svg", "example-2.svg"]) })
+
+      at Object.<anonymous> (tests/index.test.ts:107:31)
+
+  ● extract › inline
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      111 |     const output = await fsp.readFile(path.resolve(outputPath, "./dist.js"), { encoding: "utf-8" })
+      112 |     const target = await fsp.readFile(path.resolve(__dirname, "./build/target/dist.js"), { encoding: "utf-8" })
+    > 113 |     expect(output === target).toBe(true)
+          |                               ^
+      114 |   })
+      115 | })
+      116 |
+
+      at Object.<anonymous> (tests/index.test.ts:113:31)
+
+---------------------|---------|----------|---------|---------|------------------------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                  
+---------------------|---------|----------|---------|---------|------------------------------------
+All files            |   78.94 |    54.45 |   83.87 |    78.8 |                                    
+ src                 |   78.89 |    52.11 |   80.76 |    78.7 |                                    
+  buildSprite.ts     |    82.6 |       30 |   69.23 |    82.6 | 34-42,62                           
+  index.ts           |   65.38 |    55.31 |   83.33 |   65.38 | 47-50,74,92-94,105,115-121,130-133 
+  serializeSprite.ts |   97.05 |    57.14 |     100 |   96.96 | 28                                 
+ src/extract         |     100 |      100 |     100 |     100 |                                    
+  defaultOptions.ts  |     100 |      100 |     100 |     100 |                                    
+ src/inline          |     100 |      100 |     100 |     100 |                                    
+  defaultOptions.ts  |     100 |      100 |     100 |     100 |                                    
+  index.ts           |       0 |        0 |       0 |       0 |                                    
+  inline.ts          |     100 |      100 |     100 |     100 |                                    
+ src/utils           |      75 |    53.84 |     100 |      75 |                                    
+  exportSymbol.ts    |   88.88 |    66.66 |     100 |   88.88 | 12                                 
+  index.ts           |       0 |        0 |       0 |       0 |                                    
+  interpolateName.ts |      40 |    16.66 |     100 |      40 | 12-21                              
+  isSVG.ts           |      75 |       50 |     100 |      75 | 4                                  
+  mergeOptions.ts    |   91.66 |    66.66 |     100 |   91.66 | 8                                  
+  namespace.ts       |     100 |      100 |     100 |     100 |                                    
+---------------------|---------|----------|---------|---------|------------------------------------
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 2 total
+Snapshots:   0 total
+Time:        2.766 s, estimated 4 s
+Ran all test suites.
+STATE-NEW rc=1

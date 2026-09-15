@@ -1,0 +1,43 @@
+{
+  "id": "regexpu-core-unicodeflag-option-now-opt-in-buble",
+  "name": "regexpu-core-unicodeflag-option-now-opt-in-buble",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "bublejs/buble",
+    "url": "https://github.com/bublejs/buble",
+    "commit": "bac51a9c2793011987d1d17efcda03f70e4b540a"
+  },
+  "lib": "regexpu-core",
+  "v_old": "4.5.4",
+  "v_new": "5.3.2",
+  "library_repo": "https://github.com/mathiasbynens/regexpu-core",
+  "library_tags": {
+    "old": "v4.5.4",
+    "new": "v5.3.2"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "regexpu-core rewritePattern",
+  "root_symbols": [
+    "rewritePattern",
+    "validateOptions",
+    "transform",
+    "config.transform.unicodeFlag"
+  ],
+  "behavioral_change": "regexpu-core v5.0.0 changed `rewritePattern` so that each rewriting feature must be explicitly enabled. In v_old (4.5.4), any `u` flag caused ES2015 unicode patterns to be rewritten to ES5 unconditionally; in v_new (5.3.2) this is governed by the `unicodeFlag` option (false or 'transform'), whose default false leaves the pattern untouched, so `rewritePattern('foo.bar', 'u')` now returns `foo.bar` unchanged.",
+  "downstream_effect": "The downstream compiler buble calls `rewritePattern(pattern, flags)` in src/program/types/Literal.js and strips the `u` flag from its output, so after the upgrade `/foo.bar/u` is compiled to `/foo.bar/` with silently changed semantics. The single failure is an AssertionError comparing compiled output to the expected sample, with frames only in test/test.js; Literal.js, rewritePattern, regexpu-core and unicodeFlag never appear, although the test title \"transpiles regex with unicode flag\" names the affected feature.",
+  "reference_fix": "The reference fix changes one line in src/program/types/Literal.js:33 from `rewritePattern(pattern, flags)` to `rewritePattern(pattern, flags, { unicodeFlag: 'transform' })`.",
+  "documented_in": "The regexpu-core 5.x README (https://github.com/mathiasbynens/regexpu-core/blob/v5.0.0/README.md), section \"Stable regular expression features\", describes the `unicodeFlag` option with the example `rewritePattern('\\u{ab}', 'u', { unicodeFlag: 'transform' })`; there is no CHANGELOG or release note for 5.0.0 announcing the change, and the same README still shows the old behavior in several examples.",
+  "failing_tests": [
+    "test/test.js :: buble > regex.js > transpiles regex with unicode flag"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:14",
+    "node_major": 14,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "bublejs/buble",
+  "commit": "bac51a9c2793011987d1d17efcda03f70e4b540a"
+}

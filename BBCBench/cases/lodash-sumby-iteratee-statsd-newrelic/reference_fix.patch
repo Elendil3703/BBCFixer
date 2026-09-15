@@ -1,0 +1,13 @@
+diff --git a/lib/dispatcher/metric-transformer.js b/lib/dispatcher/metric-transformer.js
+index afadbab..424fb4f 100644
+--- a/lib/dispatcher/metric-transformer.js
++++ b/lib/dispatcher/metric-transformer.js
+@@ -7,7 +7,7 @@ var lodash = require('lodash'),
+             min = lodash.min(timerValue),
+             count = timerValue.length,
+             total = lodash.sum(timerValue),
+-            squareSum = lodash.sum(timerValue, function (val) {
++            squareSum = lodash.sumBy(timerValue, function (val) {
+                 return Math.pow(val, 2);
+             });
+ 

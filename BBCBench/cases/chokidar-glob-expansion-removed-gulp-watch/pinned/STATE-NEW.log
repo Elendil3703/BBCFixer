@@ -1,0 +1,209 @@
+
+> gulp-watch@5.0.1 test
+> xo --ignore ./test/fixtures/ && mocha -r test/util/set-default-options -t 5000 -R spec test/test-*
+
+
+
+  api
+    Basic functionality
+      1) should normalize reported paths for modified files with non-normalized absolute glob
+      2) should normalize reported paths for modified files with non-normalized relative glob
+      3) should normalize reported paths for removed files with non-normalized absolute glob
+      4) should normalize reported paths for removed files with non-normalized relative glob
+    add
+      5) should emit added file
+      6) should emit change event on file change
+
+  base
+    7) should be determined by glob
+    8) should be overridden by option
+
+  callback
+    9) should be called on add event
+    ✓ should be called on non-glob pattern
+    10) should be called on add event in new directory
+    11) unlinked `file.path` should be absolute (absolute glob)
+    12) unlinked `file.path` should be absolute (relative glob)
+
+  cwd
+    ✓ should respect opts.cwd
+    ✓ should emit file outside opts.cwd using relative glob
+    ✓ should emit file outside opts.cwd using absolute glob
+    ✓ should normalized reported paths with non-normalized cwd and non-normalized relative glob
+    ✓ should normalized reported paths with non-normalized cwd and non-normalized absolute glob
+    ✓ should normalized reported paths with non-normalized relative glob outside implicit cwd
+    ✓ should normalized reported paths with non-normalized absolute glob outside implicit cwd
+
+  dir
+    ✓ should watch files inside directory
+    - should watch directory creation
+    - should watch directory removal
+
+  ignore
+    13) should ignore files
+
+  log
+    14) should ignore files
+    15) should print file name
+    16) should print relative file name
+    17) should print custom watcher name
+
+  opts
+    ✓ should not mutate the options object
+
+  stream
+    ✓ should emit ready and end
+    18) should emit added file
+    19) should emit change event on file change
+    20) should emit changed file with stream contents
+    21) should emit changed file with stats
+    - should emit deleted file with stats
+
+  watch
+    ✓ should throw on invalid glob argument
+    ✓ should return passThrough stream
+
+
+  13 passing (2m)
+  3 pending
+  21 failing
+
+  1) api
+       Basic functionality
+         should normalize reported paths for modified files with non-normalized absolute glob:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-api.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  2) api
+       Basic functionality
+         should normalize reported paths for modified files with non-normalized relative glob:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-api.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  3) api
+       Basic functionality
+         should normalize reported paths for removed files with non-normalized absolute glob:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-api.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  4) api
+       Basic functionality
+         should normalize reported paths for removed files with non-normalized relative glob:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-api.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  5) api
+       add
+         should emit added file:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-api.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  6) api
+       add
+         should emit change event on file change:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-api.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  7) base
+       should be determined by glob:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-base.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  8) base
+       should be overridden by option:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-base.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  9) callback
+       should be called on add event:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-callback.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  10) callback
+       should be called on add event in new directory:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-callback.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  11) callback
+       unlinked `file.path` should be absolute (absolute glob):
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-callback.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  12) callback
+       unlinked `file.path` should be absolute (relative glob):
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-callback.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  13) ignore
+       should ignore files:
+     Uncaught Error: EEXIST: file already exists, mkdir '/w/test/fixtures/temp'
+      at Object.mkdirSync (node:fs:1391:3)
+      at Duplex.<anonymous> (test/test-ignore.js:32:7)
+      at Duplex.emit (node:events:517:28)
+      at FSWatcher.emit (node:events:517:28)
+      at /w/node_modules/chokidar/index.js:286:45
+      at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+
+  14) ignore
+       should ignore files:
+     Error: done() called multiple times in test <ignore should ignore files> of file /w/test/test-ignore.js
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  15) log
+       should print file name:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-log.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  16) log
+       should print relative file name:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-log.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  17) log
+       should print custom watcher name:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-log.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  18) stream
+       should emit added file:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-stream.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  19) stream
+       should emit change event on file change:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-stream.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  20) stream
+       should emit changed file with stream contents:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-stream.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+  21) stream
+       should emit changed file with stats:
+     Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/w/test/test-stream.js)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7)
+
+
+
+STATE-NEW rc=21

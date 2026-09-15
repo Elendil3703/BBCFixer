@@ -1,0 +1,47 @@
+
+> mooring@2.0.0 test /w
+> ./node_modules/mocha/bin/mocha --timeout 5 ./test/*
+
+
+
+  before hooks
+    ✓ runs before hooks with a synchronous API
+    ✓ also runs before hooks with an asynchronous API
+    ✓ can run multipe before hooks
+
+  after hooks
+    ✓ runs after hooks with a synchronous API
+    ✓ also runs after hooks with an asynchronous API
+    ✓ can run multipe after hooks
+
+  call hooks
+    ✓ lets you call a hook without first defining it
+
+  Immutablity tests
+    ✓ should not allow non-passed changed to be passed to the hooked method
+    ✓ should not allow non-passed changed to be passed from the hooked method
+    ✓ should not mutate the orig request
+
+  Mutablity tests
+    ✓ should mutate the orig request
+
+  New API
+    ✓ Entire API exists
+
+  New API before hooks
+    ✓ runs basic serial pre hooks
+    ✓ can run multipe pre hooks
+    ✓ can run fully synchronous pre hooks
+
+  after hooks
+    ✓ executes with parameters passed in
+    ✓ can run fully synchronous post hooks
+
+  createHook()
+    ✓ wraps a callable function in hooks
+    ✓ ensures all params are passed in, even methods
+
+
+  19 passing (10ms)
+
+STATE-OLD rc=0

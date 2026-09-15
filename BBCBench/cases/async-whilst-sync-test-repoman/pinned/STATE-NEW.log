@@ -1,0 +1,151 @@
+
+> repoman@1.6.0 test /w
+> mkdirp .build/test && tee-pipefail mocha .build/test/mocha.out
+
+
+
+  cli
+    exec
+      ✓ should contain commands with actions
+    config
+      ✓ should pass empty opts when there is no arg
+      ✓ should pass bitbucket opts when specified in args
+      ✓ should pass github opts when specified in args
+      ✓ should pass gitorious opts when specified in args
+      ✓ should pass local opts when specified in args
+    _exec
+      ✓ should execute custom command specified in arg if command is exec
+      ✓ should pass built-in command as-is
+      ✓ should use win32 command when executed on windows
+      ✓ should use custom config file when specified in args
+    list
+somerepo1
+somerepo2
+      ✓ should log each repo name when there is result array
+      ✓ should not log anything when there is no result
+    clean
+Nothing to delete
+      ✓ should delete nothing when there is no directory to clean up
+The following files/directories will be deleted: dir1, dir2
+      ✓ should delete directories to clean up when user confirms to do so
+The following files/directories will be deleted: dir1, dir2
+Nothing is deleted
+      ✓ should not delete directories to clean up when user confirms to not clean
+The following files/directories will be deleted: dir1, dir2
+Nothing is deleted
+      ✓ should not delete directories to clean up when user does not provide confirmation answer
+some error
+      ✓ should pass error to callback when there is an error during dry run
+
+  bitbucket
+    bitbucket - bitbucket
+      ✓ should authenticate when username and password are specified
+    bitbucket - generate
+      ✓ should create repoman config with repos
+TODO: someunsupportedscm scm is not yet supported
+      ✓ should log an error message when repo scm is unsupported
+      ✓ should pass error to callback when an error occurs while retrieving repos
+
+  github
+    github
+      ✓ should authenticate when username and password are specified
+      ✓ should authenticate when username and password are not specified but auth token exists
+      ✓ should not authenticate when username and password are not specified
+    generate
+      ✓ should create repoman config with users and orgs' repos
+      ✓ should pass error to callback when an error occurs while retrieving repos
+    _paginate
+Remaining GitHub API usage: 23/100
+      1) should log remaining usage and pass result
+
+  gitorious
+    generate
+      ✓ should pass error when an error occurs while retrieving project
+      ✓ should pass repo URL when there is no error
+
+  local
+    generate
+      ✓ should construct config of git repos using git config remote origin
+      ✓ should construct config of svn repos using svn info repository root
+      ✓ should pass empty config when repo is neither git nor svn
+
+  repoman
+    config
+Creating sample configuration file: .repoman.json
+      ✓ should copy sample couchpenter.js file to current directory when init is called
+Setting configuration file: .repoman.json, with Bitbucket repositories
+      ✓ should create .repoman.json containing repos on bitbucket when bitbucket config is specified
+Setting configuration file: .repoman.json, with GitHub repositories
+      ✓ should create .repoman.json containing repos on github when github config is specified
+Setting configuration file: .repoman.json, with GitHub repositories
+      ✓ should pass error to callback when an error occurs while creating config containing github repos
+Setting configuration file: .repoman.json, with Gitorious repositories
+      ✓ should create .repoman.json containing repos on gitorious when gitorious config is specified
+Setting configuration file: .repoman.json, with local repositories
+      ✓ should create .repoman.json containing repos on local repositories when local config is specified
+Setting configuration file: .repoman.json, with local repositories
+      ✓ should create .repoman.json containing repos on local repositories and remove any repos not existing locally if removeExtraneous is specified
+Setting configuration file: .repoman.json, with Gitorious repositories
+      ✓ should pass error to callback when an error occurs while creating config containing gitorious repos
+    exec
+      ✓ should return empty results when there is no repository and scm
+
++ couchdb
+> git clone http://git-wip-us.apache.org/repos/asf/couchdb.git /somedir/couchdb
+
++ httpd
+> svn checkout http://svn.apache.org/repos/asf/httpd/httpd/trunk/ /somedir/httpd
+      ✓ should log repositories name and execute commands with parameters applied when repositories exist
+
++ couchdb
+> touch .gitignore; echo "Created /somedir/couchdb/.gitignore file";
+
++ httpd
+> touch .gitignore; echo "Created /somedir/httpd/.gitignore file";
+      ✓ should execute command as-is on each repository when command is unsupported
+
++ couchdb
+> touch .gitignore; echo "Created /somedir/couchdb/.gitignore file";
+      ✓ should execute command as-is on matching repository when tag is provided
+
++ couchdb
+> touch .gitignore; echo "Created /somedir/couchdb/.gitignore file";
+      ✓ should execute command as-is on matching repository when regex is provided
+      ✓ should not execute any command when neither tags nor regex filters is applicable
+    list
+      ✓ should pass repositories keys as list value
+      ✓ should filter repository by tag
+      ✓ should filter repository by regex
+    clean
+      ✓ should return a list of non-repo dirs to delete during dry run
+- dir1 has been deleted
+- dir2 has been deleted
+      ✓ should remove a list of non-repo dirs during non dry run
+      ✓ should pass error to callback when an error occurs while reading the workspace dir
+    _determineRepoType
+      ✓ should determine repo type based on keywords when repo config does not have type property
+      ✓ should default repo type to git when repo config does not have type property and URL does not contain repo keyword
+      ✓ should use type if specified in repo
+
+
+  54 passing (2s)
+  1 failing
+
+  1) github
+       _paginate
+         should log remaining usage and pass result:
+     Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves.
+  
+
+
+
+{ Error: Command failed: mocha
+some error
+TODO: someunsupportedscm scm is not yet supported
+
+    at ChildProcess.exithandler (child_process.js:199:12)
+    at emitTwo (events.js:111:20)
+    at ChildProcess.emit (events.js:191:7)
+    at maybeClose (internal/child_process.js:920:16)
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:230:5) killed: false, code: 1, signal: null, cmd: 'mocha' }
+npm ERR! Test failed.  See above for more details.

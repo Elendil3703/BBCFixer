@@ -1,0 +1,155 @@
+diff --git obspy/core/util/misc.py obspy/core/util/misc.py
+index 5d837cddd..9cb1d2d13 100644
+--- obspy/core/util/misc.py
++++ obspy/core/util/misc.py
+@@ -752,6 +752,31 @@ def ptp(a, *args, **kwargs):
+     return np.ptp(a, *args, **kwargs)
+ 
+ 
++def eig(*args, **kwargs):
++    """
++    Drop in for :func:`numpy.linalg.eig()` which slightly changed behavior in
++    numpy 2.5, such that real valued outputs will not be returned downcast to
++    float anymore but left as complex with all imaginary parts zero. This might
++    not be accounted for in places where it is used across the code base.
++    In some cases it failed further down already because other numpy functions
++    refused to work on complex.
++    See #3760.
++    See `Numpy 2.5 release notes <np25notes>`_.
++
++    .. _np25notes: https://numpy.org/devdocs/release/2.5.0-notes.html#linalg-eig-and-linalg-eigvals-now-always-return-complex-arrays  # NOQA
++    """
++    d, v = np.linalg.eig(*args, **kwargs)
++    with warnings.catch_warnings():
++        warnings.filterwarnings(
++            action='ignore', message='Casting complex values to real '
++            'discards the imaginary part')
++        if np.all(np.isreal(d)):
++            d = d.astype(float)
++        if np.all(np.isreal(v)):
++            v = v.astype(float)
++    return d, v
++
++
+ if __name__ == '__main__':
+     import doctest
+     doctest.testmod(exclude_empty=True)
+diff --git obspy/imaging/beachball.py obspy/imaging/beachball.py
+index e569cb9a5..c63091618 100644
+--- obspy/imaging/beachball.py
++++ obspy/imaging/beachball.py
+@@ -31,6 +31,7 @@ import warnings
+ import numpy as np
+ from decorator import decorator
+ 
++from obspy.core.util.misc import eig
+ 
+ D2R = np.pi / 180
+ R2D = 180 / np.pi
+@@ -854,7 +855,7 @@ def mt2plane(mt):
+     `bb.m <http://www.ceri.memphis.edu/people/olboyd/Software/Software.html>`_
+     written by Andy Michael, Chen Ji and Oliver Boyd.
+     """
+-    (d, v) = np.linalg.eig(mt.mt)
++    (d, v) = eig(mt.mt)
+     d = np.array([d[1], d[0], d[2]])
+     v = np.array([[v[1, 1], -v[1, 0], -v[1, 2]],
+                  [v[2, 1], -v[2, 0], -v[2, 2]],
+diff --git obspy/imaging/scripts/mopad.py obspy/imaging/scripts/mopad.py
+index a69d49395..565a15f30 100644
+--- obspy/imaging/scripts/mopad.py
++++ obspy/imaging/scripts/mopad.py
+@@ -78,6 +78,7 @@ import sys
+ import numpy as np
+ 
+ from obspy import __version__
++from obspy.core.util.misc import eig
+ 
+ 
+ MOPAD_VERSION = 0.7
+@@ -343,10 +344,10 @@ class MomentTensor:
+         self._deviatoric = M_devi
+ 
+         # eigenvalues and -vectors
+-        eigenwtot, eigenvtot = np.linalg.eig(M)
++        eigenwtot, eigenvtot = eig(M)
+ 
+         # eigenvalues and -vectors of the deviatoric part
+-        eigenw1, eigenv1 = np.linalg.eig(M_devi)
++        eigenw1, eigenv1 = eig(M_devi)
+ 
+         # eigenvalues in ascending order:
+         eigenw = np.real(np.take(eigenw1, np.argsort(abs(eigenwtot))))
+@@ -421,7 +422,7 @@ class MomentTensor:
+         self._deviatoric = M_devi
+ 
+         # eigenvalues and -vectors of the deviatoric part
+-        eigenw1, eigenv1 = np.linalg.eig(M_devi)
++        eigenw1, eigenv1 = eig(M_devi)
+ 
+         # eigenvalues in ascending order of their absolute values:
+         eigenw = np.real(np.take(eigenw1, np.argsort(abs(eigenw1))))
+@@ -486,11 +487,11 @@ class MomentTensor:
+         self._deviatoric = M_devi
+ 
+         # eigenvalues and -vectors of the deviatoric part
+-        eigenw1, eigenv1 = np.linalg.eig(M_devi)
++        eigenw1, eigenv1 = eig(M_devi)
+         M0_devi = max(abs(eigenw1))
+ 
+         # eigenvalues and -vectors of the full M !!!!!!!!
+-        eigenw1, eigenv1 = np.linalg.eig(M)
++        eigenw1, eigenv1 = eig(M)
+ 
+         # eigenvalues in ascending order of their absolute values:
+         eigenw = np.real(np.take(eigenw1, np.argsort(abs(eigenw1))))
+diff --git obspy/io/nordic/ellipse.py obspy/io/nordic/ellipse.py
+index f4d5e4598..901853a38 100644
+--- obspy/io/nordic/ellipse.py
++++ obspy/io/nordic/ellipse.py
+@@ -20,6 +20,8 @@ import copy
+ import io
+ import warnings
+ 
++from obspy.core.util.misc import eig
++
+ 
+ class Ellipse:
+     def __init__(self, a, b, theta=0, center=(0, 0)):
+@@ -86,7 +88,7 @@ class Ellipse:
+         cov = np.array(cov)
+         if _almost_good_cov(cov):
+             cov = _fix_cov(cov)
+-        evals, evecs = np.linalg.eig(cov)
++        evals, evecs = eig(cov)
+         if np.any(evals < 0):
+             cov_factor = cov[0][1]
+             cov_base = cov/cov_factor
+diff --git obspy/signal/array_analysis.py obspy/signal/array_analysis.py
+index 741eef29b..d59c61a45 100644
+--- obspy/signal/array_analysis.py
++++ obspy/signal/array_analysis.py
+@@ -24,6 +24,7 @@ import numpy as np
+ from scipy.integrate import cumulative_trapezoid
+ 
+ from obspy.core import Stream
++from obspy.core.util.misc import eig
+ from obspy.signal.headers import clibsignal
+ from obspy.signal.invsim import cosine_taper
+ from obspy.signal.util import next_pow_2, util_geo_km
+@@ -538,13 +539,13 @@ def array_rotation_strain(subarray, ts1, ts2, ts3, vp, vs, array_coords,
+         # 9/14/92.ii.4, 7/21/06.ii.2(5)
+ 
+         # eigvecs are principal axes, eigvals are principal strains
+-        [eigvals, _eigvecs] = np.linalg.eig(gammah)
++        [eigvals, _eigvecs] = eig(gammah)
+         # max shear strain, from Fung (1965, p71, eqn (8)
+         ts_sh[itime] = .5 * (max(eigvals) - min(eigvals))
+ 
+         # calculate max of total shear strain, not just horizontal strain
+         # eigvecs are principal axes, eigvals are principal strains
+-        [eigvalt, _eigvect] = np.linalg.eig(e)
++        [eigvalt, _eigvect] = eig(e)
+         # max shear strain, from Fung (1965, p71, eqn (8)
+         ts_s[itime] = .5 * (max(eigvalt) - min(eigvalt))
+         #

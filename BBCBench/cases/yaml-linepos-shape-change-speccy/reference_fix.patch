@@ -1,0 +1,17 @@
+diff --git a/lib/loader.js b/lib/loader.js
+index cfa1cd0..08966c6 100644
+--- a/lib/loader.js
++++ b/lib/loader.js
+@@ -180,7 +180,11 @@ const loadSpec = async (source, options = {}) => {
+             try {
+                 return yaml.parse(content, { prettyErrors: true } );
+             } catch (err) {
+-                throw new ReadError("\nLine: " + err.linePos.start.line + ", col: " + err.linePos.start.col + " " + err.message);
++                const pos = Array.isArray(err.linePos)
++                    ? err.linePos[0]
++                    : (err.linePos && err.linePos.start);
++                const at = pos ? "\nLine: " + pos.line + ", col: " + pos.col + " " : "\n";
++                throw new ReadError(at + err.message);
+             }
+         }, err => {
+             throw new OpenError(err.message)

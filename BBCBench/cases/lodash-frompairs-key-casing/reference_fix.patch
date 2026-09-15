@@ -1,0 +1,19 @@
+diff --git a/index.js b/index.js
+index 27474aa..a99c383 100644
+--- a/index.js
++++ b/index.js
+@@ -3,12 +3,12 @@ var _ = require('lodash');
+ module.exports = function(obj) {
+   function keyMapper(v, k){
+    if(_.isArray(v)) v = _(v).map(keyMapper).value();
+-   else if(_.isObject(v)) v = _(v).map(keyMapper).zipObject().value();
++   else if(_.isObject(v)) v = _(v).map(keyMapper).fromPairs().value();
+    return [_.capitalize(k), v];
+   }
+ 
+   return _(obj)
+   .map(keyMapper)
+-  .zipObject()
++  .fromPairs()
+   .value();
+ };

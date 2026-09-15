@@ -1,0 +1,258 @@
+
+> koop-socrata@1.0.4 test
+> standard && tape test/*.js | tap-spec
+
+(node:18) Warning: Accessing non-existent property 'cat' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18) Warning: Accessing non-existent property 'cd' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'chmod' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'cp' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'dirs' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'pushd' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'popd' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'echo' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'tempdir' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'pwd' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'exec' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'ls' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'find' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'grep' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'head' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'ln' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'mkdir' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'rm' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'mv' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'sed' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'set' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'sort' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'tail' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'test' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'to' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'toEnd' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'touch' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'uniq' of module exports inside circular dependency
+(node:18) Warning: Accessing non-existent property 'which' of module exports inside circular dependency
+    warn: No cache configured, defaulting to local in-memory cache. No data will be cached across server sessions.
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+(node:29) Warning: Accessing non-existent property 'padLevels' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+  setup
+
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+
+  register a socrata instance
+
+    ✔ should be equal
+
+  list the registered socrata instances
+
+(node:29) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+    ✔ should be equal
+
+  getting items calls the models find and findResource method
+
+    ✔ should be equal
+    ✔ should be equal
+
+  dropping items calls the models dropItem method
+
+    ✔ should be equal
+
+  getting a featureservice calls the model find, getResource methods and controllers featureservice method
+
+    ✔ should be equal
+    ✔ should be equal
+    ✔ should be equal
+
+  getting a feature service count calls model get resource and get count
+
+    ✔ should be equal
+    ✔ should be equal
+
+  stub getResource and getCount for the following tests
+
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+
+  getting a resource that has never been requested before
+
+    ✔ should be equivalent
+
+  getting a resource that is processing does not fail
+
+    ✔ should be equal
+    ✔ should be equal
+    ✔ should be equivalent
+
+  teardown
+
+
+  adding a socrata instance
+
+    ✔ should be equivalent
+
+  building pages
+
+    ✔ should be equivalent
+    ✔ should be equivalent
+
+  getting the first row
+
+    ✔ should be equivalent
+
+  getting the row count
+
+    ✔ should be equivalent
+
+  getting the metadata
+
+    ✔ should be equivalent
+    ✔ should be equivalent
+    ✔ should be equivalent
+    ✔ should be equivalent
+
+  getting a full page
+
+    ✔ should be equivalent
+
+  parsing geojson
+
+    ✔ should be equivalent
+    ✔ should be equivalent
+    ✔ should be equivalent
+    ✔ should be equivalent
+    ✔ should be equivalent
+
+  piping data through the process stream
+
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    ✔ should be equivalent
+    ✔ should be equivalent
+
+  stubbing methods for cache check
+
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+
+  correctly dropping and rebuilding an expired item
+
+    ✔ should be equivalent
+    ✔ should be equivalent
+    ✔ should be equivalent
+
+  stubbing method for non expired cache check
+
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+
+  not dropping a non expired cache
+
+    ✔ should be equivalent
+    ✔ should be equivalent
+    ✔ should be equivalent
+
+  fill the cache with an errored dataset
+
+    ✔ should be equivalent
+
+  requesting a socrata dataset that does not exist
+
+    ✔ should be equivalent
+    ✔ should be equivalent
+
+  processing a zip file
+
+    ✔ should be equivalent
+
+  fill the cache with a resource that is a zip
+
+
+  requesting a resource that was a zip
+
+    ✔ should be equivalent
+
+  fill the cache with a resource that was filtered
+
+
+  requesting a resource that was filtered
+
+    ✔ should be equivalent
+
+  fill the cache with a dataset that fails on the first row count
+
+
+  requesting a resource where the first row request fails
+
+    ✔ should be equivalent
+
+  fill the cache with a fully working resource
+
+    sinon.stub(obj, 'meth', fn) is deprecated and will be removed from the public API in a future version of sinon.
+     Use stub(obj, 'meth').callsFake(fn).
+     Codemod available at https://github.com/hurrymaplelad/sinon-codemod
+    ✔ should be equivalent
+    ✔ should be equivalent
+
+  requesting a resource with a fully working resource
+
+    ✔ should be equivalent
+
+  teardown
+
+
+
+  total:     47
+  passing:   47
+  duration:  3.7s
+
+
+STATE-OLD rc=0

@@ -1,0 +1,12 @@
+changed packages (9): @types/sax, arg, lodash.chunk, lodash.padstart, lodash.sortby, sitemap, tr46, webidl-conversions, whatwg-url
+  OK new @types/sax@1.2.7 at @types/sax
+  OK new arg@4.1.3 at arg
+  OK old lodash.chunk@4.2.0 at lodash.chunk
+  OK old lodash.padstart@4.6.1 at lodash.padstart
+  OK old lodash.sortby@4.7.0 at lodash.sortby
+  OK new sitemap@4.1.1 at sitemap
+  OK old sitemap@3.2.2 at sitemap
+  OK old tr46@1.0.1 at tr46
+  OK old webidl-conversions@4.0.2 at webidl-conversions
+  OK old whatwg-url@7.0.0 at whatwg-url
+TREECHECK_OK: every change is inside the allowed closure (13 allowed names)

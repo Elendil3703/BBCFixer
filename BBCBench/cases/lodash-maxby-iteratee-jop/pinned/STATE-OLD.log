@@ -1,0 +1,35 @@
+
+> jop@1.0.6 test
+> nodeunit test
+
+
+[1mintegration[22m
+✔ Available operations VS Available CLI options
+
+[1mprocessor[22m
+(node:2844014) [DEP0048] DeprecationWarning: The `util.isError` API is deprecated. Please use `ObjectPrototypeToString(e) === "[object Error]" || e instanceof Error` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ Count
+✔ Complex pipeline: filter, map, filter
+✔ Filter items
+✔ Max age
+✔ Min age
+✔ Count people by age
+✔ Find first person containing "a" in name
+✔ Group people by being over 18 years old
+✔ Index of 19 years old person
+✔ Index of the last 19 years old person
+✔ Collect people age
+✔ Sort people by age
+✔ Replace age with DOB (transform)
+✔ Add DOB property (transform)
+✔ Get first person (head)
+✔ Get last person (tail)
+✔ Sample random person
+✔ Get metadata from jsonAsJSON (prop)
+✔ Collect keys from jsonAsJSON
+✔ Collect values from jsonAsJSON
+✔ Invalid operation
+
+[1m[32mOK: [39m[22m24 assertions (26ms)
+STATE-OLD rc=0

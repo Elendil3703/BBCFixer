@@ -1,0 +1,122 @@
+
+> dyson@0.10.0 test /w/wk-4cdec0981497/src
+> make test
+
+
+
+  dyson.config.defaults
+    .assign
+      ✓ should apply defaults (and not overwrite existing values)
+      ✓ should bind config methods to the config
+
+  dyson.https
+    request
+(node:293) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+(Use `node --trace-deprecation ...` to show where the warning was created)
+      1) should respond with correct body
+
+  dyson
+    .registerServices [integration]
+      ✓ should respond with a cached response
+      2) should respond with a non-cached response
+      3) should respond with a collection
+      4) should respond with a collection (function)
+      5) should respond with a collection (function, negative)
+      6) should respond with a collection where size is a function
+      ✓ should respond with a collection (combined request)
+      ✓ should respond with a 204 for an OPTIONS request
+      ✓ should respond with 400 bad request if required parameter not found
+
+  dyson.config.loader
+    .load
+      ✓ should return configuration for each method found
+      ✓ should return configurations from nested directories
+
+  dyson.response
+    .setValues
+      ✓ should return a promise
+      ✓ should render data based on template
+      ✓ should return an array
+      ✓ should parse template objects iteratively
+      ✓ should replace a promise with its resolved value
+    .generate
+      with option exposeRequest
+        set to true
+          ✓ should expose request to template
+          ✓ should expose request to container
+        globally falsy
+          ✓ should expose request to templates if local option is truthy
+          ✓ should not expose request to templates if local option is falsy
+        globally truthy
+          ✓ should expose request to templates if local option is truthy
+          ✓ should expose request to templates if local option is undefined
+          ✓ should not expose request to templates if local option is false
+
+  dyson
+    .registerServices
+      ✓ should add GET route to Express
+      ✓ should add POST route to Express
+    routes
+      ✓ should respond with body based on template and custom callback
+      ✓ should respond with body based on callback
+
+
+  24 passing (51ms)
+  6 failing
+
+  1) dyson.https request should respond with correct body:
+
+      Error: expected { id: 1, name: 'Lars', status: 'OK' } response body, got {}
+      + expected - actual
+
+      +{
+      +  "id": 1
+      +  "name": "Lars"
+      +  "status": "OK"
+      +}
+      -{}
+      
+      at emitCloseNT (net.js:1677:8)
+      at processTicksAndRejections (internal/process/task_queues.js:81:21)
+
+  2) dyson .registerServices [integration] should respond with a non-cached response:
+
+      Uncaught AssertionError: expected {} not to equal {} (false negative fail)
+      + expected - actual
+
+      
+      at Test.<anonymous> (test/dyson.integration.js:104:41)
+      at emitCloseNT (net.js:1677:8)
+      at processTicksAndRejections (internal/process/task_queues.js:81:21)
+
+  3) dyson .registerServices [integration] should respond with a collection:
+     Uncaught AssertionError: expected {} to be an array
+    expected {} to have [[Class]] Array
+      at Test.<anonymous> (test/dyson.integration.js:113:39)
+      at emitCloseNT (net.js:1677:8)
+      at processTicksAndRejections (internal/process/task_queues.js:81:21)
+
+  4) dyson .registerServices [integration] should respond with a collection (function):
+     Uncaught AssertionError: expected {} to be an array
+    expected {} to have [[Class]] Array
+      at Test.<anonymous> (test/dyson.integration.js:122:39)
+      at emitCloseNT (net.js:1677:8)
+      at processTicksAndRejections (internal/process/task_queues.js:81:21)
+
+  5) dyson .registerServices [integration] should respond with a collection (function, negative):
+     Uncaught AssertionError: expected {} to have property id
+      at Test.<anonymous> (test/dyson.integration.js:131:55)
+      at emitCloseNT (net.js:1677:8)
+      at processTicksAndRejections (internal/process/task_queues.js:81:21)
+
+  6) dyson .registerServices [integration] should respond with a collection where size is a function:
+     Uncaught AssertionError: expected {} to have property length
+      at Test.<anonymous> (test/dyson.integration.js:140:38)
+      at emitCloseNT (net.js:1677:8)
+      at processTicksAndRejections (internal/process/task_queues.js:81:21)
+
+
+
+make: *** [Makefile:4: test] Error 6
+npm ERR! Test failed.  See above for more details.
+STATE-NEW rc=1

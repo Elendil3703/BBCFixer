@@ -1,0 +1,43 @@
+{
+  "id": "lodash-zipobject-pairs-form-entwine",
+  "name": "lodash-zipobject-pairs-form-entwine",
+  "harness": "lockfile",
+  "ecosystem": "javascript",
+  "downstream": {
+    "repo": "mojotech/entwine",
+    "url": "https://github.com/mojotech/entwine",
+    "commit": "8ac3c365a150097791499268eb766abaa9199546"
+  },
+  "lib": "lodash",
+  "v_old": "3.10.1",
+  "v_new": "4.17.21",
+  "library_repo": "https://github.com/lodash/lodash",
+  "library_tags": {
+    "old": "3.10.1",
+    "new": "4.17.21"
+  },
+  "reference_fix_source": "documentation",
+  "root_api": "lodash.zipObject",
+  "root_symbols": [
+    "zipObject",
+    "fromPairs",
+    "baseZipObject"
+  ],
+  "behavioral_change": "lodash v4.0.0 changed the accepted input of `_.zipObject`. In v_old it accepted either an array of [key, value] pairs or separate key and value arrays; in v_new only the two-array form remains and the pairs form moved to the new `_.fromPairs`. Passing a pairs array to v_new `_.zipObject` treats the whole array as keys, so every value becomes undefined, with no exception.",
+  "downstream_effect": "The downstream project's `invertDependencies` in index.js builds pairs with `_.map` and passes them to `_.zipObject`; after the upgrade the inverted dependency table loses its content, `postwalk` and `prewalk` order changes, and two start/stop-order tests fail. The failures show only an order mismatch with frames in test/index.js and bluebird internals; zipObject, fromPairs, lodash and invertDependencies never appear, and index.js contains ten lodash calls including a second, unaffected two-argument `_.zipObject`.",
+  "reference_fix": "The reference fix replaces `_.zipObject(...)` with `_.fromPairs(...)` in the single statement inside `invertDependencies` in index.js, leaving the two-argument `_.zipObject(v, v)` in `normalizeDependencies` untouched.",
+  "documented_in": "The lodash Changelog for v4.0.0, Compatibility Warnings section, \"Split out methods\" list, states \"Split `_.zipObject` into `_.fromPairs`\" with no code block; the new form must be derived from the lodash 4.17.21 `_.fromPairs` jsdoc.",
+  "failing_tests": [
+    "test/index.js :: system should start and stop components in dependency order",
+    "test/index.js :: system should allow mapping dependencies with different names"
+  ],
+  "test_cmd": "npm test",
+  "runtime": {
+    "kind": "docker",
+    "image": "node:8",
+    "node_major": 8,
+    "pinned_record": "pinned/runtime.txt"
+  },
+  "repo": "mojotech/entwine",
+  "commit": "8ac3c365a150097791499268eb766abaa9199546"
+}

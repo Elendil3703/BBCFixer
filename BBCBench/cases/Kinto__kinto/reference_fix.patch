@@ -1,0 +1,555 @@
+diff --git kinto/core/cache/postgresql/__init__.py kinto/core/cache/postgresql/__init__.py
+index 639019f7..ad8bdd3b 100644
+--- kinto/core/cache/postgresql/__init__.py
++++ kinto/core/cache/postgresql/__init__.py
+@@ -4,6 +4,7 @@ import os
+ from kinto.core.cache import CacheBase
+ from kinto.core.storage.postgresql.client import create_from_config
+ from kinto.core.utils import json
++from kinto.core.utils import sqlalchemy as sa
+ 
+ logger = logging.getLogger(__name__)
+ 
+@@ -74,7 +75,7 @@ class Cache(CacheBase):
+          WHERE table_name = 'cache';
+         """
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query)
++            result = conn.execute(sa.text(query))
+             if result.rowcount > 0:
+                 logger.info("PostgreSQL cache schema is up-to-date.")
+                 return
+@@ -91,7 +92,7 @@ class Cache(CacheBase):
+         with open(sql_file) as f:
+             schema = f.read()
+         with self.client.connect(force_commit=True) as conn:
+-            conn.execute(schema)
++            conn.execute(sa.text(schema))
+         logger.info("Created PostgreSQL cache tables")
+ 
+     def flush(self):
+@@ -100,7 +101,7 @@ class Cache(CacheBase):
+         """
+         # Since called outside request (e.g. tests), force commit.
+         with self.client.connect(force_commit=True) as conn:
+-            conn.execute(query)
++            conn.execute(sa.text(query))
+         logger.debug("Flushed PostgreSQL cache tables")
+ 
+     def ttl(self, key):
+@@ -111,9 +112,9 @@ class Cache(CacheBase):
+            AND ttl IS NOT NULL;
+         """
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query, dict(key=self.prefix + key))
++            result = conn.execute(sa.text(query), dict(key=self.prefix + key))
+             if result.rowcount > 0:
+-                return result.fetchone()["ttl"]
++                return result.fetchone().ttl
+         return -1
+ 
+     def expire(self, key, ttl):
+@@ -121,7 +122,7 @@ class Cache(CacheBase):
+         UPDATE cache SET ttl = sec2ttl(:ttl) WHERE key = :key;
+         """
+         with self.client.connect() as conn:
+-            conn.execute(query, dict(ttl=ttl, key=self.prefix + key))
++            conn.execute(sa.text(query), dict(ttl=ttl, key=self.prefix + key))
+ 
+     def set(self, key, value, ttl):
+         if isinstance(value, bytes):
+@@ -136,7 +137,7 @@ class Cache(CacheBase):
+         """
+         value = json.dumps(value)
+         with self.client.connect() as conn:
+-            conn.execute(query, dict(key=self.prefix + key, value=value, ttl=ttl))
++            conn.execute(sa.text(query), dict(key=self.prefix + key, value=value, ttl=ttl))
+ 
+     def get(self, key):
+         purge = """
+@@ -151,18 +152,18 @@ class Cache(CacheBase):
+         WHERE del.key = c.key;"""
+         query = "SELECT value FROM cache WHERE key = :key AND now() < ttl;"
+         with self.client.connect() as conn:
+-            conn.execute(purge)
+-            result = conn.execute(query, dict(key=self.prefix + key))
++            conn.execute(sa.text(purge))
++            result = conn.execute(sa.text(query), dict(key=self.prefix + key))
+             if result.rowcount > 0:
+-                value = result.fetchone()["value"]
++                value = result.fetchone().value
+                 return json.loads(value)
+ 
+     def delete(self, key):
+         query = "DELETE FROM cache WHERE key = :key RETURNING value;"
+         with self.client.connect() as conn:
+-            result = conn.execute(query, dict(key=self.prefix + key))
++            result = conn.execute(sa.text(query), dict(key=self.prefix + key))
+             if result.rowcount > 0:
+-                value = result.fetchone()["value"]
++                value = result.fetchone().value
+                 return json.loads(value)
+         return None
+ 
+diff --git kinto/core/permission/postgresql/__init__.py kinto/core/permission/postgresql/__init__.py
+index 1a0ab07d..0aee3033 100644
+--- kinto/core/permission/postgresql/__init__.py
++++ kinto/core/permission/postgresql/__init__.py
+@@ -5,6 +5,7 @@ from collections import OrderedDict
+ from kinto.core.permission import PermissionBase
+ from kinto.core.storage.postgresql.client import create_from_config
+ from kinto.core.storage.postgresql.migrator import MigratorMixin
++from kinto.core.utils import sqlalchemy as sa
+ 
+ logger = logging.getLogger(__name__)
+ 
+@@ -97,7 +98,7 @@ class Permission(PermissionBase, MigratorMixin):
+         """
+         query = "SELECT tablename FROM pg_tables WHERE tablename = 'metadata';"
+         with self.client.connect() as conn:
+-            result = conn.execute(query)
++            result = conn.execute(sa.text(query))
+             table_exists = result.rowcount > 0
+ 
+         if table_exists:
+@@ -109,9 +110,9 @@ class Permission(PermissionBase, MigratorMixin):
+              LIMIT 1;
+             """
+             with self.client.connect() as conn:
+-                result = conn.execute(query)
++                result = conn.execute(sa.text(query))
+                 if result.rowcount > 0:
+-                    return int(result.fetchone()["version"])
++                    return int(result.fetchone().version)
+ 
+         # Either the metadata table doesn't exist, or it doesn't have
+         # a permission_schema_version row. Many possiblities exist:
+@@ -132,7 +133,7 @@ class Permission(PermissionBase, MigratorMixin):
+          WHERE table_name = 'user_principals';
+         """
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query)
++            result = conn.execute(sa.text(query))
+             if result.rowcount > 0:
+                 return 1
+ 
+@@ -148,7 +149,7 @@ class Permission(PermissionBase, MigratorMixin):
+         """
+         # Since called outside request (e.g. tests), force commit.
+         with self.client.connect(force_commit=True) as conn:
+-            conn.execute(query)
++            conn.execute(sa.text(query))
+         logger.debug("Flushed PostgreSQL permission tables")
+ 
+     def add_user_principal(self, user_id, principal):
+@@ -162,7 +163,7 @@ class Permission(PermissionBase, MigratorMixin):
+               AND principal = :principal
+         );"""
+         with self.client.connect() as conn:
+-            conn.execute(query, dict(user_id=user_id, principal=principal))
++            conn.execute(sa.text(query), dict(user_id=user_id, principal=principal))
+ 
+     def remove_user_principal(self, user_id, principal):
+         query = """
+@@ -170,14 +171,14 @@ class Permission(PermissionBase, MigratorMixin):
+          WHERE user_id = :user_id
+            AND principal = :principal;"""
+         with self.client.connect() as conn:
+-            conn.execute(query, dict(user_id=user_id, principal=principal))
++            conn.execute(sa.text(query), dict(user_id=user_id, principal=principal))
+ 
+     def remove_principal(self, principal):
+         query = """
+         DELETE FROM user_principals
+          WHERE principal = :principal;"""
+         with self.client.connect() as conn:
+-            conn.execute(query, dict(principal=principal))
++            conn.execute(sa.text(query), dict(principal=principal))
+ 
+     def get_user_principals(self, user_id):
+         query = """
+@@ -186,9 +187,9 @@ class Permission(PermissionBase, MigratorMixin):
+          WHERE user_id = :user_id
+             OR user_id = 'system.Authenticated';"""
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query, dict(user_id=user_id))
++            result = conn.execute(sa.text(query), dict(user_id=user_id))
+             results = result.fetchall()
+-        return set([r["principal"] for r in results])
++        return set([r.principal for r in results])
+ 
+     def add_principal_to_ace(self, object_id, permission, principal):
+         query = """
+@@ -203,7 +204,8 @@ class Permission(PermissionBase, MigratorMixin):
+         );"""
+         with self.client.connect() as conn:
+             conn.execute(
+-                query, dict(object_id=object_id, permission=permission, principal=principal)
++                sa.text(query),
++                dict(object_id=object_id, permission=permission, principal=principal),
+             )
+ 
+     def remove_principal_from_ace(self, object_id, permission, principal):
+@@ -214,7 +216,8 @@ class Permission(PermissionBase, MigratorMixin):
+            AND principal = :principal;"""
+         with self.client.connect() as conn:
+             conn.execute(
+-                query, dict(object_id=object_id, permission=permission, principal=principal)
++                sa.text(query),
++                dict(object_id=object_id, permission=permission, principal=principal),
+             )
+ 
+     def get_object_permission_principals(self, object_id, permission):
+@@ -224,9 +227,9 @@ class Permission(PermissionBase, MigratorMixin):
+          WHERE object_id = :object_id
+            AND permission = :permission;"""
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query, dict(object_id=object_id, permission=permission))
++            result = conn.execute(sa.text(query), dict(object_id=object_id, permission=permission))
+             results = result.fetchall()
+-        return set([r["principal"] for r in results])
++        return set([r.principal for r in results])
+ 
+     def get_authorized_principals(self, bound_permissions):
+         # XXX: this method is not used, except in test suites :(
+@@ -249,9 +252,9 @@ class Permission(PermissionBase, MigratorMixin):
+             ON (object_id = column1 AND permission = column2);
+         """
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query, placeholders)
++            result = conn.execute(sa.text(query), placeholders)
+             results = result.fetchall()
+-        return set([r["principal"] for r in results])
++        return set([r.principal for r in results])
+ 
+     def get_accessible_objects(self, principals, bound_permissions=None, with_children=True):
+         placeholders = {}
+@@ -311,12 +314,12 @@ class Permission(PermissionBase, MigratorMixin):
+             """
+ 
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query, placeholders)
++            result = conn.execute(sa.text(query), placeholders)
+             results = result.fetchall()
+ 
+         perms_by_id = {}
+         for r in results:
+-            perms_by_id.setdefault(r["object_id"], set()).add(r["permission"])
++            perms_by_id.setdefault(r.object_id, set()).add(r[1])
+         return perms_by_id
+ 
+     def check_permission(self, principals, bound_permissions):
+@@ -353,9 +356,9 @@ class Permission(PermissionBase, MigratorMixin):
+         """
+ 
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query, placeholders)
++            result = conn.execute(sa.text(query), placeholders)
+             total = result.fetchone()
+-        return total["matched"] > 0
++        return total.matched > 0
+ 
+     def get_objects_permissions(self, objects_ids, permissions=None):
+         placeholders = {"object_ids": tuple(objects_ids)}
+@@ -373,8 +376,10 @@ class Permission(PermissionBase, MigratorMixin):
+               AND permission IN :permissions"""
+             placeholders["permissions"] = tuple(permissions)
+ 
++        query = query.format_map(safeholders)
++
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query.format_map(safeholders), placeholders)
++            result = conn.execute(sa.text(query), placeholders)
+             rows = result.fetchall()
+ 
+         groupby_id = OrderedDict()
+@@ -382,9 +387,9 @@ class Permission(PermissionBase, MigratorMixin):
+             groupby_id[object_id] = {}
+         for row in rows:
+             object_id, permission, principal = (
+-                row["object_id"],
+-                row["permission"],
+-                row["principal"],
++                row.object_id,
++                row.permission,
++                row.principal,
+             )
+             groupby_id[object_id].setdefault(permission, set()).add(principal)
+         return list(groupby_id.values())
+@@ -439,7 +444,7 @@ class Permission(PermissionBase, MigratorMixin):
+             """
+ 
+         with self.client.connect() as conn:
+-            conn.execute(query, placeholders)
++            conn.execute(sa.text(query), placeholders)
+ 
+     def delete_object_permissions(self, *object_id_list):
+         if len(object_id_list) == 0:
+@@ -474,8 +479,10 @@ class Permission(PermissionBase, MigratorMixin):
+              WHERE object_id LIKE :obj_id_0;
+             """
+ 
++        query = query.format_map(safeholders)
++
+         with self.client.connect() as conn:
+-            conn.execute(query.format_map(safeholders), placeholders)
++            conn.execute(sa.text(query), placeholders)
+ 
+ 
+ def load_from_config(config):
+diff --git kinto/core/storage/postgresql/__init__.py kinto/core/storage/postgresql/__init__.py
+index dfb74006..87ae460e 100644
+--- kinto/core/storage/postgresql/__init__.py
++++ kinto/core/storage/postgresql/__init__.py
+@@ -15,6 +15,7 @@ from kinto.core.storage import (
+ from kinto.core.storage.postgresql.client import create_from_config
+ from kinto.core.storage.postgresql.migrator import MigratorMixin
+ from kinto.core.utils import COMPARISON, json
++from kinto.core.utils import sqlalchemy as sa
+ 
+ logger = logging.getLogger(__name__)
+ HERE = os.path.dirname(__file__)
+@@ -100,9 +101,9 @@ class Storage(StorageBase, MigratorMixin):
+         # Make sure database has UTC timezone.
+         query = "SELECT current_setting('TIMEZONE') AS timezone;"
+         with self.client.connect() as conn:
+-            result = conn.execute(query)
++            result = conn.execute(sa.text(query))
+             obj = result.fetchone()
+-        timezone = obj["timezone"].upper()
++        timezone = obj.timezone.upper()
+         if timezone != "UTC":  # pragma: no cover
+             msg = f"Database timezone is not UTC ({timezone})"
+             warnings.warn(msg)
+@@ -116,9 +117,9 @@ class Storage(StorageBase, MigratorMixin):
+          WHERE datname =  current_database();
+         """
+         with self.client.connect() as conn:
+-            result = conn.execute(query)
++            result = conn.execute(sa.text(query))
+             obj = result.fetchone()
+-        encoding = obj["encoding"].lower()
++        encoding = obj.encoding.lower()
+         if encoding != "utf8":  # pragma: no cover
+             raise AssertionError(f"Unexpected database encoding {encoding}")
+ 
+@@ -138,17 +139,17 @@ class Storage(StorageBase, MigratorMixin):
+          ORDER BY LPAD(value, 3, '0') DESC;
+         """
+         with self.client.connect() as conn:
+-            result = conn.execute(table_exists_query.format("objects"))
++            result = conn.execute(sa.text(table_exists_query.format("objects")))
+             objects_table_exists = result.rowcount > 0
+-            result = conn.execute(table_exists_query.format("records"))
++            result = conn.execute(sa.text(table_exists_query.format("records")))
+             records_table_exists = result.rowcount > 0
+ 
+             if not objects_table_exists and not records_table_exists:
+                 return
+ 
+-            result = conn.execute(schema_version_metadata_query)
++            result = conn.execute(sa.text(schema_version_metadata_query))
+             if result.rowcount > 0:
+-                return int(result.fetchone()["version"])
++                return int(result.fetchone().version)
+ 
+             # No storage_schema_version row.
+             # Perhaps it got flush()ed by a pre-8.1.2 Kinto (which
+@@ -158,7 +159,7 @@ class Storage(StorageBase, MigratorMixin):
+             # Check for a created_at row. If this is gone, it's
+             # probably been flushed at some point.
+             query = "SELECT COUNT(*) FROM metadata WHERE name = 'created_at';"
+-            result = conn.execute(query)
++            result = conn.execute(sa.text(query))
+             was_flushed = int(result.fetchone()[0]) == 0
+             if not was_flushed:
+                 error_msg = "No schema history; assuming migration from Cliquet (version 1)."
+@@ -187,7 +188,7 @@ class Storage(StorageBase, MigratorMixin):
+         DELETE FROM timestamps;
+         """
+         with self.client.connect(force_commit=True) as conn:
+-            conn.execute(query)
++            conn.execute(sa.text(query))
+         logger.debug("Flushed PostgreSQL storage tables")
+ 
+     def resource_timestamp(self, resource_name, parent_id):
+@@ -225,9 +226,9 @@ class Storage(StorageBase, MigratorMixin):
+         placeholders = dict(parent_id=parent_id, resource_name=resource_name)
+         with self.client.connect(readonly=False) as conn:
+             existing_ts = None
+-            ts_result = conn.execute(query_existing, placeholders)
++            ts_result = conn.execute(sa.text(query_existing), placeholders)
+             row = ts_result.fetchone()  # Will return (None, None) when empty.
+-            existing_ts = row["last_modified"]
++            existing_ts = row.last_modified
+ 
+             # If the backend is readonly, we should not try to create the timestamp.
+             if self.readonly:
+@@ -239,11 +240,11 @@ class Storage(StorageBase, MigratorMixin):
+                 obj = row
+             else:
+                 create_result = conn.execute(
+-                    create_if_missing, dict(last_modified=existing_ts, **placeholders)
++                    sa.text(create_if_missing), dict(last_modified=existing_ts, **placeholders)
+                 )
+                 obj = create_result.fetchone() or row
+ 
+-        return obj["last_epoch"]
++        return obj.last_epoch
+ 
+     @deprecate_kwargs({"collection_id": "resource_name", "record": "obj"})
+     def create(
+@@ -308,13 +309,13 @@ class Storage(StorageBase, MigratorMixin):
+             data=json.dumps(query_object),
+         )
+         with self.client.connect() as conn:
+-            result = conn.execute(query % safe_holders, placeholders)
++            result = conn.execute(sa.text(query % safe_holders), placeholders)
+             inserted = result.fetchone()
+ 
+         if not inserted:
+             raise exceptions.UnicityError(id_field)
+ 
+-        obj[modified_field] = inserted["last_modified"]
++        obj[modified_field] = inserted.last_modified
+         return obj
+ 
+     @deprecate_kwargs({"collection_id": "resource_name"})
+@@ -336,15 +337,15 @@ class Storage(StorageBase, MigratorMixin):
+         """
+         placeholders = dict(object_id=object_id, parent_id=parent_id, resource_name=resource_name)
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query, placeholders)
++            result = conn.execute(sa.text(query), placeholders)
+             if result.rowcount == 0:
+                 raise exceptions.ObjectNotFoundError(object_id)
+             else:
+                 existing = result.fetchone()
+ 
+-        obj = existing["data"]
++        obj = existing.data
+         obj[id_field] = object_id
+-        obj[modified_field] = existing["last_modified"]
++        obj[modified_field] = existing.last_modified
+         return obj
+ 
+     @deprecate_kwargs({"collection_id": "resource_name", "record": "obj"})
+@@ -384,11 +385,11 @@ class Storage(StorageBase, MigratorMixin):
+         )
+ 
+         with self.client.connect() as conn:
+-            result = conn.execute(query, placeholders)
++            result = conn.execute(sa.text(query), placeholders)
+             updated = result.fetchone()
+ 
+         obj = {**obj, id_field: object_id}
+-        obj[modified_field] = updated["last_modified"]
++        obj[modified_field] = updated.last_modified
+         return obj
+ 
+     @deprecate_kwargs({"collection_id": "resource_name"})
+@@ -434,13 +435,13 @@ class Storage(StorageBase, MigratorMixin):
+         )
+ 
+         with self.client.connect() as conn:
+-            result = conn.execute(query, placeholders)
++            result = conn.execute(sa.text(query), placeholders)
+             if result.rowcount == 0:
+                 raise exceptions.ObjectNotFoundError(object_id)
+             updated = result.fetchone()
+ 
+         obj = {}
+-        obj[modified_field] = updated["last_modified"]
++        obj[modified_field] = updated.last_modified
+         obj[id_field] = object_id
+ 
+         obj[deleted_field] = True
+@@ -544,15 +545,17 @@ class Storage(StorageBase, MigratorMixin):
+         limit = min(self._max_fetch_size, limit) if limit else self._max_fetch_size
+         placeholders["pagination_limit"] = limit
+ 
++        query = query.format_map(safeholders)
++
+         with self.client.connect() as conn:
+-            result = conn.execute(query.format_map(safeholders), placeholders)
++            result = conn.execute(sa.text(query), placeholders)
+             deleted = result.fetchmany(self._max_fetch_size)
+ 
+         objects = []
+         for result in deleted:
+             obj = {}
+-            obj[id_field] = result["id"]
+-            obj[modified_field] = result["last_modified"]
++            obj[id_field] = result.id
++            obj[modified_field] = result.last_modified
+             obj[deleted_field] = True
+             objects.append(obj)
+ 
+@@ -596,7 +599,7 @@ class Storage(StorageBase, MigratorMixin):
+             placeholders["before"] = before
+ 
+         with self.client.connect() as conn:
+-            result = conn.execute(delete_tombstones.format_map(safeholders), placeholders)
++            result = conn.execute(sa.text(delete_tombstones.format_map(safeholders)), placeholders)
+             deleted = result.rowcount
+ 
+             # If purging everything from a parent_id, then clear timestamps.
+@@ -606,7 +609,7 @@ class Storage(StorageBase, MigratorMixin):
+                 FROM timestamps
+                 WHERE {parent_id_filter}
+                 """
+-                conn.execute(delete_timestamps.format_map(safeholders), placeholders)
++                conn.execute(sa.text(delete_timestamps.format_map(safeholders)), placeholders)
+ 
+         return deleted
+ 
+@@ -654,9 +657,9 @@ class Storage(StorageBase, MigratorMixin):
+ 
+         records = []
+         for result in rows:
+-            record = result["data"]
+-            record[id_field] = result["id"]
+-            record[modified_field] = result["last_modified"]
++            record = result.data
++            record[id_field] = result.id
++            record[modified_field] = result.last_modified
+             records.append(record)
+         return records
+ 
+@@ -686,7 +689,7 @@ class Storage(StorageBase, MigratorMixin):
+             modified_field=modified_field,
+             deleted_field=deleted_field,
+         )
+-        return rows[0]["total_count"]
++        return rows[0].total_count
+ 
+     def _get_rows(
+         self,
+@@ -738,7 +741,7 @@ class Storage(StorageBase, MigratorMixin):
+         placeholders["pagination_limit"] = limit
+ 
+         with self.client.connect(readonly=True) as conn:
+-            result = conn.execute(query.format_map(safeholders), placeholders)
++            result = conn.execute(sa.text(query.format_map(safeholders)), placeholders)
+             return result.fetchmany(self._max_fetch_size + 1)
+ 
+     def _format_conditions(self, filters, id_field, modified_field, prefix="filters"):
+diff --git kinto/core/storage/postgresql/migrator.py kinto/core/storage/postgresql/migrator.py
+index feb7ad0a..4683cf76 100644
+--- kinto/core/storage/postgresql/migrator.py
++++ kinto/core/storage/postgresql/migrator.py
+@@ -5,6 +5,8 @@ A helper class to run migrations using a series of SQL files.
+ import logging
+ import os
+ 
++from kinto.core.utils import sqlalchemy as sa
++
+ logger = logging.getLogger(__name__)
+ 
+ 
+@@ -92,4 +94,4 @@ class MigratorMixin:
+             schema = f.read()
+         # Since called outside request, force commit.
+         with self.client.connect(force_commit=True) as conn:
+-            conn.execute(schema)
++            conn.execute(sa.text(schema))

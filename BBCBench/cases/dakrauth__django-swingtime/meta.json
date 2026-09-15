@@ -1,0 +1,46 @@
+{
+  "id": "dakrauth__django-swingtime",
+  "name": "dakrauth__django-swingtime",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "dakrauth/django-swingtime",
+    "url": "https://github.com/dakrauth/django-swingtime",
+    "commit": "e32fba3f8eecfc291201b21776b9f130e152c1c3",
+    "license": "MIT"
+  },
+  "lib": "Django",
+  "v_old": "4.0",
+  "v_new": "5.2.4",
+  "library_repo": "https://github.com/django/django",
+  "library_tags": {
+    "old": "4.0",
+    "new": "5.2.4"
+  },
+  "reference_fix_source": "benchmark-authors",
+  "root_api": "django.conf.settings.USE_TZ default, observed through DateTimeField values returned by a QuerySet",
+  "root_symbols": [
+    "global_settings.USE_TZ"
+  ],
+  "behavioral_change": "Django v_old 4.0 to v_new 5.2.4 (v_old is a resolved value). Django 5.0 flips the default of the USE_TZ setting in django.conf.global_settings from False to True, so datetime values retrieved through QuerySets for DateTimeField become timezone-aware by default; the root cause is a single-line default-value change.",
+  "downstream_effect": "Existing tests of the downstream project fail because DateTimeField values read back through the ORM now follow the timezone-aware default; the error does not name the settings file that has to be edited.",
+  "reference_fix": "The reference fix adds an explicit USE_TZ = False to the downstream settings file.",
+  "test_cmd": "bash /work/test_dakrauth__django-swingtime.sh",
+  "test_files": [
+    "tests/conftest.py",
+    "tests/test_swingtime.py",
+    "tests/urls.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:dakrauth__django-swingtime",
+    "python": "3.12.11"
+  },
+  "upgrade": {
+    "kind": "dated-snapshot",
+    "intact_date": "2021-12-23",
+    "broken_date": "2025-07-31",
+    "note": "TimeMachine-bench case: every dependency is resolved at the dated snapshot; the library at v_old/v_new is the one whose behavioral change breaks the tests."
+  }
+}

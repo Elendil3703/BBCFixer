@@ -1,0 +1,77 @@
+
+> key-casing@1.0.1 test
+> tape test.js | node_modules/.bin/tap-spec
+
+
+  validate object is returned
+
+    ✔ should be equal
+
+  validate object is expected default
+
+
+    ✖ should be equivalent
+    -----------------------
+      operator: deepEqual
+      expected: |-
+        { A: 3, B: 4, C: 3 }
+      actual: |-
+        { 'A,3': undefined, 'B,4': undefined, 'C,3': undefined }
+      at: Test.<anonymous> (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-5674f62f5492/src/test.js:22:5)
+      stack: |-
+
+
+  validate object that contains an array
+
+
+    ✖ should be equivalent
+    -----------------------
+      operator: deepEqual
+      expected: |-
+        { A: 3, B: 4, C: [] }
+      actual: |-
+        { 'A,3': undefined, 'B,4': undefined, 'C,': undefined }
+      at: Test.<anonymous> (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-5674f62f5492/src/test.js:28:5)
+      stack: |-
+
+
+  validate object that contains an array and nested objects
+
+
+    ✖ should be equivalent
+    -----------------------
+      operator: deepEqual
+      expected: |-
+        { Result: { A: 3, B: 4, C: [] }, Other: 't' }
+      actual: |-
+        { 'Result,[object Object]': undefined, 'Other,t': undefined }
+      at: Test.<anonymous> (/home/student.unimelb.edu.au/juntaochen/agent-bc/papers/agent-dep-upgrade/code/bbc-rebuild/work-F1/wk-5674f62f5492/src/test.js:34:5)
+      stack: |-
+
+
+
+
+  Failed Tests: There were 3 failures
+
+    validate object is expected default
+
+      ✖ should be equivalent
+
+
+    validate object that contains an array
+
+      ✖ should be equivalent
+
+
+    validate object that contains an array and nested objects
+
+      ✖ should be equivalent
+
+
+  total:     4
+  passing:   1
+  failing:   3
+  duration:  37ms
+
+
+STATE-NEW rc=1

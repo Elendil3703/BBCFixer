@@ -1,0 +1,704 @@
+
+> handlebars-helpers@0.10.0 test
+> mocha
+
+
+
+  array
+    after
+      ✓ should return an empty string when undefined
+      ✓ should return all of the items in an array after the given index
+      ✓ should return all of the items in an array after the specified count
+    arrayify
+      ✓ should arrayify a value
+    before
+      ✓ should return an empty string when undefined
+      ✓ should return all of the items in an array before the given index
+      ✓ should return all of the items in an array before the specified count
+    each
+      ✓ should use the key and value of each property in an object inside a block
+    eachIndex
+      ✓ should render the block using the array and each item's index
+    first
+      ✓ should return the first item in a collection
+      ✓ should return an array with the first two items in a collection
+      ✓ should return an empty string when undefined
+      ✓ should return the first item in an array
+      ✓ should return an array with the first two items in an array
+    filter
+      ✓ should render the block if the given string is in the array
+      ✓ should render the inverse block if the string is not in the array:
+      ✓ should render a block for each object that has a "first" property with the value "d"
+    forEach
+      ✓ should iterate over an array, exposing objects as context
+      ✓ should expose `index`
+      ✓ should expose `total`
+      ✓ should expose `isFirst`
+      ✓ should expose `isLast`
+    inArray
+      ✓ should render the first block when a value exists in the array
+      ✓ should render the inverse block when a value does not exist
+    isArray
+      ✓ should return true if the value is an array
+    itemAt
+      ✓ should return a null value for undefined array
+      ✓ should return a null value for empty array
+      ✓ should return a null value for exceed bound
+      ✓ should return a first value of array for undefined index
+      ✓ should return a first value of array for zero index
+      ✓ should return a second value of array
+      ✓ should return a last value of array
+      ✓ should return a last before value of array
+    join
+      ✓ should return an empty string when undefined
+      ✓ should join items by the default separator
+      ✓ should join by a custom separator
+    last
+      ✓ should return an empty string when undefined
+      ✓ should return the last item in an array
+      ✓ should return an array with the last two items in an array
+    lengthEqual
+      ✓ should render the first block if length is the given number
+      ✓ should render the inverse block if length is not the given number
+    map
+      ✓ should return an empty string when undefined
+      ✓ should map the items in the array and return new values
+      ✓ should work with subexpressions:
+      ✓ should return the value when not an array
+      ✓ should return the value when no function is passed
+    pluck
+      ✓ should get the given value from objects on an array
+    some
+      ✓ should render the first block if the callback returns true
+      ✓ should render the inverse block if the array is undefined
+      ✓ should render the inverse block if falsey
+    sort
+      ✓ should return an empty string when an invalid value is passed:
+      ✓ should sort the items in the array
+      ✓ should return all items in an array sorted in lexicographical order
+      ✓ should sort the items in the array in reverse order:
+    sortBy
+      ✓ should return an empty string when undefined
+      ✓ should sort the items in an array
+      ✓ should return an empty string when the array is invalid:
+      ✓ should take a compare function
+      ✓ should sort based on object key:
+    withAfter
+      ✓ should use all of the items in an array after the specified count
+    withBefore
+      ✓ should use all of the items in an array before the specified count
+    withFirst
+      ✓ should use the first item in an array
+      ✓ should return an empty string when no array is passed:
+      ✓ should use the first two items in an array
+    withGroup
+      ✓ should iterate over an array grouping elements by a given number
+    withLast
+      ✓ should return an empty string when undefined
+      ✓ should use the last item in an array
+      ✓ should use the last two items in an array
+    withSort
+      ✓ should return an empty string when array is undefined
+      ✓ should sort the array in lexicographical order
+      ✓ should sort the array in reverse order
+      ✓ should sort the array by deliveries
+      ✓ should sort the array by deliveries in reverse order
+    unique
+      ✓ should return empty string when the array is null
+      ✓ should return array with unique items
+
+  code
+    embed
+      ✓ should embed markdown:
+      ✓ should determine the language from the file extension
+      ✓ should use the language defined in the last argument
+    gist
+      ✓ should return a gist script tag
+    jsfiddle
+      ✓ should return a jsfiddle embed link, with default tabs assigned
+      ✓ should throw an error if id is missing
+      ✓ should return a jsfiddle embed link, with custom tabs assigned
+
+  collection
+    isEmpty block helper
+      ✓ should render the first block when an array is empty
+      ✓ should render the first block when the value is null
+      ✓ should render the second block when an array is not empty
+      ✓ should render the second block when an object is not empty
+      ✓ should render the first block when an object is empty
+    isEmpty inline helper
+      ✓ should render the first block when an array is empty
+      ✓ should render the first block when the value is null
+      ✓ should render the second block when an array is not empty
+      ✓ should render the second block when an object is not empty
+      ✓ should render the first block when an object is empty
+    iterate
+      object
+        ✓ should iterate over a plain object:
+        ✓ should expose `@key`:
+        ✓ should render the inverse block when falsey:
+      array
+        ✓ should iterate over an array:
+        ✓ should expose `@index`:
+    length
+      ✓ should return the length of the array
+      ✓ should return zero when undefined
+      ✓ should return the length of a string
+      ✓ should work with arrays passed via subexpression
+      ✓ should return 0 when the array is invalid:
+      ✓ should return 0 when the value is not an array:
+
+  comparison
+    and
+      block
+        ✓ should render a block if both values are truthy.
+        ✓ should render the inverse block if both values are not truthy.
+      inline or subexpression
+        ✓ should render a block if both values are truthy.
+        ✓ should render the inverse block if both values are not truthy.
+        ✓ should work as subexpressions
+    compare
+      errors
+        ✓ should throw an error when args are invalid
+        ✓ should throw an error when the operator is invalid
+      operators
+        ==
+          ✓ should render the first block if `a` equals `b`
+          ✓ should render the second block if false
+        ===
+          ✓ should render the first block if `a` strictly equals `b`
+          ✓ should render the second block if false
+        !=
+          ✓ should render the first block if `a` does not equal `b`
+          ✓ should render the second block if false
+        !==
+          ✓ should render the first block if `a` does not strictly equal `b`
+          ✓ should render the second block if false
+        >
+          ✓ should render the first block if true.
+          ✓ should render the second block if false.
+        <
+          ✓ should render the first block if true.
+          ✓ should render the second block if false.
+        >=
+          ✓ should render the first block if true.
+          ✓ should render the first block if equal.
+          ✓ should render the second block if false.
+        <=
+          ✓ should render the first block if true.
+          ✓ should render the second block if false.
+        typeof
+          ✓ should render the first block if true
+    contains
+      ✓ should render a block if the condition is true.
+      ✓ should render the inverse block if false.
+      ✓ should work with arrays
+      ✓ should render the block when an index is passed:
+      ✓ should render the inverse block when false with index:
+      ✓ should not render the block when an undefined argument is passed:
+      ✓ should render the inverse block when an undefined argument is passed:
+    default
+      ✓ should use the given value:
+      ✓ should fallback to the default value when no value exists
+    gt
+      second arg
+        ✓ should render the first block if true.
+        ✓ should render the second block if equal.
+        ✓ should render the second block if false.
+      compare hash
+        ✓ should not render a block if the value is not equal to a given number.
+        ✓ should render a block if the value is greater than a given number.
+        ✓ should not render a block if the value is less than a given number.
+    gte
+      second argument
+        ✓ should render the first block if true.
+        ✓ should render the first block if equal.
+        ✓ should render the second block if false.
+      hash compare
+        ✓ should render a block if the value is greater than a given number.
+        ✓ should render a block if the value is equal to a given number.
+        ✓ should not render a block if the value is less than a given number.
+    has
+      inline
+        ✓ should return true when the property exists
+      block
+        ✓ should render a block if the condition is true.
+        ✓ should render the inverse block if false.
+        ✓ should render the inverse block if value is undefined.
+        ✓ should render the inverse block if context is undefined.
+        ✓ should work with arrays
+        ✓ should work with two strings
+        ✓ should return the inverse when the second string is not found
+        ✓ should work with object keys
+    isFalsey
+      ✓ should render block if given value is falsey.
+      ✓ should render inverse if given value is truthy
+    isTruthy
+      ✓ should render block if given value is truthy.
+      ✓ should render inverse if given value is not truthy
+    eq
+      ✓ should render a block if the value is equal to a given number.
+      ✓ should render the inverse block if falsey.
+      ✓ should compare first and second args
+    ifEven
+      ✓ should render the block if the given value is an even number
+      ✓ should render the inverse block if the number is odd
+    ifNth
+      ✓ should render a custom class on even rows
+    ifOdd
+      ✓ should render the block if the given value is an even number
+      ✓ should render the inverse block if the number is odd
+    is
+      ✓ should render a block if the condition is true.
+      ✓ should use the `compare` arg on the options hash
+      ✓ should render the inverse if the condition is false
+    isnt
+      ✓ should render a block if the condition is not true.
+      ✓ should use the `compare` arg on the options hash
+      ✓ should render the inverse if the condition is false
+    lt
+      second arg
+        ✓ should render the first block if true.
+        ✓ should render the second block if equal.
+        ✓ should render the second block if false.
+      compare hash
+        ✓ should render a block if the value is less than a given number.
+        ✓ should not render a block if the value is greater than a given number.
+    lte
+      second arg
+        ✓ should render the first block if true.
+        ✓ should render the first block if equal.
+        ✓ should render the second block if false.
+      compare hash
+        ✓ should render a block if the value is less than a given number.
+        ✓ should render a block if the value is equal to a given number.
+        ✓ should not render a block if the value is greater than a given number.
+    neither
+      ✓ should render a block if one of the values is truthy.
+      ✓ should render the inverse block if neither are true.
+    or
+      block
+        ✓ should render a block if one of the values is truthy.
+        ✓ should render a block if any of the values are truthy.
+        ✓ should render the inverse block if neither are true.
+        ✓ should render the inverse block if none are true.
+      inline
+        ✓ should return false none of the values is truthy.
+        ✓ should return true if one of the values is truthy.
+    unlessEq
+      ✓ should render a block unless the value is equal to a given number.
+      ✓ should render a block unless the value is equal to a given number.
+    unlessGt
+      ✓ should render a block unless the value is greater than a given number.
+      ✓ should render a block unless the value is greater than a given number.
+    unlessLt
+      ✓ should render a block unless the value is less than a given number.
+      ✓ should render a block unless the value is less than a given number.
+    unlessGteq
+      ✓ should render a block unless the value is greater than or equal to a given number.
+      ✓ should render a block unless the value is greater than or equal to a given number.
+      ✓ should not render a block unless the value is greater than or equal to a given number.
+    unlessLteq
+      ✓ should render a block unless the value is less than or equal to a given number.
+      ✓ should render a block unless the value is less than or equal to a given number.
+      ✓ should not render a block unless the value is less than or equal to a given number.
+
+  fs
+    read
+      ✓ should read a file from the file system
+    readdir
+      ✓ should return an array of files
+      ✓ should work as a subexpression
+      ✓ should filter using a custom filter function
+      ✓ should filter using a regex
+      ✓ should filter using a glob pattern
+      ✓ should filter by fs.stat (files)
+      ✓ should filter by fs.stat (dirs)
+      ✓ should return the whole array when the filter is invalid
+
+  helpers
+    ✓ should should return all helpers:
+    ✓ should return all helpers when options are passed:
+    ✓ should register helpers with handlebars:
+    ✓ should get the specified collections
+    ✓ should get only the specified collection
+    ✓ should support passing an instance of handlebars:
+    ✓ should return a single collection:
+    ✓ should register collection helpers with handlebars:
+
+  html
+    attr
+      ✓ should strip html from a string.
+    css
+      ✓ should return an empty string when no context is passed:
+      ✓ should use a path passed as a string
+      ✓ should use options.assets
+      ✓ should ensure that options.assets is a string
+      ✓ should not use options.assets when passing in an absolute url
+      ✓ should use the `href` attribute on the hash
+      ✓ should create multiple tags from an array passed on the context:
+      ✓ should create a less tag (TODO: only works with array format)
+    js
+      ✓ should create an empty script tag
+      ✓ should use a path passed as a string
+      ✓ should use the `src` attribute on the hash
+      ✓ should create multiple tags from an array passed on the context:
+      ✓ should create a coffeescript tag (TODO: only works with array format)
+    sanitize
+      ✓ should return an empty string when undefined.
+      ✓ should strip html from a string.
+    ul
+      ✓ should should return an unordered list
+    ol
+      ✓ should should return an ordered list
+    thumbnailImage
+      {{{thumbnailImage context}}}
+        ✓ should return figure with link and caption
+        ✓ should return figure with extra class "test"
+        ✓ should return figure with image that has class "test"
+        ✓ should return figure with link that has class "test"
+        ✓ should return figure without link
+        ✓ should return figure without caption
+
+  i18n
+    ✓ should throw an error when key is not a string.
+    ✓ should throw an error when language parameter is not a string.
+    ✓ should throw an error when the language is not found.
+    ✓ should throw an error when a key is not found.
+    ✓ should take a key and return for the default language
+    ✓ should use options passed on the context
+    ✓ should take a key and return for the override language
+    ✓ should support using dot notation for the key
+
+  inflection
+    inflect
+      ✓ should return the plural or singular form of a word based on a value.
+      ✓ should return the plural or singular form of a word based on a value and include the count.
+    ordinalize
+      ✓ should return an ordinalized string.
+
+  templates integration tests
+    absolute
+      ✓ should create an absolute file path
+      ✓ should use the cwd on locals
+    dirname
+      ✓ should get the dirname of a file path
+    relative
+      ✓ should return the relative path from file A to file B
+      ✓ should return the relative path from file A to file B in
+      ✓ should use the cwd passed on options
+    basename
+      ✓ should get the basename of a file path
+      ✓ should get the basename when a path has no extension
+    stem
+      ✓ should get the stem of a file path
+      ✓ should get the stem when a path has no extension
+    extname
+      ✓ should get the extname of a file path
+      ✓ should not blow up when a path has no extension
+    segments
+      ✓ should return specified path segments:
+
+  markdown
+    markdown
+      ✓ should render markdown using the {{#markdown}} block helper
+    md
+      ✓ should render markdown from a file using the {{md}} inline helper
+
+  matching
+    match
+      ✓ should use the main micromatch function to filter an array
+      ✓ should take an array of patterns
+      ✓ should take options from the "options[helper name]" object
+      ✓ should take options from the hash
+      ✓ should use return matching items
+      ✓ should take options from the "options[helper name]" object
+      ✓ should take options from the hash
+      ✓ should take options passed as the last argument
+    isMatch
+      ✓ should return true if the given value matches the glob
+
+  math
+    add
+      ✓ should return the sum of two numbers.
+    average
+      ✓ should return the average of a list of numbers:
+      ✓ should return the average of an array of numbers:
+    ceil
+      ✓ should return the value rounded up to the nearest integer.
+    divide
+      ✓ should return the division of two numbers.
+    floor
+      ✓ should return the value rounded down to the nearest integer.
+    multiply
+      ✓ should return the multiplication of two numbers.
+    remainder
+      ✓ should return the remainder of two numbers.
+      ✓ should take the sign of the dividend.
+    round
+      ✓ should return the value rounded to the nearest integer.
+    subtract
+      ✓ should return the difference of two numbers.
+    sum
+      ✓ should return the sum of multiple numbers.
+      ✓ should return the sum of multiple numbers.
+      ✓ should return the total sum of array.
+      ✓ should return the total sum of array and numbers.
+    random
+      ✓ should return a random number between two values.
+
+  misc
+    noop
+      ✓ should be a noop
+    option
+      ✓ should get an option
+      ✓ should return an empty string when no options are found
+      ✓ should get a nested option
+      ✓ should work as a subexpression
+    withHash
+      ✓ should return an empty sting
+      ✓ should not blow up when no hash is defined.
+      ✓ should return the inverse hash when defined and the value is falsy.
+      ✓ should return string from the newly created context
+      ✓ should return string from the parent context
+      ✓ should add two attributes to the new context
+
+  number
+    bytes
+      ✓ should format a number
+      ✓ should return "0 B" when an invalid value is passed
+      ✓ should return string length when a string is passed
+    phoneNumber
+      ✓ Format a phone number.
+    toFixed
+      ✓ should return the value rounded to the nearest integer.
+      ✓ should return the value rounded exactly n digits after the decimal place.
+    toPrecision
+      ✓ Returns the number in fixed-point or exponential notation rounded to n significant digits.
+      ✓ should return the value rounded exactly n digits after the decimal place.
+    toExponential
+      ✓ should return the number in fixed-point or exponential notation rounded to n significant digits.
+      ✓ should return the number in fixed-point or exponential notation rounded to exactly n significant digits.
+    toInt
+      ✓ should return an integer.
+    toFloat
+      ✓ should return a floating point number.
+    addCommas
+      ✓ should add commas to a number.
+    toAbbr
+      ✓ should abbreviate the given number.
+      ✓ should abbreviate a number with to the given decimal.
+      ✓ should round up to the next increment
+      ✓ should abbreviate a number based on a number and include decimal.
+
+  object
+    extend
+      ✓ should extend multiple objects into one:
+      ✓ should work as a non-helper util:
+      ✓ should skip over sparse objects
+    forIn
+      ✓ should iterate over each property in an object:
+      ✓ should return the inverse block if no object is passed:
+      ✓ should expose private variables:
+    forOwn
+      ✓ should iterate over each property in an object:
+      ✓ should return the inverse block if no object is passed:
+      ✓ should only expose "own" keys:
+      ✓ should expose private variables:
+    getObject
+      ✓ should get an object from the context
+    toPath
+      ✓ should return a path from provided arguments
+      ✓ should return a path from calculated arguments
+      ✓ should return a `get` compatible path
+    get
+      ✓ should get a value from the context
+      ✓ should get a nested value from the context
+      ✓ should work as a block helper
+      ✓ should get the inverse block if not found
+    hasOwn
+      ✓ should return true if object has own property:
+      ✓ should return false if object does not have own property:
+    isObject
+      ✓ should return true if value is an object:
+      ✓ should return false if value is not an object:
+    merge
+      ✓ should deeply merge objects passed on the context:
+    JSONparse
+      ✓ should parse a JSON string:
+    pick
+      ✓ should pick a value from the context
+      ✓ should pick a nested value from the context
+      ✓ should work as a block helper
+      ✓ should pick the inverse block if not found
+    stringify
+      ✓ should stringify an object:
+
+  assemble
+    absolute
+      ✓ should create an absolute file path
+      ✓ should use the cwd on locals
+    dirname
+      ✓ should get the dirname of a file path
+    relative
+      ✓ should return the relative path from file A to file B
+      ✓ should return the relative path from file A to file B
+      ✓ should use the cwd passed on options
+    basename
+      ✓ should get the basename of a file path
+      ✓ should get the basename when a path has no extension
+    stem
+      ✓ should get the stem of a file path
+      ✓ should get the stem when a path has no extension
+    extname
+      ✓ should get the extname of a file path
+      ✓ should not blow up when a path has no extension
+    segments
+      ✓ should return specified path segments:
+
+  string
+    camelcase
+      ✓ should return an empty string if undefined
+      ✓ should return the string in camelcase
+      ✓ should lowercase a single character
+    capitalize
+      ✓ should return an empty string if undefined
+      ✓ should capitalize a word.
+    capitalizeAll
+      ✓ should return an empty string if undefined
+      ✓ should return the string with the every word capitalized.
+    center
+      ✓ should return an empty string if undefined
+      ✓ should return the string centered by using non-breaking spaces.
+    chop
+      ✓ should return an empty string if undefined
+      ✓ should remove non-word characters from start of string
+      ✓ should remove non-word characters from end of string
+    dashcase
+      ✓ should return an empty string if undefined
+      ✓ should return the string in dashcase
+      ✓ should lowercase a single character
+    dotcase
+      ✓ should return an empty string if undefined
+      ✓ should return the string in dotcase
+      ✓ should lowercase a single character
+    ellipsis
+      ✓ should return an empty string if undefined
+      ✓ should return then string truncated by a specified length.
+      ✓ should return the string if shorter than the specified length.
+    hyphenate
+      ✓ should return an empty string if undefined
+      ✓ should return the string with spaces replaced with hyphens.
+    isString
+      ✓ should return true for string
+      ✓ should return true for empty string
+      ✓ should return false for number
+      ✓ should return false for null
+      ✓ should return false when undefined
+    lowercase
+      ✓ should return an empty string if undefined
+      ✓ should return the string in lowercase
+    occurrences
+      ✓ should return an empty string if undefined
+      ✓ should return the number of occurrences of a string, within a string.
+    pascalcase
+      ✓ should return an empty string if undefined
+      ✓ should return the string in pascalcase
+      ✓ should uppercase a single character
+    pathcase
+      ✓ should return an empty string if undefined
+      ✓ should return the string in pathcase
+      ✓ should lowercase a single character
+    plusify
+      ✓ should return an empty string if undefined
+      ✓ should return the empty string with no change.
+      ✓ should return the string with no change.
+      ✓ should return the string with spaces replaced with pluses.
+    replace
+      ✓ should return an empty string if undefined
+      ✓ should replace occurrences of string "A" with string "B"
+      ✓ should return the string if `a` is undefined
+      ✓ should replace the string with `""` if `b` is undefined
+    reverse
+      ✓ should return an empty string if undefined
+      ✓ should return the string in reverse.
+    sentence
+      ✓ should return an empty string if undefined
+      ✓ should capitalize the first word of each sentence in a string and convert the rest of the sentence to lowercase.
+    snakecase
+      ✓ should return an empty string if undefined
+      ✓ should lowercase a single character
+      ✓ should return the string in snakecase
+    split
+      ✓ should return an empty string if undefined
+      ✓ should split the string with the default character
+      ✓ should split the string on the given character
+    startsWith
+      ✓ should return an empty string if undefined
+      ✓ should render "Yes he is", from inside the block.
+      ✓ should render the Inverse block.
+      ✓ should render the Inverse block when an undefined value is passed in..
+    titleize
+      ✓ should return an empty string if undefined
+      ✓ should return the string in title case.
+    trim
+      ✓ should return an empty string if undefined
+      ✓ should trim leading whitespace
+      ✓ should trim trailing whitespace
+    truncate
+      ✓ should return an empty string if undefined
+      ✓ should return the string truncated by a specified length.
+      ✓ should return the string if shorter than the specified length.
+      ✓ should return then string truncated by a specified length
+      ✓ should return then string truncated by a specified length, providing a custom string to denote an omission.
+    uppercase
+      ✓ should return an empty string if undefined
+      ✓ should return the string in uppercase
+      ✓ should work as a block helper
+
+  subexpressions
+    collections
+      strings
+        ✓ Should return the first item in a collection, all lowercase.
+        ✓ Should return the last item in a collection, all uppercase.
+
+  url
+    urlResolve
+      ✓ should resolve a URL
+    stripQuerystring
+      ✓ should return a url without its query string.
+    encodeURI
+      ✓ should return an encoded uri string.
+    decodeURI
+      ✓ should return an decoded uri string.
+    urlParse
+      ✓ should take a string, and return an object stringified to JSON.
+    strip protocol
+      ✓ should take an http url and return without the protocol
+      ✓ strip https protocol
+      ✓ should leave a relative url unchanged
+      ✓ should leave an absolute url unchanged
+
+  utils
+    chop
+      ✓ should return an empty string if undefined
+      ✓ should remove non-word characters from start of string
+      ✓ should remove non-word characters from end of string
+    changecase
+      ✓ should return an empty string if undefined
+      ✓ should lowercase a mixed case string
+      ✓ should lowercase a single character
+    html
+      condense
+        ✓ should condense multiple newlines into a single newline
+      padcomments
+        ✓ should add newlines around comments
+      parseAttributes
+        ✓ should parse attributes
+      toAttributes
+        ✓ should convert an object hash into html attributes
+
+
+  463 passing (468ms)
+
+STATE-FIXED rc=0

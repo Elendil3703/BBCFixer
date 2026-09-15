@@ -1,0 +1,46 @@
+
+> buildsize-cli@1.4.1 test
+> npm run test:unit && npm run check:valid && npm run check:invalid
+
+
+> buildsize-cli@1.4.1 test:unit
+> jest --coverage
+
+PASS src/__tests__/message.spec.ts
+PASS src/__tests__/sizes.spec.ts
+------------|---------|----------|---------|---------|-------------------
+File        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+------------|---------|----------|---------|---------|-------------------
+All files   |     100 |      100 |     100 |     100 |                   
+ message.ts |     100 |      100 |     100 |     100 |                   
+ sizes.ts   |     100 |      100 |     100 |     100 |                   
+------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 2 passed, 2 total
+Tests:       8 passed, 8 total
+Snapshots:   5 passed, 5 total
+Time:        1.752 s
+Ran all test suites.
+
+> buildsize-cli@1.4.1 check:valid
+> tsc && ts-node __mocks__/scripts.ts -- valid
+
+
+
+💩 Sorry, cannot find a valid config file in root path
+
+
+
+
+ - code: 1
+ - validMsgCount: 1
+ - warnMsgCount: 1, 
+❌ - [31mInvalid exit code or size message returned[0m
+
+
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 12.0.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+npm notice To update run: npm install -g npm@12.0.2
+npm notice
+EXITCODE=1

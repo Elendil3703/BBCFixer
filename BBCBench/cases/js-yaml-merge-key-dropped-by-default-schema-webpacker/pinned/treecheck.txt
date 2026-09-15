@@ -1,0 +1,4 @@
+changed packages (1): js-yaml
+  OK new js-yaml@5.0.0 at js-yaml
+  OK old js-yaml@4.1.0 at js-yaml
+TREECHECK_OK: every change is inside the allowed closure (1 allowed names)

@@ -1,0 +1,612 @@
+
+> buble@0.20.0 pretest /w
+> npm run build
+
+
+> buble@0.20.0 build /w
+> rollup -c
+
+
+src/index.js → dist/buble.es.js, dist/buble.cjs.js...
+created dist/buble.es.js, dist/buble.cjs.js in 526ms
+
+src/index.js → ./dist/buble-browser.es.js, ./dist/buble-browser.cjs.js...
+created ./dist/buble-browser.es.js, ./dist/buble-browser.cjs.js in 414ms
+
+src/index.js → dist/buble-browser-deps.umd.js...
+created dist/buble-browser-deps.umd.js in 1.1s
+
+> buble@0.20.0 test /w
+> mocha test/test.js
+
+
+
+  buble
+    arrow-functions.js
+      ✓ transpiles an arrow function
+      ✓ transpiles an arrow function with a naked parameter
+      ✓ transpiles an arrow function with single wrapped parameter
+      ✓ transpiles an arrow function with parenthesised parameters
+      ✓ transpiles an arrow function with a body
+      ✓ replaces `this` inside an arrow function
+      ✓ replaces `arguments` inside an arrow function
+      ✓ only adds one `this` or `arguments` per context
+      ✓ transpiles a body-less arrow function with rest params
+      ✓ handles combination of destructuring and template strings
+      ✓ can be disabled with `transforms.arrow: false`
+      ✓ inserts statements after use strict pragma (#72)
+      ✓ handles standalone arrow function expression statement
+      ✓ handles standalone arrow function expression statement within a function
+      ✓ are transformed even if disabled if they have a transpiled spread parameter
+    async.js
+      ✓ supports async as property name
+      ✓ passes through async function declarations if transform is disabled
+      ✓ errors on async function declarations if transform is enabled
+      ✓ passes through async arrow functions if transform is disabled
+      ✓ errors on async arrow functions if transform is enabled
+      ✓ passes through async function expressions if transform is disabled
+      ✓ errors on async function expressions if transform is enabled
+      ✓ passes through async short-hand methods if transform is disabled
+      ✓ errors on async short-hand methods if transform is enabled
+      ✓ passes through async class methods if transform is disabled
+      ✓ errors on async class methods if transform is enabled
+      ✓ passes through async function properties if transform is disabled
+      ✓ errors on async function properties if transform is enabled
+      ✓ passes through async arrow function properties if transform is disabled
+      ✓ errors on async arrow function properties if transform is enabled
+      ✓ passes through async arrow function with naked parameter if transform is disabled
+      ✓ errors on async arrow function with naked parameter if transform is enabled
+      ✓ passes through top-level await if transform is disabled
+      ✓ errors on top-level await if transform is enabled
+      ✓ passes through top-level for-await-of if transform is disabled
+      ✓ errors on top-level for-await-of if transform is enabled
+    binary-and-octal.js
+      ✓ transpiles binary numbers
+      ✓ transpiles octal numbers
+      ✓ can be disabled with `transforms.numericLiteral: false`
+    block-scoping.js
+      ✓ transpiles let
+      ✓ deconflicts blocks in top-level scope
+      ✓ deconflicts blocks in same function scope
+      ✓ disallows duplicate declarations
+      ✓ disallows reassignment to constants
+      ✓ allows reassignment of mutable variables that are shadowed by constants in for loops
+      ✓ allows reassignment of mutable variables that are shadowed by constants in for in loops
+      ✓ allows reassignment of mutable variables that are shadowed by constants in for of loops
+      ✓ disallows destructured reassignment to constants, short-hand property
+      ✓ disallows destructured reassignment to constants, rest property
+      ✓ disallows destructured reassignment to constants, renamed property
+      ✓ disallows destructured reassignment to constants, array
+      ✓ disallows destructured reassignment to constants, rest element
+      ✓ disallows updates to constants
+      ✓ does not rewrite properties
+      ✓ deconflicts with default imports
+      ✓ deconflicts with named imports
+      ✓ deconflicts with function declarations
+      ✓ does not deconflict with function expressions
+      ✓ deconflicts with function expression inside function body
+      ✓ deconflicts with parameters
+      ✓ deconflicts with class declarations
+      ✓ does not deconflict with class expressions
+      ✓ deconflicts across multiple function boundaries
+      ✓ does not deconflict unnecessarily
+      ✓ deconflicts object pattern declarations
+      ✓ deconflicts array pattern declarations
+      ✓ deconflicts rest element declarations
+      ✓ can be disabled with `transforms.letConst: false`
+      ✓ reference preceding declaration (#87)
+      ✓ correctly recognizes shadowing of const variables by mutable variables declared after mutation
+      ✓ correctly transpiles if arrow functions are not transpiled
+      ✓ emits correct code after block-less if
+      ✓ properly replaces keys of renamed properties when conciseMethodProperty is false
+      ✓ properly replaces keys of renamed properties in destructuring when conciseMethodProperty is false
+      ✓ does not duplicate the key when removing shorthand properties
+    classes-no-named-function-expressions.js
+      ✓ transpiles a class declaration
+      ✓ transpiles a class declaration with a non-constructor method
+      ✓ transpiles a class declaration without a constructor function
+      ✓ no unnecessary deshadowing of method names
+      ✓ transpiles a class declaration with a static method
+      ✓ transpiles a subclass
+      ✓ transpiles a subclass with super calls
+      ✓ transpiles a subclass with super calls with spread arguments
+      ✓ transpiles export default class
+      ✓ transpiles export default subclass
+      ✓ transpiles export default subclass with subsequent statement
+      ✓ transpiles empty class
+      ✓ transpiles an anonymous empty class expression
+      ✓ transpiles an anonymous class expression with a constructor
+      ✓ transpiles an anonymous class expression with a non-constructor method
+      ✓ allows constructor to be in middle of body
+      ✓ allows constructor to be at end of body
+      ✓ transpiles getters and setters
+      ✓ transpiles getters and setters in subclass
+      ✓ can be disabled with `transforms.classes: false`
+      ✓ declaration extends from an expression (#15)
+      ✓ expression extends from an expression (#15)
+      ✓ expression extends from an expression with super calls (#31)
+      ✓ anonymous expression extends named class (#31)
+      ✓ verify deindent() does not corrupt string literals in class methods (#159)
+      ✓ deindents a function body with destructuring (#22)
+      ✓ allows super in static methods
+      ✓ allows zero space between class id and body (#46)
+      ✓ transpiles a class with an accessor and no constructor (#48)
+      ✓ uses correct indentation for inserted statements in constructor (#39)
+      ✓ uses correct indentation for inserted statements in subclass constructor (#39)
+      ✓ allows subclass to use rest parameters
+      ✓ allows subclass to use rest parameters with other arguments
+      ✓ transpiles computed class properties
+      ✓ transpiles static computed class properties
+      - transpiles computed class accessors
+      ✓ transpiles reserved class properties (!68)
+      ✓ transpiles static reserved class properties (!68)
+      ✓ uses correct `this` when transpiling `super` (#89)
+      ✓ methods with computed names
+      ✓ static methods with computed names with varied spacing (#139)
+      ✓ methods with numeric or string names (#139)
+      ✓ static methods with numeric or string names with varied spacing (#139)
+    classes.js
+      ✓ transpiles a class declaration
+      ✓ transpiles a class declaration with a non-constructor method
+      ✓ transpiles a class declaration without a constructor function
+      ✓ no unnecessary deshadowing of method names
+      ✓ transpiles a class declaration with a static method
+      ✓ transpiles a subclass
+      ✓ transpiles a subclass with super calls
+      ✓ transpiles a subclass with super calls with spread arguments
+      ✓ transpiles export default class
+      ✓ transpiles export default subclass
+      ✓ transpiles export default subclass with subsequent statement
+      ✓ transpiles empty class
+      ✓ transpiles an anonymous empty class expression
+      ✓ transpiles an anonymous class expression with a constructor
+      ✓ transpiles an anonymous class expression with a non-constructor method
+      ✓ transpiles an anonymous class expression that is assigned to a property
+      ✓ allows constructor to be in middle of body
+      ✓ allows constructor to be at end of body
+      ✓ transpiles getters and setters
+      ✓ transpiles getters and setters in subclass
+      ✓ can be disabled with `transforms.classes: false`
+      ✓ declaration extends from an expression (#15)
+      ✓ expression extends from an expression (#15)
+      ✓ expression extends from an expression with super calls (#31)
+      ✓ anonymous expression extends named class (#31)
+      ✓ verify deindent() does not corrupt string literals in class methods (#159)
+      ✓ deindents a function body with destructuring (#22)
+      ✓ allows super in static methods
+      ✓ allows zero space between class id and body (#46)
+      ✓ transpiles a class with an accessor and no constructor (#48)
+      ✓ uses correct indentation for inserted statements in constructor (#39)
+      ✓ uses correct indentation for inserted statements in subclass constructor (#39)
+      ✓ allows subclass to use rest parameters
+      ✓ allows subclass to use rest parameters with other arguments
+      ✓ transpiles computed class properties
+      ✓ transpiles static computed class properties
+      - transpiles computed class accessors
+      ✓ transpiles reserved class properties (!68)
+      ✓ transpiles static reserved class properties (!68)
+      ✓ uses correct `this` when transpiling `super` (#89)
+      ✓ methods with computed names
+      ✓ static methods with computed names with varied spacing (#139)
+      ✓ methods with numeric or string names (#139)
+      ✓ static methods with numeric or string names with varied spacing (#139)
+      ✓ don't shadow variables with function names (#166)
+      ✓ don't collide with superclass name (#196)
+      ✓ transpiles class with super class in arrow function (#150)
+      ✓ transpiles class extend expression (#251)
+    computed-properties.js
+      ✓ creates a computed property
+      ✓ creates a computed property with a non-identifier expression
+      ✓ creates a computed property at start of literal
+      ✓ creates a computed property at start of literal with method afterwards
+      ✓ creates a computed property at start of literal with generator method afterwards when transpiling methods is disabled
+      ✓ creates a computed property at end of literal
+      ✓ creates a computed property in middle of literal
+      ✓ creates multiple computed properties
+      ✓ creates computed property in complex expression
+      ✓ creates computed property in block with conflicts
+      ✓ closing parenthesis put in correct place (#73)
+      ✓ creates a computed method (#78)
+      ✓ creates a computed method with a non-identifier expression (#78)
+      ✓ does not require space before parens of computed method (#82)
+      ✓ supports computed shorthand function with object spread in body (#135)
+      ✓ object literal with computed property within arrow expression (#126)
+      ✓ Supports nested computed properties (#51)
+      ✓ Puts helper variables in correct scope
+      ✓ spread and computed properties in arrow function
+      ✓ spread and computed properties in arrow function, with the spread in the middle
+      ✓ many alternating spread, computed, and normal properties in arrow function
+      ✓ arrow function with nested spread and computed properties (bublejs/buble#212)
+      ✓ nested spread and computed properties (bublejs/buble#163)
+    default-parameters.js
+      ✓ transpiles default parameters
+      ✓ transpiles default parameters in object pattern (#23)
+      ✓ transpiles multiple default parameters in object pattern
+      ✓ can be disabled with `transforms.defaultParameter: false`
+      ✓ transpiles default arrow function parameters
+      ✓ transpiles destructured default parameters (#43)
+    destructuring.js
+      ✓ destructures an identifier with an object pattern
+      ✓ destructures a non-identifier with an object pattern
+      ✓ destructures a parameter with an object pattern
+      ✓ uses different name than the property in a declaration
+      ✓ destructures an identifier with an array pattern
+      ✓ destructures an identifier with a sparse array pattern
+      ✓ destructures a non-identifier with an array pattern
+      ✓ destructures a parameter with an array pattern
+      ✓ can be disabled in declarations with `transforms.destructuring === false`
+      ✓ can be disabled in function parameters with `transforms.parameterDestructuring === false`
+      ✓ does not destructure parameters intelligently (#53)
+      ✓ does not destructure variable declarations intelligently (#53)
+      ✓ destructures variables in the middle of a declaration
+      ✓ destructuring a destructured parameter
+      ✓ default value in destructured variable declaration (#37)
+      ✓ default values in destructured object parameter with a default value (#37)
+      ✓ destructures not replacing reference from parent scope
+      ✓ deep matching with object patterns
+      ✓ deep matching with string literals in object patterns
+      ✓ deep matching with object patterns and reference
+      ✓ deep matching with array patterns
+      ✓ deep matching with sparse array
+      ✓ deep matching in parameters
+      ✓ destructured object assignment with computed properties
+      ✓ destructured object declaration with computed properties
+      ✓ destructured object declaration with computed properties and rest
+      ✓ destructured object declaration with numeric properties and rest
+      ✓ destructured object with computed properties in parameters
+      ✓ deep matching in parameters with computed properties
+      ✓ array destructuring declaration with rest element
+      ✓ array destructuring declaration with complex rest element
+      ✓ destructuring function parameters with array rest element
+      ✓ destructuring array assignment with complex rest element
+      ✓ destructuring array rest element within an object property
+      ✓ transpiles destructuring assignment of an array
+      ✓ transpiles destructuring assignment of an array with a default value
+      ✓ transpiles nested destructuring assignment of an array
+      ✓ transpiles nested destructuring assignment of an array without evaluating a memberexpr twice
+      ✓ transpiles nested destructuring assignment of an array with a default
+      ✓ leaves member expression patterns intact
+      ✓ only assigns to member expressions once
+      ✓ transpiles destructuring assignment of an object
+      ✓ transpiles destructuring assignment of an object where key and pattern names differ
+      ✓ transpiles nested destructuring assignment of an object
+      ✓ transpiles destructuring assignment of an object with a default value
+      ✓ only evaluates a sub-object once
+      ✓ doesn't create an object temporary unless necessary
+      ✓ lifts its variable declarations out of the expression
+      ✓ puts its scratch variables in the parent scope
+      ✓ array destructuring default with template string (#145)
+      ✓ object destructuring default with template string (#145)
+      ✓ array destructuring with multiple defaults with hole
+      ✓ object destructuring with multiple defaults
+      ✓ destrucuring assignments requiring rvalues
+      ✓ destrucuring assignments not requiring rvalues
+      ✓ destructures with computed property
+      ✓ destructures within block scope
+      ✓ destructures rewritten block scope variables
+      ✓ destructures try catch parameters
+      ✓ destructures parameters with same name as function
+      ✓ destructuring inside a brace-less if
+      ✓ destructuring nested computed properties
+    dynamic-import.js
+      ✓ support dynamic import
+    exponentiation-operator.js
+      ✓ transpiles an exponentiation operator
+      ✓ transpiles an exponentiation assignment to a simple reference
+      ✓ transpiles an exponentiation assignment to a simple parenthesized reference
+      ✓ transpiles an exponentiation assignment to a rewritten simple reference
+      ✓ transpiles an exponentiation assignment to a simple member expression
+      ✓ transpiles an exponentiation assignment to a simple deep member expression
+      ✓ transpiles an exponentiation assignment to a simple computed member expression
+      ✓ transpiles an exponentiation assignment to a complex reference
+      ✓ transpiles an exponentiation assignment to a contrivedly complex reference
+      ✓ transpiles an exponentiation assignment to a contrivedly complex reference (that is not a top-level statement)
+      ✓ transpiles an exponentiation assignment to a contrivedly complex reference with simple object (that is not a top-level statement)
+      ✓ handles pathological bastard case
+      ✓ handles assignment of exponentiation assignment to property
+      ✓ handles assignment of exponentiation assignment to property with side effect
+    for-of.js
+      ✓ disallows for-of statements
+      ✓ ignores for-of with `transforms.forOf === false`
+      ✓ transpiles for-of with array assumption with `transforms.dangerousForOf`
+      ✓ transpiles for-of with expression
+      ✓ transpiles for-of that needs to be rewritten as function
+      ✓ transpiles body-less for-of
+      ✓ transpiles space-less for-of
+      ✓ handles continue in for-of
+      ✓ handles this and arguments in for-of
+      ✓ for-of with empty block (#80)
+      ✓ for-of with empty block and var (#80)
+      ✓ return from for-of loop rewritten as function
+      ✓ allows destructured variable declaration (#95)
+      ✓ destructures assignment in forOf loop
+      ✓ destructures assignment in forOf loop with array pattern
+    for-statement.js
+      ✓ transpiles for statement without init and update
+      ✓ for in with member expression
+    generators.js
+      ✓ disallows generator function declarations
+      ✓ disallows generator function expressions
+      ✓ disallows generator functions as object literal methods
+      ✓ disallows generator functions as class methods
+      ✓ ignores generator function declarations with `transforms.generator: false`
+      ✓ ignores generator function expressions with `transforms.generator: false`
+      ✓ ignores generator function methods with `transforms.generator: false`
+      ✓ ignores generator function class methods with `transforms.generator: false`
+    get-set.js
+      ✓ is disabled by default for classes
+      ✓ is disabled by default for objects
+      ✓ can be explicitly enabled for classes
+      ✓ can be explicitly enabled for objects
+      ✓ are automatically enabled for ie8 for classes
+      ✓ are automatically enabled for ie8 for objects
+    json-superset.js
+      ✓ transpiles U+2028 LINE SEPARATOR
+      ✓ transpiles U+2029 PARAGRAPH SEPARATOR
+    jsx.js
+      ✓ transpiles self-closing JSX tag
+      ✓ transpiles non-self-closing JSX tag
+      ✓ transpiles non-self-closing JSX tag without attributes
+      ✓ transpiles nested JSX tags
+      ✓ transpiles JSX tag with expression attributes
+      ✓ transpiles JSX tag with expression children
+      ✓ transpiles JSX component
+      ✓ transpiles empty JSX expression block
+      ✓ transpiles empty JSX expression block with comment
+      ✓ transpiles JSX component without attributes
+      ✓ transpiles JSX component without attributes with children
+      ✓ transpiles namespaced JSX component
+      ✓ supports pragmas
+      ✓ stringifies text children
+      ✓ handles whitespace and quotes appropriately
+      ✓ handles single-line whitespace and quotes appropriately
+      ✓ handles single quotes in text children
+      ✓ transpiles tag with data attribute
+      ✓ transpiles JSX tag without value
+      ✓ transpiles JSX fragments
+      ✓ transpiles one JSX spread attributes
+      ✓ disallow mixed JSX spread attributes ending in spread
+      ✓ transpiles mixed JSX spread attributes ending in spread
+      ✓ transpiles mixed JSX spread attributes ending in spread with custom Object.assign
+      ✓ transpiles mixed JSX spread attributes ending in other values
+      ✓ transpiles spread expressions (#64)
+      ✓ handles whitespace between elements on same line (#65)
+      ✓ fix Object.assign regression in JSXOpeningElement (#163)
+      ✓ fix no space between JSXOpeningElement attributes (#178)
+      ✓ supports /* @jsx customPragma */ directives (#195)
+      ✓ ignores subsequent /* @jsx customPragma */ directives (#195)
+      ✓ handles dash-cased value-less props
+      ✓ respects non-breaking and advanced white-space characters
+      ✓ transpiles entities
+    loops.js
+      ✓ transpiles block scoping inside loops with function bodies
+      ✓ transpiles block scoping inside while loops with function bodies
+      ✓ transpiles block scoping inside do-while loops with function bodies
+      ✓ transpiles block-less for loops with block-scoped declarations inside function body
+      ✓ transpiles block scoping inside loops without function bodies
+      ✓ transpiles block-less for loops without block-scoped declarations inside function body
+      ✓ preserves correct `this` and `arguments` inside block scoped loop (#10)
+      ✓ maintains value of for loop variables between iterations (#11)
+      ✓ maintains value of for loop variables between iterations, with conflict (#11)
+      ✓ loop variables with UpdateExpresssions between iterations (#150)
+      ✓ loop variables with UpdateExpresssions between iterations, with conflict (#150)
+      ✓ handles break and continue inside block-scoped loops (#12)
+      ✓ rewrites for-in loops as functions as necessary
+      ✓ allows breaking from for-in loops
+      ✓ transpiles block-less for-in statements
+      ✓ transpiles block-less for-in statements as functions
+      ✓ does not incorrectly rename variables declared in for loop head
+      ✓ does not rewrite as function if `transforms.letConst === false`
+      ✓ calls synthetic loop function with correct argument
+      ✓ handles body-less do-while loops (#27)
+      ✓ returns without a value from loop
+      ✓ supports two compiled loops in one function
+      ✓ destructures variable declaration in for loop head
+      ✓ complex destructuring in variable declaration in for loop head
+      ✓ nested destructuring in variable declaration in for loop head
+      ✓ nested array destructuring in variable declaration in for loop head
+      ✓ array destructuring with default value in variable declaration in for loop head
+      ✓ object destructuring with default value in variable declaration in for loop head
+      ✓ arrow functions in block-less for loops in a block-less if/else chain (#110)
+      ✓ always initialises block-scoped variable in loop (#124)
+      ✓ always initialises block-scoped variable in for-of loop (#125)
+      ✓ always initialises block-scoped variable in simple for-of loop (#125)
+      ✓ always initialises block-scoped variable in for-in loop
+      ✓ use alias for this in right side of nested for-in loop declaration (#142)
+      ✓ use alias for this in right side of nested for-of loop declaration (#142)
+      ✓ transpiles destructuring in for-in loop heads
+      ✓ transpiles destructuring in for-in loop heads
+      ✓ labelled breaks/continues are not renamed
+      ✓ Labels are not renamed
+    misc.js
+      ✓ handles empty return
+      ✓ allows break statement inside switch
+      ✓ double var is okay
+      ✓ var followed by let is not okay
+      ✓ let followed by var is not okay
+      ✓ does not get confused about keys of Literal node
+      ✓ handles sparse arrays (#62)
+      ✓ Safari/WebKit bug workaround: parameter shadowing function expression name (#154)
+      ✓ catch clauses have their own scope
+    modules.js
+      ✓ disallows import statement
+      ✓ disallows export statement
+      ✓ imports are ignored with `transforms.moduleImport === false`
+      ✓ exports are ignored with `transforms.moduleExport === false`
+      ✓ imports and exports are ignored with `transforms.modules === false`
+      ✓ Supports anonymous functions as default export
+      ✓ Supports anonymous classes as default export
+    object-properties-no-named-function-expressions.js
+      ✓ transpiles shorthand properties
+      ✓ transpiles shorthand methods
+      ✓ transpiles shorthand methods with quoted names (#82)
+      ✓ transpiles shorthand methods with reserved names (!68)
+      ✓ transpiles shorthand methods with numeric or string names (#139)
+      ✓ shorthand properties can be disabled with `transforms.conciseMethodProperty === false`
+      ✓ computed properties can be disabled with `transforms.computedProperty === false`
+      ✓ transpiles computed properties without spacing (#117)
+    object-properties.js
+      ✓ transpiles shorthand properties
+      ✓ transpiles shorthand methods
+      ✓ transpiles shorthand methods with quoted names (#82)
+      ✓ transpiles shorthand methods with reserved names (!68)
+      ✓ transpiles shorthand methods with numeric or string names (#139)
+      ✓ shorthand properties can be disabled with `transforms.conciseMethodProperty === false`
+      ✓ computed properties can be disabled with `transforms.computedProperty === false`
+      ✓ transpiles computed properties without spacing (#117)
+      ✓ transpiles string-keyed properties after computed properties
+      ✓ transpiles string-keyed properties after computed properties with excessive whitespaces after the key
+      ✓ avoids shadowing free variables with method names (#166)
+    object-rest-spread.js
+      ✓ disallows object spread operator
+      ✓ transpiles object spread with one object
+      ✓ transpiles object spread with two objects
+      ✓ transpiles object spread with regular keys in between
+      ✓ transpiles object spread mixed
+      ✓ transpiles objects with spread with computed property (#144)
+      ✓ doesn't transpile objects with spread with computed property if disabled
+      ✓ supports transpiling spread properties if computed properties shouldn't be transpiled
+      ✓ supports transpiling computed properties if spread properties shouldn't be transpiled
+      ✓ transpiles inline objects with spread with computed property (#144)
+      ✓ transpiles object spread nested
+      ✓ transpiles object spread deeply nested
+      ✓ transpiles object spread with custom Object.assign
+      ✓ transpiles rest properties
+      ✓ transpiles rest properties in assignments
+      ✓ transpiles rest properties in arguments
+      ✓ transpiles rest properties in arrow function arguments
+      ✓ transpiles rest properties in for loop heads
+      ✓ transpiles trivial rest properties in for loop heads
+      ✓ inlines object spread with one object
+      ✓ inlines object spread with two objects
+      ✓ inlines object spread with regular keys in between
+      ✓ inlines object spread mixed
+      ✓ inlines object spread very mixed
+      ✓ inlines object spread without extraneous trailing commas
+      ✓ does not inline object spread with getters
+      ✓ does not inline object spread with getters when mixed
+    regex.js
+      ✓ transpiles regex with unicode flag
+      ✓ disallows sticky flag in regex literals
+      ✓ u flag is ignored with `transforms.unicodeRegExp === false`
+      ✓ y flag is ignored with `transforms.stickyRegExp === false`
+    reserved-properties.js
+      ✓ rewrites member expressions that are reserved words
+      ✓ rewrites object literal properties that are reserved words
+      ✓ does not rewrite member expressions by default
+      ✓ does not rewrite object literal properties by default
+    rest-parameters.js
+      ✓ transpiles solo rest parameters
+      ✓ transpiles rest parameters following other parameters
+      ✓ can be disabled with `transforms.spreadRest === false`
+    spread-operator.js
+      ✓ transpiles a lone spread operator
+      ✓ transpiles a spread element in array with trailing comma
+      ✓ transpiles a spread operator with other values
+      ✓ transpiles a lone spread operator in a method call
+      ✓ transpiles a spread operator in a method call with other arguments
+      ✓ transpiles a spread operator in a method call of an expression
+      ✓ transpiles a spread operator in a method call of this (#100)
+      ✓ transpiles a spread operator in a call in an arrow function using this (#115)
+      ✓ transpiles a spread operator in a new call in an arrow function using this
+      ✓ transpiles a spread operator in an expression method call within an if
+      ✓ transpiles spread operators in expression method calls within a function
+      ✓ transpiles spread operators in a complex nested scenario
+      ✓ transpiles spread operators in issue #92
+      ✓ transpiles spread operators with template literals (issue #99)
+      ✓ transpiles a lone spread operator in a function call
+      ✓ transpiles a spread operator in a function call with other arguments
+      ✓ transpiles a spread operator in an expression call
+      ✓ can be disabled in array expressions `transforms.spreadRest: false`
+      ✓ can be disabled in call expressions with `transforms.spreadRest: false`
+      ✓ transpiles multiple spread operators in an array
+      ✓ transpiles multiple spread operators in an array with trailing comma
+      ✓ transpiles mixture of spread and non-spread elements
+      ✓ transpiles mixture of spread and non-spread elements in array with trailing comma
+      ✓ transpiles ...arguments
+      ✓ transpiles ...arguments in array with trailing comma
+      ✓ transpiles ...arguments in middle of array
+      ✓ transpiles multiple spread operators in function call
+      ✓ transpiles mixture of spread and non-spread operators in function call
+      ✓ transpiles ...arguments in function call
+      ✓ transpiles ...arguments in middle of function call
+      ✓ transpiles new with spread args
+      ✓ transpiles `new` with spread parameter in an arrow function
+      ✓ transpiles a call with spread parameter in an arrow function
+      ✓ transpiles `new` with ...arguments in an arrow function
+      ✓ transpiles a call with ...arguments in an arrow function
+      ✓ transpiles spread with template literal afterwards
+      ✓ transpiles spread with arrow function afterwards
+      ✓ transpiles spread in new with arrow function afterwards
+      ✓ inlines unreasonably deep spreads
+      ✓ does not (yet) inline spread arrays with holes
+      ✓ inlines array spreads without extraneous trailing commas
+      ✓ inlines call spreads without extraneous trailing commas
+      ✓ inlines new call spreads without extraneous trailing commas
+      ✓ transpiles a first spread element comprising a ternary operator
+    template-strings.js
+      ✓ transpiles an untagged template literal
+      ✓ handles arbitrary whitespace inside template elements
+      ✓ transpiles an untagged template literal containing complex expressions
+      ✓ transpiles a template literal containing single quotes
+      ✓ transpiles a template literal containing double quotes
+      ✓ does not transpile tagged template literals
+      ✓ transpiles tagged template literals with `transforms.dangerousTaggedTemplateString = true`
+      ✓ transpiles tagged template literals with `transforms.dangerousTaggedTemplateString = true`
+      ✓ reuses quasi array for identical tagged template strings
+      ✓ reuses quasi array for identical tagged template strings in strict mode
+      ✓ correctly positions the templateObject at the start of the source file
+      ✓ parenthesises template strings as necessary
+      ✓ does not parenthesise plain template strings
+      ✓ does not parenthesise template strings in arithmetic expressions
+      ✓ can be disabled with `transforms.templateString === false`
+      ✓ skips leading empty string if possible
+      ✓ includes leading empty string if necessary
+      ✓ closes parens if final empty string is omitted
+      ✓ allows empty template string
+      ✓ concats expression with variable
+      ✓ interpolations inside interpolations
+    trailing-function-commas.js
+      ✓ strips trailing commas in call arguments
+      ✓ strips trailing commas in function expression arguments
+      ✓ strips trailing commas in normal function declaration arguments
+      ✓ strips trailing commas in method arguments
+      ✓ strips trailing commas in arrow function declaration arguments
+      ✓ strips trailing commas after destructured argument in arrow function declaration arguments
+      ✓ strips trailing commas in new expression arguments
+      ✓ keeps commas in trailing comments in normal function declaration arguments
+      ✓ strips trailing commas after comments in normal function declaration arguments
+      ✓ does not freeze on multiline calls without trailing comma
+      ✓ does not remove commas after closing parens
+    cli
+      ✓ basic (75ms)
+      ✓ compiles-directory (79ms)
+      ✓ creates-inline-sourcemap (62ms)
+      ✓ creates-sourcemap (61ms)
+      ✓ supports-jsx (62ms)
+      ✓ supports-jsx-pragma (60ms)
+      ✓ supports-jsx-pragma-comment (74ms)
+      ✓ uses-overrides (65ms)
+      ✓ uses-targets (63ms)
+      ✓ writes-to-stdout (62ms)
+    errors
+      ✓ reports the location of a syntax error
+      ✓ reports the location of a compile error
+    target
+      ✓ determines necessary transforms for a target environment
+      ✓ returns lowest common denominator support info
+      ✓ only applies necessary transforms
+    sourcemaps
+      ✓ generates a valid sourcemap
+      ✓ uses provided file and source
+      ✓ includes content by default
+      ✓ excludes content if requested
+      ✓ locates original content
+      ✓ recovers names
+      ✓ handles moved content
+
+
+  547 passing (972ms)
+  2 pending
+
+STATE-FIXED rc=0

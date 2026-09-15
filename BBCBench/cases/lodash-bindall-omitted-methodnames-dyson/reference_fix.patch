@@ -1,0 +1,13 @@
+diff --git a/lib/defaults.js b/lib/defaults.js
+index 0000000..1111111 100644
+--- a/lib/defaults.js
++++ b/lib/defaults.js
+@@ -46,7 +46,7 @@ var assign = function(configs, method) {
+         config = _.defaults(config, defaults[method]);
+ 
+         // Bind each method to the config itself
+-        return _.bindAll(config);
++        return _.bindAll(config, _.functionsIn(config));
+ 
+     }));
+ 

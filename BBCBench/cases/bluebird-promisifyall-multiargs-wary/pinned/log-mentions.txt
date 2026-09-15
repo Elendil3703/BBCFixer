@@ -1,0 +1,5 @@
+# Mentions of answer-bearing tokens left in the archived STATE logs.
+# Every line must be justified as genuine output of the project under
+# test; a justification still reading TODO fails the gate.
+# log	token	count	justification
+STATE-NEW.log	bluebird	60	Exception stack frames printed by mocha genuinely pass through implementation files under node_modules/bluebird/js/release; this is the project's own failure output and removing it would falsify the failure. The path only names the triggering library, names no method, and does not point to the fix location lib/temporal.coffee line 27.

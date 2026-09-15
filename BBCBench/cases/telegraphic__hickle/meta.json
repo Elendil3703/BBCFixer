@@ -1,0 +1,59 @@
+{
+  "id": "telegraphic__hickle",
+  "name": "telegraphic__hickle",
+  "harness": "image",
+  "ecosystem": "python",
+  "downstream": {
+    "repo": "telegraphic/hickle",
+    "url": "https://github.com/telegraphic/hickle",
+    "commit": "afc155cc97b2b55bee162f9613e524e571bdee03",
+    "fix_commit": "c924bcf8abdaaa60f2f77b503187915806c7493a"
+  },
+  "lib": "h5py",
+  "v_old": "2.10.0",
+  "v_new": "3.1.0",
+  "library_repo": "https://github.com/h5py/h5py",
+  "library_tags": {
+    "old": "2.10.0",
+    "new": "3.1.0"
+  },
+  "reference_fix_source": "maintainer",
+  "root_api": "h5py.AttributeManager.__getitem__ and h5py.Dataset.__getitem__",
+  "root_symbols": [
+    "AttributeManager.__getitem__",
+    "conv_vlen2str",
+    "Dataset.asstr",
+    "AsStrWrapper"
+  ],
+  "behavioral_change": "h5py v_old 2.10.0 to v_new 3.1.0. String attributes read through h5py.AttributeManager.__getitem__ return str instead of bytes (and Dataset.__getitem__ string reads change likewise); the downstream loader dispatch table is keyed by bytes constants, so str keys silently miss.",
+  "downstream_effect": "The symptom is a ValueError at the loader dispatch entry or a silently wrong value after a round trip, while the root cause lies several layers deeper in the helpers and lookup code.",
+  "reference_fix": "Adds h5py-version-dependent `load_str_attr_ascii` / `load_str_list_attr_ascii` helpers in `hickle/helpers.py` and uses them in `hickle/loaders/load_astropy.py`, drops `.decode('ascii')` on `np_dtype` attributes in `hickle/loaders/load_numpy.py`, accepts both `bytes` and `str` forms of type markers (for example `b'str'` and `'str'`) in `hickle/hickle.py`, `hickle/loaders/load_builtins.py` and `hickle/legacy_v3/loaders/load_python3.py`, adds a `load_hickle_4_0_x_string` loader, and in `hickle/lookup.py` switches to `h5.version.version_tuple` and wraps reference lookups (`h_node.file.get`, `h_parent.file.get`) in `try/except ValueError` returning `None`.",
+  "test_cmd": "bash /work/test_telegraphic__hickle.sh",
+  "test_files": [
+    "conftest.py",
+    "hickle/tests/__init__.py",
+    "hickle/tests/generate_legacy_4_0_0.py",
+    "hickle/tests/hickle_loaders/__init__.py",
+    "hickle/tests/hickle_loaders/load_builtins.py",
+    "hickle/tests/legacy_hkls/generate_test_hickle.py",
+    "hickle/tests/test_01_hickle_helpers.py",
+    "hickle/tests/test_02_hickle_lookup.py",
+    "hickle/tests/test_03_load_builtins.py",
+    "hickle/tests/test_04_load_numpy.py",
+    "hickle/tests/test_05_load_scipy.py",
+    "hickle/tests/test_06_load_astropy.py",
+    "hickle/tests/test_99_hickle_core.py",
+    "hickle/tests/test_hickle.py",
+    "hickle/tests/test_legacy_load.py"
+  ],
+  "reference_fix_tests": false,
+  "runtime": {
+    "kind": "docker",
+    "image": "ghcr.io/elendil3703/bbcbench:telegraphic__hickle",
+    "python": "3.9.25"
+  },
+  "upgrade": {
+    "kind": "single-package",
+    "intact_pip": "h5py==2.10.0"
+  }
+}
