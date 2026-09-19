@@ -13,7 +13,7 @@
 
 | | Folder | What it is |
 |---|---|---|
-| 🧪 | [`BBCBench/`](BBCBench/) | the benchmark: 100 real dependency upgrades with behavioral breaking changes, a reproducible harness and a reference fix per case |
+| 🧪 | [`BBCBench/`](BBCBench/) | the benchmark: 100 confirmed behavioral dependency breaks in real Python and JavaScript projects, with a reproducible harness and a reference fix per case |
 | 🔧 | [`BBCFixer/`](BBCFixer/) | the approach: differential execution, library diff filtering, and the agent that repairs a case with the resulting evidence |
 
 ## 🚀 Where to start
