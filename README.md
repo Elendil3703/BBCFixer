@@ -2,7 +2,7 @@
 
 # 🛠️ BBCFixer
 
-**Replication package of *Fixing Behavioral Breaking Changes with LLM Agents***
+**Replication package of *Who Broke Me? Execution-Guided Repair of Behavioral Breaking Changes***
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](BBCBench/LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-required-2496ED.svg?logo=docker&logoColor=white)](BBCBench/#%EF%B8%8F-setup)
