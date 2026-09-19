@@ -9,7 +9,7 @@
 
 </div>
 
-100 real dependency upgrades that break a downstream project through a **behavioral breaking change**: the library keeps its interface but changes its run-time behavior, so the break shows up as a failing test, not a compile error. Every case ships a reproducible harness and a reference fix.
+100 confirmed behavioral dependency breaks in real Python and JavaScript projects. In each case, a dependency upgrade breaks a downstream project through a **behavioral breaking change**: the library keeps its interface but changes its run-time behavior, so the break shows up as a failing test, not a compile error. Every case ships a reproducible harness and a reference fix.
 
 ## 📂 What is here
 
